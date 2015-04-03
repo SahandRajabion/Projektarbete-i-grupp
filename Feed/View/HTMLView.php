@@ -6,5 +6,4 @@ class HTMLView
     {
         echo $html;
     }
-
 }
