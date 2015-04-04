@@ -107,11 +107,11 @@ class FeedView
             '<strong> '.$img->GetMSG().$SoSoon.'</strong>'.
             '<br>'.
             '<br>'.
-            '<br>'.
-            '<br>'.
-            '<br>'.
-            '<br>'.
             '<img src="'.$value.'" id="ImgSize" class="img-responsive">'.
+            '<br>'.
+            '<br>'.
+            '<br>'.
+            '<br>'.
             '<br>'.
             '<br>';
 
