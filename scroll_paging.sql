@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 03 apr 2015 kl 15:42
+-- Tid vid skapande: 05 apr 2015 kl 11:08
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.5.8
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Databas: `scroll_paging`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `comments`
+--
+
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `body` text COLLATE utf8_unicode_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=130 ;
 
 -- --------------------------------------------------------
 
@@ -48,11 +61,6 @@ INSERT INTO `items` (`id`, `title`, `description`) VALUES
 (9, 'Audi', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'),
 (10, 'Honda', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.');
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
 -- --------------------------------------------------------
 
 --
@@ -67,3 +75,7 @@ CREATE TABLE IF NOT EXISTS `pictures` (
   UNIQUE KEY `imgName` (`imgName`),
   KEY `imgName_2` (`imgName`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=183 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
