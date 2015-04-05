@@ -13,8 +13,6 @@ class uploadView {
 		$this->mainView = new HTMLView();
 	}
 
-
-
 	//render upload form.
 	public function imageUpload($msg = '') {
 			
