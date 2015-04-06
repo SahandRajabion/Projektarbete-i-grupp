@@ -46,9 +46,10 @@ class uploadView {
 		$this->show = $imgRoot;
 	}
 
+
 	public function getComments() {
 		if (isset($_POST[$this->msg])) {
-			return nl2br($_POST[$this->msg]);
+		 	return $_POST[$this->msg];
 		}
 	}
 
@@ -68,7 +69,7 @@ class uploadView {
 	}
 
 	public function hasSubmitToUpload() {
-		if (isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
+		if (isset($_POST[$this->upload])){
 			return true;
 		}
 	}
