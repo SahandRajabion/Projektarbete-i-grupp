@@ -138,13 +138,11 @@ class FeedView
                 $SoSoon .="";
             }
 
-            $pic .= 
-            $pic .= '<form id="delete" enctype="multipart/form-data" method="post" action="">'.
+            $pic .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
             '<strong> '.$img->GetMSG().$SoSoon.'</strong>'.
             '</div>'.
             '<br>'.
             '<br>'.
-          
             '<img  src="'.$value.'" id="ImgSize" class="preview">'.
             '<br>'.
             '<br>'.
