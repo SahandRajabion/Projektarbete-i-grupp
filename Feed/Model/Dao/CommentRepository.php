@@ -7,13 +7,11 @@ class CommentRepository extends Repository {
 
 	private static $id = "id";
 	private static $comment = "body";
-	private $comments;
 
 	public function __construct() 
 	{
 		$this->db = $this->connection();
 		$this->dbTable = "comments";
-		$this->comments = array();
 	}
 
 	public function InsertComment($comment) 
@@ -35,21 +33,24 @@ class CommentRepository extends Repository {
 		}
 	}
 
-	public function GetComments() 
+	public function GetCommentsForPost($id) 
 	{
+		$comments = array();
+
 		try 
 		{
-			$sql = "SELECT * FROM $this->dbTable ORDER BY " .  self::$id . " ASC";
+			$sql = "SELECT * FROM $this->dbTable WHERE " .  self::$id . " = ?";
+			$params = array($id);
 			$query = $this->db->prepare($sql);
-			$query->execute();
+			$query->execute($params);
 			$results = $query->fetchAll();
 
 			foreach ($results as $result) 
 			{
-				$this->comments[] = new Comment($result);
+				$comments[] = new Comment($result);
 			}
 
-			return $this->comments;
+			return $comments;
 		} 
 		
 		catch (PDOException $e) 

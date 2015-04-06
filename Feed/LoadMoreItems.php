@@ -20,6 +20,16 @@ foreach ($feedItems as $feedItem)
     $last_id = $feedItem['id'];
     
     $html .= "<li> <h2>" . $feedItem['title'] . "</h2> <p>" . $feedItem['description'] . "</p> </li>";
+
+    $html .= "<div id='addCommentContainer'>
+        <form id='addCommentForm' method='post' action=''>
+            <div>
+                <label for='body'>Add a comment</label>
+                <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                <input type='submit' id='submit' value='Comment'/>
+            </div>
+        </form>
+    </div>";    
 }
 
 // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
