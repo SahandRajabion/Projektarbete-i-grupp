@@ -47,9 +47,14 @@ class FeedView
         <link rel='stylesheet' href='css/style.css' />
         <script type='text/javascript' src='js/jquery.min.js'></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <script type='text/javascript' src='js/script.js'></script>
         <script src='script.js'></script>
 <body>
+=======
+        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
+        <script type='text/javascript' src='js/InsertComment.js'></script>
+>>>>>>> origin/master
 =======
         <script type='text/javascript' src='js/LoadMoreItems.js'></script>
         <script type='text/javascript' src='js/InsertComment.js'></script>

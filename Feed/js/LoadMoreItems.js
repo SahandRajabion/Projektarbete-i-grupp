@@ -25,9 +25,12 @@ $(function() {
        }
     });
 });
+<<<<<<< HEAD:Feed/js/LoadMoreItems.js
 <<<<<<< HEAD:Feed/js/script.js
 
 
 
+=======
+>>>>>>> origin/master:Feed/js/LoadMoreItems.js
 =======
 >>>>>>> origin/master:Feed/js/LoadMoreItems.js
