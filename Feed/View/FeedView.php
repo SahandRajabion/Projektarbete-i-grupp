@@ -18,7 +18,7 @@ class FeedView
     private static $page = "page";
     public static $upload ="upload";
     private $uploadPage;
-    private $msg = "message";
+    private $title = "message";
     private $imagesModel;
     private $cookieStorage;
     private $del = "delete";
@@ -133,15 +133,16 @@ class FeedView
         $Images = glob("View/Images/*.*");
         $pic = "<br><br><br><br>";
 
+
         foreach ($Images as $value) {
             $img = $this->imagesModel->getImages(basename($value));
             $SoSoon = "";
-            if($img->GetMSG() == "") {
+            if($img->GetTITLE() == "") {
                 $SoSoon .="";
             }
 
             $pic .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
-            '<strong> '.$img->GetMSG().$SoSoon.'</strong>'.
+            '<strong> '.$img->GetTITLE().$SoSoon.'</strong>'.
             '</div>'.
             '<br>'.
             '<br>'.
@@ -170,7 +171,7 @@ class FeedView
             $saveEdit .= '<form id="SaveEdit" enctype="multipart/form-data" method="post" action="">'.
             '<fieldset class="Edit">'.
             '&nbsp;'.
-            '<textarea name="'.$this->msg.'" cols="45" rows="5" maxlength="80" placeholder="Beskriv bilden här..." wrap="hard">'.strip_tags($img->GetMSG()).'</textarea>' .
+            '<textarea name="'.$this->title.'" cols="45" rows="5" maxlength="80" placeholder="Beskriv bilden här..." wrap="hard">'.strip_tags($img->GetTITLE()).'</textarea>' .
             '<br>'.
             '<br>'.
             '<input type="hidden" name="'.$this->hiddenImgEdit.'" value="'.$img->getImgName().'">'.
@@ -240,11 +241,13 @@ class FeedView
     }
 
 
-    public function GetImageComment() {
-        if (isset($_POST[$this->msg])) {
-            return nl2br($_POST[$this->msg]);
+    public function GetImageTitle() {
+        if (isset($_POST[$this->title])) {
+            return nl2br($_POST[$this->title]);
         }
     }
+
+
 
 
     public function hasSubmitToDel() {

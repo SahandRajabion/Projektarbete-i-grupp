@@ -7,7 +7,7 @@ class uploadView {
 	private $upload = "upload";
 	private $images = "images";
 	private $show;
-	private $msg = "message";
+	private $title = "message";
 
 	public function __construct() {
 		$this->mainView = new HTMLView();
@@ -29,7 +29,7 @@ class uploadView {
 			'<input type="File" name="'.$this->images.'"" >'.
 			'<br>'.
 			'<br>'.
-			'<textarea name="'.$this->msg.'" cols="35" rows="5"  maxlength="80" placeholder="Dela med dig... " wrap="hard"></textarea>' .
+			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="80" placeholder="Dela med dig... " wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
 			'<input id="'.$this->upload.'" type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" >'.
@@ -44,9 +44,9 @@ class uploadView {
 	}
 
 
-	public function getComments() {
-		if (isset($_POST[$this->msg])) {
-		 	return $_POST[$this->msg];
+	public function getTitle() {
+		if (isset($_POST[$this->title])) {
+		 	return $_POST[$this->title];
 		}
 	}
 

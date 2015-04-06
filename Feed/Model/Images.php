@@ -4,21 +4,21 @@
 	class Images {
 
 		private $imgName;
-		private $msg;
+		private $title;
  	
 
-		public function __construct($imgName,$msg) {
+		public function __construct($imgName,$title) {
 	
 			$this->imgName = $imgName;	
-			$this->msg = $msg;
+			$this->title = $title;
 		} 
 
 		public function getImgName() {
 			return $this->imgName;
 		}
 
-		public function GetMSG() {
-			return $this->ValidateText($this->msg);
+		public function GetTITLE() {
+			return $this->ValidateText($this->title);
 		}
 
 

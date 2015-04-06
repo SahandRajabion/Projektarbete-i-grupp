@@ -20,7 +20,7 @@
  			try {	
  					$db = $this->connection();
  					$sql = "INSERT INTO $this->tabel (".self::$imgName. ", " .self::$Title. ")VALUES(?,?)";
- 					$params = array($img->getImgName(),$img->GetMSG());
+ 					$params = array($img->getImgName(),$img->GetTITLE());
  					$query = $db->prepare($sql);
  					$query->execute($params);
 						
@@ -78,7 +78,7 @@
 			try {
 				$db = $this->connection();
 				$sql = "UPDATE $this->tabel SET " . self::$Title . " = ? WHERE imgName = ?";
-				$params = array($img->GetMSG(),$img->getImgName());
+				$params = array($img->GetTITLE(),$img->getImgName());
 				$query = $db->prepare($sql);
 				$query->execute($params);
 			}

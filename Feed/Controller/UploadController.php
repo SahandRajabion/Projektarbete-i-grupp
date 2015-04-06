@@ -49,8 +49,8 @@
 			 return $this->uploadPage->GetImgName();
 		}
 
-		private function GetComment() {
-			return $this->uploadPage->getComments();
+		private function GetTitle() {
+			return $this->uploadPage->getTitle();
 		}
 
 		private function hasSubmitToDelImg() {
@@ -83,8 +83,8 @@
 			return $this->feedView->getSessionHidden();
 		}
 
-		private function GetImageComments() {
-			return $this->feedView->GetImageComment();
+		private function GetImageTitle() {
+			return $this->feedView->GetImageTitle();
 		}
 
 
@@ -142,7 +142,7 @@
 				foreach ($Images as $value) {
 					if (basename($value) == $this->getHiddenImgEdit()) {
 						if($this->GetSaveds()) {
-								$images = new Images($this->getHiddenImgEdit(),$this->GetImageComments());
+								$images = new Images($this->getHiddenImgEdit(),$this->GetImageTitle());
 							  	$this->imagesModel->EditImagesInformation($images);
 							  	echo '<div class="alert alert-success alert-dismissible" role="alert">
   							 				    <button type="button" class="close" data-dismiss="alert">
@@ -215,7 +215,7 @@
 							
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
 
-								$images = new Images($_FILES[$this->fileName]['name'],$this->GetComment());
+								$images = new Images($_FILES[$this->fileName]['name'],$this->GetTitle());
 							 	$this->imagesModel->addImages($images);
 
 							 	//change file mode, 0755 read and execute.
