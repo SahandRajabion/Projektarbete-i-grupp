@@ -1,7 +1,7 @@
 <?php
 
-include('Model/Dao/FeedRepository.php');
-include('View/HTMLView.php');
+require_once('Model/Dao/FeedRepository.php');
+require_once('View/HTMLView.php');
 
 $feedRepository = new FeedRepository();
 $htmlView = new HTMLView();

@@ -1,13 +1,16 @@
-<?php
+﻿<?php
 
-include('Model/Dao/FeedRepository.php');
-require_once('UploadView.php');
+require_once('Model/Dao/FeedRepository.php');
+require_once('Model/Dao/CommentRepository.php');
+require_once('View/HTMLView.php');
+require_once('View/CookieStorage.php');
+require_once('View/UploadView.php');
 require_once('Model/ImagesModel.php');
-require_once('HTMLView.php');
 
 class FeedView
 {
     private $feedRepository;
+    private $commentRepository;
     private $mainView;
     private $session = "session";
     private $hiddenImgID = "hiddenImgID";
@@ -19,9 +22,12 @@ class FeedView
     private $imagesModel;
     private $cookieStorage;
 
+    private static $itemId = "ItemId";
+
     public function __construct() 
     {
         $this->feedRepository = new FeedRepository();
+        $this->commentRepository = new CommentRepository();
         $this->mainView = new HTMLView();
         $this->uploadPage = new UploadView();
         $this->imagesModel = new ImagesModel();
@@ -31,26 +37,31 @@ class FeedView
     public function GetFeedHTML()
     {
         $feedItems = $this->feedRepository->GetFeedItems();
+        $comments = $this->commentRepository->GetComments();
 
-        $html = 
-        "<!DOCTYPE html>
+        $html = "<!DOCTYPE html>
         <html>
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
         <link rel='stylesheet' href='css/style.css' />
         <script type='text/javascript' src='js/jquery.min.js'></script>
+<<<<<<< HEAD
         <script type='text/javascript' src='js/script.js'></script>
-        <script type='text/javascript' src='js/autoload.js'></script>
+        <script src='script.js'></script>
+<body>
+=======
+        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
+        <script type='text/javascript' src='js/InsertComment.js'></script>
+>>>>>>> origin/master
         </head>
 
         <body>
-            <div class='container'>
                 <div class='header'>
                 </div>
-                <h1 class='main_title'>Newsfeed</h1>
                 <div class='content'>
                 <ul id='items'>";
+       $html .= $this->mainView->echoHTML($this->DisplayAllImagesForUsers()) ."<br>";
 
         $last_id = 0;
 
@@ -61,16 +72,32 @@ class FeedView
 
             $html .= 
             "<li>
+                <input type='hidden' name='" . self::$itemId . "' value='" . $feedItem['id'] . "'>
                 <h2>" . $feedItem['title'] . "</h2>
                 <p> " . $feedItem['description'] . "</p>
             </li>";
         }
 
+        foreach ($comments as $comment) 
+        {
+            $html .= $comment->GetCommentHTML();
+        }
+
+        $html .= "<div id='addCommentContainer'>
+        <form id='addCommentForm' method='post' action=''>
+            <div>
+                <label for='body'>Add a comment</label>
+                <textarea name='body' id='body' cols='20' rows='5'></textarea>
+                <input type='submit' id='submit' value='Comment'/>
+            </div>
+        </form>
+    </div>";
+
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
         $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script> 
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
-                </div>  
+                </div>
                 <div class='footer'>
                 </div>
             </div>
@@ -79,6 +106,7 @@ class FeedView
 
         return $html;
     }
+
 
 
         //Render all images for users.
@@ -104,26 +132,25 @@ class FeedView
             }
 
             $pic .= 
+
             '<strong> '.$img->GetMSG().$SoSoon.'</strong>'.
+            '</div>'.
             '<br>'.
             '<br>'.
-            '<img src="'.$value.'" id="ImgSize" class="img-responsive">'.
-            '<br>'.
-            '<br>'.
+          
+            '<img  src="'.$value.'" id="ImgSize" class="preview">'.
             '<br>'.
             '<br>'.
             '<br>'.
             '<br>';
 
-        }
+        }   
         $msgs = $responseMessages;              
         echo $responseMessages;
         return $pic;    
     }
 
-        public function renderAllPicsForUsers() {
-        echo $this->mainView->echoHTML($this->DisplayAllImagesForUsers()) ."<br>";
-    }
+   
 
     public function getHiddenId() {
         if (isset($_POST[$this->hiddenImgID])) {
@@ -145,5 +172,4 @@ class FeedView
             return nl2br($_POST[$this->msg]);
         }
     }
-
 }
