@@ -5,7 +5,7 @@ require_once('HTMLView.php');
 class uploadView {
 	private $mainView;
 	private $upload = "upload";
-	private $images = "photoimg";
+	private $images = "images";
 	private $show;
 	private $msg = "message";
 
@@ -22,17 +22,14 @@ class uploadView {
 			}
 			
 			echo  $responseMessages;
-			$uploadForm = 	'<h4>Dela med dig dina bildar.</h4>'.
+			$uploadForm =
 			'<div id=upload>'.
 			'<form id="imageform" class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
 			'<fieldset class="upload">' .
-			'<br>'.
 			'<input type="File" name="'.$this->images.'"" >'.
 			'<br>'.
 			'<br>'.
-			'Beskriv bilden(måste ej)'.
-			'<br>'.
-			'<textarea name="'.$this->msg.'" cols="35" rows="5"  maxlength="80" placeholder="Beskriv bilden här... " wrap="hard">'.$this->getComments().'</textarea>' .
+			'<textarea name="'.$this->msg.'" cols="35" rows="5"  maxlength="80" placeholder="Dela med dig... " wrap="hard">'.$this->getComments().'</textarea>' .
 			'<br>'.
 			'<br>'.
 			'<input id="'.$this->upload.'" type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" >'.

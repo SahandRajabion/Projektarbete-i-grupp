@@ -21,6 +21,9 @@ class FeedView
     private $msg = "message";
     private $imagesModel;
     private $cookieStorage;
+    private $del = "delete";
+    private $yesDel = "yesDel";
+    private $NoDel = "NoDel";
 
     private static $itemId = "ItemId";
 
@@ -129,7 +132,7 @@ class FeedView
             }
 
             $pic .= 
-
+            $pic .= '<form id="delete" enctype="multipart/form-data" method="post" action="">'.
             '<strong> '.$img->GetMSG().$SoSoon.'</strong>'.
             '</div>'.
             '<br>'.
@@ -138,6 +141,9 @@ class FeedView
             '<img  src="'.$value.'" id="ImgSize" class="preview">'.
             '<br>'.
             '<br>'.
+            '<input type="hidden" name="'.$this->hiddenImgID.'" value="'.basename($value).'">'.
+            '<input type="submit" name="'.$this->del.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
+            '</form>'.
             '<br>'.
             '<br>';
 
@@ -147,6 +153,22 @@ class FeedView
         return $pic;    
     }
 
+
+    // confirm that user want to remove an image or cancel.
+    public function areYouSure() {
+            $remove = '<form id="delete" enctype="multipart/form-data" method="post" action="">'.
+            '<fieldset class="delete">'.
+            '<div class="alert alert-danger role="alert"><strong>Vill du verkligen ta bort '.$_SESSION[$this->session].'?</strong></div>'.
+            '<br>'.
+            '<br>'.
+            '<input type="hidden" name="'.$this->hiddenImg.'" value="'.$_SESSION[$this->session].'">'.
+            '<input type="submit" name="'.$this->yesDel.'" value="Ja!Ta bort" class="btn btn-danger">&nbsp;&nbsp;'.
+            '<input type="submit" name="'.$this->NoDel.'" value ="Avbryt" class="btn btn-success">'.
+            '</fieldset>'.
+            '</form>';
+        
+        return $remove;
+    }
    
 
     public function getHiddenId() {
@@ -169,4 +191,29 @@ class FeedView
             return nl2br($_POST[$this->msg]);
         }
     }
+
+
+    public function hasSubmitToDel() {
+        if (isset($_POST[$this->del])) {
+            return true;
+        }
+    }
+
+    public function renderAreYouSure() {
+        echo $this->mainView->echoHTML($this->areYouSure()) ."<br>";
+    }
+
+
+    public function getYesDel() {
+        if (isset($_POST[$this->yesDel])) {
+            return true;
+        }
+    }
+
+    public function getNoDel() {
+        if (isset($_POST[$this->NoDel])) {
+            return true;
+        }
+    }
+
 }

@@ -23,5 +23,5 @@
 			if(isset($_COOKIE[self::$cookieMsg])) {
 				return $_COOKIE[self::$cookieMsg];
 			}
-		}	
+		}
 	}

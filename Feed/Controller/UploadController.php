@@ -53,6 +53,22 @@
 			return $this->uploadPage->getComments();
 		}
 
+		private function hasSubmitToDelImg() {
+			return $this->feedView->hasSubmitToDel();
+		}
+
+		private function getHiddenID() {
+			return $this->feedView->getHiddenId();
+		}
+
+		private function getConforimYes() {
+			return $this->feedView->getYesDel();
+		}
+
+		private function getConforimNo() {
+			return $this->feedView->getNoDel();
+		}
+
 
 
 		//Send image path to validation class.
@@ -62,9 +78,6 @@
 
 		// Get input and other stuff from feedView view class.
 
-		private function getHiddenID() {
-			return $this->feedView->getHiddenId();
-		}
 
 		private function getHiddenImg() {
 			return $this->feedView->getSessionHidden();
@@ -74,20 +87,43 @@
 			return $this->feedView->GetImageComment();
 		}
 
-	
-		private function GetSaveds() {
-			return $this->feedView->GetSaved();
-		}
 
-		private function getHiddenImgEdit() {
-			return $this->feedView->getSessionHiddenEdit();
+		//Delete Images from folder.
+		public function removeImageFromFolder() {
+			if ($this->hasSubmitToDelImg()) {
+				$Images = glob("View/Images/*.*");
+				foreach ($Images as $value) {
+					if (basename($value) == $this->getHiddenID()) {
+					  $this->feedView->renderAreYouSure();
+					}
+				}
+			}
+
+			if ($this->getConforimYes()) {
+				$Images = glob("View/Images/*.*");
+				foreach ($Images as $value) {
+					if (basename($value) == $this->getHiddenImg()) {
+						$PicName =basename($value);
+						$this->imagesModel->removeImages($PicName);
+						unlink($value);
+						echo '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong> '.$PicName.' togs bort.</strong></div>';
+
+					}
+				}
+			}
+
+			else if ($this->getConforimNo()) {
+				header('Location: ?page=FeedView');	
+			}		
 		}
-		
 
 		//Render upload funcation.
 		public function imgUpload() {
 			$this->uploadPage->RenderUploadForm();
-
+			$this->removeImageFromFolder();
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
 	
@@ -153,7 +189,6 @@
 							  	imagedestroy($imgCreateFromP);
 							  	imagedestroy($imgCreateFromG);
 						      	imagedestroy($ImgCreateColor);
-						      	var_dump($this->cookieStorage->SaveMessageCookie(self::$UPLOADEDSUCCESSED));
 						      	$this->cookieStorage->SaveMessageCookie(self::$UPLOADEDSUCCESSED);
 						      	header('Location: ?page=FeedView');
 							 	}	

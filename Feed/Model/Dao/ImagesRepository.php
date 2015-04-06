@@ -53,5 +53,23 @@
 				die('An unknown error hase happened');
 			}
 		}
+
+
+
+
+ 		// delete image name and title from db.
+ 		public function delete($img) {
+ 			try {
+ 					$db = $this->connection();
+ 					$sql = "DELETE FROM $this->tabel WHERE imgName = ?";
+ 					$params = array($img);
+ 					$query = $db->prepare($sql);
+					$query->execute($params);
+				
+ 			} catch (Exception $e) {
+ 				die('An unknown error hase happened');
+				
+ 			}
+ 		}
 	
  }
