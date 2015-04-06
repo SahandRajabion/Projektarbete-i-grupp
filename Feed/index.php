@@ -9,7 +9,8 @@ $feedView = new FeedView();
 $masterController = new MasterController();
 
 // Run Application
-$masterController->doControll();
-$html = $feedView->GetFeedHTML();
+$html = $masterController->doControll();
 
 $htmlView->EchoHTML($html);
+
+

@@ -35,21 +35,15 @@ class MasterController extends BaseView
 
 					case BaseView::$FeedView:
 								$this->uploadController->imgUpload();
-						return $this->feedView->renderAllPicsForUsers();
-					
-								   
-
+								return $this->feedView->GetFeedHTML();
 						break;
 					}
-				
 			} 
 			catch (Exception $e) {
 
 			}
 
-			
-	ob_flush();
-
+		
 		}
 
 }

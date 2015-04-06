@@ -5,15 +5,13 @@ require_once('HTMLView.php');
 class uploadView {
 	private $mainView;
 	private $upload = "upload";
-	private $images = "images";
+	private $images = "photoimg";
 	private $show;
 	private $msg = "message";
 
 	public function __construct() {
 		$this->mainView = new HTMLView();
 	}
-
-
 
 	//render upload form.
 	public function imageUpload($msg = '') {
@@ -26,7 +24,7 @@ class uploadView {
 			echo  $responseMessages;
 			$uploadForm = 	'<h4>Dela med dig dina bildar.</h4>'.
 			'<div id=upload>'.
-			'<form class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
+			'<form id="imageform" class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
 			'<fieldset class="upload">' .
 			'<br>'.
 			'<input type="File" name="'.$this->images.'"" >'.
@@ -37,7 +35,7 @@ class uploadView {
 			'<textarea name="'.$this->msg.'" cols="35" rows="5"  maxlength="80" placeholder="Beskriv bilden här... " wrap="hard">'.$this->getComments().'</textarea>' .
 			'<br>'.
 			'<br>'.
-			'<input type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" >'.
+			'<input id="'.$this->upload.'" type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" >'.
 			'</fieldset>'.
 			'</form>'.
 			'</div>';
@@ -70,7 +68,7 @@ class uploadView {
 	}
 
 	public function hasSubmitToUpload() {
-		if (isset($_POST[$this->upload])) {
+		if (isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
 			return true;
 		}
 	}

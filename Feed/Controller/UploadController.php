@@ -135,13 +135,15 @@
 							imagecopyresampled($ImgCreateColor, $imgCreateFromJ, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
 						    imagecopyresampled($ImgCreateColor, $imgCreateFromP, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
 						   	imagecopyresampled($ImgCreateColor, $imgCreateFromG, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
-
+// 
 
 							// creates a JPEG from uploaded image.
 							$imgToUploadJ = imagejpeg($ImgCreateColor,$this->imgRoot.$_FILES[$this->fileName]['name'],100);
 							$imgToUploadP = imagepng($ImgCreateColor,$this->imgRoot.$_FILES[$this->fileName]['name'],100);
 							$imgToUploadG = imagegif($ImgCreateColor,$this->imgRoot.$_FILES[$this->fileName]['name'],100);
+							
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
+
 								$images = new Images($_FILES[$this->fileName]['name'],$this->GetComment());
 							 	$this->imagesModel->addImages($images);
 
@@ -151,6 +153,7 @@
 							  	imagedestroy($imgCreateFromP);
 							  	imagedestroy($imgCreateFromG);
 						      	imagedestroy($ImgCreateColor);
+						      	var_dump($this->cookieStorage->SaveMessageCookie(self::$UPLOADEDSUCCESSED));
 						      	$this->cookieStorage->SaveMessageCookie(self::$UPLOADEDSUCCESSED);
 						      	header('Location: ?page=FeedView');
 							 	}	
