@@ -71,5 +71,20 @@
 				
  			}
  		}
+
+
+ 		// save updating image title.
+ 		public function saveEdit(Images $img) {
+			try {
+				$db = $this->connection();
+				$sql = "UPDATE $this->tabel SET " . self::$Title . " = ? WHERE imgName = ?";
+				$params = array($img->GetMSG(),$img->getImgName());
+				$query = $db->prepare($sql);
+				$query->execute($params);
+			}
+			catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}
 	
  }

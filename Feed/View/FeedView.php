@@ -24,7 +24,9 @@ class FeedView
     private $del = "delete";
     private $yesDel = "yesDel";
     private $NoDel = "NoDel";
-
+    private $EditInfo = "Edit";
+    private $SaveEdit ="saveEDIT";
+    private $hiddenImgEdit = "hiddenImgEdit";
     private static $itemId = "ItemId";
 
     public function __construct() 
@@ -148,6 +150,7 @@ class FeedView
             '<br>'.
             '<input type="hidden" name="'.$this->hiddenImgID.'" value="'.basename($value).'">'.
             '<input type="submit" name="'.$this->del.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
+            '<input type="submit" name="'.$this->EditInfo.'" value="Redigera titeln" class="btn btn-warning">'.
             '</form>'.
             '<br>'.
             '<br>';
@@ -157,6 +160,28 @@ class FeedView
         echo $responseMessages;
         return $pic;    
     }
+
+
+    //Edit form for image title.
+    public function EditUploadedInformation() {
+
+            $img = $this->imagesModel->getImages($this->getHiddenId());
+            $saveEdit = "<strong>Redigera ".$img->getImgName()."</strong><br><br>";
+            $saveEdit .= '<form id="SaveEdit" enctype="multipart/form-data" method="post" action="">'.
+            '<fieldset class="Edit">'.
+            '&nbsp;'.
+            '<textarea name="'.$this->msg.'" cols="45" rows="5" maxlength="80" placeholder="Beskriv bilden här..." wrap="hard">'.strip_tags($img->GetMSG()).'</textarea>' .
+            '<br>'.
+            '<br>'.
+            '<input type="hidden" name="'.$this->hiddenImgEdit.'" value="'.$img->getImgName().'">'.
+            '<input type="submit" name="'.$this->SaveEdit.'" value="Spara" class="btn btn-success">&nbsp;&nbsp;'.
+            '<input type="submit" name="'.$this->NoDel.'" value ="Avbryt" class="btn btn-default">'.
+            '</fieldset>'.
+            '</form>';
+        
+            return $saveEdit;
+    }
+
 
 
     // confirm that user want to remove an image or cancel.
@@ -174,6 +199,24 @@ class FeedView
         
         return $remove;
     }
+
+
+
+    public function renderEditUploadedInformation() {
+        echo $this->mainView->echoHTML($this->EditUploadedInformation()) ."<br>";
+    }
+
+    public function hasSubmitToEdit() {
+        if (isset($_POST[$this->EditInfo])) {
+            return true;
+        }
+    }
+
+    public function getSessionHiddenEdit() {
+        if (isset($_POST[$this->hiddenImgEdit])) {
+            return $_POST[$this->hiddenImgEdit];
+        }
+    }
    
 
     public function getHiddenId() {
@@ -182,6 +225,12 @@ class FeedView
             return $_POST[$this->hiddenImgID];
         }
         
+    }
+
+    public function GetSaved() {
+        if (isset($_POST[$this->SaveEdit])) {
+            return true;
+        }
     }
 
     public function getSessionHidden() {

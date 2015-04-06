@@ -9,8 +9,6 @@
 
 	//static messages for validation.
 
-
-
 	//Messages for upload function.
 	private static $ErrorUPLOAD_ERR_FORM_SIZE = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 				     <button type="button" class="close" data-dismiss="alert">

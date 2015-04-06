@@ -90,6 +90,7 @@
 
 		//Delete Images from folder.
 		public function removeImageFromFolder() {
+			$this->EditImagesInfo();
 			if ($this->hasSubmitToDelImg()) {
 				$Images = glob("View/Images/*.*");
 				foreach ($Images as $value) {
@@ -119,6 +120,40 @@
 				header('Location: ?page=FeedView');	
 			}		
 		}
+
+		private function hasSubmitToEdits() {
+			return $this->feedView->hasSubmitToEdit();
+		}
+
+		private function GetSaveds() {
+			return $this->feedView->GetSaved();
+		}
+
+		private function getHiddenImgEdit() {
+			return $this->feedView->getSessionHiddenEdit();
+		}
+
+		//Edit title
+		private function EditImagesInfo() {
+			if ($this->hasSubmitToEdits()) {
+				$this->feedView->renderEditUploadedInformation();
+			}
+				$Images = glob("View/Images/*.*");
+				foreach ($Images as $value) {
+					if (basename($value) == $this->getHiddenImgEdit()) {
+						if($this->GetSaveds()) {
+								$images = new Images($this->getHiddenImgEdit(),$this->GetImageComments());
+							  	$this->imagesModel->EditImagesInformation($images);
+							  	echo '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong> Uppdatering av '.$this->getHiddenImgEdit(). '  har sparat!</strong></div>';
+
+						}
+					}
+				}
+		}
+		
 
 		//Render upload funcation.
 		public function imgUpload() {
