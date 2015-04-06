@@ -84,7 +84,7 @@ class FeedView
         <form id='addCommentForm' method='post' action=''>
             <div>
                 <label for='body'>Add a comment</label>
-                <textarea name='body' id='body' cols='20' rows='5'></textarea>
+                <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                 <input type='submit' id='submit' value='Comment'/>
             </div>
         </form>

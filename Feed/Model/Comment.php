@@ -28,7 +28,7 @@ class Comment
 		{
 			$errors['body'] = 'Please enter a comment';
 		}
-		
+
 		if(!empty($errors))
 		{	
 			// Om några fel hittas så lägg in de i referens variabeln
@@ -50,7 +50,7 @@ class Comment
 		// Ser till att man har skrivit något
 		if(mb_strlen($string, 'utf8') < 1)
 			return false;
-		
+	
 		// Tar bort alla specialtecken och gör om mellanslag till br taggar
 		$string = nl2br(htmlspecialchars($string));
 		
