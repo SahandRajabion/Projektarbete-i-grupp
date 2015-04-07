@@ -4,6 +4,8 @@ class HTMLView
 {
     public function EchoHTML($html) 
     {
-        echo  $html;
+
+
+        echo $html;
     }
 }

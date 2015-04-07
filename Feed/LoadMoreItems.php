@@ -21,7 +21,7 @@ foreach ($feedItems as $feedItem)
     
     $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
 
-    $html .= "<div id='addCommentContainer' class='addCommentContainer'>
+    $html .= "<div id='addCommentContainer" . $feedItem['PostId'] . "' class='addCommentContainer'>
         <form class='comment-form' method='post' action=''>
             <div>
                 <input type='hidden' id='PostId' name='PostId' value='" . $feedItem['PostId'] . "'>
@@ -30,13 +30,16 @@ foreach ($feedItems as $feedItem)
                 <input type='submit' id='submit' value='Comment'/>
             </div>
         </form>
-    </div>";    
+    </div>"; 
 }
 
 // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
 if ($last_id != 0) 
 {
-	$html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
+    //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
+	$html .= "<script type='text/javascript'>var last_id = " . $last_id . ";
+    </script><script type='text/javascript' src='js/jquery.min.js'></script>
+    <script type='text/javascript' src='js/InsertComment.js'></script>";
 }
 
 $htmlView->EchoHTML($html);

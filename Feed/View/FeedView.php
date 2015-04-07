@@ -49,12 +49,6 @@ class FeedView
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
         <link rel='stylesheet' href='css/style.css' />
-        <script type='text/javascript' src='js/jquery.min.js'></script>
-        <script type='text/javascript' src='js/script.js'></script>
-        <script src='script.js'></script>
-        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
-        <script type='text/javascript' src='js/InsertComment.js'></script>
-
         </head>
 
         <body>
@@ -87,7 +81,7 @@ class FeedView
                 }            
             }
 
-            $html .= "<div id='addCommentContainer' class='addCommentContainer'>
+            $html .= "<div id='addCommentContainer" . $feedItem['PostId'] . "' class='addCommentContainer'>
                 <form class='comment-form' method='post' action=''>
                     <div>
                          <input type='hidden' id='" . self::$postId . "' name='" . self::$postId . "' value='" . $feedItem['PostId'] . "'>
@@ -110,6 +104,9 @@ class FeedView
                 <div class='footer'>
                 </div>
             </div>
+        <script type='text/javascript' src='js/jquery.min.js'></script>
+        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
+        <script type='text/javascript' src='js/InsertComment.js'></script>
         </body>
         </html>";
 

@@ -7,8 +7,8 @@ $(document).ready(function()
 	{
  		e.preventDefault(); 		
 		var form = $(this);
-		//var postId = $('#PostId', form).val();
-		//alert(postId);
+		var postId = $('#PostId', form).val();
+		alert(postId);
 
 		if(working) return false;
 		
@@ -18,13 +18,11 @@ $(document).ready(function()
 		$.post('InsertComment.php', $(this).serialize(), function(msg){
 			working = false;
 
-			
-
 			if(msg.status)
 			{
 				// Ifall den lyckades så gör så senaste kommentaren visas
-				$(msg.html).hide().insertBefore('#addCommentContainer').slideDown();
-				$('#body').val('');
+				$(msg.html).hide().insertBefore('#addCommentContainer' + postId).slideDown();
+				$('#body', '#addCommentContainer' + postId).val('');
 			}
 
 			else 
