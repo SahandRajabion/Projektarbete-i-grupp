@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once('Model/Dao/FeedRepository.php');
+require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('View/HTMLView.php');
 require_once('View/CookieStorage.php');
@@ -9,7 +9,7 @@ require_once('Model/ImagesModel.php');
 
 class FeedView
 {
-    private $feedRepository;
+    private $postRepository;
     private $commentRepository;
     private $mainView;
     private $session = "session";
@@ -27,11 +27,11 @@ class FeedView
     private $EditInfo = "Edit";
     private $SaveEdit ="saveEDIT";
     private $hiddenImgEdit = "hiddenImgEdit";
-    private static $itemId = "ItemId";
+    private static $itemId = "PostId";
 
     public function __construct() 
     {
-        $this->feedRepository = new FeedRepository();
+        $this->postRepository = new PostRepository();
         $this->commentRepository = new CommentRepository();
         $this->mainView = new HTMLView();
         $this->uploadPage = new UploadView();
@@ -41,7 +41,7 @@ class FeedView
 
     public function GetFeedHTML()
     {
-        $feedItems = $this->feedRepository->GetFeedItems();
+        $feedItems = $this->postRepository->getPosts();
 
         $html = "<!DOCTYPE html>
         <html>
@@ -69,16 +69,16 @@ class FeedView
         // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
         foreach ($feedItems as $feedItem) 
         {
-            $last_id = $feedItem['id'];
+            $last_id = $feedItem['PostId'];
 
             $html .= 
             "<li>
-                <input type='hidden' name='" . self::$itemId . "' value='" . $feedItem['id'] . "'>
-                <h2>" . $feedItem['title'] . "</h2>
-                <p> " . $feedItem['description'] . "</p>
+                <input type='hidden' name='" . self::$itemId . "' value='" . $feedItem['PostId'] . "'>
+                <h2>" . $feedItem['Post'] . "</h2>
+                <p> " . $feedItem['Date'] . "</p>
             </li>";
 
-            $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
+            $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
 
             if (empty($comments) == false) 
             {

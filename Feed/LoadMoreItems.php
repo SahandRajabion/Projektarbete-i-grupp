@@ -1,15 +1,15 @@
 <?php
 
-require_once('Model/Dao/FeedRepository.php');
+require_once('Model/Dao/PostRepository.php');
 require_once('View/HTMLView.php');
 
-$feedRepository = new FeedRepository();
+$postRepository = new PostRepository();
 $htmlView = new HTMLView();
 
 // Hämtar ut sista id som har postats från Ajax anropet
 $last_id = $_POST['last_id'];
 
-$feedItems = $feedRepository->GetMoreFeedItems($last_id);
+$feedItems = $postRepository->GetMorePostItems($last_id);
 
 $last_id = 0;
 $html = "";
@@ -17,9 +17,9 @@ $html = "";
 // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
 foreach ($feedItems as $feedItem)
 {
-    $last_id = $feedItem['id'];
+    $last_id = $feedItem['PostId'];
     
-    $html .= "<li> <h2>" . $feedItem['title'] . "</h2> <p>" . $feedItem['description'] . "</p> </li>";
+    $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
 
     $html .= "<div id='addCommentContainer'>
         <form id='addCommentForm' method='post' action=''>

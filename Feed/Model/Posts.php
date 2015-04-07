@@ -10,10 +10,10 @@
 		public function __construct($post) {
 	
 			$this->post = $post;	
-			//$this->date = $date;
+		//	$this->date = $date;
 		} 
 
-		/*public function getDate() {
+	/*	public function getDate() {
 			return $this->date;
 		}*/
 

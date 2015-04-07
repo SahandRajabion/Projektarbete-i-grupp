@@ -12,15 +12,34 @@
 
 
  		public function __construct() {
- 			$this->tabel = "posts";
+ 			$this->table = "posts";
  		}
 
- 		
+ 	
+ 		public function GetMorePostItems($last_id) {
+		
+		try 
+		{
+			$db = $this->connection();
+			$sql = "SELECT * FROM $this->table WHERE " . self::$postId  ." > ? ORDER BY " . self::$postId . " ASC LIMIT 0, 9";
+			$query = $db->prepare($sql);
+			$params = array($last_id);
+			$query->execute($params);
+			$feedItems = $query->fetchAll();
+
+			return $feedItems;
+		}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
  		public function AddPost(Posts $post) {
  			try {	
  					$db = $this->connection();
- 					$sql = "INSERT INTO $this->tabel (".self::$post. ")VALUES(?)";
+ 					$sql = "INSERT INTO $this->table (".self::$post. ")VALUES(?)";
  					$params = array($post->getPost());
  					$query = $db->prepare($sql);
  					$query->execute($params);
@@ -31,27 +50,28 @@
  			}
  		}
 
+
+
 		//Get all Posts.
-		public function getPosts($post) {
+		public function getPosts() {
 			
-			try {
-				$db = $this->connection();
-				$sql = "SELECT * FROM  $this->tabel WHERE Post = ?";
-				$params = array($name);
-				$query = $db->prepare($sql);
-				$query->execute($params);
-				$results = $query->fetchAll();
-				if($results) {
-					foreach($results as $result) {
-						return new Posts($result[self::$imgName], $result[self::$Title]);
-					}
-				}
-				return NULL;
-			}
-			catch (Exception $e) {
-				die('An unknown error hase happened');
-			}
+		try { 
+
+			$db = $this->connection();
+
+			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$postId . ") ASC LIMIT 0, 8";
+			$query = $db->prepare($sql);
+			$query->execute();
+			$feedItems = $query->fetchAll();
+
+			return $feedItems;
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
 		}
+	}
 
 
 
