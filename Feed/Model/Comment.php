@@ -23,6 +23,8 @@ class Comment
 	{
 		$errors = array();
 		$data	= array();
+
+		$data['PostId'] = $_POST['PostId'];
 		
 		if(!($data['body'] = filter_input(INPUT_POST, 'body', FILTER_CALLBACK, array('options'=>'Comment::ValidateText'))))
 		{

@@ -1,9 +1,11 @@
 <?php
 
 require_once('Model/Dao/PostRepository.php');
+require_once('Model/Dao/CommentRepository.php');
 require_once('View/HTMLView.php');
 
 $postRepository = new PostRepository();
+$commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
 
 // Hämtar ut sista id som har postats från Ajax anropet
@@ -20,6 +22,16 @@ foreach ($feedItems as $feedItem)
     $last_id = $feedItem['PostId'];
     
     $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
+
+    $comments = $commentRepository->GetCommentsForPost($feedItem['PostId']);
+
+    if (empty($comments) == false) 
+    {
+        foreach ($comments as $comment) 
+        {
+            $html .= $comment->GetCommentHTML();
+        }            
+    }    
 
     $html .= "<div id='addCommentContainer" . $feedItem['PostId'] . "' class='addCommentContainer'>
         <form class='comment-form' method='post' action=''>
