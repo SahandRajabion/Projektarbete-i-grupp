@@ -27,7 +27,7 @@ class FeedView
     private $EditInfo = "Edit";
     private $SaveEdit ="saveEDIT";
     private $hiddenImgEdit = "hiddenImgEdit";
-    private static $itemId = "PostId";
+    private static $postId = "PostId";
 
     public function __construct() 
     {
@@ -73,7 +73,6 @@ class FeedView
 
             $html .= 
             "<li>
-                <input type='hidden' name='" . self::$itemId . "' value='" . $feedItem['PostId'] . "'>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
             </li>";
@@ -91,7 +90,7 @@ class FeedView
             $html .= "<div id='addCommentContainer' class='addCommentContainer'>
                 <form class='comment-form' method='post' action=''>
                     <div>
-                         <input type='hidden' id='" . self::$itemId . "' name='" . self::$itemId . "' value='" . $feedItem['PostId'] . "'>
+                         <input type='hidden' id='" . self::$postId . "' name='" . self::$postId . "' value='" . $feedItem['PostId'] . "'>
                         <label for='body'>Add a comment</label>
                         <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                         <input type='submit' id='submit' value='Comment'/>
