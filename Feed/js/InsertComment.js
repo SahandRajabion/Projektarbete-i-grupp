@@ -7,7 +7,6 @@ $(document).ready(function()
  		e.preventDefault(); 		
 		var form = $(this);
 		var postId = $('#PostId', form).val();
-		alert(postId);
 
 		if(working) return false;
 		
