@@ -7,8 +7,8 @@ $(document).ready(function()
 	{
  		e.preventDefault(); 		
 		var form = $(this);
-		var product_id = $('#itemid', form).val();
-alert(product_id);
+		//var postId = $('#PostId', form).val();
+		//alert(postId);
 
 		if(working) return false;
 		

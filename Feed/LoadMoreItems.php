@@ -22,7 +22,7 @@ foreach ($feedItems as $feedItem)
     $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
 
     $html .= "<div id='addCommentContainer' class='addCommentContainer'>
-        <form id='addCommentForm' method='post' action=''>
+        <form class='comment-form' method='post' action=''>
             <div>
                 <input type='hidden' id='PostId' name='PostId' value='" . $feedItem['PostId'] . "'>
                 <label for='body'>Add a comment</label>
