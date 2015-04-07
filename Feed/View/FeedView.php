@@ -87,7 +87,7 @@ class FeedView
                          <input type='hidden' id='" . self::$postId . "' name='" . self::$postId . "' value='" . $feedItem['PostId'] . "'>
                         <label for='body'>Skriv en kommentar</label>
                         <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                        <input type='submit' id='submit' value='Comment'/>
+                        <input type='submit' id='submit' value='Kommentera'/>
                     </div>
                 </form>
             </div>";
