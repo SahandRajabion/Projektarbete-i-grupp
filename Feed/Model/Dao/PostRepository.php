@@ -16,7 +16,7 @@
 		try 
 		{
 			$db = $this->connection();
-			$sql = "SELECT * FROM $this->table WHERE " . self::$postId  ." > ? ORDER BY " . self::$postId . " ASC LIMIT 0, 9";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$postId  ." > ? ORDER BY " . self::$postId . " ASC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$params = array($last_id);
 			$query->execute($params);
@@ -54,7 +54,7 @@
 
 			$db = $this->connection();
 
-			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$postId . ") ASC LIMIT 0, 8";
+			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$postId . ") ASC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$query->execute();
 			$feedItems = $query->fetchAll();

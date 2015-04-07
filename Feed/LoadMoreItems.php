@@ -37,9 +37,7 @@ foreach ($feedItems as $feedItem)
 if ($last_id != 0) 
 {
     //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-	$html .= "<script type='text/javascript'>var last_id = " . $last_id . ";
-    </script><script type='text/javascript' src='js/jquery.min.js'></script>
-    <script type='text/javascript' src='js/InsertComment.js'></script>";
+	$html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
 }
 
 $htmlView->EchoHTML($html);

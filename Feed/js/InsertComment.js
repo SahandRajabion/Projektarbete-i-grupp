@@ -1,9 +1,8 @@
 $(document).ready(function()
 {
-	// Gör så man bara kan göra många submits
 	var working = false;
 	
-	$('.comment-form').submit(function(e)
+	$('.comment-form').live("submit", function(e)
 	{
  		e.preventDefault(); 		
 		var form = $(this);
@@ -29,7 +28,7 @@ $(document).ready(function()
 			{
 				// Visa fel om det finns
 				$.each(msg.errors,function(k,v){
-					$('label[for='+k+']').append('<span class="error">'+v+'</span>');
+					$('#addCommentContainer' + postId + ' label[for='+k+']').append('<span class="error">'+v+'</span>');
 				});
 			}
 		},'json');

@@ -104,10 +104,11 @@ class FeedView
                 <div class='footer'>
                 </div>
             </div>
+        </body>
+         <script src='//code.jquery.com/jquery-1.11.2.min.js'></script>
         <script type='text/javascript' src='js/jquery.min.js'></script>
         <script type='text/javascript' src='js/LoadMoreItems.js'></script>
         <script type='text/javascript' src='js/InsertComment.js'></script>
-        </body>
         </html>";
 
         return $html;
