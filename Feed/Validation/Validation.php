@@ -18,7 +18,7 @@
 	private static $ErrorUPLOAD_ERR_NO_FILE = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 				  <button type="button" class="close" data-dismiss="alert">
   											  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										      <strong>Välj en bild först sen tryck ladda upp!!!</strong></div>';
+  										      <strong>Skriv ett inlägg/ladda upp en bild för pubicering.</strong></div>';
 
 	private static $ErrorUPLOAD_ERR_NO_TMP_DIR = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 				      <button type="button" class="close" data-dismiss="alert">

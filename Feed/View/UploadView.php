@@ -29,7 +29,7 @@ class uploadView {
 			'<input type="File" name="'.$this->images.'"" >'.
 			'<br>'.
 			'<br>'.
-			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="80" placeholder="Dela med dig... " wrap="hard"></textarea>' .
+			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela med dig... " wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
 			'<input id="'.$this->upload.'" type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" >'.

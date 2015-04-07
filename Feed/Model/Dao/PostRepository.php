@@ -2,8 +2,7 @@
 	
 	require_once('Model/Dao/Repository.php');
 
- 	class PostRepository extends Repository 
- 	{
+ 	class PostRepository extends Repository {
  		private static $postId  = "PostId";
  		private static $post = "Post";
  		private static $date = "Date";
@@ -12,8 +11,8 @@
  			$this->table = "posts";
  		}
  	
- 		public function GetMorePostItems($last_id) 
- 		{
+ 		public function GetMorePostItems($last_id) {
+		
 		try 
 		{
 			$db = $this->connection();
