@@ -5,6 +5,10 @@
 	require_once('Model/ImagesModel.php');
 	require_once('Model/Images.php');
 	require_once('View/CookieStorage.php');
+	require_once('Model/Posts.php');
+	require_once('Model/PostModel.php');
+
+
 
 	class UploadController {
 
@@ -15,6 +19,8 @@
 	    private $imagesModel;
 	    private $feedView;
 	    private $cookieStorage;
+	    private $posts;
+	    private $postModel;
 
 		private static $UPLOADEDSUCCESSED = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
@@ -37,6 +43,7 @@
 			$this->imagesModel = new ImagesModel();
 			$this->feedView = new FeedView();
 			$this->cookieStorage = new CookieStorage();
+			$this->postModel = new PostModel();
 
 		}
 
@@ -49,8 +56,8 @@
 			 return $this->uploadPage->GetImgName();
 		}
 
-		private function GetComment() {
-			return $this->uploadPage->getComments();
+		private function GetTitle() {
+			return $this->uploadPage->getTitle();
 		}
 
 		private function hasSubmitToDelImg() {
@@ -83,13 +90,14 @@
 			return $this->feedView->getSessionHidden();
 		}
 
-		private function GetImageComments() {
-			return $this->feedView->GetImageComment();
+		private function GetImageTitle() {
+			return $this->feedView->GetImageTitle();
 		}
 
 
 		//Delete Images from folder.
 		public function removeImageFromFolder() {
+			$this->EditImagesInfo();
 			if ($this->hasSubmitToDelImg()) {
 				$Images = glob("View/Images/*.*");
 				foreach ($Images as $value) {
@@ -120,6 +128,40 @@
 			}		
 		}
 
+		private function hasSubmitToEdits() {
+			return $this->feedView->hasSubmitToEdit();
+		}
+
+		private function GetSaveds() {
+			return $this->feedView->GetSaved();
+		}
+
+		private function getHiddenImgEdit() {
+			return $this->feedView->getSessionHiddenEdit();
+		}
+
+		//Edit title
+		private function EditImagesInfo() {
+			if ($this->hasSubmitToEdits()) {
+				$this->feedView->renderEditUploadedInformation();
+			}
+				$Images = glob("View/Images/*.*");
+				foreach ($Images as $value) {
+					if (basename($value) == $this->getHiddenImgEdit()) {
+						if($this->GetSaveds()) {
+								$images = new Images($this->getHiddenImgEdit(),$this->GetImageTitle());
+							  	$this->imagesModel->EditImagesInformation($images);
+							  	echo '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong> Uppdatering av '.$this->getHiddenImgEdit(). '  har sparat!</strong></div>';
+
+						}
+					}
+				}
+		}
+		
+
 		//Render upload funcation.
 		public function imgUpload() {
 			$this->uploadPage->RenderUploadForm();
@@ -127,10 +169,11 @@
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
 	
-			if ($this->DidHasSubmit() == true) {	
+			if ($this->DidHasSubmit() == true) {
+
 
 				// check if has file and make sure that the file have a right type.
-				if (is_uploaded_file($_FILES[$this->fileName]['tmp_name'])) {
+				 if (is_uploaded_file($_FILES[$this->fileName]['tmp_name'])) {
 					if (exif_imagetype($_FILES[$this->fileName]['tmp_name']) == IMAGETYPE_GIF ||
 						 exif_imagetype($_FILES[$this->fileName]['tmp_name']) == IMAGETYPE_JPEG ||
 						 	 exif_imagetype($_FILES[$this->fileName]['tmp_name']) == IMAGETYPE_PNG) {
@@ -171,7 +214,7 @@
 							imagecopyresampled($ImgCreateColor, $imgCreateFromJ, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
 						    imagecopyresampled($ImgCreateColor, $imgCreateFromP, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
 						   	imagecopyresampled($ImgCreateColor, $imgCreateFromG, 0, 0, 0, 0, $newImgWidth, $newImgHeight, $imgWidth, $imgHeigth);
-// 
+ 
 
 							// creates a JPEG from uploaded image.
 							$imgToUploadJ = imagejpeg($ImgCreateColor,$this->imgRoot.$_FILES[$this->fileName]['name'],100);
@@ -180,7 +223,7 @@
 							
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
 
-								$images = new Images($_FILES[$this->fileName]['name'],$this->GetComment());
+								$images = new Images($_FILES[$this->fileName]['name'],$this->GetTitle());
 							 	$this->imagesModel->addImages($images);
 
 							 	//change file mode, 0755 read and execute.
@@ -200,8 +243,20 @@
 							return $this->uploadPage->imageUpload(self::$ErrorUPLOAD_ERR_TYPE);
 						 }
 				}
+
+
 				else {
+						if ($this->GetTitle() != "") {
+							# code...
+
+							$post = new Posts($this->GetTitle());
+							$this->postModel->addPost($post);
+
+						}
+
+						else{
 						return $this->uploadPage->imageUpload($this->validation->errorToMessage());
+						}
 					 }
 			}
 		}	

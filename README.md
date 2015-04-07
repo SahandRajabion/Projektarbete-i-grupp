@@ -1,5 +1,5 @@
 # Projektarbete-i-grupp
-This repository will collect all our files for our webshop
+This repository will collect all our files for our application
 
 Group Members:
 Tommy Nguyen (tn222eb)

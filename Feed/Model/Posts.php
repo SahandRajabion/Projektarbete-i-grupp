@@ -1,24 +1,24 @@
 <?php
 	
 
-	class Images {
+	class Posts {
 
-		private $imgName;
-		private $title;
+		private $post;
+		//private $date;
  	
 
-		public function __construct($imgName,$title) {
+		public function __construct($post) {
 	
-			$this->imgName = $imgName;	
-			$this->title = $title;
+			$this->post = $post;	
+		//	$this->date = $date;
 		} 
 
-		public function getImgName() {
-			return $this->imgName;
-		}
+	/*	public function getDate() {
+			return $this->date;
+		}*/
 
-		public function GetTITLE() {
-			return $this->ValidateText($this->title);
+		public function getPost() {
+			return $this->ValidateText($this->post);
 		}
 
 

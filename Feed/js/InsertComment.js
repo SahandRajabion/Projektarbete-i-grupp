@@ -3,9 +3,13 @@ $(document).ready(function()
 	// Gör så man bara kan göra många submits
 	var working = false;
 	
-	$('#addCommentForm').submit(function(e)
+	$('.comment-form').submit(function(e)
 	{
- 		e.preventDefault();
+ 		e.preventDefault(); 		
+		var form = $(this);
+		var product_id = $('#itemid', form).val();
+alert(product_id);
+
 		if(working) return false;
 		
 		working = true;
@@ -13,7 +17,9 @@ $(document).ready(function()
 		
 		$.post('InsertComment.php', $(this).serialize(), function(msg){
 			working = false;
+
 			
+
 			if(msg.status)
 			{
 				// Ifall den lyckades så gör så senaste kommentaren visas

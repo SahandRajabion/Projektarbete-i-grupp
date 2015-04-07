@@ -20,7 +20,7 @@
  			try {	
  					$db = $this->connection();
  					$sql = "INSERT INTO $this->tabel (".self::$imgName. ", " .self::$Title. ")VALUES(?,?)";
- 					$params = array($img->getImgName(),$img->GetMSG());
+ 					$params = array($img->getImgName(),$img->GetTITLE());
  					$query = $db->prepare($sql);
  					$query->execute($params);
 						
@@ -71,5 +71,20 @@
 				
  			}
  		}
+
+
+ 		// save updating image title.
+ 		public function saveEdit(Images $img) {
+			try {
+				$db = $this->connection();
+				$sql = "UPDATE $this->tabel SET " . self::$Title . " = ? WHERE imgName = ?";
+				$params = array($img->GetTITLE(),$img->getImgName());
+				$query = $db->prepare($sql);
+				$query->execute($params);
+			}
+			catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}
 	
  }

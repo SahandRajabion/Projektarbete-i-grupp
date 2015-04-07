@@ -89,7 +89,7 @@ textarea[name=body] {
 }
 
 .comment,
-#addCommentContainer{
+.addCommentContainer{
 	
 	/* Syling the comments and the comment form container */
 	
@@ -122,7 +122,7 @@ textarea[name=body] {
 }
 
 .comment p,
-#addCommentContainer p{
+.addCommentContainer p{
 	font-size:18px;
 	line-height:1.5;
 	overflow-x:hidden;
@@ -143,8 +143,8 @@ label span.error{
 }
 
 
-#addCommentContainer input[type=text],
-#addCommentContainer textarea
+.addCommentContainer input[type=text],
+.addCommentContainer textarea
 {
 	display:block;
 	border:1px solid #ccc;
@@ -155,7 +155,7 @@ label span.error{
 	font-family:Arial, Helvetica, sans-serif;
 }
 
-#addCommentContainer textarea{
+.addCommentContainer textarea{
 	width:300px;
 }
 
