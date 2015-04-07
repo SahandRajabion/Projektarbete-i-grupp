@@ -37,7 +37,7 @@ foreach ($feedItems as $feedItem)
         <form class='comment-form' method='post' action=''>
             <div>
                 <input type='hidden' id='PostId' name='PostId' value='" . $feedItem['PostId'] . "'>
-                <label for='body'>Add a comment</label>
+                <label for='body'>Skriv en kommentar</label>
                 <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                 <input type='submit' id='submit' value='Comment'/>
             </div>

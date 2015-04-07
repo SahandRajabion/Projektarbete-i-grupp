@@ -28,7 +28,7 @@ class Comment
 		
 		if(!($data['body'] = filter_input(INPUT_POST, 'body', FILTER_CALLBACK, array('options'=>'Comment::ValidateText'))))
 		{
-			$errors['body'] = 'Please enter a comment';
+			$errors['body'] = 'Vänligen skriv en kommentar';
 		}
 
 		if(!empty($errors))
