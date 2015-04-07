@@ -91,7 +91,7 @@ class FeedView
             $html .= "<div id='addCommentContainer' class='addCommentContainer'>
                 <form class='comment-form' method='post' action=''>
                     <div>
-                         <input type='hidden' id='" . self::$itemId . "' name='" . self::$itemId . "' value='" . $feedItem['id'] . "'>
+                         <input type='hidden' id='" . self::$itemId . "' name='" . self::$itemId . "' value='" . $feedItem['PostId'] . "'>
                         <label for='body'>Add a comment</label>
                         <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                         <input type='submit' id='submit' value='Comment'/>
