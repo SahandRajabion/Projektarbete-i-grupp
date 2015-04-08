@@ -35,6 +35,8 @@ class MasterController extends BaseView
 
 					case BaseView::$FeedView:
 								$this->uploadController->imgUpload();
+								$this->uploadController->youtubeUpload();
+
 								return $this->feedView->GetFeedHTML();
 						break;
 					}

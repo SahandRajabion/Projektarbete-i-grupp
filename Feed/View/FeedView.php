@@ -1,6 +1,7 @@
 ﻿<?php
 
 require_once('Model/Dao/PostRepository.php');
+require_once('Model/Dao/YoutubeRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('View/HTMLView.php');
 require_once('View/CookieStorage.php');
@@ -10,6 +11,7 @@ require_once('Model/ImagesModel.php');
 class FeedView
 {
     private $postRepository;
+    private $youtubeRepository;
     private $commentRepository;
     private $mainView;
     private $session = "session";
@@ -34,6 +36,7 @@ class FeedView
     public function __construct() 
     {
         $this->postRepository = new PostRepository();
+        $this->youtubeRepository = new YoutubeRepository();
         $this->commentRepository = new CommentRepository();
         $this->mainView = new HTMLView();
         $this->uploadPage = new UploadView();
@@ -44,6 +47,8 @@ class FeedView
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
+        $videoItems = $this->youtubeRepository->getVideos();
+
 
         $html = "<!DOCTYPE html>
         <html>
@@ -63,6 +68,21 @@ class FeedView
         $last_id = 0;
 
         // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+        foreach ($videoItems as $videoItem) 
+        {
+            $last_id = $videoItem['id'];
+
+            $html .= 
+            "<li>
+                <h2>" . $videoItem['name'] . "</h2>
+
+                <iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>
+               
+            </li>";
+
+
+
+            // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
         foreach ($feedItems as $feedItem) 
         {
             $last_id = $feedItem['PostId'];
@@ -71,10 +91,15 @@ class FeedView
             "<li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
+<<<<<<< HEAD
             </li>".
             '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['PostId'] .'">'.
             '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
             '</form>';
+=======
+            </li>";
+}
+>>>>>>> origin/master
 
             $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
 
