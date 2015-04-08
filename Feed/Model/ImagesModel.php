@@ -13,7 +13,7 @@
  		public function removeImages($img) {
  			$this->imagesRepository->delete($img);
 						 
- 		}
+ 		} 
 
  		public function addImages(Images $img) {
  			 $this->imagesRepository->AddPics($img);

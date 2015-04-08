@@ -11,10 +11,10 @@
  			$this->postRepository = new PostRepository();
  		}
 
- 		/*public function removeImages($img) {
- 			$this->imagesRepository->delete($img);
+ 		public function removePost($post) {
+ 			$this->postRepository->delete($post);
 						 
- 		}*/
+ 		}
 
  		public function addPost(Posts $post) {
  			 $this->postRepository->AddPost($post);

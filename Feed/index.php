@@ -13,4 +13,4 @@ $html = $masterController->doControll();
 
 $htmlView->EchoHTML($html);
 
-
+?>

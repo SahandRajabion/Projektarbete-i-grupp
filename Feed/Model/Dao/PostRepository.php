@@ -21,7 +21,7 @@
 			$params = array($last_id);
 			$query->execute($params);
 			$feedItems = $query->fetchAll();
-
+ 
 			return $feedItems;
 		}
 
@@ -71,12 +71,12 @@
 
 
 
- 	/*	// delete image name and title from db.
- 		public function delete($img) {
+ 		// delete post name and from db.
+ 		public function delete($post) {
  			try {
  					$db = $this->connection();
- 					$sql = "DELETE FROM $this->tabel WHERE imgName = ?";
- 					$params = array($img);
+ 					$sql = "DELETE FROM $this->table WHERE " . self::$postId  ."= ?";
+ 					$params = array($post);
  					$query = $db->prepare($sql);
 					$query->execute($params);
 				
@@ -84,7 +84,7 @@
  				die('An unknown error hase happened');
 				
  			}
- 		}*/
+ 		}
 
 
  	/*	// save updating image title.
