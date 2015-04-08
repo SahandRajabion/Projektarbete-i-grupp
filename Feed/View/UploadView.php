@@ -13,6 +13,7 @@ class uploadView {
 	private $uploadVideo = "uploadVideo";
 
 	public function __construct() {
+		
 		$this->mainView = new HTMLView();
 	}
 

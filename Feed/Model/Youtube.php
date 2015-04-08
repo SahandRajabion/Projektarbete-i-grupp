@@ -18,11 +18,11 @@
 		}
 
 		public function getvideoTitle() {
-			return $this->ValidateText($this->videoTitle);
+			return $this->ValidateTitle($this->videoTitle);
 		}
 
 
-		private static function ValidateText($string)
+		private static function ValidateTitle($string)
 		{		
 			// Tar bort alla specialtecken och gör om mellanslag till br taggar
 			$string = nl2br(htmlspecialchars($string));
