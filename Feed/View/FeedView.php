@@ -55,7 +55,7 @@ class FeedView
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
-        <link rel='stylesheet' href='css/style.css' />
+        <link rel='stylesheet' href='css/styles.css' />
         </head>
 
         <body>
@@ -79,7 +79,6 @@ class FeedView
                 <iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>
                
             </li>";
-        }
 
 
 
@@ -92,13 +91,15 @@ class FeedView
             "<li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
+<<<<<<< HEAD
             </li>".
             '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['PostId'] .'">'.
             '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
             '</form>';
-
-        
-
+=======
+            </li>";
+}
+>>>>>>> origin/master
 
             $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
 
@@ -126,7 +127,7 @@ class FeedView
         
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-        $html .= "<script type='text/javascript'>var last_id = " . $last_id . "></script> 
+        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script> 
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>
@@ -137,6 +138,7 @@ class FeedView
         <script type='text/javascript' src='js/jquery.min.js'></script>
         <script type='text/javascript' src='js/LoadMoreItems.js'></script>
         <script type='text/javascript' src='js/InsertComment.js'></script>
+        <script type='text/javascript' src='js/DeleteComment.js'></script>
         </html>";
 
         return $html;

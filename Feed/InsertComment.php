@@ -12,10 +12,10 @@ $validationResult = Comment::validate($values);
 
 if($validationResult)
 {
-	$commentRepository->InsertComment($values['body'], $values['PostId']);
+	$values['CommentId'] = $commentRepository->InsertComment($values['body'], $values['PostId']);
 	
 	$values['date'] = date('r', time());
-	
+
 	$comment = new Comment($values);
 
 	$htmlView->EchoHTML(json_encode(array('status'=>1, 'html'=>$comment->GetCommentHTML())));

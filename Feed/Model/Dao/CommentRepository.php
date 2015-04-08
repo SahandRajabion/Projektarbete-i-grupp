@@ -7,11 +7,30 @@ class CommentRepository extends Repository {
 
 	private static $comment = "body";
 	private static $postId = "PostId";
+	private static $commentId = "CommentId";
 
 	public function __construct() 
 	{
 		$this->db = $this->connection();
 		$this->dbTable = "comments";
+	}
+
+	public function DeleteComment($commentId) 
+	{
+		try 
+		{
+			$sql = "DELETE FROM $this->dbTable WHERE " . self::$commentId . "= ?";
+			$params = array($commentId);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			return;
+		}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();			
+		}
 	}
 
 	public function InsertComment($comment, $postId) 
@@ -22,9 +41,9 @@ class CommentRepository extends Repository {
 			$params = array($comment, $postId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
+			$commentId = $this->db->lastInsertId();
 
-			// Måste finnas för annars så kommer inte posten att visas efter lagts in
-			return;
+			return $commentId;
 		} 
 		
 		catch (PDOException $e) 
