@@ -28,6 +28,8 @@ class FeedView
     private $SaveEdit ="saveEDIT";
     private $hiddenImgEdit = "hiddenImgEdit";
     private static $postId = "PostId";
+    private $deletePost = "deletePost";
+    private $hiddenPostId = "hiddenPostId";
 
     public function __construct() 
     {
@@ -65,11 +67,14 @@ class FeedView
         {
             $last_id = $feedItem['PostId'];
 
-            $html .= 
+            $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
             "<li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
-            </li>";
+            </li>".
+            '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['PostId'] .'">'.
+            '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
+            '</form>';
 
             $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
 
@@ -85,9 +90,9 @@ class FeedView
                 <form class='comment-form' method='post' action=''>
                     <div>
                          <input type='hidden' id='" . self::$postId . "' name='" . self::$postId . "' value='" . $feedItem['PostId'] . "'>
-                        <label for='body'>Skriv en kommentar</label>
+                        <label for='body'>Add a comment</label>
                         <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                        <input type='submit' id='submit' value='Kommentera'/>
+                        <input type='submit' id='submit' value='Comment'/>
                     </div>
                 </form>
             </div>";
@@ -225,6 +230,14 @@ class FeedView
         
     }
 
+    public function getHiddenPOSTid() {
+        if (isset($_POST[$this->hiddenPostId])) {
+            $_SESSION[$this->session] = $_POST[$this->hiddenPostId];
+            return $_POST[$this->hiddenPostId];
+        }
+        
+    }
+
     public function GetSaved() {
         if (isset($_POST[$this->SaveEdit])) {
             return true;
@@ -249,6 +262,13 @@ class FeedView
 
     public function hasSubmitToDel() {
         if (isset($_POST[$this->del])) {
+            return true;
+        }
+    }
+
+
+    public function hasSubmitToDelApost() {
+        if (isset($_POST[$this->deletePost])) {
             return true;
         }
     }

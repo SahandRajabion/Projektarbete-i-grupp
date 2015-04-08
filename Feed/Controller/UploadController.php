@@ -64,9 +64,19 @@
 			return $this->feedView->hasSubmitToDel();
 		}
 
+
+		private function hasSubmitToDelApost() {
+			return $this->feedView->hasSubmitToDelApost();
+		}
+
 		private function getHiddenID() {
 			return $this->feedView->getHiddenId();
 		}
+
+		private function getHiddenpostID() {
+			return $this->feedView->getHiddenPOSTid();
+		}
+
 
 		private function getConforimYes() {
 			return $this->feedView->getYesDel();
@@ -128,6 +138,25 @@
 			}		
 		}
 
+
+		//Delete post from db.
+		public function removePostromDb() {
+			if ($this->hasSubmitToDelApost()) {
+				var_dump($this->getHiddenpostID());			
+						$this->postModel->removePost($this->getHiddenpostID());
+						echo '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong> '.$this->getHiddenpostID().' togs bort.</strong></div>';
+
+			}
+
+			else if ($this->getConforimNo()) {
+				header('Location: ?page=FeedView');	
+			}		
+		}
+
+
 		private function hasSubmitToEdits() {
 			return $this->feedView->hasSubmitToEdit();
 		}
@@ -164,6 +193,7 @@
 
 		//Render upload funcation.
 		public function imgUpload() {
+			$this->removePostromDb();
 			$this->uploadPage->RenderUploadForm();
 			$this->removeImageFromFolder();
 			$counter = 1;

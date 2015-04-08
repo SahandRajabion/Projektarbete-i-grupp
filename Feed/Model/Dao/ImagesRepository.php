@@ -21,7 +21,7 @@
  					$db = $this->connection();
  					$sql = "INSERT INTO $this->tabel (".self::$imgName. ", " .self::$Title. ")VALUES(?,?)";
  					$params = array($img->getImgName(),$img->GetTITLE());
- 					$query = $db->prepare($sql);
+ 		 			$query = $db->prepare($sql);
  					$query->execute($params);
 						
  			} catch (PDOException $ex) {

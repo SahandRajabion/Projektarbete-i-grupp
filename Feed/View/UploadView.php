@@ -26,7 +26,7 @@ class uploadView {
 			'<div id=upload>'.
 			'<form id="imageform" class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
 			'<fieldset class="upload">' .
-			'<input type="File" name="'.$this->images.'"" >'.
+			'<input type="File" name="'.$this->images.'"" id="images" >'.
 			'<br>'.
 			'<br>'.
 			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela med dig... " wrap="hard"></textarea>' .
