@@ -22,9 +22,9 @@ class CommentRepository extends Repository {
 			$params = array($comment, $postId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
+			$commentId = $this->db->lastInsertId();
 
-			// Måste finnas för annars så kommer inte posten att visas efter lagts in
-			return;
+			return $commentId;
 		} 
 		
 		catch (PDOException $e) 

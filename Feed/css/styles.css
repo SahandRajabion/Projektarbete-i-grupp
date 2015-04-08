@@ -115,7 +115,6 @@ textarea[name=body] {
 .comment .date{
 	font-size:10px;
 	padding:6px 0;
-	position:absolute;
 	right:15px;
 	top:10px;
 	color:#bbb;
@@ -141,7 +140,6 @@ label span.error{
 	position:relative;
 	right:-10px;
 }
-
 
 .addCommentContainer input[type=text],
 .addCommentContainer textarea
@@ -182,4 +180,9 @@ label span.error{
 #submit:hover{
 	background-color:#80cdf5;
 	border-color:#52b1e2;
+}
+
+.del_button 
+{
+	float: right;
 }

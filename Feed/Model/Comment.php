@@ -13,7 +13,10 @@ class Comment
 	{
 		$this->data['date'] = strtotime($this->data['date']);
 
-		return '<div class="comment">				
+		return '<div class="comment">
+		<a class="del_button" id="del-' . $this->data["CommentId"] . '">
+  		<img src="images/icon_del.gif" border="0" />
+  		</a>				
 				<div class="date">' . date('j F Y H:i:s', $this->data['date']) . '</div>
 				<p>' . $this->data['body'] . '</p>
 			</div>';
