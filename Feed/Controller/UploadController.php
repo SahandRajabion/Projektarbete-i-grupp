@@ -7,6 +7,8 @@
 	require_once('View/CookieStorage.php');
 	require_once('Model/Posts.php');
 	require_once('Model/PostModel.php');
+	require_once('Model/YoutubeModel.php');
+	require_once('Model/Youtube.php');
 
 
 
@@ -21,6 +23,8 @@
 	    private $cookieStorage;
 	    private $posts;
 	    private $postModel;
+	    private $video;
+	    private $youtubeModel;
 
 		private static $UPLOADEDSUCCESSED = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
@@ -44,12 +48,26 @@
 			$this->feedView = new FeedView();
 			$this->cookieStorage = new CookieStorage();
 			$this->postModel = new PostModel();
+			$this->youtubeModel = new YoutubeModel();
 
 		}
 
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
 			return $this->uploadPage->hasSubmitToUpload();
+		}
+
+		private function DidUsrSubmitVideo() {
+			return $this->uploadPage->hasSubmitVideoUpload();
+		}
+
+
+		private function GetVideoTitle() {
+			return $this->uploadPage->getVideoTitle();
+		}
+
+		private function GetUrlCode() {
+			return $this->uploadPage->getUrlCode();
 		}
 
 		private function getFileName() {
@@ -161,6 +179,16 @@
 				}
 		}
 		
+		public function youtubeUpload(){
+
+				if($this->DidUsrSubmitVideo()){
+				$video = new Youtube($this->GetVideoTitle(), $this->GetUrlCode());
+				$this->youtubeModel->addVideo($video);
+
+
+			}
+
+		}
 
 		//Render upload funcation.
 		public function imgUpload() {
@@ -168,6 +196,8 @@
 			$this->removeImageFromFolder();
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
+
+		
 	
 			if ($this->DidHasSubmit() == true) {
 
