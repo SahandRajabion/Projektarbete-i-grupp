@@ -81,7 +81,7 @@ class FeedView
             </li>";
 
 
-
+        }
             // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
         foreach ($feedItems as $feedItem) 
         {
@@ -91,15 +91,10 @@ class FeedView
             "<li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
-<<<<<<< HEAD
             </li>".
             '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['PostId'] .'">'.
             '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
             '</form>';
-=======
-            </li>";
-}
->>>>>>> origin/master
 
             $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
 
