@@ -75,7 +75,7 @@
  		public function delete($post) {
  			try {
  					$db = $this->connection();
- 					$sql = "DELETE FROM $this->table WHERE " . self::$postId  ."= ?";
+ 					$sql = "DELETE FROM $this->tabel WHERE " . self::$postId  ."= ?";
  					$params = array($post);
  					$query = $db->prepare($sql);
 					$query->execute($params);
