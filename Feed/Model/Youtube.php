@@ -3,13 +3,11 @@
 
 	class Youtube {
 
-		private $videoTitle;
 		private $videoURL;
  	
 
-		public function __construct($videoTitle, $videoURL) {
+		public function __construct($videoURL) {
 	
-			$this->videoTitle = $videoTitle;	
 			$this->videoURL = $videoURL;
 		} 
 
@@ -17,20 +15,5 @@
 			return $this->videoURL;
 		}
 
-		public function getvideoTitle() {
-			return $this->ValidateTitle($this->videoTitle);
-		}
-
-
-		private static function ValidateTitle($string)
-		{		
-			// Tar bort alla specialtecken och gör om mellanslag till br taggar
-			$string = nl2br(htmlspecialchars($string));
-			
-			// Tar bort de mellanslag som finns kvar
-			$string = str_replace(array(chr(10), chr(13)), '', $string);
 		
-			return $string;
-		}
-
 	}

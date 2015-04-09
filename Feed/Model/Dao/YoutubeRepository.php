@@ -5,7 +5,6 @@
  	class YoutubeRepository extends Repository {
 
  		private static $id  = "id";
- 		private static $urlName = "name";
  		private static $urlCode = "code";
 
  		public function __construct() {
@@ -34,8 +33,8 @@
  	public function AddVideo(Youtube $video) {
  			try {	
  					$db = $this->connection();
- 					$sql = "INSERT INTO $this->table (".self::$urlName. "," .self::$urlCode. ")VALUES(?,?)";
- 					$params = array($video->getvideoTitle(), $video->getvideoURL());
+ 					$sql = "INSERT INTO $this->table (".self::$urlCode.")VALUES(?)";
+ 					$params = array($video->getvideoURL());
  					$query = $db->prepare($sql);
  					$query->execute($params);
 						

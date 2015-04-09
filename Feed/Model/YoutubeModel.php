@@ -11,25 +11,9 @@
  			$this->youtubeRepository = new YoutubeRepository();
  		}
 
- 		/*public function removeImages($img) {
- 			$this->imagesRepository->delete($img);
-						 
- 		}*/
-
-
+ 	
  		public function addVideo(Youtube $video) {
  			 $this->youtubeRepository->AddVideo($video);
  		}
 
-
- 		
-
-
- 		/*public function EditImagesInformation(Images $img) {
- 			$this->imagesRepository->SaveEdit($img);
- 		}
-
- 		public function getImages($name) {
-			return $this->imagesRepository->getImagesInformation($name);
-		}*/
  	}

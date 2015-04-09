@@ -25,6 +25,13 @@
 	    private $postModel;
 	    private $video;
 	    private $youtubeModel;
+	    private $fullURL;
+	    private $newURL;
+
+	    //RegEx validering för flera olika format på en youtube URL.
+	    private $regExYoutube = "/^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?=.*v=((\w|-){11}))(?:\S+)?$/";
+
+	    
 
 		private static $UPLOADEDSUCCESSED = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
@@ -104,8 +111,7 @@
 			return $this->feedView->getNoDel();
 		}
 
-
-
+	
 		//Send image path to validation class.
 		private function getImgPath() {
 			$this->validation->getImgRoot($this->imgRoot);
@@ -208,16 +214,26 @@
 				}
 		}
 		
-		public function youtubeUpload(){
+			public function youtubeUpload(){
 
-				if($this->DidUsrSubmitVideo()){
-				$video = new Youtube($this->GetVideoTitle(), $this->GetUrlCode());
-				$this->youtubeModel->addVideo($video);
+				if($this->DidHasSubmit()){
 
+					$this->fullURL = $this->GetTitle();
 
-			}
+					if (preg_match($this->regExYoutube, $this->fullURL)) {
+
+					$this->newURL = substr($this->fullURL, 32);
+					$video = new Youtube($this->newURL);
+					$this->youtubeModel->addVideo($video);
+    				
+    				} 
+			   
+			  }
 
 		}
+
+
+
 
 		//Render upload funcation.
 		public function imgUpload() {
@@ -229,6 +245,7 @@
 	
 			if ($this->DidHasSubmit() == true) {
 
+				if (!preg_match($this->regExYoutube, $this->GetTitle())) {
 
 				// check if has file and make sure that the file have a right type.
 				 if (is_uploaded_file($_FILES[$this->fileName]['tmp_name'])) {
@@ -316,7 +333,7 @@
 						return $this->uploadPage->imageUpload($this->validation->errorToMessage());
 						}
 					 }
-			}
+			}  }
 		}	
 
 	}

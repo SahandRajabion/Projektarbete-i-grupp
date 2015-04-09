@@ -32,6 +32,9 @@ class FeedView
     private static $id = "id";
     private $deletePost = "deletePost";
     private $hiddenFeedId = "hiddenFeedId";
+    
+
+
 
     public function __construct() 
     {
@@ -47,7 +50,7 @@ class FeedView
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
-        //$last_id = 0;
+        $last_id = 0;
 
         $html = "<!DOCTYPE html>
         <html>
@@ -80,7 +83,8 @@ class FeedView
 
                 if (empty($feedItem['code']) == false) 
                 {
-                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";
+
                 }
 
                 $html .= "
@@ -264,5 +268,7 @@ class FeedView
             return true;
         }
     }
+
+    
 
 }
