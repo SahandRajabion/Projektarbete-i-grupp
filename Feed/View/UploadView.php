@@ -27,17 +27,13 @@ class uploadView {
 			$uploadForm =
 			'<div id=upload>'.
 			'<form id="imageform" class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
-			'<fieldset class="upload">' .
 			'<input type="File" name="'.$this->images.'"" id="images" >'.
 			'<br>'.
 			'<br>'.
-			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela med dig... " wrap="hard"></textarea>' .
+			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela med dig ..." wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
-			'<input id="'.$this->upload.'" type="submit" name="'.$this->upload.'" value="Ladda upp" class="btn btn-info" ></br>' .
-
-		
-			'</fieldset>'.
+			'<input id="submit" type="submit" name="'.$this->upload.'" value="Ladda upp"></br>' .
 			'</form>'.
 			'</div>';
 			return $uploadForm;

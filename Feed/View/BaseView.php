@@ -23,7 +23,7 @@ class BaseView
 		//Show menu
 		public function showMenu() {	
 			    $html = "<ul class='nav navbar-nav'>";
-			    $html .= "<li><a href='?".self::$page."=".self::$FeedView."'>Hem</a></li>";
+			 //   $html .= "<li><a href='?".self::$page."=".self::$FeedView."'>Hem</a></li>";
 				$html .= "</ul>";
 				$html .= "</div>";
 				$html .="</nav>";

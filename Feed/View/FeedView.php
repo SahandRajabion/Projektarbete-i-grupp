@@ -57,7 +57,7 @@ class FeedView
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
-        <link rel='stylesheet' href='css/styles.css' />
+        <link rel='stylesheet' href='css/style.css' />
         </head>
 
         <body>
@@ -71,28 +71,27 @@ class FeedView
      foreach ($feedItems as $feedItem) 
         {
                 $last_id = $feedItem['Date'];
-                $html .= "<div id='post" . $feedItem['id'] . "'> <form class='post-remove' method='post' action=''> 
-                <li>
-                <h2>" . $feedItem['Post'] . "</h2>
-                <p>" . $feedItem['Date'] . "</p>";
+                $html .= "<div class='post' id='post" . $feedItem['id'] . "'> 
+                <form class='post-remove' method='post' action=''> 
+                <input type='image' src='images/icon_del.gif' id='deleteimage' border='0' alt='submit' />
+                <div class='date'>" . $feedItem['Date'] . "</div>
+                <p>" . $feedItem['Post'] . "</p>
+                <p>". $feedItem['Title'] . "</p>";
 
                 if (empty($feedItem['imgName']) == false) 
                 {
-                    $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' id='ImgSize' class='preview'>";
+                    $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
                 }
 
                 if (empty($feedItem['code']) == false) 
                 {
-                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";
-
+                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
                 }
 
                 $html .= "
                 <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
                 <input type='hidden' name='".$this->hiddenFeedId."' id='".$this->hiddenFeedId."' value='". $feedItem['id'] ."'>
-                <input type='submit' name='submit' value='Ta bort'>
                 </form>
-                </li>
                 ";
 
                 $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
@@ -117,7 +116,7 @@ class FeedView
                 </div>
                 </div>";                
         }
-        
+
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
         $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script> 
                 </ul>

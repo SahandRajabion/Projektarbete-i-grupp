@@ -88,18 +88,24 @@ textarea[name=body] {
     resize: none;
 }
 
+textarea[name=message] 
+{
+	resize: none;
+}
+
 .comment,
 .addCommentContainer{
 	
 	/* Syling the comments and the comment form container */
 	
 	padding:12px;
-	width:400px;
+	width:370px;
 	position:relative;
 	background-color:#fcfcfc;
 	border:1px solid white;
-	color:#888;
+	color:black;
 	margin-bottom:15px;
+	margin-top: 15px;
 	margin-left: auto;
   	margin-right: auto;
 	
@@ -107,9 +113,9 @@ textarea[name=body] {
 	-webkit-border-radius:10px;
 	border-radius:10px;
 
-	-moz-box-shadow:2px 2px 0 #c2c2c2;
-	-webkit-box-shadow:2px 2px 0 #c2c2c2;
-	box-shadow:2px 2px 0 #c2c2c2;
+	-moz-box-shadow:2px 2px 2px 2px #c2c2c2;
+	-webkit-box-shadow:2px 2px 2px  2px #c2c2c2;
+	box-shadow:2px 2px 2px 2px #c2c2c2;
 }
 
 .comment .date{
@@ -117,12 +123,12 @@ textarea[name=body] {
 	padding:6px 0;
 	right:15px;
 	top:10px;
-	color:#bbb;
+	color:black;
 }
 
 .comment p,
 .addCommentContainer p{
-	font-size:18px;
+	font-size:16px;
 	line-height:1.5;
 	overflow-x:hidden;
 }
@@ -182,7 +188,44 @@ label span.error{
 	border-color:#52b1e2;
 }
 
-.delete_button 
+#deleteimage, .delete_button 
 {
 	float: right;
+}
+
+.post{
+	
+	/* Syling the comments and the comment form container */
+	
+	padding:12px;
+	width:500px;
+	position:relative;
+	background-color:#fcfcfc;
+	border:1px solid white;
+	color:black;
+	margin-bottom:15px;
+	margin-left: auto;
+  	margin-right: auto;
+	
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+
+	-moz-box-shadow:2px 2px 0 #c2c2c2;
+	-webkit-box-shadow:2px 2px 0 #c2c2c2;
+	box-shadow:2px 2px 0 #c2c2c2;
+}
+
+.post .date{
+	font-size:10px;
+	padding:6px 0;
+	right:15px;
+	top:10px;
+	color:black;
+}
+
+.post p{
+	font-size:16px;
+	line-height:1.5;
+	overflow-x:hidden;
 }

@@ -25,52 +25,53 @@ $html = "";
 
 foreach ($feedItems as $feedItem) 
 {
-    $last_id = $feedItem['Date'];
-    $html .= "<div id='post" . $feedItem['id'] . "'> <form class='post-remove' method='post' action=''> 
-    <li>
-    <h2>" . $feedItem['Post'] . "</h2>
-    <p>" . $feedItem['Date'] . "</p>";
+        $last_id = $feedItem['Date'];
+        
+        $html .= "<div class='post' id='post" . $feedItem['id'] . "'> 
+        <form class='post-remove' method='post' action=''> 
+        <input type='image' src='images/icon_del.gif' id='deleteimage' border='0' alt='submit' />
+        <div class='date'>" . $feedItem['Date'] . "</div>
+        <p>" . $feedItem['Post'] . "</p>
+        <p>". $feedItem['Title'] . "</p>";
 
-    if (empty($feedItem['imgName']) == false) 
-    {
-        $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' id='ImgSize' class='preview'>";
-    }
-
-    if (empty($feedItem['code']) == false) 
-    {
-        $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
-    }
-
-    $html .= "
-    <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
-    <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
-    <input type='submit' name='submit' value='Ta bort'>
-    </form>
-    </li>
-    ";
-
-    $comments = $commentRepository->GetCommentsForPost($feedItem['id']);
-
-    if (empty($comments) == false) 
-    {
-        foreach ($comments as $comment) 
+        if (empty($feedItem['imgName']) == false) 
         {
-            $html .= $comment->GetCommentHTML();
-        }            
-    }
+            $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
+        }
 
-    $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
-        <form class='comment-form' method='post' action=''>
-            <div>
-                 <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
-                <label for='body'>Skriv en kommentar</label>
-                <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                <input type='submit' id='submit' value='Kommentera'/>
-            </div>
+        if (empty($feedItem['code']) == false) 
+        {
+            $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+        }
+
+        $html .= "
+        <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
+        <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
         </form>
-    </div>
-    </div>";                
-}    
+        ";
+
+        $comments = $commentRepository->GetCommentsForPost($feedItem['id']);
+
+        if (empty($comments) == false) 
+        {
+            foreach ($comments as $comment) 
+            {
+                $html .= $comment->GetCommentHTML();
+            }            
+        }
+
+        $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
+            <form class='comment-form' method='post' action=''>
+                <div>
+                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
+                    <label for='body'>Skriv en kommentar</label>
+                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                    <input type='submit' id='submit' value='Kommentera'/>
+                </div>
+            </form>
+        </div>
+        </div>";                
+}
 
 // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
 if ($last_id != NULL) 
