@@ -6,8 +6,7 @@ $(document).ready(function()
 	{
  		e.preventDefault(); 		
 		var form = $(this);
-		var postId = $('#PostId', form).val();
-
+		var id = $('#id', form).val();
 		if(working) return false;
 		
 		working = true;
@@ -19,15 +18,15 @@ $(document).ready(function()
 			if(msg.status)
 			{
 				// Ifall den lyckades så gör så senaste kommentaren visas
-				$(msg.html).hide().insertBefore('#addCommentContainer' + postId).slideDown();
-				$('#body', '#addCommentContainer' + postId).val('');
+				$(msg.html).hide().insertBefore('#addCommentContainer' + id).slideDown();
+				$('#body', '#addCommentContainer' + id).val('');
 			}
 
 			else 
 			{
 				// Visa fel om det finns
 				$.each(msg.errors,function(k,v){
-					$('#addCommentContainer' + postId + ' label[for='+k+']').append('<span class="error">'+v+'</span>');
+					$('#addCommentContainer' + id + ' label[for='+k+']').append('<span class="error">'+v+'</span>');
 				});
 			}
 		},'json');

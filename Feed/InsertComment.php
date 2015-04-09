@@ -12,7 +12,7 @@ $validationResult = Comment::validate($values);
 
 if($validationResult)
 {
-	$values['CommentId'] = $commentRepository->InsertComment($values['body'], $values['PostId']);
+	$values['CommentId'] = $commentRepository->InsertComment($values['body'], $values['id']);
 	
 	$values['date'] = date('r', time());
 

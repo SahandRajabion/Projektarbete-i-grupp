@@ -1,18 +1,19 @@
 <?php
 	
 	require_once('Model/Dao/Repository.php');
-
+	require_once('Model/Images.php');
+	
  	class ImagesRepository extends Repository {
 
 
- 		private static $imgId  = "imgId";
+ 		private static $imgId  = "id";
  		private static $imgName = "imgName";
  		private static $Title = "Title";
 
 
 
  		public function __construct() {
- 			$this->tabel = "pictures";
+ 			$this->tabel = "feed";
  		}
 
  		//Added image name and title to db.

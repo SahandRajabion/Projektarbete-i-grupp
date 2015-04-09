@@ -29,7 +29,7 @@ class FeedView
     private $EditInfo = "Edit";
     private $SaveEdit ="saveEDIT";
     private $hiddenImgEdit = "hiddenImgEdit";
-    private static $postId = "PostId";
+    private static $id = "id";
     private $deletePost = "deletePost";
     private $hiddenPostId = "hiddenPostId";
 
@@ -63,41 +63,72 @@ class FeedView
                 </div>
                 <div class='content'>
                 <ul id='items'>";
-       $html .= $this->mainView->echoHTML($this->DisplayAllImagesForUsers()) ."<br>";
-
+    
         $last_id = 0;
 
-        // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
-        foreach ($videoItems as $videoItem) 
-        {
-            $last_id = $videoItem['id'];
 
-            $html .= 
-            "<li>
-                <h2>" . $videoItem['name'] . "</h2>
 
-                <iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>
-               
-            </li>";
-
+        $Images = glob("View/Images/*.*");
+        foreach ($Images as $value) {
+            $img = $this->imagesModel->getImages(basename($value));
+            $SoSoon = "";
+            if($img->GetTITLE() == "") {
+                $SoSoon .="";
+            }
+            if ($value != "") {
+                # code...
+            $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
+            "<li>".'<strong> '.$img->GetTITLE().$SoSoon.'</strong>'.
+            '<img  src="'.$value.'" id="ImgSize" class="preview">'.
+            '<input type="hidden" name="'.$this->hiddenImgID.'" value="'.basename($value).'">'.
+            '<input type="submit" name="'.$this->del.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
+            '<input type="submit" name="'.$this->EditInfo.'" value="Redigera titeln" class="btn btn-warning">'."</li>".
+            '</form>';
+            }
 
         }
-            // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
-        foreach ($feedItems as $feedItem) 
-        {
-            $last_id = $feedItem['PostId'];
 
-            $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
-            "<li>
+
+        // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+ 
+            
+        foreach ($videoItems as $videoItem) 
+        {
+            if ($videoItem['code'] != "") {
+                # code...
+               $last_id = $videoItem['id'];
+               $html .= 
+                "<li>
+                    <iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>
+               
+                </li>";
+            }
+
+        }
+
+
+        
+            // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+
+            
+
+
+     foreach ($feedItems as $feedItem) 
+        {
+            if ($feedItem['Post'] != "") {
+                # code...
+                $last_id = $feedItem['id'];
+                $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
+                "<li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p> " . $feedItem['Date'] . "</p>
-            </li>".
-            '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['PostId'] .'">'.
-            '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
-            '</form>';
-
-            $comments = $this->commentRepository->GetCommentsForPost($feedItem['PostId']);
-
+                </li>".
+                '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['id'] .'">'.
+                '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
+                '</form>';
+            }
+          
+            $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
             if (empty($comments) == false) 
             {
                 foreach ($comments as $comment) 
@@ -105,11 +136,10 @@ class FeedView
                     $html .= $comment->GetCommentHTML();
                 }            
             }
-
-            $html .= "<div id='addCommentContainer" . $feedItem['PostId'] . "' class='addCommentContainer'>
+            $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
                 <form class='comment-form' method='post' action=''>
                     <div>
-                         <input type='hidden' id='" . self::$postId . "' name='" . self::$postId . "' value='" . $feedItem['PostId'] . "'>
+                         <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
                         <label for='body'>Add a comment</label>
                         <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                         <input type='submit' id='submit' value='Comment'/>
@@ -117,6 +147,8 @@ class FeedView
                 </form>
             </div>";
         }
+
+        
 
 
         
@@ -140,50 +172,6 @@ class FeedView
     }
 
 
-
-        //Render all images for users.
-    public function DisplayAllImagesForUsers($msg = '') {
-
-
-        $responseMessages = '';
-        if ($msg != '') {
-            $responseMessages .= '<strong>' . $msg . '</strong>';
-        }
-
-        $MsgSuccesUpload = $this->cookieStorage->GetMessageCookie();
-        echo '<strong>' .$MsgSuccesUpload . '</strong>';
-        $this->cookieStorage->DeleteMessageCookie();    
-        $Images = glob("View/Images/*.*");
-        $pic = "<br><br><br><br>";
-
-
-        foreach ($Images as $value) {
-            $img = $this->imagesModel->getImages(basename($value));
-            $SoSoon = "";
-            if($img->GetTITLE() == "") {
-                $SoSoon .="";
-            }
-
-            $pic .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
-            '<strong> '.$img->GetTITLE().$SoSoon.'</strong>'.
-            '</div>'.
-            '<br>'.
-            '<br>'.
-            '<img  src="'.$value.'" id="ImgSize" class="preview">'.
-            '<br>'.
-            '<br>'.
-            '<input type="hidden" name="'.$this->hiddenImgID.'" value="'.basename($value).'">'.
-            '<input type="submit" name="'.$this->del.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
-            '<input type="submit" name="'.$this->EditInfo.'" value="Redigera titeln" class="btn btn-warning">'.
-            '</form>'.
-            '<br>'.
-            '<br>';
-
-        }   
-        $msgs = $responseMessages;              
-        echo $responseMessages;
-        return $pic;    
-    }
 
 
     //Edit form for image title.

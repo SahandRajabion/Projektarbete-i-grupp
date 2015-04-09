@@ -2,11 +2,13 @@
 
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
+require_once('Model/ImagesModel.php');
 require_once('View/HTMLView.php');
 
 $postRepository = new PostRepository();
 $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
+$imagesModel = new ImagesModel();
 
 // Hämtar ut sista id som har postats från Ajax anropet
 $last_id = $_POST['last_id'];
@@ -19,11 +21,48 @@ $html = "";
 // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
 foreach ($feedItems as $feedItem)
 {
-    $last_id = $feedItem['PostId'];
-    
-    $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
+    $last_id = $feedItem['id'];
+    if ($feedItem['Post'] != "") {
+        # code...
+         $html .= "<li> <h2>" . $feedItem['Post'] . "</h2> <p>" . $feedItem['Date'] . "</p> </li>";
+    }
 
-    $comments = $commentRepository->GetCommentsForPost($feedItem['PostId']);
+    if ($feedItem['code'] != "") {
+        # code...
+         $html .= 
+            "<li>
+                <iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>
+               
+            </li>";
+    }
+
+
+    if ($feedItem['imgName'] != "") {
+        # code...
+          
+        $imgs = glob("View/Images/*.*");
+
+        foreach ($imgs as $value) {
+            $img = $imagesModel->getImages(basename($value));
+            $SoSoon = "";
+            if($img->GetTITLE() == "") {
+                $SoSoon .="";
+            }
+
+            $html .= 
+            "<li>".'<strong> '.$img->GetTITLE().$SoSoon.'</strong>'.
+            '<img  src="'.$value.'" id="ImgSize" class="preview">'."</li>".
+            '<br>'.
+            '<br>';
+
+        } 
+
+
+
+
+    }
+
+    $comments = $commentRepository->GetCommentsForPost($feedItem['id']);
 
     if (empty($comments) == false) 
     {
@@ -33,10 +72,10 @@ foreach ($feedItems as $feedItem)
         }            
     }    
 
-    $html .= "<div id='addCommentContainer" . $feedItem['PostId'] . "' class='addCommentContainer'>
+    $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
         <form class='comment-form' method='post' action=''>
             <div>
-                <input type='hidden' id='PostId' name='PostId' value='" . $feedItem['PostId'] . "'>
+                <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
                 <label for='body'>Skriv en kommentar</label>
                 <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                 <input type='submit' id='submit' value='Kommentera'/>

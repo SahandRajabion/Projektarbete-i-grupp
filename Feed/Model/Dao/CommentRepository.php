@@ -6,7 +6,7 @@ require_once('Model/Comment.php');
 class CommentRepository extends Repository {
 
 	private static $comment = "body";
-	private static $postId = "PostId";
+	private static $id = "id";
 	private static $commentId = "CommentId";
 
 	public function __construct() 
@@ -33,12 +33,12 @@ class CommentRepository extends Repository {
 		}
 	}
 
-	public function InsertComment($comment, $postId) 
+	public function InsertComment($comment, $id) 
 	{
 		try 
 		{
-	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$postId . ") VALUES (?, ?)";
-			$params = array($comment, $postId);
+	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ") VALUES (?, ?)";
+			$params = array($comment, $id);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 			$commentId = $this->db->lastInsertId();
@@ -52,14 +52,14 @@ class CommentRepository extends Repository {
 		}
 	}
 
-	public function GetCommentsForPost($postId) 
+	public function GetCommentsForPost($id) 
 	{
 		$comments = array();
 
 		try 
 		{
-			$sql = "SELECT * FROM $this->dbTable WHERE " .  self::$postId . " = ?";
-			$params = array($postId);
+			$sql = "SELECT * FROM $this->dbTable WHERE " .  self::$id . " = ?";
+			$params = array($id);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 			$results = $query->fetchAll();

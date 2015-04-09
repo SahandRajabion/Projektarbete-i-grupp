@@ -22,6 +22,8 @@
  		}
 
 
+ 		
+
 
  		/*public function EditImagesInformation(Images $img) {
  			$this->imagesRepository->SaveEdit($img);
