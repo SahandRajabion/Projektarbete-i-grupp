@@ -58,18 +58,22 @@
 			echo "PDOException : " . $e->getMessage();
 		}
 	}
- 		// delete post name and from db.
- 		public function delete($post) {
- 			try {
+
+
+ 		public function DeletePost($id) {
+ 			try 
+ 			{
  					$db = $this->connection();
  					$sql = "DELETE FROM $this->table WHERE " . self::$id  ."= ?";
- 					$params = array($post);
+ 					$params = array($id);
  					$query = $db->prepare($sql);
 					$query->execute($params);
-				
- 			} catch (Exception $e) {
- 				die('An unknown error hase happened');
-				
+
+					return;
+ 			}
+ 			catch (Exception $e) 
+ 			{
+ 				die('An unknown error has happened');
  			}
  		}
 

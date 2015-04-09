@@ -31,7 +31,7 @@ class FeedView
     private $hiddenImgEdit = "hiddenImgEdit";
     private static $id = "id";
     private $deletePost = "deletePost";
-    private $hiddenPostId = "hiddenPostId";
+    private $hiddenFeedId = "hiddenFeedId";
 
     public function __construct() 
     {
@@ -68,7 +68,7 @@ class FeedView
      foreach ($feedItems as $feedItem) 
         {
                 $last_id = $feedItem['id'];
-                $html .= "<form method='post' action=''>
+                $html .= "<div id='post" . $feedItem['id'] . "'> <form class='post-remove' method='post' action=''> 
                 <li>
                 <h2>" . $feedItem['Post'] . "</h2>
                 <p>" . $feedItem['Date'] . "</p>";
@@ -80,16 +80,19 @@ class FeedView
 
                 if (empty($feedItem['code']) == false) 
                 {
-                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
                 }
 
                 $html .= "
+                <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
+                <input type='hidden' name='".$this->hiddenFeedId."' id='".$this->hiddenFeedId."' value='". $feedItem['id'] ."'>
+                <input type='submit' name='submit' value='Ta bort'>
+                </form>
                 </li>
-                <input type='hidden' name='".$this->hiddenPostId."' value='". $feedItem['id'] ."'>
-                <input type='submit' name='".$this->deletePost."' value='Ta bort' class=btn btn-danger'>
-                </form>";
+                ";
 
                 $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
+
                 if (empty($comments) == false) 
                 {
                     foreach ($comments as $comment) 
@@ -107,6 +110,7 @@ class FeedView
                             <input type='submit' id='submit' value='Kommentera'/>
                         </div>
                     </form>
+                </div>
                 </div>";                
         }
         
@@ -123,6 +127,7 @@ class FeedView
         <script type='text/javascript' src='js/LoadMoreItems.js'></script>
         <script type='text/javascript' src='js/InsertComment.js'></script>
         <script type='text/javascript' src='js/DeleteComment.js'></script>
+        <script type='text/javascript' src='js/DeletePost.js'></script>
         </html>";
 
         return $html;

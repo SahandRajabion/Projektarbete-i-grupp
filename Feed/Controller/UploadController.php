@@ -221,9 +221,7 @@
 
 		//Render upload funcation.
 		public function imgUpload() {
-			$this->removePostromDb();
 			$this->uploadPage->RenderUploadForm();
-			$this->removeImageFromFolder();
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
 
