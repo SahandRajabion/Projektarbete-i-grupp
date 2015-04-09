@@ -30,7 +30,7 @@ class uploadView {
 			'<input type="File" name="'.$this->images.'"" id="images" >'.
 			'<br>'.
 			'<br>'.
-			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela med dig ..." wrap="hard"></textarea>' .
+			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela ett Inlägg / Skriv en bildtitel eller ladda upp en youtube länk i rutan!" wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
 			'<input id="submit" type="submit" name="'.$this->upload.'" value="Ladda upp"></br>' .
