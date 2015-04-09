@@ -47,8 +47,7 @@ class FeedView
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
-        $videoItems = $this->youtubeRepository->getVideos();
-
+        $last_id = 0;
 
         $html = "<!DOCTYPE html>
         <html>
@@ -64,95 +63,53 @@ class FeedView
                 <div class='content'>
                 <ul id='items'>";
     
-        $last_id = 0;
 
-
-
-        $Images = glob("View/Images/*.*");
-        foreach ($Images as $value) {
-            $img = $this->imagesModel->getImages(basename($value));
-            $SoSoon = "";
-            if($img->GetTITLE() == "") {
-                $SoSoon .="";
-            }
-            if ($value != "") {
-                # code...
-            $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
-            "<li>".'<strong> '.$img->GetTITLE().$SoSoon.'</strong>'.
-            '<img  src="'.$value.'" id="ImgSize" class="preview">'.
-            '<input type="hidden" name="'.$this->hiddenImgID.'" value="'.basename($value).'">'.
-            '<input type="submit" name="'.$this->del.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
-            '<input type="submit" name="'.$this->EditInfo.'" value="Redigera titeln" class="btn btn-warning">'."</li>".
-            '</form>';
-            }
-
-        }
-
-
-        // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
- 
-            
-        foreach ($videoItems as $videoItem) 
-        {
-            if ($videoItem['code'] != "") {
-                # code...
-               $last_id = $videoItem['id'];
-               $html .= 
-                "<li>
-                    <iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>
-               
-                </li>";
-            }
-
-        }
-
-
-        
-            // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
-
-            
-
-
+     // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
         {
-            if ($feedItem['Post'] != "") {
-                # code...
                 $last_id = $feedItem['id'];
-                $html .= '<form id="remove" enctype="multipart/form-data" method="post" action="">'.
-                "<li>
+                $html .= "<form method='post' action=''>
+                <li>
                 <h2>" . $feedItem['Post'] . "</h2>
-                <p> " . $feedItem['Date'] . "</p>
-                </li>".
-                '<input type="hidden" name="'.$this->hiddenPostId.'" value="'. $feedItem['id'] .'">'.
-                '<input type="submit" name="'.$this->deletePost.'" value="Ta bort" class="btn btn-danger">&nbsp;'.
-                '</form>';
-            }
-          
-            $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
-            if (empty($comments) == false) 
-            {
-                foreach ($comments as $comment) 
+                <p>" . $feedItem['Date'] . "</p>";
+
+                if (empty($feedItem['imgName']) == false) 
                 {
-                    $html .= $comment->GetCommentHTML();
-                }            
-            }
-            $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
-                <form class='comment-form' method='post' action=''>
-                    <div>
-                         <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
-                        <label for='body'>Add a comment</label>
-                        <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                        <input type='submit' id='submit' value='Comment'/>
-                    </div>
-                </form>
-            </div>";
+                    $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' id='ImgSize' class='preview'>";
+                }
+
+                if (empty($feedItem['code']) == false) 
+                {
+                    $html .= "<iframe width='560' height='315' src='https://www.youtube.com/embed/". $videoItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+                }
+
+                $html .= "
+                </li>
+                <input type='hidden' name='".$this->hiddenPostId."' value='". $feedItem['id'] ."'>
+                <input type='submit' name='".$this->deletePost."' value='Ta bort' class=btn btn-danger'>
+                </form>";
+
+                $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
+                if (empty($comments) == false) 
+                {
+                    foreach ($comments as $comment) 
+                    {
+                        $html .= $comment->GetCommentHTML();
+                    }            
+                }
+
+                $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
+                    <form class='comment-form' method='post' action=''>
+                        <div>
+                             <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
+                            <label for='body'>Add a comment</label>
+                            <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                            <input type='submit' id='submit' value='Comment'/>
+                        </div>
+                    </form>
+                </div>";                
         }
-
         
-
-
-        
-
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
         $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script> 
                 </ul>
