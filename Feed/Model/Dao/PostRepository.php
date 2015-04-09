@@ -16,7 +16,7 @@
 		try 
 		{
 			$db = $this->connection();
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? ORDER BY " . self::$id . " ASC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$date  ." > ? ORDER BY " . self::$date . " DESC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$params = array($last_id);
 			$query->execute($params);
@@ -29,6 +29,9 @@
 			echo "PDOException : " . $e->getMessage();
 		}
 	}
+
+
+	
  		public function AddPost(Posts $post) {
  			try {	
  					$db = $this->connection();
@@ -46,7 +49,7 @@
 			
 		try { 
 			$db = $this->connection();
-			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$id . ") ASC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$date . ") DESC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$query->execute();
 			$feedItems = $query->fetchAll();

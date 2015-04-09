@@ -47,7 +47,7 @@ class FeedView
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
-        $last_id = 0;
+        //$last_id = 0;
 
         $html = "<!DOCTYPE html>
         <html>
@@ -67,7 +67,7 @@ class FeedView
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
         {
-                $last_id = $feedItem['id'];
+                $last_id = $feedItem['Date'];
                 $html .= "<div id='post" . $feedItem['id'] . "'> <form class='post-remove' method='post' action=''> 
                 <li>
                 <h2>" . $feedItem['Post'] . "</h2>
@@ -134,7 +134,11 @@ class FeedView
     }
 
 
-
+    public function getLastDate() {
+        if (isset($_POST[$this-> $last_id])) {
+            return $_POST[$this-> $last_id];
+        }
+    }
 
     //Edit form for image title.
     public function EditUploadedInformation() {

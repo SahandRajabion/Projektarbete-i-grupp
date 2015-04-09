@@ -4,25 +4,28 @@ require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('Model/ImagesModel.php');
 require_once('View/HTMLView.php');
+require_once('View/FeedView.php');
+
 
 $postRepository = new PostRepository();
 $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
 $imagesModel = new ImagesModel();
+$feedView = new FeedView();
 
 // Hämtar ut sista id som har postats från Ajax anropet
-$last_id = $_POST['last_id'];
+$last_id = $feedView->getLastDate();
 
 $feedItems = $postRepository->GetMorePostItems($last_id);
 
-$last_id = 0;
+//$last_id = 0;
 $html = "";
 
 // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
 
 foreach ($feedItems as $feedItem) 
 {
-    $last_id = $feedItem['id'];
+    $last_id = $feedItem['Date'];
     $html .= "<div id='post" . $feedItem['id'] . "'> <form class='post-remove' method='post' action=''> 
     <li>
     <h2>" . $feedItem['Post'] . "</h2>
@@ -70,10 +73,10 @@ foreach ($feedItems as $feedItem)
 }    
 
 // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-if ($last_id != 0) 
+if ($last_id != NULL) 
 {
     //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-	$html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
+    $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
 }
 
 $htmlView->EchoHTML($html);
