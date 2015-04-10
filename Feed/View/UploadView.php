@@ -4,10 +4,7 @@ require_once('HTMLView.php');
 
 class uploadView {
 	private $mainView;
-	private $upload = "upload";
-	private $images = "images";
 	private $show;
-	private $title = "message";
 	
 
 	public function __construct() {
@@ -16,25 +13,25 @@ class uploadView {
 	}
 
 	//render upload form.
-	public function imageUpload($msg = '') {
+	public function imageUpload() {
 			
-			$responseMessages = '';
-			if ($msg != '') {
-				$responseMessages .= '<strong>' . $msg . '</strong>';
-			}
-			
-			echo  $responseMessages;
 			$uploadForm =
-			'<div id=upload>'.
-			'<form id="imageform" class="form-horizontal" enctype="multipart/form-data" method="post" action="">' .
-			'<input type="File" name="'.$this->images.'"" id="images" >'.
+			'<div id="upload-wrapper">
+			 <div align="center">'.
+			'<form action="Upload.php" method="post" enctype="multipart/form-data" id="MyUploadForm">' .
+			'<input name="FileInput" id="FileInput" type="file" />'.
 			'<br>'.
 			'<br>'.
-			'<textarea name="'.$this->title.'" cols="35" rows="5"  maxlength="255" placeholder="Dela ett Inlägg / Skriv en bildtitel eller ladda upp en youtube länk i rutan!" wrap="hard"></textarea>' .
+			'<textarea name="Message" id="Message" cols="35" rows="5"  maxlength="255" placeholder="Dela ett Inlägg / Skriv en bildtitel eller ladda upp en youtube länk i rutan!" wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
-			'<input id="submit" type="submit" name="'.$this->upload.'" value="Ladda upp"></br>' .
+			'<input type="submit"  id="submit-btn" value="Ladda upp" />' .
+			'<img src="images/ajax-load.gif" id="loading-img" style="display:none;" alt="Var vänlig vänta..."/>'.
 			'</form>'.
+			'<div id="progressbox" ><div id="progressbar"></div ><div id="statustxt">0%</div></div>
+			<div id="output">
+			</div>'.
+			'</div>'.
 			'</div>';
 			return $uploadForm;
 	}
@@ -45,30 +42,18 @@ class uploadView {
 
 
 	public function getTitle() {
-		if (isset($_POST[$this->title])) {
-		 	return $_POST[$this->title];
+		if (isset($_POST['Message'])) {
+		 	return $_POST['Message'];
 		}
 	}
 
 
 
-	public function RenderUploadForm($errorMessage = '') {
+	public function RenderUploadForm() {
 
-		$uploadForm = $this->imageUpload($errorMessage);
+		$uploadForm = $this->imageUpload();
 		echo $this->mainView->echoHTML($uploadForm);
 	}
 
-	public function GetImgName() {
-		if (isset($_FILES[$this->images])) {
-			return $this->images;
-		}
-		
-	}
-
-	public function hasSubmitToUpload() {
-		if (isset($_POST[$this->upload])){
-			return true;
-		}
-	}
 
 }

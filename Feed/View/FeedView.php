@@ -5,7 +5,6 @@ require_once('Model/Dao/YoutubeRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('View/HTMLView.php');
 require_once('View/CookieStorage.php');
-require_once('View/UploadView.php');
 require_once('Model/ImagesModel.php');
 
 class FeedView
@@ -19,7 +18,6 @@ class FeedView
     private $hiddenImg = "hiddenImg";
     private static $page = "page";
     public static $upload ="upload";
-    private $uploadPage;
     private $title = "message";
     private $imagesModel;
     private $cookieStorage;
@@ -42,7 +40,6 @@ class FeedView
         $this->youtubeRepository = new YoutubeRepository();
         $this->commentRepository = new CommentRepository();
         $this->mainView = new HTMLView();
-        $this->uploadPage = new UploadView();
         $this->imagesModel = new ImagesModel();
         $this->cookieStorage = new CookieStorage();
     }
@@ -57,7 +54,7 @@ class FeedView
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
-        <link rel='stylesheet' href='css/style.css' />
+        <link rel='stylesheet' href='css/styles.css' />
         </head>
 
         <body>
@@ -131,6 +128,8 @@ class FeedView
         <script type='text/javascript' src='js/InsertComment.js'></script>
         <script type='text/javascript' src='js/DeleteComment.js'></script>
         <script type='text/javascript' src='js/DeletePost.js'></script>
+        <script type='text/javascript' src='script/AjaxUpload.js'></script>
+        <script type='text/javascript' src='script/jquery.form.min.js'></script>
         </html>";
 
         return $html;
