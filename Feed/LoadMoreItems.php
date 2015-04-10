@@ -2,7 +2,6 @@
 
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
-require_once('Model/ImagesModel.php');
 require_once('View/HTMLView.php');
 require_once('View/FeedView.php');
 
@@ -10,11 +9,9 @@ require_once('View/FeedView.php');
 $postRepository = new PostRepository();
 $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
-$imagesModel = new ImagesModel();
-$feedView = new FeedView();
 
 // Hämtar ut sista id som har postats från Ajax anropet
-$last_id = $feedView->getLastDate();
+$last_id = $_POST['last_id'];
 
 $feedItems = $postRepository->GetMorePostItems($last_id);
 

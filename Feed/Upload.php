@@ -19,17 +19,16 @@
 			$counter = 1;
 
 
-		 function GetUrlCode() {
+		 function GetUrlCode() 
+		 {
 			return $uploadPage->getUrlCode();
 		}
 
 		 	if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
 			{
-				$UploadDirectory	= $imgRoot; 
+				$UploadDirectory = $imgRoot; 
 	
-				//check if this is an ajax request
-			
-	
+
 				//Is file size is less than allowed size.
 				if ($_FILES["FileInput"]["size"] > 5242880) {
 				echo("Filen storlek är för stor!");
@@ -79,7 +78,6 @@
 						$newURL = substr($fullURL, 32);
 						$video = new Youtube($newURL);
 						$youtubeModel->addVideo($video);
-    				
     					} 
 					}
 

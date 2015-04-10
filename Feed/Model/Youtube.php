@@ -1,19 +1,15 @@
 <?php
 	
+class Youtube {
 
-	class Youtube {
+	private $videoURL;
 
-		private $videoURL;
- 	
+	public function __construct($videoURL) 
+	{
+		$this->videoURL = $videoURL;
+	} 
 
-		public function __construct($videoURL) {
-	
-			$this->videoURL = $videoURL;
-		} 
-
-		public function getvideoURL() {
-			return $this->videoURL;
-		}
-
-		
+	public function getvideoURL() {
+		return $this->videoURL;
 	}
+}

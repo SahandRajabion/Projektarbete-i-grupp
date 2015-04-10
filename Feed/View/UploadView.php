@@ -1,19 +1,9 @@
 <?php
 
-require_once('HTMLView.php');
-
-class uploadView {
-	private $mainView;
-	private $show;
-	
-
-	public function __construct() {
-		
-		$this->mainView = new HTMLView();
-	}
+class UploadView {
 
 	//render upload form.
-	public function imageUpload() {
+	public function ImageUpload() {
 			
 			$uploadForm =
 			'<div id="upload-wrapper">
@@ -36,23 +26,15 @@ class uploadView {
 			return $uploadForm;
 	}
 
-	public function renderAllImages($imgRoot) {
-		$this->show = $imgRoot;
-	}
-
-
 	public function getTitle() {
 		if (isset($_POST['Message'])) {
 		 	return $_POST['Message'];
 		}
 	}
 
-
-
-	public function RenderUploadForm() {
-
-		$uploadForm = $this->imageUpload();
-		echo $this->mainView->echoHTML($uploadForm);
+	public function RenderUploadForm() 
+	{
+		echo $this->ImageUpload();
 	}
 
 
