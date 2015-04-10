@@ -68,6 +68,7 @@
 					if (!preg_match($regExYoutube, $uploadPage->getTitle())) {
 						$post = new Posts($uploadPage->getTitle());
 						$postModel->addPost($post);
+						echo("Inlägget lagts till!");
 					}
 					else
 					{
@@ -78,6 +79,7 @@
 						$newURL = substr($fullURL, 32);
 						$video = new Youtube($newURL);
 						$youtubeModel->addVideo($video);
+						echo("Youtube klippet lagts till!");
     					} 
 					}
 
