@@ -1,10 +1,10 @@
 <?php
 
 require_once('View/FeedView.php');
-require_once('View/BaseView.php');
+require_once('View/Navigation.php');
 
 
-class MasterController extends BaseView
+class MasterController extends Navigation
 {
 	private $feedView;
 
@@ -17,9 +17,9 @@ class MasterController extends BaseView
 		{			
 			try 
 			{		
-				switch (BaseView::GetPage()) {	
+				switch (Navigation::GetPage()) {	
 
-					case BaseView::$FeedView:
+					case Navigation::$FeedView:
 						return $this->feedView->GetFeedHTML();
 						break;
 					}

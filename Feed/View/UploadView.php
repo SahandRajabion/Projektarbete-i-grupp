@@ -1,10 +1,10 @@
 <?php
 
-class UploadView {
+class UploadView 
+{
 
-	//render upload form.
-	public function ImageUpload() {
-			
+	public function ImageUpload() 
+	{		
 			$uploadForm =
 			'<div id="upload-wrapper">
 			 <div align="center">'.

@@ -1,11 +1,6 @@
 <?php
 
-require_once('HTMLView.php');
-
-/**
-* Base view class
-*/
-class BaseView
+class Navigation
 {
 	public static $FeedView = "FeedView";
 	private static $page = "page";
