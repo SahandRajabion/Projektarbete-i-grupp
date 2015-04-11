@@ -2,14 +2,11 @@
 
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
-require_once('View/UploadView.php');
 
 class FeedView
 {
     private $postRepository;
     private $commentRepository;
-    private $uploadView;
-
     private $title = "message";
     private $hiddenFeedId = "hiddenFeedId";
     private $imgName = "imgName";
@@ -21,7 +18,6 @@ class FeedView
 
     public function __construct() 
     {
-        $this->uploadView = new UploadView();
         $this->postRepository = new PostRepository();
         $this->commentRepository = new CommentRepository();
     }
@@ -36,16 +32,12 @@ class FeedView
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
-        <link rel='stylesheet' href='css/styles.css' />
         </head>
 
         <body>
                 <div class='header'>
                 </div>
-                <div class='content'>";
-
-        $html .= $this->uploadView->RenderUploadForm() . "<ul id='items'>";
-    
+                <div class='content'>";    
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
@@ -120,14 +112,6 @@ class FeedView
                 </div>
             </div>
         </body>
-        <script type='text/javascript' src='js/jquery.min.js'></script>
-        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
-        <script type='text/javascript' src='js/InsertComment.js'></script>
-        <script type='text/javascript' src='js/DeleteComment.js'></script>
-        <script type='text/javascript' src='js/DeletePost.js'></script>
-        <script type='text/javascript' src='js/EditPost.js'></script>
-        <script type='text/javascript' src='script/AjaxUpload.js'></script>
-        <script type='text/javascript' src='script/jquery.form.min.js'></script>
         </html>";
 
         return $html;

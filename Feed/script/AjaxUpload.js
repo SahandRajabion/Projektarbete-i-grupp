@@ -4,11 +4,12 @@ $(document).ready(function() {
 			beforeSubmit:  beforeSubmit,  // pre-submit callback 
 			success:       afterSuccess,  // post-submit callback 
 			uploadProgress: OnProgress, //upload progress callback 
-			resetForm: true        // reset the form after successful submit 
+			resetForm: true      // reset the form after successful submit 
 		}; 
 		
 	 $('#MyUploadForm').submit(function() { 
-			$(this).ajaxSubmit(options);  			
+			$(this).ajaxSubmit(options);  	
+
 			// always return false to prevent standard browser submit and page navigation 
 			return false; 
 		}); 
@@ -18,8 +19,8 @@ $(document).ready(function() {
 function afterSuccess()
 {
 	$('#submit-btn').show(); //hide submit button
-	$('#loading-img').hide(); //hide submit button
-	$('#progressbox').delay( 1000 ).fadeOut(); //hide progress bar
+	$('#progressbox').delay( 3000 ).fadeOut(); //hide progress bar
+
 }
 
 //function to check file size before uploading.
@@ -46,22 +47,20 @@ function beforeSubmit(){
             case 'image/png': 
 			case 'image/gif': 
 			case 'image/jpeg': 
-			case 'image/pjpeg':
                 break;
             default:
                 $("#output").html("<b>"+ftype+"</b> Filen är av en fel typ!");
 				return false
         }
 		
-		//Allowed file size is less than 5 MB (1048576)
+		
 		if(fsize>5242880) 
 		{
 			$("#output").html("<b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
 			return false
 		}
 				
-		$('#submit-btn').hide(); //hide submit button
-		$('#loading-img').show(); //hide submit button
+		$('#progressbox').delay( 1000 ).fadeOut();
 		$("#output").html("");  
 		} 
 
@@ -74,10 +73,12 @@ function OnProgress(event, position, total, percentComplete)
 	$('#progressbox').show();
     $('#progressbar').width(percentComplete + '%') //update progressbar percent complete
     $('#statustxt').html(percentComplete + '%'); //update status text
-    if(percentComplete>70)
+    if(percentComplete>50)
         {
-            $('#statustxt').css('color','#000'); //change status text to white after 70%
+            $('#statustxt').css('color','#000'); //change status text to white after 50%
+            $('#progressbox').delay( 3000 ).fadeOut();
         }
+
 }
 
 //function to format bites bit.ly/19yoIPO

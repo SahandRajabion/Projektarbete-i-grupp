@@ -1,6 +1,7 @@
 <?php
 
-	require_once('View/UploadView.php');
+	require_once('View/UploadView.php');	
+	require_once('View/FeedView.php');
 	require_once('Model/ImagesModel.php');
 	require_once('Model/Images.php');
 	require_once('Model/Posts.php');
@@ -13,6 +14,7 @@
 
 			$imgRoot = getcwd()."/View/Images/";
 			$uploadPage = new UploadView();
+			$feed = new FeedView();
 			$imagesModel = new ImagesModel();
 			$postModel = new PostModel();
 			$youtubeModel = new YoutubeModel();
@@ -22,13 +24,12 @@
 		 function GetUrlCode() 
 		 {
 			return $uploadPage->getUrlCode();
-		}
+		 }
 
 		 	if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
 			{
 				$UploadDirectory = $imgRoot; 
 	
-
 				//Is file size is less than allowed size.
 				if ($_FILES["FileInput"]["size"] > 5242880) {
 				echo("Filen storlek är för stor!");
@@ -55,6 +56,7 @@
 				   {
 				   	$images = new Images($NewFileName,$uploadPage->getTitle());
 					$imagesModel->addImages($images);
+					echo $feed->GetFeedHTML();
 					echo('Bilden har laddat upp!');
 					}else{
 					echo('Som fel har inträffat, gick inte att ladda upp bilden!');
@@ -68,18 +70,18 @@
 					if (!preg_match($regExYoutube, $uploadPage->getTitle())) {
 						$post = new Posts($uploadPage->getTitle());
 						$postModel->addPost($post);
-						echo("Inlägget lagts till!");
+						echo("Inlägget har lagts till!");
+						echo $feed->GetFeedHTML();		
 					}
 					else
 					{
 						$fullURL =$uploadPage->getTitle();
-
 						if (preg_match($regExYoutube, $fullURL)) {
-
 						$newURL = substr($fullURL, 32);
 						$video = new Youtube($newURL);
 						$youtubeModel->addVideo($video);
-						echo("Youtube klippet lagts till!");
+						echo $feed->GetFeedHTML();
+						echo("Youtube klippet har lagts till!");
     					} 
 					}
 
@@ -89,4 +91,3 @@
 				  	echo("Som fel har inträffat!");
 				  }
 				}
-			

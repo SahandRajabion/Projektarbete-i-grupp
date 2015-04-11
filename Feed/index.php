@@ -14,3 +14,13 @@ $html = $masterController->doControll();
 $htmlView->EchoHTML($html);
 
 ?>
+		<link rel='stylesheet' href='css/styles.css' />
+
+        <script type='text/javascript' src='js/jquery.min.js'></script>
+        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
+        <script type='text/javascript' src='js/InsertComment.js'></script>
+        <script type='text/javascript' src='js/DeleteComment.js'></script>
+        <script type='text/javascript' src='js/DeletePost.js'></script>
+        <script type='text/javascript' src='js/EditPost.js'></script>
+        <script type='text/javascript' src='script/AjaxUpload.js'></script>
+        <script type='text/javascript' src='script/jquery.form.min.js'></script>
