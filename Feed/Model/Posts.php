@@ -10,7 +10,8 @@ class Posts
 		$this->post = $post;	
 	} 
 
-	public function getPost() {
+	public function getPost() 
+	{
 		return $this->ValidateText($this->post);
 	}
 

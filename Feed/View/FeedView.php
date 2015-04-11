@@ -12,7 +12,13 @@ class FeedView
 
     private $title = "message";
     private $hiddenFeedId = "hiddenFeedId";
-    
+    private $imgName = "imgName";
+    private $postContent = "Post";
+    private $postTitle = "Title";
+    private $date = "Date";
+    private $id = "id";
+    private $code = "code";
+
     public function __construct() 
     {
         $this->uploadView = new UploadView();
@@ -30,7 +36,7 @@ class FeedView
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <title>Newsfeed</title>
-        <link rel='stylesheet' href='css/style.css' />
+        <link rel='stylesheet' href='css/styles.css' />
         </head>
 
         <body>
@@ -38,40 +44,51 @@ class FeedView
                 </div>
                 <div class='content'>";
 
-
-
-
         $html .= $this->uploadView->RenderUploadForm() . "<ul id='items'>";
     
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
         {
-                $last_id = $feedItem['Date'];
-                $html .= "<div class='post' id='post" . $feedItem['id'] . "'> 
-                <form class='post-remove' method='post' action=''> 
-                <input type='image' src='images/icon_del.gif' id='deleteimage' border='0' alt='submit' />
-                <div class='date'>" . $feedItem['Date'] . "</div>
-                <p>" . $feedItem['Post'] . "</p>
-                <p>". $feedItem['Title'] . "</p>";
+                $last_id = $feedItem[$this->date];
 
-                if (empty($feedItem['imgName']) == false) 
+                $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
+
+                $html .= "<form class='post-remove' method='post' action=''> 
+                <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+                <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
+                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                </form>";
+
+
+                $html .= "<form class='post-edit' method='post' action=''> 
+                <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
+                <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
+                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+                
+
+                $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
+                <div class='text-values'>
+                <p>" . $feedItem[$this->postContent] . "</p>
+                <p>". $feedItem[$this->postTitle] . "</p>
+                </div>";
+
+                if (empty($feedItem[$this->imgName]) == false) 
                 {
-                    $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
+                    $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
                 }
 
-                if (empty($feedItem['code']) == false) 
+                if (empty($feedItem[$this->code]) == false) 
                 {
-                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem[$this->code] ."' frameborder='0' allowfullscreen></iframe>";                  
                 }
 
                 $html .= "
-                <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
-                <input type='hidden' name='".$this->hiddenFeedId."' id='".$this->hiddenFeedId."' value='". $feedItem['id'] ."'>
                 </form>
                 ";
 
-                $comments = $this->commentRepository->GetCommentsForPost($feedItem['id']);
+                $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
 
                 if (empty($comments) == false) 
                 {
@@ -81,10 +98,10 @@ class FeedView
                     }            
                 }
 
-                $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
+                $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
                         <div>
-                             <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
+                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
                             <label for='body'>Skriv en kommentar</label>
                             <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                             <input type='submit' id='submit' value='Kommentera'/>
@@ -108,6 +125,7 @@ class FeedView
         <script type='text/javascript' src='js/InsertComment.js'></script>
         <script type='text/javascript' src='js/DeleteComment.js'></script>
         <script type='text/javascript' src='js/DeletePost.js'></script>
+        <script type='text/javascript' src='js/EditPost.js'></script>
         <script type='text/javascript' src='script/AjaxUpload.js'></script>
         <script type='text/javascript' src='script/jquery.form.min.js'></script>
         </html>";

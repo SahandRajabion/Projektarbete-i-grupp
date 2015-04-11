@@ -42,7 +42,7 @@ foreach ($feedItems as $feedItem)
         }
 
         $html .= "
-        <input type='hidden' name='imagename' id='imagename' value='" . $feedItem['imgName'] . "'>
+        <input type='hidden' name='imgName' id='imgName' value='" . $feedItem['imgName'] . "'>
         <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
         </form>
         ";

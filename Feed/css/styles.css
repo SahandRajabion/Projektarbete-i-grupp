@@ -164,7 +164,7 @@ label span.error{
 }
 
 
-#submit{
+#submit, #saveContentEdit, #saveTitleEdit {
 	
 	/* The submit button */
 	
@@ -183,13 +183,19 @@ label span.error{
 	border-radius:4px;
 }
 
-#submit:hover{
+#submit:hover, #saveContentEdit:hover, #saveTitleEdit:hover{
 	background-color:#80cdf5;
 	border-color:#52b1e2;
 }
 
-#deleteimage, .delete_button 
+#editpost, .delete_button
 {
+	float: right;
+}
+
+#deletepost
+{
+	margin-left: 5px;
 	float: right;
 }
 
@@ -280,4 +286,9 @@ label span.error{
 	left:50%;
 	position:absolute;
 	display:inline-block;
+}
+
+.resize 
+{
+	resize: none;
 }

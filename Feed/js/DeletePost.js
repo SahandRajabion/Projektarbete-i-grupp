@@ -3,7 +3,7 @@ $(document).ready(function()
 	$('.post-remove').live("submit", function(e) {
 		e.preventDefault();
 		var form = $(this);
-		var imageName = $('#imagename', form).val();
+		var imageName = $('#imgName', form).val();
 		var feedId = $('#hiddenFeedId', form).val();
 
 		$.ajax(

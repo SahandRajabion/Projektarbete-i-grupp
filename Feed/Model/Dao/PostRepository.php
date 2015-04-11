@@ -30,24 +30,43 @@
 		}
 	}
 
+	public function EditPost($feedId, $postContent, $postTitle) {
+		try 
+		{
+			$db = $this->connection();
+			$sql = "UPDATE feed SET Post = ?, Title = ? WHERE id = ?";
+			$params = array($postContent, $postTitle, $feedId);
+			$query = $db->prepare($sql);
+			$query->execute($params);
+		}
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}
+		
+	}
 
-	
- 		public function AddPost(Posts $post) {
- 			try {	
- 					$db = $this->connection();
- 					$sql = "INSERT INTO $this->table (".self::$post. ")VALUES(?)";
- 					$params = array($post->getPost());
- 					$query = $db->prepare($sql);
- 					$query->execute($params);
-						
- 			} catch (PDOException $ex) {
- 				die('An unknown error hase happened');
- 			}
- 		}
+	public function AddPost(Posts $post) 
+	{
+		try 
+		{	
+			$db = $this->connection();
+			$sql = "INSERT INTO $this->table (".self::$post. ")VALUES(?)";
+			$params = array($post->getPost());
+			$query = $db->prepare($sql);
+			$query->execute($params);	
+		} 
+		catch (PDOException $ex) 
+		{
+			die('An unknown error hase happened');
+		}
+	}
+
 		//Get all Posts.
 		public function getPosts() {
 			
-		try { 
+		try 
+		{ 
 			$db = $this->connection();
 			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$date . ") DESC LIMIT 0, 4";
 			$query = $db->prepare($sql);
@@ -62,22 +81,20 @@
 		}
 	}
 
+ 	public function DeletePost($id) {
+ 		try 	
+ 		{
+			$db = $this->connection();
+			$sql = "DELETE FROM $this->table WHERE " . self::$id  ."= ?";
+			$params = array($id);
+			$query = $db->prepare($sql);
+			$query->execute($params);
 
- 		public function DeletePost($id) {
- 			try 
- 			{
- 					$db = $this->connection();
- 					$sql = "DELETE FROM $this->table WHERE " . self::$id  ."= ?";
- 					$params = array($id);
- 					$query = $db->prepare($sql);
-					$query->execute($params);
-
-					return;
- 			}
- 			catch (Exception $e) 
- 			{
- 				die('An unknown error has happened');
- 			}
+			return;
  		}
-
+ 		catch (Exception $e) 
+ 		{
+ 			die('An unknown error has happened');
+ 		}
+ 	}
  }
