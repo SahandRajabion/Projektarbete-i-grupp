@@ -37,7 +37,8 @@ class FeedView
         <body>
                 <div class='header'>
                 </div>
-                <div class='content'>";    
+                <div class='content'>
+                <ul id='items'>";    
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
