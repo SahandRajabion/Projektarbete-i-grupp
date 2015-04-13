@@ -57,7 +57,6 @@
 				   	$images = new Images($NewFileName,$uploadPage->getTitle());
 					$imagesModel->addImages($images);
 					echo $feed->GetFeedHTML();
-					echo('Bilden har laddat upp!');
 					}else{
 					echo('Som fel har inträffat, gick inte att ladda upp bilden!');
 					}
@@ -70,7 +69,6 @@
 					if (!preg_match($regExYoutube, $uploadPage->getTitle())) {
 						$post = new Posts($uploadPage->getTitle());
 						$postModel->addPost($post);
-						echo("Inlägget har lagts till!");
 						echo $feed->GetFeedHTML();		
 					}
 					else
@@ -81,7 +79,6 @@
 						$video = new Youtube($newURL);
 						$youtubeModel->addVideo($video);
 						echo $feed->GetFeedHTML();
-						echo("Youtube klippet har lagts till!");
     					} 
 					}
 

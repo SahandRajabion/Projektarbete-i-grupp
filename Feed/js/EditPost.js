@@ -1,12 +1,10 @@
 $(document).ready(function() 
 {
-	$('.post-edit').live("submit", function(e) 
-	{
-		e.preventDefault();
-		var form = $(this);
-
-		$(form).delegate("#editpost", "click", function() 
+		$('#editpost').live("click", function(e) 
 		{
+			e.preventDefault();
+
+			var form = $(this.form);
 			var valueInput = "";
 
 			var postTitle = $('#Title', form).val();
@@ -18,21 +16,24 @@ $(document).ready(function()
 
 			if (postContent.length != 0) 
 			{
-				valueInput += "<textarea class='resize' name='postContent' id='postContent' rows='3' cols='30'>"  + postContent + "</textarea>";
+				valueInput += "<textarea class='resize' name='postContent' id='postContent' rows='3' cols='35' maxlength='255'>"  + postContent + "</textarea>";
 				valueInput += "<br> <input type='submit' id='saveContentEdit' value='Uppdatera'> <br>";			
 			}
 
 			else
 			{
-				valueInput += "<textarea class='resize' name='postTitle' id='postTitle' rows='3' cols='30'>"  + postTitle + "</textarea>";
+				valueInput += "<textarea class='resize' name='postTitle' id='postTitle' rows='3' cols='35' maxlength='255'>"  + postTitle + "</textarea>";
 				valueInput += "<br> <input type='submit' id='saveTitleEdit' value='Uppdatera' style='margin-bottom: 15px;'>";
 			}
 
 			$(".text-values", '#post' + feedId).html(valueInput);
 		});
 
-		 $(form).delegate("#saveTitleEdit", "click", function() 
+		 $('#saveTitleEdit').live("click", function(e) 
 		 {
+			e.preventDefault();
+			var form = $(this.form);
+
 			var newValueInput = "";
 
 			var editedPostTitle = $('#postTitle', form).val();
@@ -57,8 +58,12 @@ $(document).ready(function()
 				});
 		}); 
 
-		$(form).delegate("#saveContentEdit", "click", function() 
+		$("#saveContentEdit").live("click", function(e) 
 		{
+			e.preventDefault();
+			
+			var form = $(this.form);
+
 			var newValueInput = "";
 
 			var editedPostTitle = $('#postTitle', form).val();
@@ -84,5 +89,4 @@ $(document).ready(function()
 				});
 			}
 		});
-	});
 });

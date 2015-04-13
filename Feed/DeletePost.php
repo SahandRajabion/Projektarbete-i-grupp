@@ -6,7 +6,7 @@ $postRepository = new PostRepository();
 
 if (isset($_POST['image_name']) && empty($_POST['image_name']) == false) 
 {
-	unlink($_POST['image_name']);
+	unlink("View/Images/" . $_POST['image_name']);
 }
 
 if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))
