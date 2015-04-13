@@ -4,6 +4,9 @@ include('View/HTMLView.php');
 include('View/FeedView.php');
 require_once('Controller/MasterController.php');
 
+session_start();
+
+
 $htmlView = new HTMLView();
 $feedView = new FeedView();
 $masterController = new MasterController();
