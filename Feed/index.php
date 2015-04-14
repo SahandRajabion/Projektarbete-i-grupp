@@ -17,12 +17,16 @@ $html = $masterController->doControll();
 $htmlView->EchoHTML($html);
 
 ?>
-        <link rel='stylesheet' href='css/style.css' />
-        <script type='text/javascript' src='js/jquery.min.js'></script>
-        <script type='text/javascript' src='js/LoadMoreItems.js'></script>
-        <script type='text/javascript' src='js/InsertComment.js'></script>
-        <script type='text/javascript' src='js/DeleteComment.js'></script>
-        <script type='text/javascript' src='js/DeletePost.js'></script>
-        <script type='text/javascript' src='js/EditPost.js'></script>
-        <script type='text/javascript' src='script/AjaxUpload.js'></script>
-        <script type='text/javascript' src='script/jquery.form.min.js'></script>
+
+<link rel='stylesheet' href='css/style.css' />
+<link rel='stylesheet' href='css/bootstrap.min.css'>
+<script type='text/javascript' src='js/jquery.min.js'></script>
+<script type='text/javascript' src='js/LoadMoreItems.js'></script>
+<script type='text/javascript' src='js/InsertComment.js'></script>
+<script type='text/javascript' src='js/DeleteComment.js'></script>
+<script type='text/javascript' src='js/DeletePost.js'></script>
+<script type='text/javascript' src='js/EditPost.js'></script>
+<script type='text/javascript' src='js/UploadPost.js'></script>
+<script type='text/javascript' src='js/jquery.form.min.js'></script>
+<script type='text/javascript' src='js/bootstrap.min.js'></script>
+<script type='text/javascript' src='js/bootstrap.js'></script>

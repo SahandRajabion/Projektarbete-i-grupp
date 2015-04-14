@@ -8,7 +8,7 @@ class UploadView
 			$uploadForm =
 			'<div id="upload-wrapper">
 			 <div align="center">'.
-			'<form action="Upload.php" method="post" enctype="multipart/form-data" id="MyUploadForm">' .
+			'<form action="UploadPost.php" method="post" enctype="multipart/form-data" id="MyUploadForm">' .
 			'<input name="FileInput" id="FileInput" type="file" />'.
 			'<br>'.
 			'<br>'.
