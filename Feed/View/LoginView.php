@@ -68,7 +68,7 @@ class LoginView extends BaseView {
 
         $html = "</br>
         <a href='?$this->registerLocation' name='$this->registerLocation'>Register a new user</a>
-                   <h1>It Security Forum</h1>
+                   <h1>LSN (Linnéuniversitetet social network)</h1>
                     <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
 					      <legend>Enter your username and password</legend>
