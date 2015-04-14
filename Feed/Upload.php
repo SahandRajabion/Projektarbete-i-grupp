@@ -8,6 +8,7 @@
 	require_once('Model/PostModel.php');
 	require_once('Model/YoutubeModel.php');
 	require_once('Model/Youtube.php');
+	require_once('Model/Dao/CommentRepository.php');
 
 	$regExYoutube = "/^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?=.*v=((\w|-){11}))(?:\S+)?$/";
 
@@ -56,7 +57,7 @@
 				   {
 				   	$images = new Images($NewFileName,$uploadPage->getTitle());
 					$imagesModel->addImages($images);
-					echo $feed->GetFeedHTML();
+					echo $feed->GetNewestFeedHTML();
 					}else{
 					echo('Som fel har inträffat, gick inte att ladda upp bilden!');
 					}
@@ -69,7 +70,7 @@
 					if (!preg_match($regExYoutube, $uploadPage->getTitle())) {
 						$post = new Posts($uploadPage->getTitle());
 						$postModel->addPost($post);
-						echo $feed->GetFeedHTML();		
+						echo $feed->GetNewestFeedHTML();
 					}
 					else
 					{
@@ -78,7 +79,7 @@
 						$newURL = substr($fullURL, 32);
 						$video = new Youtube($newURL);
 						$youtubeModel->addVideo($video);
-						echo $feed->GetFeedHTML();
+						echo $feed->GetNewestFeedHTML();
     					} 
 					}
 

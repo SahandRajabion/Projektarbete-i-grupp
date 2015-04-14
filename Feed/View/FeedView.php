@@ -22,6 +22,77 @@ class FeedView
         $this->commentRepository = new CommentRepository();
     }
 
+    public function GetNewestFeedHTML()
+    {
+        $feedItems = $this->postRepository->getPosts();
+
+        $html = "";    
+
+        // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+        foreach ($feedItems as $feedItem) 
+        {
+                $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
+
+                $html .= "<form class='post-remove' method='post' action=''> 
+                <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+                <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
+                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                </form>";
+
+
+                $html .= "<form class='post-edit' method='post' action=''> 
+                <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
+                <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
+                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+                
+
+                $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
+                <div class='text-values'>
+                <p>" . $feedItem[$this->postContent] . "</p>
+                <p>". $feedItem[$this->postTitle] . "</p>
+                </div>";
+
+                if (empty($feedItem[$this->imgName]) == false) 
+                {
+                    $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
+                }
+
+                if (empty($feedItem[$this->code]) == false) 
+                {
+                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem[$this->code] ."' frameborder='0' allowfullscreen></iframe>";                  
+                }
+
+                $html .= "
+                </form>
+                ";
+
+                $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
+
+                if (empty($comments) == false) 
+                {
+                    foreach ($comments as $comment) 
+                    {
+                        $html .= $comment->GetCommentHTML();
+                    }            
+                }
+
+                $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
+                    <form class='comment-form' method='post' action=''>
+                        <div>
+                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
+                            <label for='body'>Skriv en kommentar</label>
+                            <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                            <input type='submit' id='submit' value='Kommentera'/>
+                        </div>
+                    </form>
+                </div>
+                </div>";                
+        }
+
+        return $html;
+    }    
+
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
@@ -105,7 +176,7 @@ class FeedView
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script> 
+        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>

@@ -1,23 +1,36 @@
 $(document).ready(function() { 
+	var working = false;
+
 	var options = { 
-			target:   '#output',   // target element(s) to be updated with server response 
+			target: '#items',   // target element(s) to be updated with server response 
 			beforeSubmit:  beforeSubmit,  // pre-submit callback 
 			success:       afterSuccess,  // post-submit callback 
 			uploadProgress: OnProgress, //upload progress callback 
 			resetForm: true      // reset the form after successful submit 
 		}; 
 		
-	 $('#MyUploadForm').submit(function() { 
-			$(this).ajaxSubmit(options);  	
+	 $('#MyUploadForm').submit(function(e) 
+	 { 		
+		e.preventDefault(); 
 
-			// always return false to prevent standard browser submit and page navigation 
-			return false; 
-		}); 
+		if(working) 
+		{
+		 	return false;
+		}
+
+		else 
+		{
+			$(this).ajaxSubmit(options);
+			working = true;	
+		}
+	}); 
 		
 
 //function after succesful file upload (when server response)
-function afterSuccess()
+function afterSuccess(responseText, statusText, xhr, $form)
 {
+	working = false;
+
 	$('#submit-btn').show(); //hide submit button
 	$('#progressbox').delay( 3000 ).fadeOut(); //hide progress bar
 
@@ -30,7 +43,7 @@ function beforeSubmit(){
 
 		if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
 		{
-			$("#output").html("Dela något!");
+			$("#output").html("<br>Dela något!");
 			return false
 		}
 
