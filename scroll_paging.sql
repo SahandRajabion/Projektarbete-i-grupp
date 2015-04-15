@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 14 apr 2015 kl 15:53
+-- Tid vid skapande: 15 apr 2015 kl 01:28
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.4.24
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=167 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=173 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -100,7 +100,13 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (163, '2015-04-13 20:52:39', '127.0.0.1', 1, 'Sahib'),
 (164, '2015-04-13 21:08:28', '127.0.0.1', 1, 'Sahand'),
 (165, '2015-04-13 21:22:37', '127.0.0.1', 1, 'Sahand'),
-(166, '2015-04-13 21:25:58', '127.0.0.1', 1, 'Sahand');
+(166, '2015-04-13 21:25:58', '127.0.0.1', 1, 'Sahand'),
+(167, '2015-04-14 16:17:01', '127.0.0.1', 0, 'sahib'),
+(168, '2015-04-14 16:17:19', '127.0.0.1', 0, 'sahib'),
+(169, '2015-04-14 16:17:44', '127.0.0.1', 0, 'Sahib'),
+(170, '2015-04-14 16:18:05', '127.0.0.1', 1, 'Sahib'),
+(171, '2015-04-14 16:41:35', '127.0.0.1', 0, 'Sahib'),
+(172, '2015-04-14 16:41:54', '127.0.0.1', 1, 'Sahib');
 
 -- --------------------------------------------------------
 
@@ -116,14 +122,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Dumpning av Data i tabell `comments`
---
-
-INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`) VALUES
-(1, 'https://www.youtube.com/watch?v=1XR0Gt_5AA8<br />', '2015-04-12 13:36:56', 86);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -136,57 +135,39 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `imgName` varchar(255) DEFAULT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `Post` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=95 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=298 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
-INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`) VALUES
-(56, NULL, NULL, 'Detta Ã¤r ett vanligt InlÃ¤gg!', NULL, '2015-04-09 20:35:07'),
-(57, NULL, NULL, NULL, 'Ia8b9B_EEGk', '2015-04-09 20:35:57'),
-(59, 'Penguins.jpg', 'Detta Ã¤r en bild titel !', NULL, NULL, '2015-04-09 20:48:10'),
-(60, NULL, NULL, NULL, 'LaeWO9RoKDA', '2015-04-10 14:05:56'),
-(61, NULL, NULL, 'sd', NULL, '2015-04-10 19:49:10'),
-(62, NULL, NULL, 'sad', NULL, '2015-04-10 19:49:48'),
-(63, NULL, NULL, 'asd', NULL, '2015-04-10 19:57:01'),
-(64, NULL, NULL, 'asd', NULL, '2015-04-10 19:57:02'),
-(65, NULL, NULL, 'ddd', NULL, '2015-04-10 19:57:41'),
-(66, NULL, NULL, 'ddd', NULL, '2015-04-10 19:57:41'),
-(67, NULL, NULL, 'qq', NULL, '2015-04-10 19:57:46'),
-(68, NULL, NULL, 'eeerre', NULL, '2015-04-10 20:03:08'),
-(69, NULL, NULL, 'qw', NULL, '2015-04-10 20:03:33'),
-(70, NULL, NULL, 'qw', NULL, '2015-04-10 20:03:34'),
-(71, NULL, NULL, 'qqq', NULL, '2015-04-10 20:04:00'),
-(72, NULL, NULL, 'q', NULL, '2015-04-10 20:06:22'),
-(73, NULL, NULL, 'ccc', NULL, '2015-04-10 20:06:52'),
-(74, NULL, NULL, 'zzz', NULL, '2015-04-10 20:07:11'),
-(75, NULL, NULL, 'aaa', NULL, '2015-04-10 20:07:46'),
-(76, NULL, NULL, 'ddd', NULL, '2015-04-10 20:08:15'),
-(77, NULL, NULL, 'asd', NULL, '2015-04-10 20:08:55'),
-(78, NULL, NULL, 'asdasd', NULL, '2015-04-10 20:09:58'),
-(79, '1375166633.jpg', '', NULL, NULL, '2015-04-10 20:10:10'),
-(80, NULL, NULL, 'asd', NULL, '2015-04-10 20:11:01'),
-(81, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5AA5', NULL, '2015-04-12 13:27:05'),
-(82, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5AA5', NULL, '2015-04-12 13:27:06'),
-(83, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5BB4', NULL, '2015-04-12 13:27:25'),
-(84, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5BB4', NULL, '2015-04-12 13:27:28'),
-(85, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5AA8q', NULL, '2015-04-12 13:27:44'),
-(86, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5AA8<br />', NULL, '2015-04-12 13:36:30'),
-(87, NULL, NULL, 'https://www.youtube.com/watch?v=1XR0Gt_5AA8<br />', NULL, '2015-04-12 13:37:06'),
-(88, NULL, NULL, 'https://www.youtube.com<br />/watch?v=1XR0Gt_5AA8<br />', NULL, '2015-04-12 13:38:00'),
-(89, NULL, NULL, NULL, '4OfU7CGY5DQ', '2015-04-12 13:38:13'),
-(90, NULL, NULL, NULL, 'AKcUdDWIHOI', '2015-04-12 13:44:38'),
-(91, NULL, NULL, NULL, 'AKcUdDWIHOI', '2015-04-12 13:44:38'),
-(92, NULL, NULL, NULL, 'AKcUdDWIHOI', '2015-04-12 13:46:07'),
-(93, NULL, NULL, NULL, 'AKcUdDWIHOI', '2015-04-12 13:46:30'),
-(94, NULL, NULL, NULL, 'AKcUdDWIHOI', '2015-04-12 13:47:29');
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `name`, `code`, `Date`) VALUES
+(260, '1240046840.jpg', '', '', NULL, NULL, '2015-04-12 12:22:16'),
+(261, NULL, NULL, NULL, NULL, '3d5so721PAY', '2015-04-12 13:37:36'),
+(262, NULL, NULL, NULL, NULL, '1XR0Gt_5AA8', '2015-04-12 13:39:35'),
+(274, NULL, NULL, '1111', NULL, NULL, '2015-04-12 21:31:22'),
+(275, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
+(276, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
+(277, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
+(278, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
+(279, NULL, NULL, '333', NULL, NULL, '2015-04-12 21:34:22'),
+(280, NULL, NULL, '333', NULL, NULL, '2015-04-12 21:34:23'),
+(281, NULL, NULL, '4', NULL, NULL, '2015-04-12 21:38:47'),
+(282, NULL, NULL, '4', NULL, NULL, '2015-04-12 21:38:47'),
+(283, NULL, NULL, '55', NULL, NULL, '2015-04-12 21:39:38'),
+(284, NULL, NULL, '55', NULL, NULL, '2015-04-12 21:39:39'),
+(285, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:17'),
+(286, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:18'),
+(287, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:19'),
+(288, NULL, NULL, '777', NULL, NULL, '2015-04-12 21:40:47'),
+(289, NULL, NULL, 'sss', NULL, NULL, '2015-04-14 16:19:15');
 
 -- --------------------------------------------------------
 
@@ -197,10 +178,12 @@ INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`) VALUES
 CREATE TABLE IF NOT EXISTS `user` (
   `UserId` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(20) NOT NULL,
+  `email` varchar(40) NOT NULL,
   `Hash` varchar(255) NOT NULL,
   `Role` int(11) NOT NULL DEFAULT '3',
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `Name` (`Username`),
+  UNIQUE KEY `email` (`email`),
   KEY `Id` (`UserId`),
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
@@ -211,10 +194,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumpning av Data i tabell `user`
 --
 
-INSERT INTO `user` (`UserId`, `Username`, `Hash`, `Role`) VALUES
-(34, 'Sahib', '$2a$10$rZfoaH.bGfyB7fUMlny1hel7ysgZcKpGpbXdVd0JiVfThQOSgPeBm', 1),
-(35, 'Tommy', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1),
-(36, 'Sahand', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1);
+INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`) VALUES
+(34, 'Sahib', 'sahib@hotmail.se', '$2a$10$Y.9z8htHcHlSRhx9py9ZwesH5eWGlhbvCnnaaCsVXGUBZ3OJ9gPKC', 1),
+(35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1),
+(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1);
 
 --
 -- Restriktioner för dumpade tabeller
