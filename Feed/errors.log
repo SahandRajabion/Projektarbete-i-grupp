@@ -1,1 +1,5 @@
 SQLSTATE[42S02]: Base table or view not found: 1146 Table 'scroll_paging.attempts' doesn't exist
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null

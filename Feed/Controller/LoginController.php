@@ -5,6 +5,7 @@ require_once("View/LoggedInView.php");
 require_once("View/HTMLView.php");
 require_once("View/LoginMessage.php");
 require_once("Model/LoginModel.php");
+require_once("View/ForgetPasswordView.php");
 require_once("helper/UserAgent.php");
 require_once("Validation/ValidatePassword.php");
 require_once("Validation/ValidateUsername.php");
@@ -26,6 +27,7 @@ class LoginController
     private $userAgent;
     private $userAgent2;
     private $showLoggedInPage;
+    private $showForgetPasswordPage;
     private $validateUsername;
     private $validatePassword;
     private $changePasswordView;
@@ -34,6 +36,7 @@ class LoginController
     private $hash;
     private $topic;
     private $author;
+    private $forgetPasswordView;
 
     public function __construct() {
         $this->loginView = new LoginView();
@@ -44,7 +47,7 @@ class LoginController
         $this->validateUsername = new ValidateUsername();
         $this->validatePassword = new ValidatePassword();
         $this->userRepository = new UserRepository();
-
+        $this->forgetPasswordView = new ForgetPasswordView();
         $this->hash = new Hash();
     }
 
@@ -52,11 +55,14 @@ class LoginController
      *Call controlfunctions
      */
     public function doControll() {
+            $this->doGoToForgetPasswordPage();
+            $this->doReturnToLoginPage();
             $this->doLogInCookie();
             $this->isLoggedIn();
             $this->doLogOut();
             $this->doLogIn();
             $this->renderPage();
+
 
     }
 
@@ -202,6 +208,23 @@ class LoginController
         }
     }
 
+
+    public function doGoToForgetPasswordPage() {
+        if ($this->loginView->didUserPressGoToForgetPasswordPage()) {
+            $this->showForgetPasswordPage = true;
+            $this->showLoginpage = false;
+        }
+    }
+
+    public function doReturnToLoginPage() {
+        if ($this->forgetPasswordView->didUserPressReturnToLoginPage()) {
+            echo("sahinbbbbbbbbbbbbbbbbbbbbb");
+            $this->showForgetPasswordPage = false;
+            $this->showLoginpage = true;
+        }
+    }
+
+
     /**
      * decides which view that should be rendered
      */
@@ -209,12 +232,15 @@ class LoginController
         if ($this->showLoggedInPage) {
             $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());  
         }
-
-        
+        else {
+            if ($this->showForgetPasswordPage) {
+                $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
+            }
 
             else {
                 $this->htmlView->echoHTML($this->loginView->showLoginpage());
             }
+          }
         }
     
 

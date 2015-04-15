@@ -1,6 +1,7 @@
 <?php
 
 require_once("Model/User.php");
+require_once("Model/UserForget.php");
 require_once("Model/Users.php");
 require_once("Model/Dao/Repository.php");
 
@@ -8,6 +9,7 @@ class UserRepository extends Repository
 {
 	private static $username = 'username';
 	private static $hash = 'hash';
+	private static $code = 'passreset';
 	private $db;
 	private $users;
 
@@ -81,6 +83,50 @@ class UserRepository extends Repository
 			}
 
 			return $this->users;
+		}
+
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}
+	}
+
+
+
+		public function getEmailForResetPassword($username) {
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$username . "= ?";
+			$params = array($username);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$results = $query->fetch();
+
+			if ($results == true) 
+			{
+				while ($results) {
+					# code...
+					$email = $results['email'];
+					return new UserForget($email);
+				}
+			}
+			else
+			{
+				return NULL;
+			}
+			
+		}
+
+
+
+
+	public function resetPassword($code, $username)
+	{
+		try 
+		{
+			$sql = "UPDATE $this->dbTable SET " . self::$code ."= ? WHERE " . self::$username ."= ?";
+			$params = array($code, $user);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
 		}
 
 		catch (PDOException $e) 

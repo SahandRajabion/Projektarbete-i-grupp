@@ -38,6 +38,13 @@ class LoginView extends BaseView {
             $this->cookie->save($name, null, time()-1);
     }
 
+    public function didUserPressGoToForgetPasswordPage() {
+        if (isset($_GET[$this->forgetPasswordLocation])) {
+            return true;
+        }
+        return false;
+    }
+
     public function hasCookieMessage() 
     {
         $value = $this->cookie->load($this->messageLocation);
@@ -67,11 +74,13 @@ class LoginView extends BaseView {
         }
 
         $html = "</br>
+        <h1>LSN (Linnéuniversitetet social network)</h1>
+        <br/>
         <a href='?$this->registerLocation' name='$this->registerLocation'>Register a new user</a>
-                   <h1>LSN (Linnéuniversitetet social network)</h1>
+        <br/>
+        <a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord?</a>
                     <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      <legend>Enter your username and password</legend>
 					      $this->message
 					      <div class='form-group'>
 					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Username: </label>
