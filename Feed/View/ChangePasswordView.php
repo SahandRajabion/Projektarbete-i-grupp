@@ -1,6 +1,7 @@
 <?php
 
 require_once("helper/CookieStorage.php");
+require_once("View/BaseView.php");
 
 class ChangePasswordView extends BaseView
 {

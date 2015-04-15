@@ -1,26 +1,32 @@
 <?php
 	
-	require_once('Model/Dao/PostRepository.php');
+require_once('Model/Dao/PostRepository.php');
 
- 	class PostModel {
+class PostModel 
+{
+	private $postRepository;
 
- 		private $postRepository;
+	public function __construct() 
+	{
+		$this->postRepository = new PostRepository();
+	}
 
- 		public function __construct() {
+	public function addImage(Image $image) {
+		 $this->postRepository->AddImage($image);
+	}	
 
- 			$this->postRepository = new PostRepository();
- 		}
+	public function addVideo(Youtube $video) 
+	{
+		$this->postRepository->AddVideo($video);
+	}
 
- 		public function removePost($post) {
- 			$this->postRepository->delete($post);
-						 
- 		}
+	public function addPost(Post $post) 
+	{
+		$this->postRepository->AddPost($post);
+	}
 
- 		public function addPost(Posts $post) {
- 			 $this->postRepository->AddPost($post);
- 		}
-
- 		public function getPosts($post) {
-			return $this->postRepository->getPosts($post);
-		}
- 	}
+	public function getPosts($post) 
+	{
+		return $this->postRepository->getPosts($post);
+	}
+}

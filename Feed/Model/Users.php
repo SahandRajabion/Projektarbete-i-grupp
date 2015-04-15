@@ -1,11 +1,8 @@
 <?php
 
-
 class Users 
 {
 	private $users;
-
-	private $userRepository;
 
 	public function __construct() 
 	{

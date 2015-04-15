@@ -2,11 +2,13 @@
 
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
+require_once('Model/LoginModel.php');
 
 class FeedView
 {
     private $postRepository;
     private $commentRepository;
+    private $loginModel;
     private $title = "message";
     private $hiddenFeedId = "hiddenFeedId";
     private $imgName = "imgName";
@@ -20,6 +22,7 @@ class FeedView
     {
         $this->postRepository = new PostRepository();
         $this->commentRepository = new CommentRepository();
+        $this->loginModel = new LoginModel();
     }
 
     public function GetNewestFeedHTML()
@@ -118,20 +121,22 @@ class FeedView
 
                 $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
 
-                $html .= "<form class='post-remove' method='post' action=''> 
-                <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
-                <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
-                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
-                </form>";
+                if ($this->loginModel->getId() == $feedItem['UserId']) 
+                {
+                    $html .= "<form class='post-remove' method='post' action=''> 
+                    <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+                    <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
+                    <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                    </form>";
 
 
-                $html .= "<form class='post-edit' method='post' action=''> 
-                <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
-                <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
-                <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
-                <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+                    $html .= "<form class='post-edit' method='post' action=''> 
+                    <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
+                    <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
+                    <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
+                    <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+                }
                 
-
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>

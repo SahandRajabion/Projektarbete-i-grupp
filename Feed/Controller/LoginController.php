@@ -1,5 +1,6 @@
 <?php
 
+require_once("View/ChangePasswordView.php");
 require_once("View/LoginView.php");
 require_once("View/LoggedInView.php");
 require_once("View/HTMLView.php");

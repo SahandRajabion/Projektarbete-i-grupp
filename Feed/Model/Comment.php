@@ -1,25 +1,45 @@
 <?php
 
+require_once("Model/LoginModel.php");
+
 class Comment
 {
 	private $data = array();
+	private $userId;
+	private $loginModel;
 	
-	public function __construct($data)
+	public function __construct($data, $userId)
 	{
 		$this->data = $data;
+		$this->userId = $userId;
+		$this->loginModel = new LoginModel();
+	}
+
+	public function GetUserId() 
+	{
+		return $this->userId;
 	}
 	
 	public function GetCommentHTML()
 	{
 		$this->data['date'] = strtotime($this->data['date']);
 
-		return '<div class="comment" id ="comment' .  $this->data["CommentId"] . '">
-		<a href="#" class="delete_button" id="' . $this->data["CommentId"] . '">
-  		<img src="images/icon_del.gif" border="0" />
-  		</a>				
-				<div class="date">' . date('j F Y H:i:s', $this->data['date']) . '</div>
+		$html = "";
+
+		$html .= '<div class="comment" id ="comment' .  $this->data["CommentId"] . '">';
+
+		if ($this->loginModel->getId() == $this->userId) {
+			$html .=
+			'<a href="#" class="delete_button" id="' . $this->data["CommentId"] . '">
+	  		<img src="images/icon_del.gif" border="0" />
+	  		</a>';
+  		}
+
+		$html .= '<div class="date">' . date('j F Y H:i:s', $this->data['date']) . '</div>
 				<p>' . $this->data['body'] . '</p>
 			</div>';
+
+		return $html;
 	}
 	
 	public static function validate(&$values)

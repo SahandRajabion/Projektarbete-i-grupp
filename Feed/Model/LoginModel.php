@@ -21,7 +21,8 @@ class LoginModel{
         $this->logRepository = new LogRepository();
     }
 
-    public function getId() {
+    public function getId() 
+    {
         return $_SESSION['id'];
     }
 

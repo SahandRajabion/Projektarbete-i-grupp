@@ -8,6 +8,7 @@ class CommentRepository extends Repository {
 	private static $comment = "body";
 	private static $id = "id";
 	private static $commentId = "CommentId";
+	private static $userId = "UserId";
 
 	public function __construct() 
 	{
@@ -33,12 +34,12 @@ class CommentRepository extends Repository {
 		}
 	}
 
-	public function InsertComment($comment, $id) 
+	public function InsertComment($comment, $id, $userId) 
 	{
 		try 
 		{
-	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ") VALUES (?, ?)";
-			$params = array($comment, $id);
+	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ", " . self::$userId . ") VALUES (?, ?, ?)";
+			$params = array($comment, $id, $userId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 			$commentId = $this->db->lastInsertId();
@@ -66,7 +67,7 @@ class CommentRepository extends Repository {
 
 			foreach ($results as $result) 
 			{
-				$comments[] = new Comment($result);
+				$comments[] = new Comment($result, $result['UserId']);
 			}
 
 			return $comments;

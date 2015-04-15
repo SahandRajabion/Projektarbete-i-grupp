@@ -1,23 +1,24 @@
 <?php
 	
-
-class Images 
+class Post
 {
-	private $imgName;
-	private $title;
-	
-	public function __construct($imgName,$title) 
+	private $post;
+	private $userId;
+
+	public function __construct($post, $userId) 
 	{
-		$this->imgName = $imgName;	
-		$this->title = $title;
+		$this->post = $post;
+		$this->userId = $userId;		
 	} 
 
-	public function getImgName() {
-		return $this->imgName;
+	public function getPost() 
+	{
+		return $this->ValidateText($this->post);
 	}
 
-	public function GetTITLE() {
-		return $this->ValidateText($this->title);
+	public function getUserId() 
+	{
+		return $this->userId;
 	}
 
 	private static function ValidateText($string)

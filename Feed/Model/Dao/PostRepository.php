@@ -1,18 +1,23 @@
 <?php
 	
-	require_once('Model/Dao/Repository.php');	
+require_once('Model/Dao/Repository.php');
+require_once('Model/Image.php');
 
- 	class PostRepository extends Repository {
- 		private static $id  = "id";
- 		private static $post = "Post";
- 		private static $date = "Date";
-
- 		public function __construct() {
- 			$this->table = "feed";
- 		}
- 	
- 		public function GetMorePostItems($last_id) {
+ class PostRepository extends Repository 
+ {
+	private static $id  = "id";
+	private static $post = "Post";
+	private static $date = "Date";
+	private static $userId = "UserId";
+	private static $urlCode = "code";
+	private static $imgName = "imgName";
+	private static $Title = "Title";
 		
+	public function __construct() {
+		$this->table = "feed";
+	}
+
+ 	public function GetMorePostItems($last_id) {	
 		try 
 		{
 			$db = $this->connection();
@@ -46,13 +51,13 @@
 		
 	}
 
-	public function AddPost(Posts $post) 
+	public function AddPost(Post $post) 
 	{
 		try 
 		{	
 			$db = $this->connection();
-			$sql = "INSERT INTO $this->table (".self::$post. ")VALUES(?)";
-			$params = array($post->getPost());
+			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ") VALUES (?, ?)";
+			$params = array($post->getPost(), $post->getUserId());
 			$query = $db->prepare($sql);
 			$query->execute($params);	
 		} 
@@ -62,9 +67,8 @@
 		}
 	}
 
-		//Get all Posts.
-		public function getPosts() {
-			
+	public function getPosts() 
+	{		
 		try 
 		{ 
 			$db = $this->connection();
@@ -97,4 +101,34 @@
  			die('An unknown error has happened');
  		}
  	}
+
+ 	public function AddVideo(Youtube $youtube) 
+ 	{
+		try 
+		{	
+			$db = $this->connection();
+			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ") VALUES(?, ?)";
+			$params = array($youtube->getVideoURL(), $youtube->getUserId());
+			$query = $db->prepare($sql);
+			$query->execute($params);
+		} 
+		catch (PDOException $ex) {
+			die('An unknown error hase happened');
+		}
+ 	}
+
+	public function AddImage(Image $image) {
+		try 
+		{	
+			$db = $this->connection();
+			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ") VALUES (?, ?, ?)";
+			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId());
+ 			$query = $db->prepare($sql);
+			$query->execute($params);
+		}
+		catch (PDOException $ex) 
+		{
+			die('An unknown error hase happened');
+		}
+	}
  }
