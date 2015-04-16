@@ -71,6 +71,23 @@ class UserRepository extends Repository
 		}
 	}
 
+
+	public function editForgotPassword(UserReset $user)
+	{
+		try 
+		{
+			$sql = "UPDATE $this->dbTable SET " . self::$hash ."= ? WHERE " . self::$code ."= ?";
+			$params = array($user->getPassword(), $user->getCode());
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+		}
+
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}
+	}
+
 	public function getAll() 
 	{
 		try 

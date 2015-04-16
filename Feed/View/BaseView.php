@@ -21,7 +21,7 @@ abstract class BaseView
     protected $adminPanelLocation = 'adminPanel';
     protected $id = 'id';
     protected $cookie;
-    protected $code = 'code';
+    protected $code = 'gjaQwrA';
 
 	public function getId() {
 	   if (isset($_GET[$this->id])) {

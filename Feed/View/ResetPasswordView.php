@@ -54,13 +54,6 @@
 		}
 	}
 
-	public function issetUsername() {
-		if (isset($_GET[$this->usernameLocation])) {
-			# code...
-			return true;
-		}
-	}
-
 
 	 public function getCode() {
 

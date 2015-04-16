@@ -54,11 +54,13 @@ class MasterController extends Navigation
 						$this->code = rand(10000,1000000);
 						$to = $userEmail->getEmail();
 						$subject = "LSN/ Forget password";
-						$message = "(Det här meddelandet går inte att svara på).
+						$message = "Hej ".$this->getUsername()." !
+
+								(Det här meddelandet går inte att svara på).
 
 								 För att ändra lösenordet klicka på länken nedan:
 								 
-								 http://www.sahibsahib.com/LSN/Feed/?code=$this->code&username=".$this->getUsername();
+								 http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
 						$this->userRepository->resetPassword($this->code,$this->getUsername());
 						

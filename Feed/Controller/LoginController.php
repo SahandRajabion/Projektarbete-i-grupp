@@ -14,6 +14,7 @@ require_once("Validation/ValidateUsername.php");
 require_once("Model/Hash.php");
 require_once("Model/Dao/UserRepository.php");
 require_once("Model/User.php");
+require_once("Model/UserReset.php");
 require_once("Settings.php");
 require_once('recaptchalib.php');
 require_once("View/RegisterView.php");
@@ -50,7 +51,7 @@ class LoginController
         $this->htmlView = new HTMLView();
         $this->loggedInView = new LoggedInView();
         $this->model = new LoginModel();
-         $this->registerView = new RegisterView();
+        $this->registerView = new RegisterView();
         $this->changePasswordView = new ChangePasswordView();
         $this->validateUsername = new ValidateUsername();
         $this->validatePassword = new ValidatePassword();
@@ -232,12 +233,11 @@ class LoginController
     }
 
     public function didGetResetPasswordPage() {
-                 if ($this->resetPassword->issetCode() && $this->resetPassword->issetUsername()) {
+                 if ($this->resetPassword->issetCode()) {
                     # code...
                     $this->showResetPasswordPage = true;
                     $this->showForgetPasswordPage = false;
                     $this->showLoginpage = false;
-                    $username = $this->resetPassword->getUsername();
                     $code = $this->resetPassword->getCode();
                     if ($this->userRepository->getAllUserInfoForPassUpdate($code) == true) {
                         # code...
@@ -269,8 +269,8 @@ class LoginController
                             {
 
                                 $hash = $this->hash->crypt($newPassword);
-                                $user = new User($username, $hash);
-                                $this->userRepository->editPassword($user);
+                                $user = new UserReset($code, $hash);
+                                $this->userRepository->editForgotPassword($user);
 
                                 echo("Lösenordet har återskapat <a href='?login'>Logga in</a>");
 
