@@ -47,7 +47,7 @@ foreach ($feedItems as $feedItem)
     }
 
     $html .= "<div class='date'>" . $feedItem['Date'] . "</div>
-    <b>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</b> har delat:
+    <b>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</b> delade:
     <div class='text-values'>
     <p>" . $feedItem['Post'] . "</p>
     <p>". $feedItem['Title'] . "</p>

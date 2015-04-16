@@ -52,8 +52,8 @@ if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
 	if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
 	{
 	   	$image = new Image($NewFileName,$uploadPage->getTitle(), $loginController->getId());
-		$postModel->addImage($image);
-		echo $feed->GetNewestFeedHTML();
+		$id = $postModel->addImage($image);
+		echo $feed->GetNewestFeedHTML($id);
 	}
 
 	else
@@ -70,20 +70,20 @@ else
 		{
 
 			$post = new Post($uploadPage->getTitle(), $loginController->getId());
-			$postModel->addPost($post);
-			echo $feed->GetNewestFeedHTML();
+			$id = $postModel->addPost($post);
+			echo $feed->GetNewestFeedHTML($id);
 		}
 
 		else
 		{
-			$fullURL =$uploadPage->getTitle();
+			$fullURL = $uploadPage->getTitle();
 
 			if (preg_match($regExYoutube, $fullURL)) 
 			{
 				$newURL = substr($fullURL, 32);
 				$video = new Youtube($newURL, $loginController->getId());
-				$postModel->addVideo($video);
-				echo $feed->GetNewestFeedHTML();
+				$id = $postModel->addVideo($video);
+				echo $feed->GetNewestFeedHTML($id);
 			} 
 		}
 	}

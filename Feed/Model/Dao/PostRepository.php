@@ -20,9 +20,9 @@ require_once('Model/Image.php');
  	public function GetMorePostItems($last_id) {	
 		try 
 		{
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
-			$query = $db->prepare($sql);
+			$query = $this->db->prepare($sql);
 			$params = array($last_id);
 			$query->execute($params);
 			$feedItems = $query->fetchAll();
@@ -39,10 +39,10 @@ require_once('Model/Image.php');
 	{
 		try 
 		{
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "UPDATE feed SET Post = ?, Title = ? WHERE id = ?";
 			$params = array($postContent, $postTitle, $feedId);
-			$query = $db->prepare($sql);
+			$query = $this->db->prepare($sql);
 			$query->execute($params);
 		}
 		catch (PDOException $e) 
@@ -55,11 +55,15 @@ require_once('Model/Image.php');
 	{
 		try 
 		{	
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ") VALUES (?, ?)";
 			$params = array($post->getPost(), $post->getUserId());
-			$query = $db->prepare($sql);
-			$query->execute($params);	
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$id = $this->db->lastInsertId();
+
+			return $id;
 		} 
 		catch (PDOException $ex) 
 		{
@@ -67,13 +71,32 @@ require_once('Model/Image.php');
 		}
 	}
 
+	public function getPost($id) 
+	{		
+		try 
+		{ 
+			$this->db = $this->connection();
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id . " = ?";
+			$params = array($id);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+			$feedItem = $query->fetch();
+			return $feedItem;
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 	public function getPosts() 
 	{		
 		try 
 		{ 
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
-			$query = $db->prepare($sql);
+			$query = $this->db->prepare($sql);
 			$query->execute();
 			$feedItems = $query->fetchAll();
 			return $feedItems;
@@ -88,10 +111,10 @@ require_once('Model/Image.php');
  	public function DeletePost($id) {
  		try 	
  		{
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "DELETE FROM $this->table WHERE " . self::$id  ."= ?";
 			$params = array($id);
-			$query = $db->prepare($sql);
+			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
 			return;
@@ -106,11 +129,14 @@ require_once('Model/Image.php');
  	{
 		try 
 		{	
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ") VALUES(?, ?)";
 			$params = array($youtube->getVideoURL(), $youtube->getUserId());
-			$query = $db->prepare($sql);
+			$query = $this->db->prepare($sql);
 			$query->execute($params);
+
+			$id = $this->db->lastInsertId();
+			return $id;
 		} 
 		catch (PDOException $ex) {
 			die('An unknown error hase happened');
@@ -120,11 +146,14 @@ require_once('Model/Image.php');
 	public function AddImage(Image $image) {
 		try 
 		{	
-			$db = $this->connection();
+			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ") VALUES (?, ?, ?)";
 			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId());
- 			$query = $db->prepare($sql);
+ 			$query = $this->db->prepare($sql);
 			$query->execute($params);
+
+			$id = $this->db->lastInsertId();
+			return $id;
 		}
 		catch (PDOException $ex) 
 		{

@@ -12,17 +12,17 @@ class PostModel
 	}
 
 	public function addImage(Image $image) {
-		 $this->postRepository->AddImage($image);
+		return $this->postRepository->AddImage($image);
 	}	
 
 	public function addVideo(Youtube $video) 
 	{
-		$this->postRepository->AddVideo($video);
+		return $this->postRepository->AddVideo($video);
 	}
 
 	public function addPost(Post $post) 
 	{
-		$this->postRepository->AddPost($post);
+		return $this->postRepository->AddPost($post);
 	}
 
 	public function getPosts($post) 
