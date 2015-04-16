@@ -2,7 +2,6 @@
 
 require_once('View/FeedView.php');
 require_once('View/Navigation.php');
-require_once('View/UploadView.php');
 require_once("Model/LoginModel.php");
 require_once("Settings.php");
 require_once("View/BaseView.php");
@@ -17,7 +16,6 @@ require_once("View/ResetPasswordView.php");
 class MasterController extends Navigation
 {
 	private $feedView;
-	private $uploadView;
 	private $loginController;
     private $htmlView;
     private $loggedInView;    
@@ -30,7 +28,6 @@ class MasterController extends Navigation
 	function __construct()
 	{
 		$this->feedView = new FeedView();
-		$this->uploadView = new UploadView();	
 		$this->forgetPasswordView = new ForgetPasswordView();
 		$this->model = new LoginModel();
 		$this->loginController = new LoginController();
@@ -94,10 +91,11 @@ class MasterController extends Navigation
 				switch (Navigation::GetPage()) {	
 
 					case Navigation::$FeedView:
-						if($this->loginController->isAuthenticated()){
-						$this->uploadView->RenderUploadForm();
-						return $this->feedView->GetFeedHTML();
+						if($this->loginController->isAuthenticated())
+						{
+							return $this->feedView->GetFeedHTML();
 						}
+
 						break;
 					}
 				}

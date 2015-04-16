@@ -4,11 +4,13 @@ require_once('Model/Dao/UserRepository.php');
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
+require_once('View/UploadView.php');
 
 class FeedView
 {
     private $userRepository;
     private $postRepository;
+    private $uploadView;
     private $commentRepository;
     private $loginModel;
     private $title = "message";
@@ -26,6 +28,7 @@ class FeedView
         $this->userRepository = new UserRepository();
         $this->commentRepository = new CommentRepository();
         $this->loginModel = new LoginModel();
+        $this->uploadView = new UploadView();   
     }
 
     public function GetNewestFeedHTML()
@@ -109,14 +112,16 @@ class FeedView
         <html>
         <head>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
-        <title>Newsfeed</title>
+        <title>LSN</title>
         </head>
 
         <body>
-                <div class='header'>
-                </div>
-                <div class='content'>
-                <ul id='items'>";    
+        <div class='container'>
+                <div class='content'>";
+
+        $html .= $this->uploadView->RenderUploadForm();
+
+        $html .= "<ul id='items'>";    
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
@@ -190,8 +195,7 @@ class FeedView
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>
-                <div class='footer'>
-                </div>
+            </div>
             </div>
         </body>
         </html>";

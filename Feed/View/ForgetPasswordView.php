@@ -6,9 +6,20 @@ class ForgetPasswordView extends BaseView {
 
 
 		public function showForgetPasswordPage() {
-		$html = "
+
+		$html = "<!DOCTYPE html>
+				<html>
+				<head>
+                <title>LSN</title>				
+				<meta charset='utf-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+				</head>
+				<body>
+				 <div class='container'>";
+
+		$html .= "
 		</br>
-		<h1>LSN (Linnéuniversitetet social network)</h1>
+		<h1>LSN</h1>
 		<br/>
 		<a href='?$this->loginLocation'>Back</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
@@ -32,6 +43,10 @@ class ForgetPasswordView extends BaseView {
 					     </div>
 					   </fieldset>
 			       </form>";
+
+		$html .= "</div>
+				</body>
+				</html>";
 
 		return $html;
 	}

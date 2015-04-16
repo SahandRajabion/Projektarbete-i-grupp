@@ -56,28 +56,37 @@ class RegisterView extends BaseView {
             $username .= strip_tags($usernameInput);
         }
 
-		$html = "
+                $html = "<!DOCTYPE html>
+                <html>
+                <head>
+                <title>LSN</title>                
+                <meta charset='utf-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                </head>
+                <body>
+                 <div class='container'>";
+
+		$html .= "
 		</br>
-		<a href='?$this->loginLocation'>Back</a>
-			   <h1>It Security Forum</h1>
+		<a href='?$this->loginLocation'>Tillbaka</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      <legend>Register a new user</legend>
+					      <h1>Registrera användare</h1>
 					      $this->message
 					      <div class='form-group'>
-					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Username: </label>
+					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
 					        <div class='col-sm-10'>
 					          <input id='username' class='form-control' value='$username' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Password: </label>
+					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password' class='form-control' name='$this->passwordLocation' type='password' size='20' maxlength='20'>
 					         </div>
 					      </div>
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->confirmPasswordLocation'>Confirm password: </label>
+					         <label class='col-sm-2 control-label' for='$this->confirmPasswordLocation'>Bekräfta password: </label>
 					         <div class='col-sm-10'>
 					           <input id='password2' class='form-control' name='$this->confirmPasswordLocation' type='password' size='20' maxlength='20'>
 					         </div>
@@ -91,11 +100,15 @@ class RegisterView extends BaseView {
 
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
-					         <input class='btn btn-default' name='$this->registerLocation' type='submit' value='Register' />
+					         <input class='btn btn-default' name='$this->registerLocation' type='submit' value='Registrera' />
 					       </div>
 					     </div>
 					   </fieldset>
 			       </form>";
+
+		            $html .= "</div>
+                </body>
+                </html>"; 	       
 
 		return $html;
 	}

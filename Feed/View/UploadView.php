@@ -33,7 +33,7 @@ class UploadView
 
 	public function RenderUploadForm() 
 	{
-		echo $this->ImageUpload();
+		return $this->ImageUpload();
 	}
 
 

@@ -73,23 +73,33 @@ class LoginView extends BaseView {
             $this->message = $this->renderCookieMessage($this->messageLocation);
         }
 
-        $html = "</br>
-        <h1>LSN (Linnéuniversitetet social network)</h1>
+        $html = "<!DOCTYPE html>
+                <html>
+                <head>
+                <title>LSN</title>
+                <meta charset='utf-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                </head>
+                <body>
+                 <div class='container'>";
+
+        $html .= "</br>
+        <a href='?$this->registerLocation' name='$this->registerLocation'>Registrera användare</a>
         <br/>
-        <a href='?$this->registerLocation' name='$this->registerLocation'>Register a new user</a>
+        <a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord</a>
+        <h1>LSN</h1>
         <br/>
-        <a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord?</a>
                     <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
 					      $this->message
 					      <div class='form-group'>
-					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Username: </label>
+					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
 					        <div class='col-sm-10'>
 					          <input id='$this->usernameLocation' class='form-control' value='$username' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Password: </label>
+					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='$this->passwordLocation' class='form-control' name='$this->passwordLocation' type='password' maxlength='20' size='20'>
 					         </div>
@@ -98,18 +108,22 @@ class LoginView extends BaseView {
 				             <div class='col-sm-offset-2 col-sm-10'>
 				               <div class='checkbox'>
 				                  <label>
-					              <input class='$this->checkBoxLocation' type='checkbox' name='$this->checkBoxLocation'/> Remember me
+					              <input class='$this->checkBoxLocation' type='checkbox' name='$this->checkBoxLocation'/> Kom ihåg mig
 					              </label>
 					           </div>
 					         </div>
 					      </div>
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
-					         <input class='btn btn-default' name='$this->submitLocation' type='submit' value='Login' />
+					         <input class='btn btn-default' name='$this->submitLocation' type='submit' value='Logga in' />
 					       </div>
 					     </div>
 					   </fieldset>
 			       </form>";
+
+            $html .= "</div>
+                </body>
+                </html>";            
 
         return $html;
     }
