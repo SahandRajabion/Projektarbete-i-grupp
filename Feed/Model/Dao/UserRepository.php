@@ -1,6 +1,7 @@
 <?php
 
 require_once("Model/User.php");
+require_once("Model/UserForget.php");
 require_once("Model/Users.php");
 require_once("Model/Dao/Repository.php");
 
@@ -8,6 +9,7 @@ class UserRepository extends Repository
 {
 	private static $username = 'username';
 	private static $hash = 'hash';
+	private static $code = 'passreset';
 	private $db;
 	private $users;
 
@@ -18,13 +20,13 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
- 	public function add(User $user) 
- 	{
-	   $sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .") VALUES (?,?)";
-	   $params = array($user->getUsername(), $user->getPassword());
-	   $query = $this->db->prepare($sql);
-	   $query->execute($params);
-	}	
+
+	public function add(User $user) {
+			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .") VALUES (?,?)";
+			$params = array($user->getUsername(), $user->getPassword());
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+	}
 	
 	public function exists($username) 
 	{
@@ -42,37 +44,6 @@ class UserRepository extends Repository
 
 		return true;
 	}
-
-public function getAllUserInfoForPassUpdate($code) {
-   
-   $sql = "SELECT * FROM $this->dbTable WHERE " . self::$code . "= ?";
-
-   $params = array($code);
-
-   $query = $this->db->prepare($sql);
-
-   $query->execute($params);
-
-   $result = $query->fetch();
-   if ($result == true) 
-   {
-  
-     # code...
-
-     $db_code = $result['passreset'];
-
-    if ($db_code = $code) {
-     # code...
-     return true;
-    }
-    else
-    {
-     return false;
-    }
-
-   }
-  
- }	
 
 
 	public function get($username) {
@@ -126,5 +97,82 @@ public function getAllUserInfoForPassUpdate($code) {
 		{
 			die('An unknown error has occured in database');
 		}
+	}
+
+
+
+		public function getEmailForResetPassword($username) {
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$username . "= ?";
+			$params = array($username);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$results = $query->fetch();
+
+			if ($results == true) 
+			{
+				while ($results) {
+					# code...
+					$email = $results['email'];
+					return new UserForget($email);
+				}
+			}
+			else
+			{
+				return NULL;
+			}
+			
+		}
+
+
+
+
+	public function resetPassword($code, $username)
+	{
+		try 
+		{
+			$sql = "UPDATE $this->dbTable SET " . self::$code ."= ? WHERE " . self::$username ."= ?";
+			$params = array($code, $username);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+		}
+
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}
+	}
+
+
+
+	public function getAllUserInfoForPassUpdate($code) {
+			
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$code . "= ?";
+
+			$params = array($code);
+
+			$query = $this->db->prepare($sql);
+
+			$query->execute($params);
+
+			$result = $query->fetch();
+			if ($result == true) 
+			{
+		
+					# code...
+
+					$db_code = $result['passreset'];
+
+				if ($db_code = $code) {
+					# code...
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+
+			}
+		
 	}
 }
