@@ -90,7 +90,7 @@ class MasterController extends Navigation
        
 				switch (Navigation::GetPage()) {	
 
-					case Navigation::$FeedView:
+						case Navigation::$FeedView:
 						if($this->loginController->isAuthenticated())
 						{
 							return $this->feedView->GetFeedHTML();

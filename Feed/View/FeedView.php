@@ -126,7 +126,7 @@ class FeedView
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
         {
-                $last_id = $feedItem[$this->date];
+                $last_id = $feedItem[$this->id];
 
                 $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
 
@@ -137,7 +137,6 @@ class FeedView
                     <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
                     <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
                     </form>";
-
 
                     $html .= "<form class='post-edit' method='post' action=''> 
                     <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>

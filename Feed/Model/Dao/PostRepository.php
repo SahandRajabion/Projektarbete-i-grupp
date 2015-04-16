@@ -21,7 +21,7 @@ require_once('Model/Image.php');
 		try 
 		{
 			$db = $this->connection();
-			$sql = "SELECT * FROM $this->table WHERE " . self::$date  ." > ? ORDER BY " . self::$date . " DESC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$params = array($last_id);
 			$query->execute($params);
@@ -35,7 +35,8 @@ require_once('Model/Image.php');
 		}
 	}
 
-	public function EditPost($feedId, $postContent, $postTitle) {
+	public function EditPost($feedId, $postContent, $postTitle) 
+	{
 		try 
 		{
 			$db = $this->connection();
@@ -47,8 +48,7 @@ require_once('Model/Image.php');
 		catch (PDOException $e) 
 		{
 			die('An unknown error has occured in database');
-		}
-		
+		}	
 	}
 
 	public function AddPost(Post $post) 
@@ -72,7 +72,7 @@ require_once('Model/Image.php');
 		try 
 		{ 
 			$db = $this->connection();
-			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$date . ") DESC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
 			$query = $db->prepare($sql);
 			$query->execute();
 			$feedItems = $query->fetchAll();
