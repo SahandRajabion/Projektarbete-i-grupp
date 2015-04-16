@@ -142,7 +142,7 @@ class FeedView
                 }
                 
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
-                <b>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</b> skrev:
+                <b>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</b> har delat:
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>
                 <p>". $feedItem[$this->postTitle] . "</p>
