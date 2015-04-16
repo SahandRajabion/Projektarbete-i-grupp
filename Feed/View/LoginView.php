@@ -91,35 +91,35 @@ class LoginView extends BaseView {
         <br/>
                     <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      $this->message
-					      <div class='form-group'>
-					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
-					        <div class='col-sm-10'>
-					          <input id='$this->usernameLocation' class='form-control' value='$username' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
-					        </div>
-					      </div>
-					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
-					         <div class='col-sm-10'>
-					           <input id='$this->passwordLocation' class='form-control' name='$this->passwordLocation' type='password' maxlength='20' size='20'>
-					         </div>
-					      </div>
-				          <div class='form-group'>
-				             <div class='col-sm-offset-2 col-sm-10'>
-				               <div class='checkbox'>
-				                  <label>
-					              <input class='$this->checkBoxLocation' type='checkbox' name='$this->checkBoxLocation'/> Kom ihåg mig
-					              </label>
-					           </div>
-					         </div>
-					      </div>
-					     <div class='form-group'>
-				           <div class='col-sm-offset-2 col-sm-10'>
-					         <input class='btn btn-default' name='$this->submitLocation' type='submit' value='Logga in' />
-					       </div>
-					     </div>
-					   </fieldset>
-			       </form>";
+                          $this->message
+                          <div class='form-group'>
+                            <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
+                            <div class='col-sm-10'>
+                              <input id='$this->usernameLocation' class='form-control' value='$username' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
+                            </div>
+                          </div>
+                          <div class='form-group'>
+                             <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
+                             <div class='col-sm-10'>
+                               <input id='$this->passwordLocation' class='form-control' name='$this->passwordLocation' type='password' maxlength='20' size='20'>
+                             </div>
+                          </div>
+                          <div class='form-group'>
+                             <div class='col-sm-offset-2 col-sm-10'>
+                               <div class='checkbox'>
+                                  <label>
+                                  <input class='$this->checkBoxLocation' type='checkbox' name='$this->checkBoxLocation'/> Kom ihåg mig
+                                  </label>
+                               </div>
+                             </div>
+                          </div>
+                         <div class='form-group'>
+                           <div class='col-sm-offset-2 col-sm-10'>
+                             <input class='btn btn-default' name='$this->submitLocation' type='submit' value='Logga in' />
+                           </div>
+                         </div>
+                       </fieldset>
+                   </form>";
 
             $html .= "</div>
                 </body>

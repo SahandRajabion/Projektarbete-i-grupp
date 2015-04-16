@@ -1,5 +1,5 @@
 <?php
-
+ 
 require_once('View/FeedView.php');
 require_once('View/Navigation.php');
 require_once("Model/LoginModel.php");
@@ -44,22 +44,26 @@ class MasterController extends Navigation
 
 			if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) {
 					# code...
-					$userEmail = $this->userRepository->getEmailForResetPassword($this->getUsername());
+					$userEmail = $this->userRepository->getEmailForResetPassword($this->getEmail());
 					
 					if($this->getEmail() == $userEmail->getEmail()) {
-
+						$date = date('Y-m-d H:i:s');
 						$this->code = rand(10000,1000000);
 						$to = $userEmail->getEmail();
-						$subject = "LSN/ Forget password";
-						$message = "Hej ".$this->getUsername()." !
+						$subject = "LSN/ Forgot password";
+						$message = "Hej!
 
 								(Det här meddelandet går inte att svara på).
+
+								 OBS// Länken är endast aktiv i 20 minuter.
 
 								 För att ändra lösenordet klicka på länken nedan:
 								 
 								 http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
-						$this->userRepository->resetPassword($this->code,$this->getUsername());
+						$this->userRepository->resetPassword($this->code,$this->getEmail());
+						$this->userRepository->resetPasswordTime($date,$this->getEmail());
+
 						
  						echo("Ett meddelande med information om din inloggning uppgifter har skickat till <strong>".$this->getEmail()."</strong>.");
 						mail($to, $subject, $message);		 
@@ -90,12 +94,11 @@ class MasterController extends Navigation
        
 				switch (Navigation::GetPage()) {	
 
-						case Navigation::$FeedView:
+					case Navigation::$FeedView:
 						if($this->loginController->isAuthenticated())
 						{
 							return $this->feedView->GetFeedHTML();
 						}
-
 						break;
 					}
 				}

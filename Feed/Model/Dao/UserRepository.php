@@ -1,8 +1,9 @@
 <?php
-
+ 
 require_once("Model/User.php");
 require_once("Model/UserForget.php");
 require_once("Model/Users.php");
+require_once("Model/UserDate.php");
 require_once("Model/Dao/Repository.php");
 
 class UserRepository extends Repository 
@@ -11,6 +12,8 @@ class UserRepository extends Repository
 	private static $hash = 'hash';
 	private static $code = 'passreset';
 	private static $userId = 'userid';
+	private static $date = 'Date';
+	private static $email = 'email';
 	private $db;
 	private $users;
 
@@ -130,9 +133,9 @@ class UserRepository extends Repository
 
 
 
-		public function getEmailForResetPassword($username) {
-			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$username . "= ?";
-			$params = array($username);
+		public function getEmailForResetPassword($email) {
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$email . "= ?";
+			$params = array($email);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
@@ -155,13 +158,55 @@ class UserRepository extends Repository
 
 
 
+		public function getDateForResetPassword($code) {
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$code . "= ?";
+			$params = array($code);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
 
-	public function resetPassword($code, $username)
+			$results = $query->fetch();
+
+			if ($results == true) 
+			{
+				while ($results) {
+					# code...
+					$date = $results['Date'];
+					return new UserDate($date);
+				}
+			}
+			else
+			{
+				return NULL;
+			}
+			
+		}
+
+
+
+
+	public function resetPassword($code, $email)
 	{
 		try 
 		{
-			$sql = "UPDATE $this->dbTable SET " . self::$code ."= ? WHERE " . self::$username ."= ?";
-			$params = array($code, $username);
+			$sql = "UPDATE $this->dbTable SET " . self::$code ."= ? WHERE " . self::$email ."= ?";
+			$params = array($code, $email);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+		}
+
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}
+	}
+
+
+	public function resetPasswordTime($date, $email)
+	{
+		try 
+		{
+			$sql = "UPDATE $this->dbTable SET " . self::$date ."= ? WHERE " . self::$email ."= ?";
+			$params = array($date, $email);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 		}

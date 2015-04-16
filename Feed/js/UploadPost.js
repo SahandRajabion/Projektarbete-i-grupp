@@ -13,8 +13,15 @@ $(document).ready(function() {
 	 { 		
 		e.preventDefault(); 
 
-		if (working == false) {
+		if(working) 
+		{
+		 	return false;
+		}
+
+		else 
+		{
 			$(this).ajaxSubmit(options);
+			working = true;	
 		}
 	}); 
 		
@@ -22,54 +29,54 @@ $(document).ready(function() {
 //function after succesful file upload (when server response)
 function afterSuccess(responseText, statusText, xhr, $form)
 {
-	$('#progressbox').fadeOut(); //hide progress bar
-
 	working = false;
+
+	$('#submit-btn').show(); //hide submit button
+	$('#progressbox').delay( 3000 ).fadeOut(); //hide progress bar
+
 }
 
 //function to check file size before uploading.
-function beforeSubmit()
-{
-		// check whether browser fully supports all File API
-		if (working == false) 
+function beforeSubmit(){
+
+		    //check whether browser fully supports all File API
+
+		if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
 		{
-			if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
-			{
-				$("#output").html("<br><p>Dela något!</p>");
-				return false;
-			}
-
-			if (!$('#FileInput').val().length == 0)
-			{
-
-			var fsize = $('#FileInput')[0].files[0].size; //get file size
-			var ftype = $('#FileInput')[0].files[0].type; // get file type
-			
-
-			//allow file types 
-			switch(ftype)
-	        {
-	            case 'image/png': 
-				case 'image/gif': 
-				case 'image/jpeg': 
-	                break;
-	            default:
-	                $("#output").html("<b>"+ftype+"</b> Filen är av en fel typ!");
-					return false
-	        }
-			
-			
-			if(fsize>5242880) 
-			{
-				$("#output").html("<b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
-				return false
-			}
+			$("#output").html("<br>Dela något!");
+			return false
 		}
+
+		if (!$('#FileInput').val().length == 0)
+		{
+
+		var fsize = $('#FileInput')[0].files[0].size; //get file size
+		var ftype = $('#FileInput')[0].files[0].type; // get file type
 		
-		working = true;
+
+		//allow file types 
+		switch(ftype)
+        {
+            case 'image/png': 
+			case 'image/gif': 
+			case 'image/jpeg': 
+                break;
+            default:
+                $("#output").html("<b>"+ftype+"</b> Filen är av en fel typ!");
+				return false
+        }
+		
+		
+		if(fsize>5242880) 
+		{
+			$("#output").html("<b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
+			return false
+		}
+				
 		$('#progressbox').delay( 1000 ).fadeOut();
-		$("#output").html("");  	
-	}
+		$("#output").html("");  
+		} 
+
 }
 
 //progress bar function

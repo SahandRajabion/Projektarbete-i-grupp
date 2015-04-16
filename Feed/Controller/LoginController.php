@@ -232,9 +232,21 @@ class LoginController
         }
     }
 
+    public function getCode() {
+        return $this->resetPassword->getCode();
+    }
+
     public function didGetResetPasswordPage() {
+               
                  if ($this->resetPassword->issetCode()) {
-                    # code...
+
+                    $date = date("Y-m-d H:i:s");
+                    $userEmail = $this->userRepository->getDateForResetPassword($this->getCode());
+                    $fastDate = date("Y-m-d H:i:s",strtotime(date($userEmail->getDate())." +20 minutes"));
+
+                 if ($fastDate > $date) {
+                        # code...
+                    
                     $this->showResetPasswordPage = true;
                     $this->showForgetPasswordPage = false;
                     $this->showLoginpage = false;
@@ -280,8 +292,8 @@ class LoginController
                          
                         }
                     }
-             
-                        
+                  }
+                         
                 }
     }
 

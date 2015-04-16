@@ -16,7 +16,7 @@ class ForgetPasswordView extends BaseView {
 				</head>
 				<body>
 				 <div class='container'>";
-
+				 	
 		$html .= "
 		</br>
 		<h1>LSN</h1>
@@ -24,12 +24,6 @@ class ForgetPasswordView extends BaseView {
 		<a href='?$this->loginLocation'>Back</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      <div class='form-group'>
-					        <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
-					        <div class='col-sm-10'>
-					          <input id='username' class='form-control' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
-					        </div>
-					      </div>
 					      <div class='form-group'>
 					         <label class='col-sm-2 control-label' for='$this->emailLocation'>E-post: </label>
 					         <div class='col-sm-10'>
@@ -43,6 +37,7 @@ class ForgetPasswordView extends BaseView {
 					     </div>
 					   </fieldset>
 			       </form>";
+
 
 		$html .= "</div>
 				</body>
@@ -68,13 +63,6 @@ class ForgetPasswordView extends BaseView {
 		return false;
 	}
 
- 
-	public function getUsername() {
-		if (isset($_POST[$this->usernameLocation])) {
-			# code...
-			return $_POST[$this->usernameLocation];
-		}
-	}
 
 
 	public function getEmail() {
