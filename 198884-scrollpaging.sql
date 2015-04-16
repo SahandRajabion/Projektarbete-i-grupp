@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.4
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
--- Värd: 127.0.0.1
--- Tid vid skapande: 15 apr 2015 kl 20:22
--- Serverversion: 5.6.15-log
--- PHP-version: 5.5.8
+-- Värd: 10.209.1.136
+-- Skapad: 16 apr 2015 kl 16:27
+-- Serverversion: 5.5.32
+-- PHP-version: 5.3.10-1ubuntu3.11
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databas: `scroll_paging`
+-- Databas: `198884-scrollpaging`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=173 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=183 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -106,7 +106,17 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (169, '2015-04-14 16:17:44', '127.0.0.1', 0, 'Sahib'),
 (170, '2015-04-14 16:18:05', '127.0.0.1', 1, 'Sahib'),
 (171, '2015-04-14 16:41:35', '127.0.0.1', 0, 'Sahib'),
-(172, '2015-04-14 16:41:54', '127.0.0.1', 1, 'Sahib');
+(172, '2015-04-14 16:41:54', '127.0.0.1', 1, 'Sahib'),
+(173, '2015-04-16 13:59:17', '194.47.114.38', 0, '(Inget anvÃ¤ndarnamn'),
+(174, '2015-04-16 13:59:29', '194.47.114.38', 1, 'Sahib'),
+(175, '2015-04-16 14:01:09', '194.47.179.159', 0, 'Sahand'),
+(176, '2015-04-16 14:01:12', '194.47.179.159', 0, 'Sahand'),
+(177, '2015-04-16 14:01:15', '194.47.179.159', 0, 'Sahand'),
+(178, '2015-04-16 14:01:19', '194.47.179.159', 0, 'Sahand'),
+(179, '2015-04-16 14:01:38', '194.47.179.159', 0, 'hejhej'),
+(180, '2015-04-16 14:15:21', '194.47.114.38', 1, 'Sahib'),
+(181, '2015-04-16 14:15:49', '194.47.114.194', 1, 'Tommy'),
+(182, '2015-04-16 14:22:32', '194.47.114.38', 1, 'Sahib');
 
 -- --------------------------------------------------------
 
@@ -123,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -143,7 +153,14 @@ CREATE TABLE IF NOT EXISTS `feed` (
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=298 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=300 ;
+
+--
+-- Dumpning av Data i tabell `feed`
+--
+
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
+(299, NULL, NULL, 'ddssd', NULL, '2015-04-16 14:22:32', 35);
 
 -- --------------------------------------------------------
 
@@ -157,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(40) NOT NULL,
   `Hash` varchar(255) NOT NULL,
   `Role` int(11) NOT NULL DEFAULT '3',
+  `passreset` int(11) NOT NULL,
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `Name` (`Username`),
   UNIQUE KEY `email` (`email`),
@@ -170,10 +188,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumpning av Data i tabell `user`
 --
 
-INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`) VALUES
-(34, 'Sahib', 'sahib@hotmail.se', '$2a$10$Y.9z8htHcHlSRhx9py9ZwesH5eWGlhbvCnnaaCsVXGUBZ3OJ9gPKC', 1),
-(35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1),
-(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1);
+INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`) VALUES
+(34, 'Sahib', 'sahib@hotmail.se', '$2a$10$s.hDkdo8BR0wdvp1JcAXquzJ9hFn9WerpE.HszFjgQD7.eRPp9Tbi', 1, 13916),
+(35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1, 0),
+(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0);
 
 --
 -- Restriktioner för dumpade tabeller
