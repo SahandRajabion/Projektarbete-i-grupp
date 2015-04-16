@@ -10,6 +10,7 @@ class UserRepository extends Repository
 	private static $username = 'username';
 	private static $hash = 'hash';
 	private static $code = 'passreset';
+	private static $userId = 'userid';
 	private $db;
 	private $users;
 
@@ -20,6 +21,17 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
+	public function getUsernameFromId($id) 
+	{
+		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$result = $query->fetch();
+
+		return $result['Username'];
+	}
 
 	public function add(User $user) {
 			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .") VALUES (?,?)";

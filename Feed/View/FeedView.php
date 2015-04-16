@@ -1,11 +1,13 @@
 ﻿<?php
 
+require_once('Model/Dao/UserRepository.php');
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
 
 class FeedView
 {
+    private $userRepository;
     private $postRepository;
     private $commentRepository;
     private $loginModel;
@@ -21,6 +23,7 @@ class FeedView
     public function __construct() 
     {
         $this->postRepository = new PostRepository();
+        $this->userRepository = new UserRepository();
         $this->commentRepository = new CommentRepository();
         $this->loginModel = new LoginModel();
     }
@@ -51,6 +54,7 @@ class FeedView
                 
 
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
+                <b>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</b> skrev:
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>
                 <p>". $feedItem[$this->postTitle] . "</p>
@@ -138,6 +142,7 @@ class FeedView
                 }
                 
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
+                <b>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</b> skrev:
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>
                 <p>". $feedItem[$this->postTitle] . "</p>

@@ -1,23 +1,32 @@
 <?php
 
 require_once("Model/LoginModel.php");
+require_once("Model/Dao/UserRepository.php");
 
 class Comment
 {
 	private $data = array();
 	private $userId;
 	private $loginModel;
-	
+	private $userRepository;
+
 	public function __construct($data, $userId)
 	{
 		$this->data = $data;
 		$this->userId = $userId;
+
 		$this->loginModel = new LoginModel();
+		$this->userRepository = new UserRepository();
 	}
 
 	public function GetUserId() 
 	{
 		return $this->userId;
+	}
+
+	public function GetUsernameOfCreator() 
+	{
+		return $this->userRepository->getUsernameFromId($this->userId);
 	}
 	
 	public function GetCommentHTML()
@@ -36,7 +45,7 @@ class Comment
   		}
 
 		$html .= '<div class="date">' . date('j F Y H:i:s', $this->data['date']) . '</div>
-				<p>' . $this->data['body'] . '</p>
+			<b>' . $this->GetUsernameOfCreator() . '</b> skrev: <p>' . $this->data['body'] . '</p>
 			</div>';
 
 		return $html;

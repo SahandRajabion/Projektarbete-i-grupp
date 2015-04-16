@@ -1,5 +1,5 @@
 <?php
-	
+
 class Post
 {
 	private $post;
@@ -8,7 +8,7 @@ class Post
 	public function __construct($post, $userId) 
 	{
 		$this->post = $post;
-		$this->userId = $userId;		
+		$this->userId = $userId;
 	} 
 
 	public function getPost() 
