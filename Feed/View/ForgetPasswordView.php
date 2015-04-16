@@ -1,5 +1,7 @@
 <?php
 
+require_once("View/BaseView.php");
+
 class ForgetPasswordView extends BaseView {
 
 

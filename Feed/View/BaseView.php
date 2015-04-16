@@ -2,9 +2,6 @@
 
 require_once("Settings.php");
 
-
- 
-
 abstract class BaseView 
 {
 	protected $logOutLocation = 'logout';
@@ -24,6 +21,7 @@ abstract class BaseView
     protected $adminPanelLocation = 'adminPanel';
     protected $id = 'id';
     protected $cookie;
+    protected $code = 'code';
 
 	public function getId() {
 	   if (isset($_GET[$this->id])) {

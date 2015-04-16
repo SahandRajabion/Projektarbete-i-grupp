@@ -61,7 +61,6 @@ class ChangePasswordView extends BaseView
 		$html = "
 		</br>
 		<a href='?'>Back</a>
-			   <h1>It Security Forum</h1>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
 					      <legend>Change Password</legend>

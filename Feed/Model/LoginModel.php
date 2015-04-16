@@ -208,10 +208,10 @@ class LoginModel{
     public function get($username) {
         $data = $this->userRepository->get($username);
 
-        $this->id = $data[0];
-        $this->username = $data[1];
-        $this->hash = $data[2];
-        $this->role = $data[3];
+        $this->id = $data['UserId'];
+        $this->username = $data['Username'];
+        $this->hash = $data['Hash'];
+        $this->role = $data['Role'];
     }
 
 

@@ -1,5 +1,7 @@
 <?php
 
+require_once("View/ResetPasswordView.php");
+require_once("View/RegisterView.php");
 require_once("View/ChangePasswordView.php");
 require_once("View/LoginView.php");
 require_once("View/LoggedInView.php");
@@ -38,6 +40,10 @@ class LoginController
     private $topic;
     private $author;
     private $forgetPasswordView;
+    private $registerView;
+    private $showRegisterPage;
+    private $resetPassword;
+    private $showResetPasswordPage;
 
     public function __construct() {
         $this->loginView = new LoginView();
@@ -50,6 +56,8 @@ class LoginController
         $this->userRepository = new UserRepository();
         $this->forgetPasswordView = new ForgetPasswordView();
         $this->hash = new Hash();
+        $this->registerView = new RegisterView();
+        $this->resetPassword = new ResetPasswordView();
     }
 
     /**
@@ -63,11 +71,68 @@ class LoginController
             $this->doLogOut();
             $this->doLogIn();
             $this->renderPage();
-
-
+            $this->doGoToRegisterPage();
+            $this->registerNewUser();
     }
 
- 
+    public function doGoToRegisterPage() {
+        if ($this->loginView->didUserPressGoToRegisterPage()) {
+            $this->showRegisterPage = true;
+        }
+    }
+
+    public function didGetResetPasswordPage() 
+    {
+                 if ($this->resetPassword->issetCode() && $this->resetPassword->issetUsername()) {
+                    # code...
+                    $this->showResetPasswordPage = true;
+                    $this->showForgetPasswordPage = false;
+                    $this->showLoginpage = false;
+                    $username = $this->resetPassword->getUsername();
+                    $code = $this->resetPassword->getCode();
+                    if ($this->userRepository->getAllUserInfoForPassUpdate($code) == true) {
+                        # code...
+                        if ($this->resetPassword->didUserPressSubmit()) {
+                        # code...
+                            $newConfirmPassword = $this->resetPassword->getNewPassword();
+                            $newPassword = $this->resetPassword->getNewConfirmPassword();      
+
+                            if ($this->validationErrors == 0) 
+                            {
+                                if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
+                                        echo("Lösenordet måste vara minst 6 tecken");
+                                }
+                                else 
+                                {
+                                    if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
+                                            echo("Lösenordet matchar inte");
+                                    }
+                                }
+                            }
+
+                         if ($this->validationErrors == 0) {
+                                if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
+                                    echo("Lösenordet av fel format");                  
+                                }   
+                            }                
+
+                            if($this->validationErrors == 0) 
+                            {
+
+                                $hash = $this->hash->crypt($newPassword);
+                                $user = new User($username, $hash);
+                                $this->userRepository->editPassword($user);
+
+                                echo("Lösenordet har återskapat <a href='?login'>Logga in</a>");
+
+
+
+                            }               
+                         
+                        }
+                    }
+        }
+    }     
 
     /**
      * test to login with cookie
@@ -219,7 +284,6 @@ class LoginController
 
     public function doReturnToLoginPage() {
         if ($this->forgetPasswordView->didUserPressReturnToLoginPage()) {
-            echo("sahinbbbbbbbbbbbbbbbbbbbbb");
             $this->showForgetPasswordPage = false;
             $this->showLoginpage = true;
         }
@@ -252,11 +316,17 @@ class LoginController
     public function setMessage() {
         $message = new LoginMessage($this->model->getMessage());
 
-        if (!$this->model->isLoggedIn()) {
-                      
+        if (!$this->model->isLoggedIn()) 
+        {
+            if ($this->showRegisterPage) {
+                $this->registerView->setMessage($message->getMessage());
+            }
+
             $this->loginView->setMessage($message->getMessage());
         }
-        else{ 
+        
+        else
+        { 
             $this->loggedInView->setMessage($message->getMessage());
         }
     }
@@ -384,6 +454,85 @@ class LoginController
             $this->model->doLogOut();
             $this->changePasswordView->redirectToLoginPage();              
         }            
+    }
+
+
+    public function registerNewUser() {
+        if ($this->registerView->didUserPressSubmit()) {
+            $resp = recaptcha_check_answer (Settings::$SECRET_KEY,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+            $username = $this->registerView->getUsername();            
+            $password = $this->registerView->getPassword();
+            $confirmPassword = $this->registerView->getConfirmPassword();
+            if($this->validateUsername->validateUsernameLength($username) == false) {
+                $msgId = 8;
+                $this->validationErrors++;
+                $this->model->setMessage($msgId);
+                $this->setMessage();
+            }
+            if ($this->validationErrors == 0) {
+                if($this->validateUsername->validateCharacters($username) == false || preg_match(Settings::$REGEX, $username)) {
+                    $msgId = 4;
+                    $this->validationErrors++;
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();                    
+                }   
+            }
+            if ($this->validationErrors == 0) {
+                if ($this->validatePassword->validatePasswordLength($password, $confirmPassword) == false) {
+                    $msgId = 7;
+                    $this->validationErrors++;
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();
+                }
+                else {
+                    if($this->validatePassword->validateIfSamePassword($password, $confirmPassword) == false) {
+                        $msgId = 6;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                    }
+                }
+            }
+            if ($this->validationErrors == 0) {
+                if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
+                    $msgId = 23;
+                    $this->validationErrors++;
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();                    
+                }   
+            }            
+            if ($this->validationErrors == 0) 
+            {
+                if (!$resp->is_valid) 
+                {
+                    $msgId = 14;
+                    $this->validationErrors++;
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();                
+                }
+            }
+              
+            if($this->validationErrors == 0 && $resp->is_valid) {
+               $hash = $this->hash->crypt($password);
+               $newUser = new User($username, $hash);
+               if ($this->userRepository->exists($username) == false) {
+                $this->userRepository->add($newUser);
+                $msgId = 12;
+                $this->model->setMessage($msgId);
+                $this->setMessage();
+                $this->showRegisterPage = false;
+                $this->loginView->setRegister($username);                
+               }
+               else {
+                $msgId = 5;
+                $this->model->setMessage($msgId);
+                $this->setMessage();
+               }     
+            }
+        }
     }
 }
 

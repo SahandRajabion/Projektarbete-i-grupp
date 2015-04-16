@@ -3,7 +3,6 @@
 require_once('View/FeedView.php');
 require_once('View/Navigation.php');
 require_once('View/UploadView.php');
-
 require_once("Model/LoginModel.php");
 require_once("Settings.php");
 require_once("View/BaseView.php");
@@ -12,6 +11,7 @@ require_once("Controller/LoginController.php");
 require_once("View/HTMLView.php");
 require_once("View/LoggedInView.php");
 require_once("View/ForgetPasswordView.php");
+require_once("View/ResetPasswordView.php");
 
 
 class MasterController extends Navigation
@@ -24,6 +24,8 @@ class MasterController extends Navigation
     private $model;
     private $forgetPasswordView;
     private $userRepository;
+    private $code;
+    private $resetPasswordView;
 
 	function __construct()
 	{
@@ -35,7 +37,7 @@ class MasterController extends Navigation
         $this->changePasswordView = new ChangePasswordView();
         $this->htmlView = new HTMLView();
       	$this->userRepository = new UserRepository();
-	
+      	$this->resetPassword = new ResetPasswordView();
 	}
 
 		public function doControll() 
@@ -43,25 +45,24 @@ class MasterController extends Navigation
 			try 
 			{	
 
-			if ($this->forgetPasswordView->pressSubmitToSend()) {
+			if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) {
 					# code...
 					$userEmail = $this->userRepository->getEmailForResetPassword($this->getUsername());
 					
 					if($this->getEmail() == $userEmail->getEmail()) {
 
-						echo("yeeeeeeeeeeees");
-
-						$code = rand(10000,1000000);
+						$this->code = rand(10000,1000000);
 						$to = $userEmail->getEmail();
 						$subject = "LSN/ Forget password";
 						$message = "(Det här meddelandet går inte att svara på).
 
 								 För att ändra lösenordet klicka på länken nedan:
 								 
-								 http://www.sahibsahib.com/LSN/Feed/?forgetPassword?code=$code&username=".$this->getUsername();
+								 http://www.sahibsahib.com/LSN/Feed/?code=$this->code&username=".$this->getUsername();
 
-						$this->userRepository->resetPassword($code,$this->getUsername());
+						$this->userRepository->resetPassword($this->code,$this->getUsername());
 						
+ 						echo("Ett meddelande med information om din inloggning uppgifter har skickat till <strong>".$this->getEmail()."</strong>.");
 						mail($to, $subject, $message);		 
 					}	
 
