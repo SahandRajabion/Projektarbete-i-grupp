@@ -2,14 +2,14 @@
 
 class LoginMessage {
     private $messageId;
-    private $messages = array('Username is required', 'Password is required', "Username or password is incorrect",
-                              "Invalid information in cookies", 'Username has invalid characters',
-                              'Username is taken', 'Passwords is not matching', 'Password need atleast 6 characters',
-                              'Username need atleast 3 characters',
-                              "Login was successful and we will remember you next time", "Login was successful", "You are logged out",
-                              'Register was successful', "You logged in with cookies", "ReCaptcha text is incorrect", "You are now IP blocked", "Current password is incorrect",
-                              "Password was changed, you have to login again", "New password needs atleast 6 characters", "New password cannot be changed to be same",
-                              "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Password has invalid characters","Lösenordet har återskapat ");    
+    private $messages = array('Användarnamn saknas', 'Lösenordet saknas', "Felaktig användarnamn och/eller Lösenord ",
+                              "Felaktig information o cookies", 'Användarnamn har otillåtet tecken',
+                              'användarnamn är upptagen', 'Lösenordet matchar ej', 'Lösenordet måste vara minst 6 tecken',
+                              'Användarnamn måste vara minst 3 tecken',
+                              "Logga in lyckades, vi kommer ihåg dig nästa gång", "Logga in lyckades", "Du loggat ut",
+                              'Registering lyckades', "Du är inloggad med cookies", "ReCaptcha text är fel", "Du är nu IP blockad", "Nuvarande Lösenord är fel",
+                              "Lösenordet har ändrat, du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nya Lösenordet kan inte ändras till samma Nuvarande lösenord",
+                              "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat ");    
 
     public function __construct($messageId) {
         $this->messageId = $messageId;
