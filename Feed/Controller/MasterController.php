@@ -72,6 +72,9 @@ class MasterController extends Navigation
 								 
 						http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
+						$headers = 'From: lsn@sahibsahib.com' . "\r\n" .
+								   'X-Mailer: PHP/' . phpversion();
+
 						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
   											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -80,7 +83,7 @@ class MasterController extends Navigation
 						$this->userRepository->resetPassword($this->code,$this->getEmail());
 						$this->userRepository->resetPasswordTime($date,$this->getEmail());
 						
-						if (mail($to, $subject, $message)) {
+						if (mail($to, $subject, $message,$headers)) {
 							# code...
 							echo $successMSG;
 						}
