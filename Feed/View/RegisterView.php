@@ -86,7 +86,7 @@ class RegisterView extends BaseView {
 					         </div>
 					      </div>
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->confirmPasswordLocation'>Bekräfta password: </label>
+					         <label class='col-sm-2 control-label' for='$this->confirmPasswordLocation'>Bekräfta lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password2' class='form-control' name='$this->confirmPasswordLocation' type='password' size='20' maxlength='20'>
 					         </div>
