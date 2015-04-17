@@ -31,8 +31,8 @@ class MasterController extends Navigation
     private $renderContact = false;
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
-  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								         <strong>Eposten var fel formlerat!</strong></div>';
+  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								         <strong>Kontrollera epost, fel format.</strong></div>';
 
 	function __construct()
 	{
@@ -75,9 +75,7 @@ class MasterController extends Navigation
 						$message = "Hej!
 						(Det här meddelandet går inte att svara på).
 						OBS// Länken är endast aktiv i 20 minuter.
-
 						För att ändra lösenordet klicka på länken nedan:
-								 
 						http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
 						$headers = 'From: LSN@sahibsahib.com' . "\r\n" .
@@ -85,8 +83,8 @@ class MasterController extends Navigation
 
 						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
-  											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										     Ett meddelande med information om din inloggning uppgifter har skickat till <strong>'.$this->getEmail().'</strong></div>';
+  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
 
 						$this->userRepository->resetPassword($this->code,$this->getEmail());
 						$this->userRepository->resetPasswordTime($date,$this->getEmail());
@@ -103,8 +101,8 @@ class MasterController extends Navigation
 					  {
 						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
-  											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										     Ett meddelande med information om din inloggning uppgifter har skickat till <strong>'.$this->getEmail().'</strong></div>';
+  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
   						echo $successMSG;
 					}	
 
@@ -129,7 +127,7 @@ class MasterController extends Navigation
              {
              	if ($this->contactView->hasSubmitToSend()) 
                 {
-                	$renderContact = true;
+                	$this->renderContact = true;
                     $this->contactController->doContact();
                 }
                 else
@@ -150,7 +148,7 @@ class MasterController extends Navigation
 				switch (Navigation::GetPage()) {	
 
 					case Navigation::$FeedView:
-						if($this->loginController->isAuthenticated() && $renderContact == false)
+						if($this->loginController->isAuthenticated() && $this->renderContact == false)
 						{
 							return $this->feedView->GetFeedHTML();
 						}

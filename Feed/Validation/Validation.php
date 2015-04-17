@@ -9,40 +9,40 @@ class Validation
 //Message for Contact function.
   	private static $ErrorMsgAndEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 		    <button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								        <strong>Eposten och meddelandet kan inte vara tom!</strong></div>';										          
+  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								        <strong>Epost & meddelande fälten måste innehålla något.</strong></div>';										          
 	private static $ErrorNameMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 		    <button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								        <strong>Namnet var fel formlerat!</strong></div>';
+  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								        <strong>Kontrollera namnet, fel format.</strong></div>';
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
-  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								         <strong>Eposten var fel formlerat!</strong></div>';
+  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								         <strong>Kontrollera epost, fel format.</strong></div>';
 	private static $ErrorEmptyMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 			<button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  							            <strong>Du kan inte skicka en tom meddelande!</strong></div>';
+  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  							            <strong>Meddelande fältet får ej vara tomt.</strong></div>';
 	private static $ErrorEmptyName = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 		 <button type="button" class="close" data-dismiss="alert">
-  									 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  									<strong>Namnet måste anges!</strong></div>';
+  									 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  									<strong>Ett namn måste anges.</strong></div>';
 	private static $ErrorEmptyEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 		   <button type="button" class="close" data-dismiss="alert">
-  								       <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								       <strong>Eposten måste anges!</strong></div>';
+  								       <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								       <strong>En epost-adress måste anges.</strong></div>';
 	private static $ERRORInput = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	  <button type="button" class="close" data-dismiss="alert">
-  								  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  							      <strong>Namnet måste anges!<br> Eposten måste anges! <br> Meddelandet kan inte vara tom!</strong></div>';
+  								  <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  							      <strong>Ett namn måste anges.<br> En epost-adress måste anges. <br> Meddelande fältet får ej vara tomt.</strong></div>';
 	private static $ErrorMiniName = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 		 <button type="button" class="close" data-dismiss="alert">
-  								     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  							         <strong>Namet kan inte vara mindre än 3 tecken!</strong></div>';
+  								     <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  							         <strong>Namnet måste bestå av minst 3 tecken.</strong></div>';
 	private static $ErrorMiniMsg = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	    <button type="button" class="close" data-dismiss="alert">
-  								    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  								    <strong>Meddelandet kan inte vara mindre än tre tecken!</strong></div>';
+  								    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+  								    <strong>Meddelandet måste innehålla minst 3 tecken.</strong></div>';
 
 //Regex validation.
 	private $emailExp;

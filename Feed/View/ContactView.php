@@ -44,13 +44,13 @@
 			echo $responseMessages;
 			$contactUs .=
 			'<a href="?">Tillbaka</a>'.
-			'<h3>Var vänlig och kontakta oss</h3>'.
+			'<h3>Kontakt forumlär</h3>'.
 			'<form class="form-horizontal"  method="post" action="">'.
 			'<label><strong>Ditt namn</strong> : </label>'.
-			'<input type="text" name="'.$this->name.'" maxlength="30" value="'.$this->GetName.'"  class="form-control" placeholder="Namnet krävs">' .
+			'<input type="text" name="'.$this->name.'" maxlength="30" value="'.$this->GetName.'"  class="form-control" placeholder="Ange namn">' .
 			'<label><strong>Din epost</strong> : </label>'.
-			'<input type="text" name="'.$this->email.'" maxlength="50" class="form-control" placeholder="Epost krävs" value="'.$this->GetEmail.'">' .
-		 	'<label><strong>Ditt meddelande</strong> : </label>'.
+			'<input type="text" name="'.$this->email.'" maxlength="50" class="form-control" placeholder="Ange epost" value="'.$this->GetEmail.'">' .
+		 	'<label><strong>Meddelande</strong> : </label>'.
 			'<textarea name="'.$this->msg.'" cols="45" rows="5" maxlength="500" class="form-control" placeholder="Skriv ditt meddelande här..." wrap="hard">'.$this->GetMeg.'</textarea>' .
 			'<input type="submit" name="'.$this->send.'" value="Skicka" class="btn btn-default">'.
 			'</form>';

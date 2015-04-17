@@ -43,7 +43,7 @@
 				
 				if ($this->validation->ContactFormValidation($Name,$Email,$Message) === true) {
 						// parameters to send to mail function .
-			    		$messages = "Namn:\r\n" .$Name."\r\nEpost:\r\n". $Email."\r\nMeddelandet:\r\n".$Message;
+			    		$messages = "Namn:\r\n" .$Name."\r\nEpost:\r\n". $Email."\r\nMeddelande:\r\n".$Message;
 						$headers  = "From:".$Email."\r\n";
 			    		$headers .= "Reply-To:" .$Email;
 			    		$headers .= "MIME-Version: 1.0\r\n";
