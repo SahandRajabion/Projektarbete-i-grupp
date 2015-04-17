@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Värd: 10.209.1.136
--- Skapad: 16 apr 2015 kl 16:27
+-- Skapad: 17 apr 2015 kl 21:28
 -- Serverversion: 5.5.32
 -- PHP-version: 5.3.10-1ubuntu3.11
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=183 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=255 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -116,7 +116,79 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (179, '2015-04-16 14:01:38', '194.47.179.159', 0, 'hejhej'),
 (180, '2015-04-16 14:15:21', '194.47.114.38', 1, 'Sahib'),
 (181, '2015-04-16 14:15:49', '194.47.114.194', 1, 'Tommy'),
-(182, '2015-04-16 14:22:32', '194.47.114.38', 1, 'Sahib');
+(182, '2015-04-16 14:22:32', '194.47.114.38', 1, 'Sahib'),
+(183, '2015-04-16 16:04:39', '194.47.114.38', 0, 'Sahib'),
+(184, '2015-04-16 16:04:44', '194.47.114.38', 1, 'Sahib'),
+(185, '2015-04-16 16:08:36', '194.47.114.38', 0, 'Sahib'),
+(186, '2015-04-16 16:08:48', '194.47.114.38', 1, 'Sahib'),
+(187, '2015-04-16 16:09:40', '194.47.114.38', 1, 'Sahib'),
+(188, '2015-04-16 16:18:04', '194.47.114.38', 0, 'Tommy'),
+(189, '2015-04-16 16:19:40', '194.47.114.38', 1, 'Sahib'),
+(190, '2015-04-16 16:20:47', '194.47.114.38', 1, 'Sahib'),
+(191, '2015-04-16 16:31:02', '194.47.114.38', 0, 'Sahib'),
+(192, '2015-04-16 16:31:08', '194.47.114.38', 0, 'Sahib'),
+(193, '2015-04-16 16:31:59', '194.47.114.38', 1, 'Sahib'),
+(194, '2015-04-16 16:36:56', '194.47.114.38', 1, 'Sahib'),
+(195, '2015-04-16 17:00:22', '194.47.179.159', 0, 'Sahand'),
+(196, '2015-04-16 17:00:29', '194.47.179.159', 0, 'Sahand'),
+(197, '2015-04-16 17:00:45', '194.47.179.159', 0, 'Tommy'),
+(198, '2015-04-16 17:00:52', '194.47.179.159', 1, 'Sahib'),
+(199, '2015-04-16 19:34:31', '85.224.76.210', 0, 'Sahib'),
+(200, '2015-04-16 19:34:37', '85.224.76.210', 1, 'Sahib'),
+(201, '2015-04-16 19:43:49', '85.224.78.213', 1, 'Tommy'),
+(202, '2015-04-16 23:06:04', '85.224.76.210', 0, 'Sahib'),
+(203, '2015-04-16 23:06:08', '85.224.76.210', 1, 'Sahib'),
+(204, '2015-04-16 23:18:45', '85.224.76.210', 1, 'Sahib'),
+(205, '2015-04-16 23:19:35', '85.224.76.210', 1, 'Sahib'),
+(206, '2015-04-16 23:22:55', '85.224.76.210', 1, 'Sahib'),
+(207, '2015-04-16 23:25:39', '85.224.76.210', 1, 'Sahib'),
+(208, '2015-04-16 23:32:15', '85.224.76.210', 0, 'Sahib'),
+(209, '2015-04-16 23:32:19', '85.224.76.210', 1, 'Sahib'),
+(210, '2015-04-16 23:45:29', '85.224.78.213', 1, 'Tommy'),
+(211, '2015-04-16 23:51:40', '85.226.121.140', 0, 'Sahand'),
+(212, '2015-04-16 23:52:23', '85.226.121.140', 1, 'Sahand'),
+(213, '2015-04-16 23:57:47', '85.224.78.213', 0, 'Tommy'),
+(214, '2015-04-16 23:57:58', '85.224.78.213', 1, 'Tommy'),
+(215, '2015-04-17 00:20:08', '85.224.76.210', 0, 'Sahib'),
+(216, '2015-04-17 00:20:15', '85.224.76.210', 1, 'Sahib'),
+(217, '2015-04-17 00:25:26', '85.226.121.140', 1, 'Sahand'),
+(218, '2015-04-17 00:31:45', '85.224.78.213', 1, 'Tommy'),
+(219, '2015-04-17 00:32:01', '85.224.78.213', 1, 'Tommy'),
+(220, '2015-04-17 00:32:49', '85.224.76.210', 1, 'Testare'),
+(221, '2015-04-17 00:33:15', '85.224.78.213', 1, 'Tommy'),
+(222, '2015-04-17 00:33:54', '85.224.78.213', 1, 'Tommy'),
+(223, '2015-04-17 00:35:12', '85.224.78.213', 1, 'Tommy'),
+(224, '2015-04-17 00:38:05', '85.224.76.210', 1, 'Sahib'),
+(225, '2015-04-17 00:39:25', '85.224.78.213', 1, 'Tommy'),
+(226, '2015-04-17 07:06:06', '77.218.254.238', 1, 'Sahib'),
+(227, '2015-04-17 07:26:52', '194.47.173.94', 1, 'Sahand'),
+(228, '2015-04-17 08:09:10', '194.47.106.114', 1, 'Sahib'),
+(229, '2015-04-17 08:15:33', '194.47.178.50', 1, 'Sahand'),
+(230, '2015-04-17 08:36:13', '194.47.178.50', 0, 'Sahand'),
+(231, '2015-04-17 08:36:20', '194.47.178.50', 1, 'Sahand'),
+(232, '2015-04-17 08:43:36', '194.47.178.50', 1, 'Sahand'),
+(233, '2015-04-17 11:47:06', '85.224.76.210', 1, 'Sahib'),
+(234, '2015-04-17 11:52:14', '85.224.76.210', 1, 'Sahib'),
+(235, '2015-04-17 12:18:42', '85.224.78.213', 1, 'Tommy'),
+(236, '2015-04-17 13:22:35', '85.224.78.213', 0, 'dsdsdssd'),
+(237, '2015-04-17 13:23:30', '85.224.78.213', 1, 'Tommy'),
+(238, '2015-04-17 13:48:30', '85.224.76.210', 0, 'Sahib'),
+(239, '2015-04-17 13:48:40', '85.224.76.210', 1, 'Sahib'),
+(240, '2015-04-17 14:27:50', '85.224.76.210', 1, 'Sahib'),
+(241, '2015-04-17 14:34:32', '85.224.76.210', 1, 'Sahib'),
+(242, '2015-04-17 14:50:56', '85.224.76.210', 1, 'Sahib'),
+(243, '2015-04-17 15:42:38', '85.224.76.210', 1, 'Sahib'),
+(244, '2015-04-17 17:11:23', '85.224.76.210', 1, 'Sahib'),
+(245, '2015-04-17 17:17:45', '85.224.76.210', 1, 'Sahib'),
+(246, '2015-04-17 17:25:49', '85.224.78.213', 1, 'Tommy'),
+(247, '2015-04-17 17:31:47', '85.224.76.210', 1, 'Sahib'),
+(248, '2015-04-17 17:32:28', '85.224.78.213', 1, 'Tommy'),
+(249, '2015-04-17 18:25:19', '85.224.76.210', 0, 'Sahib'),
+(250, '2015-04-17 18:25:23', '85.224.76.210', 1, 'Sahib'),
+(251, '2015-04-17 18:30:00', '85.224.76.210', 1, 'Sahib'),
+(252, '2015-04-17 18:38:42', '85.224.76.210', 1, 'Sahib'),
+(253, '2015-04-17 18:51:44', '85.224.76.210', 1, 'Sahib'),
+(254, '2015-04-17 19:04:31', '85.224.76.210', 1, 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -133,7 +205,18 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
+
+--
+-- Dumpning av Data i tabell `comments`
+--
+
+INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`) VALUES
+(22, 'LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande LÃ¥ngt meddelande', '2015-04-17 00:25:53', 375, 35),
+(23, 'gick', '2015-04-17 00:27:00', 373, 34),
+(26, 'test 2', '2015-04-17 00:39:36', 385, 35),
+(27, 'tommy skrev 3', '2015-04-17 00:40:51', 385, 35),
+(30, 'Hej', '2015-04-17 08:09:18', 385, 34);
 
 -- --------------------------------------------------------
 
@@ -153,14 +236,28 @@ CREATE TABLE IF NOT EXISTS `feed` (
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=300 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=401 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
 INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
-(299, NULL, NULL, 'ddssd', NULL, '2015-04-16 14:22:32', 35);
+(359, '7920778025.jpg', 'BlÃ¥', NULL, NULL, '2015-04-16 23:39:17', 34),
+(360, '2037838939.jpg', 'GrÃ¶n', NULL, NULL, '2015-04-16 23:39:32', 34),
+(361, NULL, NULL, 'Hello world!', NULL, '2015-04-16 23:39:52', 34),
+(362, NULL, 'Volkswagen ', '', 'iKMoALdX6uw', '2015-04-16 23:40:26', 34),
+(372, NULL, '', '', 'turEKwX3mAE', '2015-04-16 23:53:25', 35),
+(373, NULL, '', '', 'Gqf50Yvmdoo', '2015-04-16 23:53:48', 35),
+(375, NULL, '', '', 'DpfN0aqIstg', '2015-04-16 23:54:47', 35),
+(383, NULL, NULL, 'TEST!', NULL, '2015-04-17 00:25:57', 36),
+(385, NULL, NULL, 'test', NULL, '2015-04-17 00:33:00', 37),
+(386, '3235603831.jpg', '', NULL, NULL, '2015-04-17 00:34:34', 37),
+(389, NULL, '', '', 'sC6nnaKw32Q', '2015-04-17 00:41:23', 35),
+(392, NULL, NULL, 'dsfdsfsdf', NULL, '2015-04-17 08:16:25', 36),
+(397, NULL, NULL, NULL, 'DxcsLOC1Cbo', '2015-04-17 17:11:26', 34),
+(399, '2735720733.jpg', '', '', NULL, '2015-04-17 17:26:38', 35),
+(400, '5964548620.jpg', '', NULL, NULL, '2015-04-17 17:27:34', 36);
 
 -- --------------------------------------------------------
 
@@ -171,10 +268,11 @@ INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) 
 CREATE TABLE IF NOT EXISTS `user` (
   `UserId` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(20) NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
   `Hash` varchar(255) NOT NULL,
   `Role` int(11) NOT NULL DEFAULT '3',
   `passreset` int(11) NOT NULL,
+  `Date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `Name` (`Username`),
   UNIQUE KEY `email` (`email`),
@@ -182,16 +280,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumpning av Data i tabell `user`
 --
 
-INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`) VALUES
-(34, 'Sahib', 'sahib@hotmail.se', '$2a$10$s.hDkdo8BR0wdvp1JcAXquzJ9hFn9WerpE.HszFjgQD7.eRPp9Tbi', 1, 13916),
-(35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1, 0),
-(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0);
+INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `Date`) VALUES
+(34, 'Sahib', 'sahib@hotmail.se', '$2a$10$QPcayCRGZke8dvXuvRrz9OJw2h4LDGyweAuihSdMrgeYGXGdh/CvO', 1, 362990, '2015-04-17 18:50:23'),
+(35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1, 815769, '2015-04-17 16:54:55'),
+(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$mG03yh1cSA3urepvZikUp.Jj8xEylPMViJBsKZobsJCF57H6qMzA2', 1, 554044, '2015-04-17 17:00:11'),
+(37, 'Testare', '', '$2a$10$bqHcB//oyk4GzB9GAMoAiexbjO2xh.aZXPg8pNH8Npa2euU5MTNRe', 3, 0, '2015-04-17 00:32:44'),
+(40, 'asdasd', NULL, '$2a$10$.revNwI/tTn0eu18iO5zueQBrLac9jNgX845w/91Zit.GY8mNIhVq', 3, 0, '2015-04-17 19:04:22');
 
 --
 -- Restriktioner för dumpade tabeller
