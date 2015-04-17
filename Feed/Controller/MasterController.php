@@ -65,14 +65,12 @@ class MasterController extends Navigation
 						$to = $userEmail->getEmail();
 						$subject = "LSN/ Forgot password";
 						$message = "Hej!
+						(Det här meddelandet går inte att svara på).
+						OBS// Länken är endast aktiv i 20 minuter.
 
-								(Det här meddelandet går inte att svara på).
-
-								 OBS// Länken är endast aktiv i 20 minuter.
-
-								 För att ändra lösenordet klicka på länken nedan:
+						För att ändra lösenordet klicka på länken nedan:
 								 
-								 http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
+						http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
 						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">

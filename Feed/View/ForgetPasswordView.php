@@ -27,7 +27,7 @@ class ForgetPasswordView extends BaseView {
 		</br>
 		<h1>LSN</h1>
 		<br/>
-		<a href='?$this->loginLocation'>Back</a>
+		<a href='?$this->loginLocation'>Tillbaka</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
 					      <div class='form-group'>
