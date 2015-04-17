@@ -73,7 +73,7 @@ class ChangePasswordView extends BaseView
 		<a href='?'>Tillbaka</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      <legend>Change Password</legend>
+					      <legend>Ändra lösenordet</legend>
 						      $this->message
 
 						       <div class='form-group'>

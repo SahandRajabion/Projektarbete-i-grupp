@@ -46,6 +46,9 @@ abstract class BaseView
 	}
 
 
+	public function redirectToResetPassword() {
+		header("Location: ?" . $this->code ."=".$this->getCode()."&kjAmsdNg");
+	}
 
 	public function redirectToLoginPage() {
 		header("Location: ?");

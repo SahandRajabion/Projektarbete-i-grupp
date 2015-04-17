@@ -261,19 +261,38 @@ class LoginController
                             if ($this->validationErrors == 0) 
                             {
                                 if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
-                                        echo("Lösenordet måste vara minst 6 tecken");
+                                        $this->validationErrors++;
+                                        $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
+                                         <button type="button" class="close" data-dismiss="alert">
+                                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                         <strong>Lösenordet måste vara minst 6 tecken!.</strong></div>';
+
+                                        echo $errorMessage;
+  
                                 }
                                 else 
                                 {
                                     if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
-                                            echo("Lösenordet matchar inte");
+                                            $this->validationErrors++;
+                                            $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">
+                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <strong>Lösenordet matchar ej!.</strong></div>';
+
+                                            echo $errorMessage;  
                                     }
                                 }
                             }
 
                             if ($this->validationErrors == 0) {
                                 if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
-                                    echo("Lösenordet av fel format");                  
+                                    $this->validationErrors++;
+                                       $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
+                                         <button type="button" class="close" data-dismiss="alert">
+                                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                         <strong>Lösenordet inneåller otillåtet tecken!.</strong></div>';
+
+                                        echo $errorMessage;                
                                 }   
                             }                
 
@@ -284,9 +303,13 @@ class LoginController
                                 $user = new UserReset($code, $hash);
                                 $this->userRepository->editForgotPassword($user);
 
-                                echo("Lösenordet har återskapat <a href='?login'>Logga in</a>");
+                                $successMessage = '<div class="alert alert-success alert-dismissible" role="alert">
+                                             <button type="button" class="close" data-dismiss="alert">
+                                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                             Lösenordet har återskapat <strong><a href="?login">Logga in</a></strong></div>';
 
 
+                                echo $successMessage;  
 
                             }               
                          

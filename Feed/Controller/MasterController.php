@@ -25,6 +25,7 @@ class MasterController extends Navigation
     private $code;
     private $resetPasswordView;
 
+
 	function __construct()
 	{
 		$this->feedView = new FeedView();
@@ -61,12 +62,19 @@ class MasterController extends Navigation
 								 
 								 http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
+						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				 <button type="button" class="close" data-dismiss="alert">
+  											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										     Ett meddelande med information om din inloggning uppgifter har skickat till <strong>'.$this->getEmail().'</strong></div>';
+
 						$this->userRepository->resetPassword($this->code,$this->getEmail());
 						$this->userRepository->resetPasswordTime($date,$this->getEmail());
-
 						
- 						echo("Ett meddelande med information om din inloggning uppgifter har skickat till <strong>".$this->getEmail()."</strong>.");
-						mail($to, $subject, $message);		 
+						if (mail($to, $subject, $message)) {
+							# code...
+							echo $successMSG;
+						}
+								 
 					}	
 
 				}	

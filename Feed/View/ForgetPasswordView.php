@@ -68,7 +68,7 @@ class ForgetPasswordView extends BaseView {
 	public function getEmail() {
 		if (isset($_POST[$this->emailLocation])) {
 			# code...
-			return $_POST[$this->emailLocation];
+			return htmlentities($_POST[$this->emailLocation]);
 		}
 	}
 }
