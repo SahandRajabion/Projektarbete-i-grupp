@@ -59,6 +59,9 @@ class RegisterView extends BaseView {
                 $html = "<!DOCTYPE html>
                 <html>
                 <head>
+                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+				<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
+				<script src='js/script.js'></script>	
                 <title>LSN</title>                
                 <meta charset='utf-8'>
                 <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -83,6 +86,7 @@ class RegisterView extends BaseView {
 					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password' class='form-control' name='$this->passwordLocation' type='password' size='20' maxlength='20'>
+					           <span id='result'></span>
 					         </div>
 					      </div>
 					      <div class='form-group'>
