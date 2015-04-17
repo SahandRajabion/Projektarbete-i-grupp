@@ -103,7 +103,7 @@ class MasterController extends Navigation
                 
                 else 
                 {
-                    $this->htmlView->echoHTML($this->changePasswordView->showChangePasswordForm());
+                    return $this->changePasswordView->showChangePasswordForm();
                 }   
             }
 

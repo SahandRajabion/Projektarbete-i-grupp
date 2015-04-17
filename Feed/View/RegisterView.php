@@ -34,7 +34,7 @@ class RegisterView extends BaseView {
   	*/	
 	public function getUserName() {
 		if (isset($_POST[$this->usernameLocation])) {
-			return strip_tags($_POST[$this->usernameLocation]);
+			return $_POST[$this->usernameLocation];
 		}
 	}
 
@@ -53,7 +53,7 @@ class RegisterView extends BaseView {
         $username = "";
         if(isset($_POST[$this->registerLocation])){
             $usernameInput = $this->getUserName();
-            $username .= strip_tags($usernameInput);
+            $username .= htmlspecialchars($usernameInput);
         }
 
                 $html = "<!DOCTYPE html>

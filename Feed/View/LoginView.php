@@ -65,7 +65,7 @@ class LoginView extends BaseView {
         
         if (isset($_POST[$this->submitLocation]) || $this->register == true) 
         {
-            $username = $this->username;
+            $username = htmlspecialchars($this->username);
         }
 
         if ($this->hasCookieMessage()) 

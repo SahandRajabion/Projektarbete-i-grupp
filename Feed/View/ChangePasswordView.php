@@ -68,29 +68,29 @@ class ChangePasswordView extends BaseView
                 <body>
                  <div class='container'>";		
 
-		$html = "
+		$html .= "
 		</br>
 		<a href='?'>Tillbaka</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
-					      <legend>Ändra lösenordet</legend>
+						<h1>Byt lösenord</h1>
 						      $this->message
 
 						       <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Current Password: </label>
+					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Nuvarande lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password' class='form-control' name='$this->passwordLocation' type='password' size='20' maxlength='20'>
 					         </div>
 					      </div>
 
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->newPasswordLocation'>New Password: </label>
+					         <label class='col-sm-2 control-label' for='$this->newPasswordLocation'>Nytt lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password' class='form-control' name='$this->newPasswordLocation' type='password' size='20' maxlength='20'>
 					         </div>
 					      </div>
 					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->newConfirmPasswordLocation'>Confirm Password: </label>
+					         <label class='col-sm-2 control-label' for='$this->newConfirmPasswordLocation'>Bekräfta lösenord: </label>
 					         <div class='col-sm-10'>
 					           <input id='password2' class='form-control' name='$this->newConfirmPasswordLocation' type='password' size='20' maxlength='20'>
 					         </div>
@@ -98,7 +98,7 @@ class ChangePasswordView extends BaseView
 
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
-					         <input class='btn btn-default' name='$this->submitNewPasswordLocation' type='submit' value='Change Password' />
+					         <input class='btn btn-default' name='$this->submitNewPasswordLocation' type='submit' value='Byt lösenord' />
 					       </div>
 					     </div>
 					   </fieldset>
