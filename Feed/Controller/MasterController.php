@@ -24,7 +24,11 @@ class MasterController extends Navigation
     private $userRepository;
     private $code;
     private $resetPasswordView;
-
+    private $emailExp;
+	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
+  							 	         <button type="button" class="close" data-dismiss="alert">
+  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  								         <strong>Eposten var fel formlerat!</strong></div>';
 
 	function __construct()
 	{
@@ -36,6 +40,7 @@ class MasterController extends Navigation
         $this->htmlView = new HTMLView();
       	$this->userRepository = new UserRepository();
       	$this->resetPassword = new ResetPasswordView();
+      	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
 		public function doControll() 
@@ -45,6 +50,13 @@ class MasterController extends Navigation
 
 			if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) {
 					# code...
+				if (!preg_match($this->emailExp, $this->getEmail())) {
+					# code...
+					echo self::$ErrorEmailMessage;
+				}
+				else
+				{
+
 					$userEmail = $this->userRepository->getEmailForResetPassword($this->getEmail());
 					
 					if($this->getEmail() == $userEmail->getEmail()) {
@@ -76,6 +88,8 @@ class MasterController extends Navigation
 						}
 								 
 					}	
+
+				 }
 
 				}	
 

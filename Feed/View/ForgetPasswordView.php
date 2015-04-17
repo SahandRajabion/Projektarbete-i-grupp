@@ -5,6 +5,12 @@ require_once("View/BaseView.php");
 class ForgetPasswordView extends BaseView {
 
 
+
+
+		public function __construct() {
+			
+		}
+
 		public function showForgetPasswordPage() {
 
 		$html = "<!DOCTYPE html>
@@ -67,8 +73,10 @@ class ForgetPasswordView extends BaseView {
 
 	public function getEmail() {
 		if (isset($_POST[$this->emailLocation])) {
-			# code...
-			return htmlentities($_POST[$this->emailLocation]);
+		
+				return htmlentities($_POST[$this->emailLocation]);
+			
+			
 		}
 	}
 }
