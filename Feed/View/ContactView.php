@@ -29,8 +29,20 @@
 				$responseMessages .= '<strong>' . $message . '</strong>';
 			}
 			
+                $contactUs = "<!DOCTYPE html>
+                <html>
+                <head>
+                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+				<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
+				<script src='js/script.js'></script>	
+                <title>LSN</title>                
+                <meta charset='utf-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                </head>
+                <body>
+                 <div class='container'>";
 			echo $responseMessages;
-			$contactUs =
+			$contactUs .=
 			'<a href="?">Tillbaka</a>'.
 			'<h3>Var vänlig och kontakta oss</h3>'.
 			'<form class="form-horizontal"  method="post" action="">'.
@@ -42,6 +54,9 @@
 			'<textarea name="'.$this->msg.'" cols="45" rows="5" maxlength="500" class="form-control" placeholder="Skriv ditt meddelande här..." wrap="hard">'.$this->GetMeg.'</textarea>' .
 			'<input type="submit" name="'.$this->send.'" value="Skicka" class="btn btn-default">'.
 			'</form>';
+			 $contactUs .= "</div>
+                </body>
+                </html>"; 
 			return $contactUs;
 		}
 		public function RenderContactForm($errorMessage = '') {
