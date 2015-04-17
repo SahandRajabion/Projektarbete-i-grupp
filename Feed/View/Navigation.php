@@ -4,7 +4,7 @@ class Navigation
 {
 	public static $FeedView = "FeedView";
 	private static $page = "page";
-	
+
 	public function RedirectToRoot() {
 		header('Location:' . $_SERVER['PHP_SELF']);
 	}
@@ -15,4 +15,5 @@ class Navigation
 		}
 		return self::$FeedView;
 	}
+
 }

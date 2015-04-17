@@ -5,6 +5,7 @@ require_once("Settings.php");
 abstract class BaseView 
 {
 	protected $logOutLocation = 'logout';
+	protected $ContactLocation = 'ContactUs';
 	protected $changePasswordLocation = 'changepassword';
 	protected $usernameLocation = "username";
 	protected $passwordLocation = "password";

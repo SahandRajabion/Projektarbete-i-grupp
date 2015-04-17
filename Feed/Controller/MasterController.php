@@ -11,11 +11,14 @@ require_once("View/HTMLView.php");
 require_once("View/LoggedInView.php");
 require_once("View/ForgetPasswordView.php");
 require_once("View/ResetPasswordView.php");
-
+require_once("View/ContactView.php");
+require_once("Controller/ContactController.php");
 
 class MasterController extends Navigation
 {
 	private $feedView;
+	private $contactController;
+	private $contactView;
 	private $loginController;
     private $htmlView;
     private $loggedInView;    
@@ -40,6 +43,8 @@ class MasterController extends Navigation
         $this->htmlView = new HTMLView();
       	$this->userRepository = new UserRepository();
       	$this->resetPassword = new ResetPasswordView();
+      	$this->contactView = new ContactView();
+      	$this->contactController = new ContactController();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -74,7 +79,7 @@ class MasterController extends Navigation
 								 
 						http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
 
-						$headers = 'From: lsn@sahibsahib.com' . "\r\n" .
+						$headers = 'From: LSN@sahibsahib.com' . "\r\n" .
 								   'X-Mailer: PHP/' . phpversion();
 
 						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
@@ -119,6 +124,19 @@ class MasterController extends Navigation
                 }   
             }
 
+            if ($this->loginController->isAuthenticated() && $this->contactView->didUserPressToContact())
+             {
+             	if ($this->contactView->hasSubmitToSend()) 
+                {
+                    $this->contactController->doContact();
+                }
+                else
+                {
+              	  return $this->contactView->RenderContactForm();
+                }
+             }
+
+          
             // REGISTER OR LOGIN
             else 
             {
