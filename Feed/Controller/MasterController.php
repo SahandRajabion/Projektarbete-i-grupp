@@ -56,8 +56,10 @@ class MasterController extends Navigation
 				}
 				else
 				{
-
+					
 					$userEmail = $this->userRepository->getEmailForResetPassword($this->getEmail());
+
+				  if($userEmail != ""){
 					
 					if($this->getEmail() == $userEmail->getEmail()) {
 						$date = date('Y-m-d H:i:s');
@@ -86,8 +88,18 @@ class MasterController extends Navigation
 						if (mail($to, $subject, $message,$headers)) {
 							# code...
 							echo $successMSG;
+						 }
 						}
-								 
+							
+					 
+				  }
+				else
+					  {
+						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				 <button type="button" class="close" data-dismiss="alert">
+  											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										     Ett meddelande med information om din inloggning uppgifter har skickat till <strong>'.$this->getEmail().'</strong></div>';
+  						echo $successMSG;
 					}	
 
 				 }
