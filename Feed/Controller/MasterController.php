@@ -28,6 +28,7 @@ class MasterController extends Navigation
     private $code;
     private $resetPasswordView;
     private $emailExp;
+    private $renderContact = false;
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
   							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -128,6 +129,7 @@ class MasterController extends Navigation
              {
              	if ($this->contactView->hasSubmitToSend()) 
                 {
+                	$renderContact = true;
                     $this->contactController->doContact();
                 }
                 else
@@ -148,7 +150,7 @@ class MasterController extends Navigation
 				switch (Navigation::GetPage()) {	
 
 					case Navigation::$FeedView:
-						if($this->loginController->isAuthenticated())
+						if($this->loginController->isAuthenticated() && $renderContact == false)
 						{
 							return $this->feedView->GetFeedHTML();
 						}

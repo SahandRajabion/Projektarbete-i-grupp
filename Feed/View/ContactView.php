@@ -14,7 +14,7 @@
 		private $validation;
 		public function __construct() {
 			$this->mainView = new HTMLView();
-			$this->validation = new Validation();
+ 			$this->validation = new Validation();
 		}
 		//render contact form.
 		public function ContactForm($message = '') {
