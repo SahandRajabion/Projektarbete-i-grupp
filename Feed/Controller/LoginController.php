@@ -88,8 +88,10 @@ class LoginController
                 $this->setDecryptedPassword();
                 $msgId = 13;
 
+                $this->setIp();
+
                 //if user can log in with cookies
-                if ($this->model->doLogIn($this->username, $this->password, $msgId)) {
+                if ($this->model->doLogIn($this->username, $this->password, $msgId, $this->ip)) {
                     $userAgent = new UserAgent();
                     $this->userAgent = $userAgent->getUserAgent();
                     $this->model->setUserAgent($this->userAgent);
