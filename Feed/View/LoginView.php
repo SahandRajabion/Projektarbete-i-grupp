@@ -84,9 +84,30 @@ class LoginView extends BaseView {
                  <div class='container'>";
 
         $html .= "</br>
-        <a href='?$this->registerLocation' name='$this->registerLocation'>Registrera användare</a>
+        
         <br/>
-        <a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord</a>
+        
+        <nav class='navbar navbar-default' role='navigation'>
+            <div class='navbar-header'>
+              <button type='button' class='navbar-toggle' data-toggle='collapse' 
+                 data-target='#example-navbar-collapse'>
+                 <span class='sr-only'>Toggle navigation</span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+              </button>
+           </div>
+           <div class='collapse navbar-collapse' id='example-navbar-collapse'>
+              <ul class='nav navbar-nav'>
+
+                 <li><a href='?$this->registerLocation' name='$this->registerLocation'>Registrera användare</a></li>
+                 $this->menu
+                 <li><a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord</a></li>
+                 <li><a name='ContactUs' href='?". $this->ContactLocation . "'>Kontakta oss</a></li>
+
+              </ul>
+           </div>
+        </nav>
         <h1>LSN</h1>
         <br/>
                     <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>

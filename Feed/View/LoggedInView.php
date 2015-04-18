@@ -35,8 +35,6 @@ class LoggedInView extends BaseView {
                  <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Change password</a></li>
                  $this->menu
                  <li><a name='logOut' href='?". $this->logOutLocation . "'>Log ut</a></li>
-                 <li><a name='ContactUs' href='?". $this->ContactLocation . "'>Kontakta oss</a></li>
-
               </ul>
            </div>
         </nav>

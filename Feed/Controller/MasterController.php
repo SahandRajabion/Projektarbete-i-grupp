@@ -123,7 +123,7 @@ class MasterController extends Navigation
                 }   
             }
 
-            if ($this->loginController->isAuthenticated() && $this->contactView->didUserPressToContact())
+            if ($this->contactView->didUserPressToContact())
              {
              	if ($this->contactView->hasSubmitToSend()) 
                 {
