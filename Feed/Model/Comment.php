@@ -19,6 +19,11 @@ class Comment
 		$this->userRepository = new UserRepository();
 	}
 
+	public function GetData() 
+	{
+		return $this->data;
+	}
+
 	public function GetUserId() 
 	{
 		return $this->userId;
@@ -27,28 +32,6 @@ class Comment
 	public function GetUsernameOfCreator() 
 	{
 		return $this->userRepository->getUsernameFromId($this->userId);
-	}
-	
-	public function GetCommentHTML()
-	{
-		$this->data['date'] = strtotime($this->data['date']);
-
-		$html = "";
-
-		$html .= '<div class="comment" id ="comment' .  $this->data["CommentId"] . '">';
-
-		if ($this->loginModel->getId() == $this->userId) {
-			$html .=
-			'<a href="#" class="delete_button" id="' . $this->data["CommentId"] . '">
-	  		<img src="images/icon_del.gif" border="0" />
-	  		</a>';
-  		}
-
-		$html .= '<div class="date">' . date('j F Y H:i:s', $this->data['date']) . '</div>
-			<b>' . $this->GetUsernameOfCreator() . '</b> skrev: <p>' . $this->data['body'] . '</p>
-			</div>';
-
-		return $html;
 	}
 	
 	public static function validate(&$values)

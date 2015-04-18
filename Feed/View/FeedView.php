@@ -80,7 +80,22 @@ class FeedView
         {
             foreach ($comments as $comment) 
             {
-                $html .= $comment->GetCommentHTML();
+                $data = $comment->GetData();
+
+                $data['date'] = strtotime($data['date']);
+
+                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+
+                if ($this->loginModel->getId() == $comment->GetUserId()) {
+                    $html .=
+                    '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                    <img src="images/icon_del.gif" border="0" />
+                    </a>';
+                }
+
+                $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
+                <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
+                </div>';
             }            
         }
 
@@ -168,7 +183,22 @@ class FeedView
                 {
                     foreach ($comments as $comment) 
                     {
-                        $html .= $comment->GetCommentHTML();
+                        $data = $comment->GetData();
+
+                        $data['date'] = strtotime($data['date']);
+
+                        $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+
+                        if ($this->loginModel->getId() == $comment->GetUserId()) {
+                            $html .=
+                            '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                            <img src="images/icon_del.gif" border="0" />
+                            </a>';
+                        }
+
+                        $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
+                        <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
+                        </div>';
                     }            
                 }
 
