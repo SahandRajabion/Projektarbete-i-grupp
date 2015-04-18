@@ -11,9 +11,12 @@ $(document).ready(function()
 		  	data: {comment_id:commentID},
 		  	success:function(response)
 		  	{
-		  		$('#comment' + commentID).fadeOut();
+		  		// Kollar om det är success status
+		  		if (response == 1) 
+		  		{
+		  			$('#comment' + commentID).fadeOut();
+		  		}
 		  	}
-
 		});
 	});
 

@@ -13,7 +13,11 @@ $(document).ready(function()
 		   	data: {image_name:imageName, feed_id:feedId},
 		   	success:function(response)
 		   	{
-		   		$('#post' + feedId).fadeOut("slow");
+		   		// Kollar om success ifall 1
+		   		if (response == 1) 
+		   		{
+		   			$('#post' + feedId).fadeOut("slow");
+		   		}
 		   	}
 		 });
 	});

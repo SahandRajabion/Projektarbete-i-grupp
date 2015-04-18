@@ -16,6 +16,18 @@ class CommentRepository extends Repository {
 		$this->dbTable = "comments";
 	}
 
+	public function GetUsersComments($id) 
+	{
+		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetchAll();
+
+		return $results;
+	}
+
 	public function DeleteComment($commentId) 
 	{
 		try 

@@ -1,6 +1,6 @@
 <?php
 
-include("Settings.php");
+require_once("Settings.php");
 
 abstract class Repository {
 	protected $dbConnection;

@@ -101,7 +101,6 @@ class LoginView extends BaseView {
               <ul class='nav navbar-nav'>
 
                  <li><a href='?$this->registerLocation' name='$this->registerLocation'>Registrera användare</a></li>
-                 $this->menu
                  <li><a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord</a></li>
                  <li><a name='ContactUs' href='?". $this->ContactLocation . "'>Kontakta oss</a></li>
 

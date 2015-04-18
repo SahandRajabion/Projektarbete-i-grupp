@@ -15,12 +15,24 @@ require_once('Model/Image.php');
 		
 	public function __construct() {
 		$this->table = "feed";
+		$this->db = $this->connection();
+	}
+
+	public function GetUsersPosts($id) 
+	{
+		$sql = "SELECT * FROM $this->table WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetchAll();
+
+		return $results;
 	}
 
  	public function GetMorePostItems($last_id) {	
 		try 
 		{
-			$this->db = $this->connection();
 			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
 			$params = array($last_id);
@@ -39,7 +51,6 @@ require_once('Model/Image.php');
 	{
 		try 
 		{
-			$this->db = $this->connection();
 			$sql = "UPDATE feed SET Post = ?, Title = ? WHERE id = ?";
 			$params = array($postContent, $postTitle, $feedId);
 			$query = $this->db->prepare($sql);
@@ -55,7 +66,6 @@ require_once('Model/Image.php');
 	{
 		try 
 		{	
-			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ") VALUES (?, ?)";
 			$params = array($post->getPost(), $post->getUserId());
 			$query = $this->db->prepare($sql);
@@ -75,7 +85,6 @@ require_once('Model/Image.php');
 	{		
 		try 
 		{ 
-			$this->db = $this->connection();
 			$sql = "SELECT * FROM $this->table WHERE " . self::$id . " = ?";
 			$params = array($id);
 			$query = $this->db->prepare($sql);
@@ -94,7 +103,6 @@ require_once('Model/Image.php');
 	{		
 		try 
 		{ 
-			$this->db = $this->connection();
 			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
 			$query->execute();
@@ -111,7 +119,6 @@ require_once('Model/Image.php');
  	public function DeletePost($id) {
  		try 	
  		{
-			$this->db = $this->connection();
 			$sql = "DELETE FROM $this->table WHERE " . self::$id  ."= ?";
 			$params = array($id);
 			$query = $this->db->prepare($sql);
@@ -129,7 +136,6 @@ require_once('Model/Image.php');
  	{
 		try 
 		{	
-			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ") VALUES(?, ?)";
 			$params = array($youtube->getVideoURL(), $youtube->getUserId());
 			$query = $this->db->prepare($sql);
@@ -146,7 +152,6 @@ require_once('Model/Image.php');
 	public function AddImage(Image $image) {
 		try 
 		{	
-			$this->db = $this->connection();
 			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ") VALUES (?, ?, ?)";
 			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId());
  			$query = $this->db->prepare($sql);
