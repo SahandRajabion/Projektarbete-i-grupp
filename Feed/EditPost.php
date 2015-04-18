@@ -1,6 +1,9 @@
 <?php
 
+session_start();
+
 require_once('Model/Dao/PostRepository.php');
+require_once('Model/LoginModel.php');
 
 function ValidateText($string)
 {		
@@ -14,29 +17,40 @@ function ValidateText($string)
 }
 
 $postRepository = new PostRepository();
+$loginModel = new LoginModel();
 
-$post = "";
-$title = "";
+$userId = $loginModel->getId();
+$posts = $postRepository->GetUsersPosts($userId);
 
-if (isset($_POST['NewPostContent']) && empty($_POST['NewPostContent']) == false) 
+
+foreach ($posts as $post) 
 {
-	$post = ValidateText($_POST['NewPostContent']);
-}
+	if ($post['id'] == $_POST["FeedId"]) 
+	{				
+		$post = "";
+		$title = "";
 
-if (isset($_POST['NewPostTitle']) && empty($_POST['NewPostTitle']) == false) 
-{
-	$title = ValidateText($_POST['NewPostTitle']);
-}
+		if (isset($_POST['NewPostContent']) && empty($_POST['NewPostContent']) == false) 
+		{
+			$post = ValidateText($_POST['NewPostContent']);
+		}
 
-$postRepository->EditPost($_POST['FeedId'], $post, $title);
+		if (isset($_POST['NewPostTitle']) && empty($_POST['NewPostTitle']) == false) 
+		{
+			$title = ValidateText($_POST['NewPostTitle']);
+		}
 
-if ($post != "") 
-{
-	echo $post;
-}
+		$postRepository->EditPost($_POST['FeedId'], $post, $title);
 
-else if ($title != "") 
-{
-	echo $title;
+		if ($post != "") 
+		{
+			echo $post;
+		}
+
+		else if ($title != "") 
+		{
+			echo $title;
+		}
+	}
 }
 
