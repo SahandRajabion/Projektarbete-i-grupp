@@ -205,7 +205,7 @@ class FeedView
                     }            
                 }
 
-                $html .= "<a class='show_hide'>Klicka för kommentar</a>
+                $html .= "<a class='show_hide'>Kommentar Öppna / Stäng</a>
                             <div class='slidingDiv'>
                             <div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
