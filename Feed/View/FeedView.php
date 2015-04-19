@@ -122,7 +122,10 @@ class FeedView
         $html = "<!DOCTYPE html>
         <html>
         <head>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
+        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
+        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
         <title>LSN</title>
         </head>
 
@@ -202,7 +205,9 @@ class FeedView
                     }            
                 }
 
-                $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
+                $html .= "<a class='show_hide'>Klicka för kommentar</a>
+                            <div class='slidingDiv'>
+                            <div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
                         <div>
                              <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
@@ -212,7 +217,8 @@ class FeedView
                         </div>
                     </form>
                 </div>
-                </div>";                
+                </div>
+                 <a class='show_hide'></a></div>";                
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
