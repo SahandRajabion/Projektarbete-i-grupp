@@ -17,7 +17,6 @@ $loginModel = new LoginModel();
 
 if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_POST['first_id']))
 {
-    // Hämtar ut sista id som har postats från Ajax anropet
     $first_id = $_POST['first_id'];
 
     $feedItems = $postRepository->GetLatestPostItems($first_id);
@@ -25,7 +24,6 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
     $html = "";
 
     // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
-
     foreach ($feedItems as $feedItem) 
     {
         $first_id = $feedItem['id'];

@@ -1,6 +1,22 @@
 $(document).ready(function () {
 
-    function getLatest() {
+    function getLatestComments() {
+        $.ajax({
+            type: "POST",
+            url: "GetLatestComments.php",
+            data: {first_comment_id:first_comment_id},              
+            success: function (response) {
+                if (response != "") {
+                    var obj = JSON.parse(response);
+                    $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
+                }
+    
+                setTimeout(getLatestComments, 500);
+            }
+        });
+    }
+
+    function getLatestPosts() {
 
         $.ajax({
             type: "POST",
@@ -9,10 +25,11 @@ $(document).ready(function () {
             success: function (response) {
                 $("#items").prepend(response);
 
-                setTimeout(getLatest, 500);
+                setTimeout(getLatestPosts, 500);
             }
         });
     }
 
-    getLatest();
+    getLatestComments();
+    getLatestPosts();
 });

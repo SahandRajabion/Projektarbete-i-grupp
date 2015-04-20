@@ -19,7 +19,7 @@ $(document).ready(function()
 			if(msg.status)
 			{
 				// Ifall den lyckades så gör så senaste kommentaren visas
-				$(msg.html).hide().insertBefore('#addCommentContainer' + id).slideDown();
+				//$(msg.html).hide().insertBefore('#addCommentContainer' + id).slideDown();
 				$('#body', '#addCommentContainer' + id).val('');
 			}
 

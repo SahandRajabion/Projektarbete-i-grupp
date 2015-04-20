@@ -121,7 +121,9 @@ class FeedView
         $feedItems = $this->postRepository->getPosts();
         $last_id = 0;
         $first_id = 0;
+        $first_comment_id = 0;
         $counter = 0;
+        $commentCounter = 0;
 
         $html = "<!DOCTYPE html>
         <html>
@@ -212,12 +214,12 @@ class FeedView
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
                         <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
                         </div>';
+
+                        $first_comment_id = $data['CommentId'];
                     }            
                 }
 
-                $html .= "<a class='show_hide'>Kommentar Öppna / Stäng</a>
-                            <div class='slidingDiv'>
-                            <div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
+                $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
                         <div>
                              <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
@@ -227,13 +229,13 @@ class FeedView
                         </div>
                     </form>
                 </div>
-                </div>
                 </div>";                
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
         $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>
                 <script type='text/javascript'>var first_id = " . $first_id . ";</script>
+                <script type='text/javascript'>var first_comment_id = " . $first_comment_id . ";</script>
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>

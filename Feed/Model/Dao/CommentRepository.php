@@ -16,6 +16,29 @@ class CommentRepository extends Repository {
 		$this->dbTable = "comments";
 	}
 
+ 	public function GetLatestCommentItem($first_id) {	
+		try 
+		{
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$commentId  ." > ? ORDER BY " . self::$commentId . " DESC";
+			$query = $this->db->prepare($sql);
+			$params = array($first_id);
+			$query->execute($params);
+			$result = $query->fetch();
+
+			if ($result == null) {
+				return null;
+			}
+
+			$comment = new Comment($result, $result['UserId']);
+ 
+			return $comment;
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}	
+
 	public function GetUsersComments($id) 
 	{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
