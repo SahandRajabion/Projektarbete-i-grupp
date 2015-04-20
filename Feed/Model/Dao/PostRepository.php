@@ -30,6 +30,23 @@ require_once('Model/Image.php');
 		return $results;
 	}
 
+ 	public function GetLatestPostItems($first_id) {	
+		try 
+		{
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? ORDER BY " . self::$id . " DESC";
+			$query = $this->db->prepare($sql);
+			$params = array($first_id);
+			$query->execute($params);
+			$feedItems = $query->fetchAll();
+ 
+			return $feedItems;
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
  	public function GetMorePostItems($last_id) {	
 		try 
 		{

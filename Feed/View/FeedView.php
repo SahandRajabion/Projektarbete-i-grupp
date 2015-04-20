@@ -35,6 +35,8 @@ class FeedView
     {
         $feedItem = $this->postRepository->getPost($feedId);
 
+        $first_id = $feedItem[$this->id];
+
         $html = "";    
 
         $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
@@ -62,7 +64,7 @@ class FeedView
 
         if (empty($feedItem[$this->imgName]) == false) 
         {
-            $html .= "<div class='yoxview'> <a href='View/Images/" . $feedItem[$this->imgName] . "'><img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='300'/></a>   </div>";
+            $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
         }
 
         if (empty($feedItem[$this->code]) == false) 
@@ -73,6 +75,7 @@ class FeedView
         $html .= "
         </form>
         ";
+
         $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
 
         if (empty($comments) == false) 
@@ -98,20 +101,17 @@ class FeedView
             }            
         }
 
-         $html .= "<a class='show_hide'>Kommentar Öppna / Stäng</a>
-                            <div class='slidingDiv'>
-                            <div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
-                    <form class='comment-form' method='post' action=''>
-                        <div>
-                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
-                            <label for='body'>Skriv en kommentar</label>
-                            <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                            <input type='submit' id='submit' value='Kommentera'/>
-                        </div>
-                    </form>
+        $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
+            <form class='comment-form' method='post' action=''>
+                <div>
+                     <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
+                    <label for='body'>Skriv en kommentar</label>
+                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                    <input type='submit' id='submit' value='Kommentera'/>
                 </div>
-                </div>
-                 <a class='show_hide'></a></div>";               
+            </form>
+        </div>
+        </div>";                
 
         return $html;
     }    
@@ -120,6 +120,8 @@ class FeedView
     {
         $feedItems = $this->postRepository->getPosts();
         $last_id = 0;
+        $first_id = 0;
+        $counter = 0;
 
         $html = "<!DOCTYPE html>
         <html>
@@ -128,7 +130,6 @@ class FeedView
         <script src='js/CommentSlideButton.js' type='text/javascript'></script>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
-        <script type='text/javascript' src='js/yoxview-init.js'></script>
         <title>LSN</title>
         </head>
 
@@ -144,6 +145,12 @@ class FeedView
      foreach ($feedItems as $feedItem) 
         {
                 $last_id = $feedItem[$this->id];
+
+                if ($counter < 1) 
+                {
+                    $first_id = $feedItem[$this->id];
+                    $counter++;
+                }
 
                 $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
 
@@ -171,7 +178,7 @@ class FeedView
 
                 if (empty($feedItem[$this->imgName]) == false) 
                 {
-                    $html .= "<div class='yoxview'> <a href='View/Images/" . $feedItem[$this->imgName] . "'><img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='300'/></a>   </div>";
+                    $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
                 }
 
                 if (empty($feedItem[$this->code]) == false) 
@@ -221,11 +228,12 @@ class FeedView
                     </form>
                 </div>
                 </div>
-                 <a class='show_hide'></a></div>";                
+                </div>";                
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
         $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>
+                <script type='text/javascript'>var first_id = " . $first_id . ";</script>
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>

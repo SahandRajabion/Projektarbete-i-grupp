@@ -15,21 +15,20 @@ $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
 $loginModel = new LoginModel();
 
-if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_POST['last_id']))
+if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_POST['first_id']))
 {
     // Hämtar ut sista id som har postats från Ajax anropet
-    $last_id = $_POST['last_id'];
+    $first_id = $_POST['first_id'];
 
-    $feedItems = $postRepository->GetMorePostItems($last_id);
+    $feedItems = $postRepository->GetLatestPostItems($first_id);
 
-    //$last_id = 0;
     $html = "";
 
     // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
 
     foreach ($feedItems as $feedItem) 
     {
-        $last_id = $feedItem['id'];
+        $first_id = $feedItem['id'];
 
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
 
@@ -108,10 +107,10 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
     }
 
     // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-    if ($last_id != NULL) 
+    if ($first_id != NULL) 
     {
         //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
+        $html .= "<script type='text/javascript'>var first_id = " . $first_id . ";</script>";
     }
 
     $htmlView->EchoHTML($html);

@@ -19,6 +19,7 @@ $htmlView->EchoHTML($html);
 <link rel='stylesheet' href='css/bootstrap.min.css'>
 <script type='text/javascript' src='js/jquery.min.js'></script>
 <script type='text/javascript' src='js/LoadMoreItems.js'></script>
+<script type='text/javascript' src='js/GetLatestItems.js'></script>
 <script type='text/javascript' src='js/InsertComment.js'></script>
 <script type='text/javascript' src='js/DeleteComment.js'></script>
 <script type='text/javascript' src='js/DeletePost.js'></script>

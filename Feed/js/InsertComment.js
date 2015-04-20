@@ -7,6 +7,7 @@ $(document).ready(function()
  		e.preventDefault(); 		
 		var form = $(this);
 		var id = $('#id', form).val();
+
 		if(working) return false;
 		
 		working = true;

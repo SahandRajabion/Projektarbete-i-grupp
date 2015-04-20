@@ -65,7 +65,7 @@ class LoginController
      *Call controlfunctions
      */
     public function doControll() {
-            $this->doGoToRegisterPage();
+         $this->doGoToRegisterPage();
             $this->registerNewUser();
             $this->doGoToForgetPasswordPage();
             $this->didGetResetPasswordPage();
