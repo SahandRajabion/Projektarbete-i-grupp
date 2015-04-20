@@ -62,7 +62,7 @@ class FeedView
 
         if (empty($feedItem[$this->imgName]) == false) 
         {
-            $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
+            $html .= "<div class='yoxview'> <a href='View/Images/" . $feedItem[$this->imgName] . "'><img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='300'/></a>   </div>";
         }
 
         if (empty($feedItem[$this->code]) == false) 
@@ -73,7 +73,6 @@ class FeedView
         $html .= "
         </form>
         ";
-
         $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
 
         if (empty($comments) == false) 
@@ -99,17 +98,20 @@ class FeedView
             }            
         }
 
-        $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
-            <form class='comment-form' method='post' action=''>
-                <div>
-                     <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
-                    <label for='body'>Skriv en kommentar</label>
-                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                    <input type='submit' id='submit' value='Kommentera'/>
+         $html .= "<a class='show_hide'>Kommentar Öppna / Stäng</a>
+                            <div class='slidingDiv'>
+                            <div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
+                    <form class='comment-form' method='post' action=''>
+                        <div>
+                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
+                            <label for='body'>Skriv en kommentar</label>
+                            <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
+                            <input type='submit' id='submit' value='Kommentera'/>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-        </div>";                
+                </div>
+                 <a class='show_hide'></a></div>";               
 
         return $html;
     }    
@@ -126,6 +128,7 @@ class FeedView
         <script src='js/CommentSlideButton.js' type='text/javascript'></script>
         <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
         <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
+        <script type='text/javascript' src='js/yoxview-init.js'></script>
         <title>LSN</title>
         </head>
 
@@ -168,7 +171,7 @@ class FeedView
 
                 if (empty($feedItem[$this->imgName]) == false) 
                 {
-                    $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
+                    $html .= "<div class='yoxview'> <a href='View/Images/" . $feedItem[$this->imgName] . "'><img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='300'/></a>   </div>";
                 }
 
                 if (empty($feedItem[$this->code]) == false) 
