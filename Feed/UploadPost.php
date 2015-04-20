@@ -53,7 +53,6 @@ if(isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
 	{
 	   	$image = new Image($NewFileName,$uploadPage->getTitle(), $loginController->getId());
 		$id = $postModel->addImage($image);
-		//echo $feed->GetNewestFeedHTML($id);
 	}
 
 	else
@@ -71,7 +70,6 @@ else
 
 			$post = new Post($uploadPage->getTitle(), $loginController->getId());
 			$id = $postModel->addPost($post);
-			//echo $feed->GetNewestFeedHTML($id);
 		}
 
 		else
@@ -83,7 +81,6 @@ else
 				$newURL = substr($fullURL, 32);
 				$video = new Youtube($newURL, $loginController->getId());
 				$id = $postModel->addVideo($video);
-				//$feed->GetNewestFeedHTML($id);
 			} 
 		}
 	}

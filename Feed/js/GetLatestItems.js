@@ -10,7 +10,7 @@ $(document).ready(function () {
                     var obj = JSON.parse(response);
                     $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
                 }
-    
+        
                 setTimeout(getLatestComments, 500);
             }
         });

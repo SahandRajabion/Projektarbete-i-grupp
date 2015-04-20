@@ -21,7 +21,6 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 
 		$first_comment_id = $data["CommentId"];
 
-
 		$html = "";
 
 		$data['date'] = strtotime($data['date']);

@@ -31,91 +31,6 @@ class FeedView
         $this->uploadView = new UploadView();   
     }
 
-    public function GetNewestFeedHTML($feedId)
-    {
-        $feedItem = $this->postRepository->getPost($feedId);
-
-        $first_id = $feedItem[$this->id];
-
-        $html = "";    
-
-        $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
-
-        $html .= "<form class='post-remove' method='post' action=''> 
-        <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
-        <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $feedItem[$this->imgName] . "'>
-        <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
-        </form>";
-
-
-        $html .= "<form class='post-edit' method='post' action=''> 
-        <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
-        <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
-        <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
-        <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
-        
-
-        $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
-        <b>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</b> delade:
-        <div class='text-values'>
-        <p>" . $feedItem[$this->postContent] . "</p>
-        <p>". $feedItem[$this->postTitle] . "</p>
-        </div>";
-
-        if (empty($feedItem[$this->imgName]) == false) 
-        {
-            $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
-        }
-
-        if (empty($feedItem[$this->code]) == false) 
-        {
-            $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem[$this->code] ."' frameborder='0' allowfullscreen></iframe>";                  
-        }
-
-        $html .= "
-        </form>
-        ";
-
-        $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
-
-        if (empty($comments) == false) 
-        {
-            foreach ($comments as $comment) 
-            {
-                $data = $comment->GetData();
-
-                $data['date'] = strtotime($data['date']);
-
-                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
-
-                if ($this->loginModel->getId() == $comment->GetUserId()) {
-                    $html .=
-                    '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-                    <img src="images/icon_del.gif" border="0" />
-                    </a>';
-                }
-
-                $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
-                </div>';
-            }            
-        }
-
-        $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
-            <form class='comment-form' method='post' action=''>
-                <div>
-                     <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
-                    <label for='body'>Skriv en kommentar</label>
-                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                    <input type='submit' id='submit' value='Kommentera'/>
-                </div>
-            </form>
-        </div>
-        </div>";                
-
-        return $html;
-    }    
-
     public function GetFeedHTML()
     {
         $feedItems = $this->postRepository->getPosts();
@@ -123,8 +38,7 @@ class FeedView
         $first_id = 0;
         $first_comment_id = 0;
         $counter = 0;
-        $commentCounter = 0;
-
+     
         $html = "<!DOCTYPE html>
         <html>
         <head>
@@ -200,6 +114,12 @@ class FeedView
                     {
                         $data = $comment->GetData();
 
+                        
+                        if ($first_comment_id < $data['CommentId']) 
+                        {
+                            $first_comment_id = $data['CommentId'];
+                        }
+
                         $data['date'] = strtotime($data['date']);
 
                         $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
@@ -214,8 +134,6 @@ class FeedView
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
                         <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
                         </div>';
-
-                        $first_comment_id = $data['CommentId'];
                     }            
                 }
 
