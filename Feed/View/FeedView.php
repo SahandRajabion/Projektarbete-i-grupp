@@ -39,19 +39,7 @@ class FeedView
         $first_comment_id = 0;
         $counter = 0;
      
-        $html = "<!DOCTYPE html>
-        <html>
-        <head>
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
-        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
-        <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
-        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
-        <title>LSN</title>
-        </head>
-
-        <body>
-        <div class='container'>
-                <div class='content'>";
+        $html = "<div class='content'>";
 
         $html .= $this->uploadView->RenderUploadForm();
 
@@ -156,11 +144,7 @@ class FeedView
                 <script type='text/javascript'>var first_comment_id = " . $first_comment_id . ";</script>
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
-                </div>
-            </div>
-            </div>
-        </body>
-        </html>";
+                </div>";
 
         return $html;
     }

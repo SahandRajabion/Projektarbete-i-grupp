@@ -1,6 +1,5 @@
 <?php
  
-require_once('View/FeedView.php');
 require_once('View/Navigation.php');
 require_once("Model/LoginModel.php");
 require_once("Settings.php");
@@ -16,7 +15,6 @@ require_once("Controller/ContactController.php");
 
 class MasterController extends Navigation
 {
-	private $feedView;
 	private $contactController;
 	private $contactView;
 	private $loginController;
@@ -36,7 +34,6 @@ class MasterController extends Navigation
 
 	function __construct()
 	{
-		$this->feedView = new FeedView();
 		$this->forgetPasswordView = new ForgetPasswordView();
 		$this->model = new LoginModel();
 		$this->loginController = new LoginController();
@@ -53,119 +50,103 @@ class MasterController extends Navigation
 		{			
 			try 
 			{	
-
-			if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) {
-					# code...
-				if (!preg_match($this->emailExp, $this->getEmail())) {
-					# code...
-					echo self::$ErrorEmailMessage;
-				}
-				else
+				if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) 
 				{
-					
-					$userEmail = $this->userRepository->getEmailForResetPassword($this->getEmail());
+					if (!preg_match($this->emailExp, $this->getEmail())) 
+					{
+						echo self::$ErrorEmailMessage;
+					}
 
-				  if($userEmail != ""){
-					
-					if($this->getEmail() == $userEmail->getEmail()) {
-						$date = date('Y-m-d H:i:s');
-						$this->code = rand(10000,1000000);
-						$to = $userEmail->getEmail();
-						$subject = "LSN/ Forgot password";
-						$message = "Hej!
-						(Det här meddelandet går inte att svara på).
-						OBS// Länken är endast aktiv i 20 minuter.
-						För att ändra lösenordet klicka på länken nedan:
-						http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
+					else
+					{			
+						$userEmail = $this->userRepository->getEmailForResetPassword($this->getEmail());
 
-						$headers = 'From: LSN@sahibsahib.com' . "\r\n" .
-								   'X-Mailer: PHP/' . phpversion();
-
-						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				 <button type="button" class="close" data-dismiss="alert">
-  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
-
-						$this->userRepository->resetPassword($this->code,$this->getEmail());
-						$this->userRepository->resetPasswordTime($date,$this->getEmail());
+					  if($userEmail != ""){
 						
-						if (mail($to, $subject, $message,$headers)) {
-							# code...
-							echo $successMSG;
-						 }
-						}
+						if($this->getEmail() == $userEmail->getEmail()) {
+							$date = date('Y-m-d H:i:s');
+							$this->code = rand(10000,1000000);
+							$to = $userEmail->getEmail();
+							$subject = "LSN/ Forgot password";
+							$message = "Hej!
+							(Det här meddelandet går inte att svara på).
+							OBS// Länken är endast aktiv i 20 minuter.
+							För att ändra lösenordet klicka på länken nedan:
+							http://www.sahibsahib.com/LSN/Feed/?gjaQwrA=$this->code&kjAmsdNg";
+
+							$headers = 'From: LSN@sahibsahib.com' . "\r\n" .
+									   'X-Mailer: PHP/' . phpversion();
+
+							$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
+	  							 				 <button type="button" class="close" data-dismiss="alert">
+	  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+	  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
+
+							$this->userRepository->resetPassword($this->code,$this->getEmail());
+							$this->userRepository->resetPasswordTime($date,$this->getEmail());
 							
-					 
-				  }
-				else
-					  {
-						$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				 <button type="button" class="close" data-dismiss="alert">
-  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
-  						echo $successMSG;
-					}	
+							if (mail($to, $subject, $message,$headers)) {
+								# code...
+								echo $successMSG;
+							 }
+							}
+								
+						 
+					}
+					else
+						  {
+							$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
+	  							 				 <button type="button" class="close" data-dismiss="alert">
+	  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
+	  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
+	  						echo $successMSG;
+						}	
 
-				 }
-
+					 }
 				}	
 
-			 if ($this->loginController->isAuthenticated() && $this->changePasswordView->didUserPressToChangePassword())
-              {
-                if ($this->changePasswordView->didUserPressSubmit()) 
-                {
-                    $this->loginController->changePassword();
-                }
-                
-                else 
-                {
-                    return $this->changePasswordView->showChangePasswordForm();
-                }   
-            }
+				if ($this->loginController->isAuthenticated() && $this->changePasswordView->didUserPressToChangePassword())
+	            {
+	                if ($this->changePasswordView->didUserPressSubmit()) 
+	                {
+	                    $this->loginController->changePassword();
+	                }
+	                
+	                else 
+	                {
+	                    return $this->changePasswordView->showChangePasswordForm();
+	                }   
+	            }
 
-            if ($this->contactView->didUserPressToContact())
-             {
-             	if ($this->contactView->hasSubmitToSend()) 
-                {
-                	$this->renderContact = true;
-                    $this->contactController->doContact();
-                }
-                else
-                {
-              	  return $this->contactView->RenderContactForm();
-                }
-             }
+            	if ($this->contactView->didUserPressToContact())
+    	        {
+	             	if ($this->contactView->hasSubmitToSend()) 
+	                {
+	                	$this->renderContact = true;
+	                    $this->contactController->doContact();
+	                }
+	                else
+	                {
+	              	  return $this->contactView->RenderContactForm();
+	                }
+             	}
 
-          
-            // REGISTER OR LOGIN
-            else 
-            {
-                $this->loginController->doControll();
-            }
-        
-
-       
-				switch (Navigation::GetPage()) {	
-
-					case Navigation::$FeedView:
-						if($this->loginController->isAuthenticated() && $this->renderContact == false)
-						{
-							return $this->feedView->GetFeedHTML();
-						}
-						break;
-					}
-				}
-			 
-			catch (Exception $e) {
-
-				error_log($e->getMessage() . "\n", 3, Settings::$ERROR_LOG);
-            if (Settings::$DO_DEBUG) {
-                throw $e;
-
+	            // REGISTER OR LOGIN
+	            else 
+	            {
+	                $this->loginController->doControll();
+	            }
 			}
-		}
+			 
+			catch (Exception $e) 
+			{
+				error_log($e->getMessage() . "\n", 3, Settings::$ERROR_LOG);
+            	if (Settings::$DO_DEBUG) 
+            	{
+                	throw $e;
+                }
+			}
 	}
-
 
 	public function getUsername() {
 		return $this->forgetPasswordView->getUsername();	

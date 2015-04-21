@@ -8,7 +8,7 @@ class LoginMessage {
                               'Användarnamn måste vara minst 3 tecken',
                               "Logga in lyckades, vi kommer ihåg dig nästa gång", "Logga in lyckades", "Du loggat ut",
                               'Registering lyckades', "Du är inloggad med cookies", "ReCaptcha text är fel", "Du är nu IP blockad", "Nuvarande Lösenord är fel",
-                              "Lösenordet har ändrat, du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nya Lösenordet kan inte ändras till samma Nuvarande lösenord",
+                              "Lösenordet har ändrat, Du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nya Lösenordet kan inte ändras till samma nuvarande lösenord",
                               "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat ");    
 
     public function __construct($messageId) {

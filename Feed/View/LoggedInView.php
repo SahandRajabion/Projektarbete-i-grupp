@@ -3,21 +3,37 @@
 require_once("./View/LoginView.php");
 require_once("./Model/LoginModel.php");
 require_once("View/BaseView.php");
+require_once('View/FeedView.php');
 
-class LoggedInView extends BaseView {
+class LoggedInView extends BaseView 
+{
+    private $feedView;
     private $model;
     private $username;
-    private $menu;
-    private $adminNavigation;
 
     public function __construct() {
         $this->model = new LoginModel();
+        $this->feedView = new FeedView();
     }
    
     public function showLoggedInPage() {
         $this->username = $this->model->getUsername();
 
-        $html = "</br> </br>
+        $html = "<!DOCTYPE html>
+        <html>
+        <head>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
+        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
+        <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
+        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
+        <title>LSN</title>
+        </head>
+
+        <body>
+        <div class='container'>";
+
+        $html .= "
+            <br><br>
             <h4>$this->username is logged in</h4>    
             <nav class='navbar navbar-default' role='navigation'>
             <div class='navbar-header'>
@@ -31,14 +47,20 @@ class LoggedInView extends BaseView {
            </div>
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
               <ul class='nav navbar-nav'>
-
                  <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Change password</a></li>
-                 $this->menu
                  <li><a name='logOut' href='?". $this->logOutLocation . "'>Log ut</a></li>
               </ul>
            </div>
         </nav>
-        $this->message";
+        $this->message
+        ";
+
+        $html .= $this->feedView->GetFeedHTML();
+
+        $html .= "</div>
+        </body>
+        </html>";
+
         return $html;
     }
  
