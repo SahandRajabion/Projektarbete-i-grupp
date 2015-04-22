@@ -1,5 +1,4 @@
 <?php
-	
  	class ImagesRepository extends Repository  {
  		private static $imgName = "imgName";
  		private static $userId = "UserId";
@@ -18,7 +17,7 @@
 				$results = $query->fetchAll();
 				if($results) {
 					foreach($results as $result) {
-						return new Images($result[self::$imgName],$result[self::$userId]);
+						return new ProfilePic($result[self::$imgName],$result[self::$userId]);
 					}
 				}
 				return NULL;
@@ -54,7 +53,7 @@
 
 
 		// save updating image .
- 		public function updateImage(Images $img) {
+ 		public function updateImage(ProfilePic $img) {
 			try {
 				$db = $this->connection();
 				$sql = "UPDATE $this->tabel SET " . self::$imgName . " = ? WHERE ".  self::$userId ."= ? LIMIT 1";

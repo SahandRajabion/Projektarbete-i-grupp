@@ -4,7 +4,7 @@
 	require_once('Validation/Validation.php');
 	require_once('View/upload.php');
 	require_once('Model/ImagesModel.php');
-	require_once('Model/Images.php');
+	require_once('Model/ProfilePic.php');
 	require_once('helper/CookieStorage.php');
 	require_once('Controller/LoginController.php');
 
@@ -95,7 +95,7 @@
 							$imgToUploadP = @imagepng($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							$imgToUploadG = @imagegif($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
-								$images = new Images($this->fileName['name'],$this->loginController->getId());
+								$images = new ProfilePic($this->fileName['name'],$this->loginController->getId());
 							 	$this->imagesModel->updateImage($images);
 							 	//change filem mode, 0755 read and execute.
 							 	chmod($this->imgRoot.$this->fileName['name'], 0755);

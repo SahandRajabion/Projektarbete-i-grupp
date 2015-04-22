@@ -6,7 +6,7 @@
  			$this->imagesRepository = new ImagesRepository();
  		}
  	
- 		public function updateImage(Images $img) {
+ 		public function updateImage(ProfilePic $img) {
  			 $this->imagesRepository->updateImage($img);
  		}
  	
