@@ -15,6 +15,7 @@
 	    private $fileName;
 	    private $imagesModel;
 	    private $cookieStorage;
+	    private $model;
 		private static $UPLOADEDSUCCESSED = '<div class="alert alert-success alert-dismissible" role="alert">
   							 				 <button type="button" class="close" data-dismiss="alert">
   											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -31,6 +32,7 @@
 			$this->imagesModel = new ImagesModel();
 			$this->cookieStorage = new CookieStorage();
 			$this->loginController = new LoginController();
+			$this->model = new LoginModel();
 		}
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
@@ -50,14 +52,14 @@
 		
 		//Render upload funcation.
 		public function imgUpload() {
-			$this->uploadPage->RenderUploadForm();
+			
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
 			if ($this->DidHasSubmitToDefault()) {
 				# code...
 				$images = new ProfilePic("img/default.jpg",$this->loginController->getId());
 				$this->imagesModel->updateImage($images);
-				header("Location: ?MyProfile");
+				header("Location: ?profile&id=".$this->model->getId());
 			}
 			if ($this->DidHasSubmit() == true) {
 							// check if has file and make sure that the file have a right type.
@@ -105,7 +107,7 @@
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
 								$images = new ProfilePic($this->fileName['name'],$this->loginController->getId());
 							 	$this->imagesModel->updateImage($images);
-								header("Location: ?MyProfile");
+								header("Location: ?profile&id=".$this->model->getId());
 	
 							 	//change filem mode, 0755 read and execute.
 							 	chmod($this->imgRoot.$this->fileName['name'], 0755);
@@ -117,12 +119,16 @@
 						}
 					}
 					else {
-							return $this->uploadPage->uploadProfImg(self::$ErrorUPLOAD_ERR_TYPE);
+							return $this->uploadPage->userProfile(self::$ErrorUPLOAD_ERR_TYPE);
 						 }
 				}
 				else {
-						return $this->uploadPage->uploadProfImg($this->validation->errorToMessage());
+						return $this->uploadPage->userProfile($this->validation->errorToMessage());
 					 }
+			}
+			else
+			{
+				return $this->uploadPage->RenderUserProfile();
 			}
 		}	
 	}

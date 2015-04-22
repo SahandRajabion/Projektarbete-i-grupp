@@ -6,7 +6,6 @@ abstract class BaseView
 {
 	protected $logOutLocation = 'logout';
 	protected $ContactLocation = 'ContactUs';
-	protected $ProfileLocation = 'MyProfile';
 	protected $changePasswordLocation = 'changepassword';
 	protected $usernameLocation = "username";
 	protected $passwordLocation = "password";
@@ -24,6 +23,7 @@ abstract class BaseView
     protected $id = 'id';
     protected $cookie;
     protected $code = 'gjaQwrA';
+    protected $userProfileLocation = 'profile';
 
 	public function getId() {
 	   if (isset($_GET[$this->id])) {
@@ -38,6 +38,13 @@ abstract class BaseView
 			return strip_tags($_POST[$this->passwordLocation]);
 		}
 	}
+
+	public function didUserPressGoToUserProfilePage() {
+        if (isset($_GET[$this->userProfileLocation])) {
+            return true;
+        }
+        return false;
+    }
 
     public function redirectToErrorPage() {
         header("Location: /". Settings::$ROOT_PATH . "/error.html");
@@ -55,6 +62,7 @@ abstract class BaseView
 	public function redirectToLoginPage() {
 		header("Location: ?");
 	}
+
 
 
 

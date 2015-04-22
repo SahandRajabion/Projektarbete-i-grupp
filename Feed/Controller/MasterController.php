@@ -30,7 +30,9 @@ class MasterController extends Navigation
     private $emailExp;
     private $uploadController;
     private $upload;
+    private $feed;
     private $renderContact = false;
+
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
   							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
@@ -49,6 +51,7 @@ class MasterController extends Navigation
       	$this->contactController = new ContactController();
       	$this->uploadController = new UploadController();
       	$this->upload = new upload();
+      	$this->feed = new FeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 
 	}
@@ -138,12 +141,11 @@ class MasterController extends Navigation
 	                }
              	}
 
-
-             	if ($this->upload->didUserPressToShowProfile())
+             	if ($this->loginController->isAuthenticated() && $this->upload->didUserPressToShowProfile())
     	        {
-	             	$this->uploadController->imgUpload();
-             	}
 
+	             	return $this->uploadController->imgUpload();
+             	}
 	            // REGISTER OR LOGIN
 	            else 
 	            {

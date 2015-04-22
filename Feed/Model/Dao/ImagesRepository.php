@@ -11,6 +11,7 @@ require_once("Model/StartProfileImg.php");
 
 		public function getImagesInformation($userId) {
 			 try {
+
 				$f = new ImagesRepository();
 				$db = $f->connection();
 				$sql = "SELECT * FROM  $this->tabel WHERE UserId = ?";

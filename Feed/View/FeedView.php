@@ -5,8 +5,9 @@ require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
 require_once('View/UploadView.php');
+require_once('View/BaseView.php');
 
-class FeedView
+class FeedView extends BaseView
 {
     private $userRepository;
     private $postRepository;
@@ -19,8 +20,8 @@ class FeedView
     private $postContent = "Post";
     private $postTitle = "Title";
     private $date = "Date";
-    private $id = "id";
-    private $code = "code";
+   
+
 
     public function __construct() 
     {
@@ -72,9 +73,8 @@ class FeedView
                     <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
                     <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
                 }
-                
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
-                <a href='?profile=" . $feedItem['UserId'] . "'>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
+                <a href='?profile&id=" . $feedItem['UserId'] . "'>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>
                 <p>". $feedItem[$this->postTitle] . "</p>
@@ -120,7 +120,7 @@ class FeedView
                         }
 
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
+                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
                         </div>';
                     }            
                 }
@@ -161,4 +161,8 @@ class FeedView
             return nl2br($_POST[$this->title]);
         }
     }
+
+
+  
+
 }
