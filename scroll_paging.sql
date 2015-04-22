@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 apr 2015 kl 11:25
+-- Tid vid skapande: 22 apr 2015 kl 11:32
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.5.8
 
@@ -129,7 +129,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `UserId` int(11) NOT NULL,
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
-  KEY `id` (`id`)
+  KEY `id` (`id`),
+  KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -143,15 +144,22 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `imgName` varchar(255) DEFAULT NULL,
   `Title` varchar(255) DEFAULT NULL,
   `Post` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
-  KEY `id_2` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=290 ;
+  KEY `id_2` (`id`),
+  KEY `UserId` (`UserId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=291 ;
+
+--
+-- Dumpning av Data i tabell `feed`
+--
+
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
+(290, NULL, NULL, 'Tja', NULL, '2015-04-22 09:26:32', 35);
 
 -- --------------------------------------------------------
 
@@ -222,7 +230,14 @@ INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, 
 -- Restriktioner för tabell `comments`
 --
 ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `dsdsaads` FOREIGN KEY (`id`) REFERENCES `feed` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restriktioner för tabell `feed`
+--
+ALTER TABLE `feed`
+  ADD CONSTRAINT `feed_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
