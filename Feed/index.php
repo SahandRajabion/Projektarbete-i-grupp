@@ -10,7 +10,6 @@ $masterController = new MasterController();
 
 // Run Application
 $html = $masterController->doControll();
-
 $htmlView->EchoHTML($html);
 
 ?>

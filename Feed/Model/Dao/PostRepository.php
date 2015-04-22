@@ -10,7 +10,7 @@ require_once('Model/Image.php');
 	private static $date = "Date";
 	private static $userId = "UserId";
 	private static $urlCode = "code";
-	private static $imgName = "imgName";
+	private static $imgName = "imgName"; 
 	private static $Title = "Title";
 		
 	public function __construct() {

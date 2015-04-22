@@ -5,15 +5,19 @@
 */
 require_once('View/HTMLView.php');
 require_once('Model/ImagesModel.php');
-class upload 
+require_once('View/BaseView.php');
+require_once('Controller/LoginController.php');
+class upload extends BaseView
 {
   private $mainView;
   private $imagesModel;
+
   function __construct()
   {
     # code...
     $this->mainView = new HTMLView();
     $this->imagesModel = new ImagesModel();
+    $this->loginController = new LoginController();
   }
 
 
@@ -24,13 +28,22 @@ class upload
       }
       
     echo  $responseMessages;
-    $Images = glob("img/*.*");
-      $html = '<div id="imgContainer">';
+    $Images = glob("imgs/*.*");
+      $html = '<a href="?">Tillbaka</a>';
+      $html .= '<div id="imgContainer">';
       $html .='<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">';
       //   if ($Images != NULL) {
+      
             foreach ($Images as $value) {  
-              $img = $this->imagesModel->getImages(basename($value));
-                 $html .= '<div id="imgArea"><img src="'.$value.'">';
+
+              $img = $this->imagesModel->getImages($this->loginController->getId());
+              $removeImg = $this->imagesModel->getImgToRemove(basename($value));
+              if ($img->getImgName() == basename($value)) {
+                # code...
+                $html .= '<div id="imgArea"><img src="'.$value.'">';
+              }
+             
+                 
             }
       //     }
       // else {
@@ -68,5 +81,12 @@ return $html;
   public function RenderUploadForm($errorMessage = '') {
     $uploadForm = $this->uploadProfImg($errorMessage);
     echo $this->mainView->echoHTML($uploadForm);
+  }
+
+
+  public function didUserPressToShowProfile() {
+    if (isset($_GET[$this->ProfileLocation])) {
+      return true;
+    }
   }
 }

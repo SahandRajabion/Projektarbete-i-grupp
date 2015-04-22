@@ -6,6 +6,7 @@ abstract class BaseView
 {
 	protected $logOutLocation = 'logout';
 	protected $ContactLocation = 'ContactUs';
+	protected $ProfileLocation = 'MyProfile';
 	protected $changePasswordLocation = 'changepassword';
 	protected $usernameLocation = "username";
 	protected $passwordLocation = "password";

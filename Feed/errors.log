@@ -3,3 +3,16 @@ SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot 
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
 SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'IpAddress' cannot be null
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'

@@ -2,40 +2,49 @@
 	
  	class ImagesRepository extends Repository  {
  		private static $imgName = "imgName";
- 		private static $userId = 'userid';
- 		private static $username = 'username';
+ 		private static $userId = "UserId";
  		public function __construct() {
- 			$this->tabel = "img";
- 		}
- 		//Added image name and comment to db.
- 		public function AddPics(Images $img) {
- 			try {	
- 					$db = $this->connection();
- 					$sql = "INSERT INTO $this->tabel (".self::$imgName.")VALUES(?)";
- 					$params = array($img->getImgName());
- 					$query = $db->prepare($sql);
- 					$query->execute($params);
-						
- 			} catch (PDOException $ex) {
- 				die('An unknown error hase happened');
- 			}
+ 			$this->tabel = "user";
  		}
 
-		public function getImagesInformation($imgname) {
-			try {
+		public function getImagesInformation($userId) {
+			 try {
 				$f = new ImagesRepository();
 				$db = $f->connection();
-				$sql = "SELECT * FROM  $this->tabel WHERE imgName = ?";
-				$params = array($imgname);
+				$sql = "SELECT * FROM  $this->tabel WHERE UserId = ?";
+				$params = array($userId);
 				$query = $db->prepare($sql);
 				$query->execute($params);
 				$results = $query->fetchAll();
 				if($results) {
 					foreach($results as $result) {
-						return new Images($result[self::$imgName]);
+						return new Images($result[self::$imgName],$result[self::$userId]);
 					}
 				}
 				return NULL;
+			}
+			catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}
+
+
+
+		public function getImagesToRemove($name) {
+			 try {
+				$f = new ImagesRepository();
+				$db = $f->connection();
+				$sql = "SELECT * FROM  $this->tabel  WHERE " . self::$imgName . "= ?";
+				$params = array($name);
+				$query = $db->prepare($sql);
+				$query->execute($params);
+				$result = $query->fetch();
+				if($result == false) {
+					if ($name != $result) {
+
+						unlink("imgs/".basename($name));
+					}
+				}
 			}
 			catch (Exception $e) {
 				die('An unknown error hase happened');
@@ -48,8 +57,8 @@
  		public function updateImage(Images $img) {
 			try {
 				$db = $this->connection();
-				$sql = "UPDATE $this->tabel SET " . self::$imgName . " = ? WHERE username = ? LIMIT 1";
-				$params = array($img->getImgName(),$img->GetUsername());
+				$sql = "UPDATE $this->tabel SET " . self::$imgName . " = ? WHERE ".  self::$userId ."= ? LIMIT 1";
+				$params = array($img->getImgName(),$img->getUserId());
 				$query = $db->prepare($sql);
 				$query->execute($params);
 			}

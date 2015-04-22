@@ -6,6 +6,7 @@
 	require_once('Model/ImagesModel.php');
 	require_once('Model/Images.php');
 	require_once('helper/CookieStorage.php');
+	require_once('Controller/LoginController.php');
 
 	class UploadController {
 		private $validation;
@@ -24,11 +25,12 @@
   										        <strong>Bilden måste vara av typen gif,jepg,jpg eller png!</strong></div>';
 		public function __construct() {
 			$this->validation = new validation();
-			$this->imgRoot = getcwd()."/img/";
+			$this->imgRoot = getcwd()."/imgs/";
 			$this->uploadPage = new upload();
 			$this->fileName = $this->getFileName();
 			$this->imagesModel = new ImagesModel();
 			$this->cookieStorage = new CookieStorage();
+			$this->loginController = new LoginController();
 		}
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
@@ -93,8 +95,8 @@
 							$imgToUploadP = @imagepng($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							$imgToUploadG = @imagegif($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
-								$images = new Images($this->fileName['name']);
-							 	$this->imagesModel->addImages($images);
+								$images = new Images($this->fileName['name'],$this->loginController->getId());
+							 	$this->imagesModel->updateImage($images);
 							 	//change filem mode, 0755 read and execute.
 							 	chmod($this->imgRoot.$this->fileName['name'], 0755);
 							  	@imagedestroy($imgCreateFromJ);

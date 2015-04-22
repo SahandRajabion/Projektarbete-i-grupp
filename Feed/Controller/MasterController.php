@@ -12,6 +12,8 @@ require_once("View/ForgetPasswordView.php");
 require_once("View/ResetPasswordView.php");
 require_once("View/ContactView.php");
 require_once("Controller/ContactController.php");
+require_once('Controller/UploadController.php');
+require_once('View/upload.php');
 
 class MasterController extends Navigation
 {
@@ -26,6 +28,8 @@ class MasterController extends Navigation
     private $code;
     private $resetPasswordView;
     private $emailExp;
+    private $uploadController;
+    private $upload;
     private $renderContact = false;
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
@@ -43,7 +47,10 @@ class MasterController extends Navigation
       	$this->resetPassword = new ResetPasswordView();
       	$this->contactView = new ContactView();
       	$this->contactController = new ContactController();
+      	$this->uploadController = new UploadController();
+      	$this->upload = new upload();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
+
 	}
 
 		public function doControll() 
@@ -129,6 +136,12 @@ class MasterController extends Navigation
 	                {
 	              	  return $this->contactView->RenderContactForm();
 	                }
+             	}
+
+
+             	if ($this->upload->didUserPressToShowProfile())
+    	        {
+	             	$this->uploadController->imgUpload();
              	}
 
 	            // REGISTER OR LOGIN

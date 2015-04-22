@@ -47,6 +47,7 @@ class LoggedInView extends BaseView
            </div>
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
               <ul class='nav navbar-nav'>
+                 <li><a name='MyProfile' href='?". $this->ProfileLocation . "'>Min profil</a></li>
                  <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Change password</a></li>
                  <li><a name='logOut' href='?". $this->logOutLocation . "'>Log ut</a></li>
               </ul>
@@ -54,9 +55,7 @@ class LoggedInView extends BaseView
         </nav>
         $this->message
         ";
-
         $html .= $this->feedView->GetFeedHTML();
-
         $html .= "</div>
         </body>
         </html>";

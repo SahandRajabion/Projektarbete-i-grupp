@@ -9,7 +9,7 @@ require_once('Model/Post.php');
 require_once('Model/PostModel.php');
 require_once('Model/Youtube.php');
 require_once('Model/Dao/CommentRepository.php');
-require_once('Controller/LoginController.php');
+require_once('Controller/LoginController.php'); 
 
 $regExYoutube = "/^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?=.*v=((\w|-){11}))(?:\S+)?$/";
 $imgRoot = getcwd()."/View/Images/";

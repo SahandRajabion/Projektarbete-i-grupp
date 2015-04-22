@@ -5,17 +5,17 @@
  		public function __construct() {
  			$this->imagesRepository = new ImagesRepository();
  		}
- 		public function removeImages($img) {
- 			$this->imagesRepository->delete($img);
-						 
+ 	
+ 		public function updateImage(Images $img) {
+ 			 $this->imagesRepository->updateImage($img);
  		}
- 		public function addImages(Images $img) {
- 			 $this->imagesRepository->AddPics($img);
- 		}
- 		public function EditImagesInformation(Images $img) {
- 			$this->imagesRepository->SaveEdit($img);
- 		}
- 		public function getImages($name) {
-			return $this->imagesRepository->getImagesInformation($name);
+ 	
+ 		public function getImages($userId) {
+			return $this->imagesRepository->getImagesInformation($userId);
+		}
+
+
+		public function getImgToRemove($name) {
+			return $this->imagesRepository->getImagesToRemove($name);
 		}
  	}
