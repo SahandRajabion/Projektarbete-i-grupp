@@ -1,11 +1,11 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 apr 2015 kl 04:36
+-- Tid vid skapande: 22 apr 2015 kl 11:25
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.4.24
+-- PHP-version: 5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `body` text COLLATE utf8_unicode_ci NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id` int(10) NOT NULL,
+  `UserId` int(11) NOT NULL,
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
   KEY `id` (`id`)
@@ -145,36 +146,12 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=290 ;
-
---
--- Dumpning av Data i tabell `feed`
---
-
-INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `name`, `code`, `Date`) VALUES
-(260, '1240046840.jpg', '', '', NULL, NULL, '2015-04-12 12:22:16'),
-(261, NULL, NULL, NULL, NULL, '3d5so721PAY', '2015-04-12 13:37:36'),
-(262, NULL, NULL, NULL, NULL, '1XR0Gt_5AA8', '2015-04-12 13:39:35'),
-(274, NULL, NULL, '1111', NULL, NULL, '2015-04-12 21:31:22'),
-(275, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
-(276, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
-(277, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
-(278, NULL, NULL, '222', NULL, NULL, '2015-04-12 21:33:28'),
-(279, NULL, NULL, '333', NULL, NULL, '2015-04-12 21:34:22'),
-(280, NULL, NULL, '333', NULL, NULL, '2015-04-12 21:34:23'),
-(281, NULL, NULL, '4', NULL, NULL, '2015-04-12 21:38:47'),
-(282, NULL, NULL, '4', NULL, NULL, '2015-04-12 21:38:47'),
-(283, NULL, NULL, '55', NULL, NULL, '2015-04-12 21:39:38'),
-(284, NULL, NULL, '55', NULL, NULL, '2015-04-12 21:39:39'),
-(285, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:17'),
-(286, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:18'),
-(287, NULL, NULL, '6', NULL, NULL, '2015-04-12 21:40:19'),
-(288, NULL, NULL, '777', NULL, NULL, '2015-04-12 21:40:47'),
-(289, NULL, NULL, 'sss', NULL, NULL, '2015-04-14 16:19:15');
 
 -- --------------------------------------------------------
 
@@ -235,8 +212,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
 (34, 'Sahib', 'sahib@hotmail.se', '$2a$10$Y.9z8htHcHlSRhx9py9ZwesH5eWGlhbvCnnaaCsVXGUBZ3OJ9gPKC', 1, 721170, '2.jpg'),
 (35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1, 0, NULL),
-(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0, NULL),
-(39, 'yousif', '', '$2a$10$2NulMwIx80fQKqn.zygewuh1pcLD8Y6simup3QrISjAwXxPOej.1C', 3, 0, '3.jpg');
+(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0, NULL);
 
 --
 -- Restriktioner för dumpade tabeller
