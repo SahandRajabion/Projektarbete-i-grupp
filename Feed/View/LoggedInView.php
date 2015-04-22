@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once("./View/LoginView.php");
 require_once("./Model/LoginModel.php");
@@ -28,7 +28,8 @@ class LoggedInView extends BaseView
         <head>
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
         <script src='js/CommentSlideButton.js' type='text/javascript'></script>
-        <meta http-equiv='Content-Type'content='text/html; charset=utf-8' />
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
         <title>LSN</title>
         </head>
