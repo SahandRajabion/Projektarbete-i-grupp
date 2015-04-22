@@ -2,13 +2,13 @@
 
 class LoginMessage {
     private $messageId;
-    private $messages = array('Användarnamn saknas', 'Lösenordet saknas', "Felaktig användarnamn och/eller Lösenord ",
-                              "Felaktig information o cookies", 'Användarnamn har otillåtet tecken',
+    private $messages = array('Användarnamn saknas', 'Lösenordet saknas', "Felaktig användarnamn och/eller lösenord ",
+                              "Felaktig information i cookies", 'Användarnamn har otillåtet tecken',
                               'användarnamn är upptagen', 'Lösenordet matchar ej', 'Lösenordet måste vara minst 6 tecken',
                               'Användarnamn måste vara minst 3 tecken',
-                              "Logga in lyckades, vi kommer ihåg dig nästa gång", "Logga in lyckades", "Du loggat ut",
+                              "Inloggning lyckades, vi kommer ihåg dig nästa gång", "Inloggning lyckades", "Utloggning lyckades",
                               'Registering lyckades', "Du är inloggad med cookies", "ReCaptcha text är fel", "Du är nu IP blockad", "Nuvarande Lösenord är fel",
-                              "Lösenordet har ändrat, Du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nya Lösenordet kan inte ändras till samma nuvarande lösenord",
+                              "Lösenordet har ändrats, du måste logga in igen på nytt", "Nytt lösenord måste vara minst 6 tecken", "Nytt lösenordet kan inte ändras till samma nuvarande lösenord",
                               "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat ");    
 
     public function __construct($messageId) {

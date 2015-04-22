@@ -1,5 +1,30 @@
 $(document).ready(function () {
 
+    function checkForRemovedPosts() 
+    {
+        var arrayOfPostIds = $.map($(".post"), function(n, i){
+            return n.id.split("post").join("");
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "CheckForRemovedPosts.php",
+            data: {arrayOfPostIds: arrayOfPostIds},              
+            success: function (response) 
+            {
+                if (response != "") 
+                {
+                    var obj = response.split(",");
+                    $.each(obj, function( key, value ) {
+                        $('#post' + value).fadeOut("slow");
+                    });
+                    
+                }
+                setTimeout(checkForRemovedPosts, 500);
+            }
+        });
+    }
+
     function getLatestComments() {
         $.ajax({
             type: "POST",
@@ -30,6 +55,7 @@ $(document).ready(function () {
         });
     }
 
+    checkForRemovedPosts();
     getLatestComments();
     getLatestPosts();
 });

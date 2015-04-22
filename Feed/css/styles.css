@@ -191,10 +191,11 @@ label span.error{
 
 
 #upload-wrapper {
+	margin-bottom: 2%;
 	width: 50%;
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 50px;
+	margin-top: 3%;
 	background: #3D91A2;
 	padding: 50px;
 	border-radius: 10px;

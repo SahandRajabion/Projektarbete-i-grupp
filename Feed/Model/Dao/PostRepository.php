@@ -18,6 +18,31 @@ require_once('Model/Image.php');
 		$this->db = $this->connection();
 	}
 
+
+	public function getAllPostIds() 
+	{		
+		try 
+		{ 
+			$arrayOfIds = array();
+			
+			$sql = "SELECT id FROM $this->table ORDER BY (" .  self::$id . ") DESC";
+			$query = $this->db->prepare($sql);
+			$query->execute();
+			$postIds = $query->fetchAll();
+
+			foreach ($postIds as $id) 
+			{
+				$arrayOfIds[] = $id['id'];
+			}
+			return $arrayOfIds;
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}	
+
 	public function GetUsersPosts($id) 
 	{
 		$sql = "SELECT * FROM $this->table WHERE " . self::$userId . "= ?";

@@ -34,20 +34,21 @@ class LoggedInView extends BaseView
         </head>
 
         <body>
-        <div class='container'>";
+        <div class='container'>
+        <br>";
         $Images = glob("imgs/*.*");
             foreach ($Images as $value) {  
 
               $img = $this->imagesModel->getImgs($this->username);
               if ($img->getImg() == basename($value)) {
                 
-                $html .= '<div id="imgArea"><img src="'.$value.'"><strong>'.$this->username.' är inloggad</strong></div>';
+                $html .= '<div id="imgArea"><img src="'.$value.'"><h4>'.$this->username.' är inloggad</h4></div>';
                 $this->pic = $value;
               }
             }
          
         if(basename($this->pic) === "") {
-           $html .= '<div id="imgArea"><img src="img/default.jpg"><strong>'.$this->username.' är inloggad</strong></div>';
+           $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$this->username.' är inloggad</h4></div>';
         }
         $html .= "
             <br><br>
@@ -64,8 +65,8 @@ class LoggedInView extends BaseView
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
               <ul class='nav navbar-nav'>
                  <li><a name='MyProfile' href='?". $this->ProfileLocation . "'>Min profil</a></li>
-                 <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Change password</a></li>
-                 <li><a name='logOut' href='?". $this->logOutLocation . "'>Log ut</a></li>
+                 <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Ändra lösenord</a></li>
+                 <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
               </ul>
            </div>
         </nav>

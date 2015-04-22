@@ -15,7 +15,7 @@ class UploadView
 			'<textarea name="Message" id="Message" cols="35" rows="5"  maxlength="255" placeholder="Dela ett Inlägg / Skriv en bildtitel eller ladda upp en youtube länk i rutan!" wrap="hard"></textarea>' .
 			'<br>'.
 			'<br>'.
-			'<input type="submit"  id="submit-btn" value="Ladda upp" />' .
+			'<input type="submit"  id="submit" value="Dela" />' .
 			'<div id="output"></div>' . 
 			'<img src="images/ajax-load.gif" id="loading-img" style="display:none;" alt="Var vänlig vänta..."/>'.
 			'</form>'.
