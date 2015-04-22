@@ -55,6 +55,7 @@ class upload extends BaseView
           <div id="imgChange"><span>Ändra profilbild</span></br>
             <input type="File" accept="image/*" name="image_upload_file" id="image_upload_file">
             <input type="submit" name="change" value="Byt" class="btn btn-info" id="change">
+            <input type="submit" name="default" value="Ändra till standardbild" class="btn btn-info" id="default">
           </div>
         </div>
       </form>
@@ -68,6 +69,11 @@ return $html;
     }
   }
 
+  public function hasSubmitToDefault() {
+    if (isset($_POST['default'])) {
+      return true;
+    }
+  }
 
 
   public function GetImgName() {

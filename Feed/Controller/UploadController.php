@@ -36,6 +36,9 @@
 		private function DidHasSubmit() {
 			return $this->uploadPage->hasSubmitToUpload();
 		}
+		private function DidHasSubmitToDefault() {
+			return $this->uploadPage->hasSubmitToDefault();
+		}
 		private function getFileName() {
 			 return $this->uploadPage->GetImgName();
 		}
@@ -50,7 +53,12 @@
 			$this->uploadPage->RenderUploadForm();
 			$counter = 1;
 			$this->validation->getFileName($this->fileName);
-	
+			if ($this->DidHasSubmitToDefault()) {
+				# code...
+				$images = new ProfilePic("img/default.jpg",$this->loginController->getId());
+				$this->imagesModel->updateImage($images);
+				header("Location: ?MyProfile");
+			}
 			if ($this->DidHasSubmit() == true) {
 							// check if has file and make sure that the file have a right type.
 				if (is_uploaded_file($this->fileName['tmp_name']) || $this->fileName['tmp_name'] != "") {
