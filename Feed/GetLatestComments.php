@@ -36,7 +36,7 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 		}
 
 		$html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-		<b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
+		<a href="?">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
 		</div>';	
 
 	    // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet

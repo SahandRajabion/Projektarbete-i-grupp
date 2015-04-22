@@ -46,7 +46,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         }
 
         $html .= "<div class='date'>" . $feedItem['Date'] . "</div>
-        <b>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</b> delade:
+        <a href='?'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
         <p>". $feedItem['Title'] . "</p>
@@ -86,7 +86,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <b>' . $comment->GetUsernameOfCreator() . '</b> skrev: <p>' . $data['body'] . '</p>
+                <a href="?">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
                 </div>';
             }            
         }
