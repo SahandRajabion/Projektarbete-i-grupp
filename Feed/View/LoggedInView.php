@@ -2,6 +2,7 @@
 
 require_once("./View/LoginView.php");
 require_once("./Model/LoginModel.php");
+require_once("./Model/ImagesModel.php");
 require_once("View/BaseView.php");
 require_once('View/FeedView.php');
 
@@ -10,9 +11,11 @@ class LoggedInView extends BaseView
     private $feedView;
     private $model;
     private $username;
+    private $imagesModel;
 
     public function __construct() {
         $this->model = new LoginModel();
+        $this->imagesModel = new ImagesModel();
         $this->feedView = new FeedView();
     }
    
@@ -31,10 +34,16 @@ class LoggedInView extends BaseView
 
         <body>
         <div class='container'>";
+        $Images = glob("imgs/*.*");
+            foreach ($Images as $value) {  
 
+              $img = $this->imagesModel->getImgs($this->username);
+              if ($img->getImg() == basename($value)) {
+                $html .= '<div id="imgArea"><img src="'.$value.'"><strong>'.$this->username.' is logged in</strong></div>';
+              }  
+            }
         $html .= "
             <br><br>
-            <h4>$this->username is logged in</h4>    
             <nav class='navbar navbar-default' role='navigation'>
             <div class='navbar-header'>
               <button type='button' class='navbar-toggle' data-toggle='collapse' 

@@ -1,7 +1,10 @@
 <?php
+require_once("Model/Dao/Repository.php");
+require_once("Model/StartProfileImg.php");
  	class ImagesRepository extends Repository  {
  		private static $imgName = "imgName";
  		private static $userId = "UserId";
+ 		private static $username = 'username';
  		public function __construct() {
  			$this->tabel = "user";
  		}
@@ -26,7 +29,28 @@
 				die('An unknown error hase happened');
 			}
 		}
+		
 
+		public function getImagesName($username) {
+			 try {
+				$f = new ImagesRepository();
+				$db = $f->connection();
+				$sql = "SELECT * FROM  $this->tabel WHERE username = ?";
+				$params = array($username);
+				$query = $db->prepare($sql);
+				$query->execute($params);
+				$results = $query->fetchAll();
+				if($results) {
+					foreach($results as $result) {
+						return new StartProfileImg($result[self::$imgName],$result[self::$userId]);
+					}
+				}
+				return NULL;
+			}
+			catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}
 
 
 		public function getImagesToRemove($name) {

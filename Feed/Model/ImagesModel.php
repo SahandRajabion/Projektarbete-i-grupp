@@ -14,6 +14,10 @@
 			return $this->imagesRepository->getImagesInformation($userId);
 		}
 
+		public function getImgs($username) {
+			return $this->imagesRepository->getImagesName($username);
+		}
+
 
 		public function getImgToRemove($name) {
 			return $this->imagesRepository->getImagesToRemove($name);
