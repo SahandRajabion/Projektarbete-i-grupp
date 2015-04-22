@@ -97,6 +97,8 @@
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
 								$images = new ProfilePic($this->fileName['name'],$this->loginController->getId());
 							 	$this->imagesModel->updateImage($images);
+								header("Location: ?MyProfile");
+	
 							 	//change filem mode, 0755 read and execute.
 							 	chmod($this->imgRoot.$this->fileName['name'], 0755);
 							  	@imagedestroy($imgCreateFromJ);

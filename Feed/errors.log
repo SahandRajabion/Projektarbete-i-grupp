@@ -16,3 +16,4 @@ SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not ma
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'
 SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'
+SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'email'

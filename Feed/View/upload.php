@@ -11,6 +11,7 @@ class upload extends BaseView
 {
   private $mainView;
   private $imagesModel;
+  private $pic;
 
   function __construct()
   {
@@ -32,23 +33,21 @@ class upload extends BaseView
       $html = '<a href="?">Tillbaka</a>';
       $html .= '<div id="imgContainer">';
       $html .='<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">';
-      //   if ($Images != NULL) {
-      
-            foreach ($Images as $value) {  
 
+            foreach ($Images as $value) {  
               $img = $this->imagesModel->getImages($this->loginController->getId());
               $removeImg = $this->imagesModel->getImgToRemove(basename($value));
               if ($img->getImgName() == basename($value)) {
-                # code...
-                $html .= '<div id="imgArea"><img src="'.$value.'">';
+                  $html .= '<div id="imgArea"><img src="'.$value.'">';
+                  $this->pic = $value;
               }
-             
-                 
             }
-      //     }
-      // else {
-            //     $html .= '<div id="imgArea"><img src="'.$value.'">';
-         //  }
+          
+          if(basename($this->pic) === "") {
+           $html .= '<div id="imgArea"><img src="img/default.jpg">';
+          }
+
+
         $html .= '<div class="progressBar">
             <div class="bar"></div>
             <div class="percent">0%</div>

@@ -12,6 +12,7 @@ class LoggedInView extends BaseView
     private $model;
     private $username;
     private $imagesModel;
+    private $pic;
 
     public function __construct() {
         $this->model = new LoginModel();
@@ -39,9 +40,15 @@ class LoggedInView extends BaseView
 
               $img = $this->imagesModel->getImgs($this->username);
               if ($img->getImg() == basename($value)) {
-                $html .= '<div id="imgArea"><img src="'.$value.'"><strong>'.$this->username.' is logged in</strong></div>';
-              }  
+                
+                $html .= '<div id="imgArea"><img src="'.$value.'"><strong>'.$this->username.' är inloggad</strong></div>';
+                $this->pic = $value;
+              }
             }
+         
+        if(basename($this->pic) === "") {
+           $html .= '<div id="imgArea"><img src="img/default.jpg"><strong>'.$this->username.' är inloggad</strong></div>';
+        }
         $html .= "
             <br><br>
             <nav class='navbar navbar-default' role='navigation'>
