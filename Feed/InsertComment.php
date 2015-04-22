@@ -37,7 +37,7 @@ if($validationResult)
 	}
 
 	$html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-	<a href="?">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
+	<a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
 	</div>';	
 
 	echo (json_encode(array('status'=>1, 'html'=>$html)));

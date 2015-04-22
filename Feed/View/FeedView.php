@@ -74,7 +74,7 @@ class FeedView
                 }
                 
                 $html .= "<div class='date'>" . $feedItem[$this->date] . "</div>
-                <a href='?'>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
+                <a href='?profile=" . $feedItem['UserId'] . "'>" . $this->userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
                 <div class='text-values'>
                 <p>" . $feedItem[$this->postContent] . "</p>
                 <p>". $feedItem[$this->postTitle] . "</p>
@@ -120,7 +120,7 @@ class FeedView
                         }
 
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
+                        <a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
                         </div>';
                     }            
                 }

@@ -49,7 +49,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
         }
 
         $html .= "<div class='date'>" . $feedItem['Date'] . "</div>
-        <a href='?'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
+        <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
         <p>". $feedItem['Title'] . "</p>
@@ -89,7 +89,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <a href="?">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
+                <a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
                 </div>';
             }            
         }
