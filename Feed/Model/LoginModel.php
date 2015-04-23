@@ -21,6 +21,11 @@ class LoginModel{
         $this->logRepository = new LogRepository();
     }
 
+    public function GetUserProfileDetails($id) 
+    {
+        return $this->userRepository->GetUserProfileDetails($id);
+    }    
+
     public function getId() 
     {
         return $_SESSION['id'];

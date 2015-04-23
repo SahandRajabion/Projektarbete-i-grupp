@@ -13,7 +13,7 @@ require_once("View/ResetPasswordView.php");
 require_once("View/ContactView.php");
 require_once("Controller/ContactController.php");
 require_once('Controller/UploadController.php');
-require_once('View/upload.php');
+require_once('View/ProfileView.php');
 
 class MasterController extends Navigation
 {
@@ -29,7 +29,7 @@ class MasterController extends Navigation
     private $resetPasswordView;
     private $emailExp;
     private $uploadController;
-    private $upload;
+    private $profileView;
     private $feed;
     private $renderContact = false;
 
@@ -50,7 +50,7 @@ class MasterController extends Navigation
       	$this->contactView = new ContactView();
       	$this->contactController = new ContactController();
       	$this->uploadController = new UploadController();
-      	$this->upload = new upload();
+      	$this->profileView = new ProfileView();
       	$this->feed = new FeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 
@@ -141,7 +141,7 @@ class MasterController extends Navigation
 	                }
              	}
 
-             	if ($this->loginController->isAuthenticated() && $this->upload->didUserPressToShowProfile())
+             	if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToShowProfile())
     	        {
 
 	             	return $this->uploadController->imgUpload();

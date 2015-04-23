@@ -2,7 +2,7 @@
 	
 	//the require once here just to show the coupling between classes.
 	require_once('Validation/Validation.php');
-	require_once('View/upload.php');
+	require_once('View/ProfileView.php');
 	require_once('Model/ImagesModel.php');
 	require_once('Model/ProfilePic.php');
 	require_once('helper/CookieStorage.php');
@@ -27,7 +27,7 @@
 		public function __construct() {
 			$this->validation = new validation();
 			$this->imgRoot = getcwd()."/imgs/";
-			$this->uploadPage = new upload();
+			$this->uploadPage = new ProfileView();
 			$this->fileName = $this->getFileName();
 			$this->imagesModel = new ImagesModel();
 			$this->cookieStorage = new CookieStorage();

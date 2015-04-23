@@ -80,6 +80,10 @@ class LoginController
             $this->renderPage();
     }
 
+    public function GetUserProfileDetails($id) 
+    {
+        return $this->model->GetUserProfileDetails($id);
+    }
  
     /**
      * test to login with cookie

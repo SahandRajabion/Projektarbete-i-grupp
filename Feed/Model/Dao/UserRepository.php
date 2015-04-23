@@ -20,8 +20,6 @@ class UserRepository extends Repository
 	private static $schoolForm = 'schoolForm';
 	private static $institute = 'institute';
 	private static $birthday = 'birthday';
-	private static $userID = 'userId';	
-
 	private $db;
 	private $users;
 
@@ -31,6 +29,20 @@ class UserRepository extends Repository
 		$this->dbTableDetails = 'userdetails';
 		$this->db = $this->connection();
 		$this->users = new Users();
+	}
+
+	public function GetUserProfileDetails($id) 
+	{
+		$sql = "SELECT * FROM $this->dbTableDetails WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$result = $query->fetch();
+
+		$user = new User(null, null, null, $result[self::$firstName], $result[self::$lastName],  $result[self::$sex],  $result[self::$birthday], $result[self::$schoolForm], $result[self::$institute]);
+
+		return $user;
 	}
 
 	public function getUsernameFromId($id) 
@@ -56,8 +68,8 @@ class UserRepository extends Repository
 	}
 
 	public function addDetails(User $user, $id) {
-			$sql = "INSERT INTO $this->dbTableDetails (". self::$userID .", ". self::$firstName .", ". self::$lastName .", ". self::$sex . ", ". self::$birthday .", ". self::$schoolForm .", ". self::$institute .") VALUES (".$id.",?,?,?,?,?,?)";
-			$params = array($user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute());
+			$sql = "INSERT INTO $this->dbTableDetails (". self::$userId .", ". self::$firstName .", ". self::$lastName .", ". self::$sex . ", ". self::$birthday .", ". self::$schoolForm .", ". self::$institute .") VALUES (?,?,?,?,?,?,?)";
+			$params = array($id, $user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute());
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 	}

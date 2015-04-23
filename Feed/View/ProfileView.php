@@ -7,7 +7,7 @@ require_once('View/HTMLView.php');
 require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
 require_once('Controller/LoginController.php');
-class upload extends BaseView
+class ProfileView extends BaseView
 {
   private $mainView;
   private $imagesModel;
@@ -29,13 +29,13 @@ class upload extends BaseView
       }
       
     echo  $responseMessages;
-    
     $Images = glob("imgs/*.*");
+
       $html = '<a href="?">Tillbaka</a>';
       $html .= '<div id="imgContainer">';
 
         if ($this->loginController->getId() == $this->getId()) {
-           $html = "
+           $html .= "
             <br><br>
             <nav class='navbar navbar-default' role='navigation'>
             <div class='navbar-header'>
@@ -70,6 +70,8 @@ class upload extends BaseView
               }
 
 
+            $user = $this->loginController->GetUserProfileDetails($this->getId());
+
             $html .= '<div class="progressBar">
                 <div class="bar"></div>
                 <div class="percent">0%</div>
@@ -81,10 +83,25 @@ class upload extends BaseView
               </div>
             </div>
           </form>
-        </div>';
+        </div>'; 
 
-         
+            $age = "";
+
+            if (empty($user->getBirthday() == false))
+            {
+              $age = $this->calculateAge($user->getBirthday());
+            }
+
+            $html .= 'Förnamn:' . $user->getfName() . '<br>
+            Efternamn:' . $user->getlName() . ' <br>
+            Kön: '  . $user->getSex() .  ' <br>
+            Ålder: ' . $age . ' <br>
+            Program: ' . $user->getInstitute() . ' <br>
+            Studieform: ' . $user->getSchoolForm();
+
         }
+
+        // IF NOT THE ONE WHO OWNS PROFILE
         else
         {
             foreach ($Images as $value) {  
@@ -99,6 +116,21 @@ class upload extends BaseView
            $html .= '<div id="imgArea"><img src="img/default.jpg">';
           }
 
+          $user = $this->loginController->GetUserProfileDetails($this->getId());
+
+            $age = "";
+
+            if (empty($user->getBirthday() == false))
+            {
+              $age = $this->calculateAge($user->getBirthday());
+            }
+
+            $html .= 'Förnamn:' . $user->getfName() . '<br>
+            Efternamn:' . $user->getlName() . ' <br>
+            Kön: '  . $user->getSex() .  ' <br>
+            Ålder: ' . $age . ' <br>
+            Program: ' . $user->getInstitute() . ' <br>
+            Studieform: ' . $user->getSchoolForm();
 
         $html .='
     </div>
@@ -136,5 +168,13 @@ return $html;
     if (isset($_GET[$this->userProfileLocation])) {
       return true;
     }
+  }
+
+  public function calculateAge($birthdate) 
+  {
+    $birthday = new DateTime($birthdate);
+    $today   = new DateTime('today');
+
+    return $age = $birthday->diff($today)->y;
   }
 }
