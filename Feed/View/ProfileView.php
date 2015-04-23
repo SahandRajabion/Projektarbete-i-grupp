@@ -85,8 +85,8 @@ class ProfileView extends BaseView
 </div>'; 
 
             $age = "";
-
-            if (empty($user->getBirthday() == false))
+            $birthday = $user->getBirthday();
+            if (empty($birthday) == false)
             {
               $age = $this->calculateAge($user->getBirthday());
             }
@@ -118,7 +118,7 @@ class ProfileView extends BaseView
 
             $age = "";
 
-            if (empty($user->getBirthday() == false))
+            if (empty($birthday) == false)
             {
               $age = $this->calculateAge($user->getBirthday());
             }
