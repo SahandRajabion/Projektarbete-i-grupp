@@ -113,6 +113,8 @@ class ProfileView extends BaseView
                   $this->pic = $value;
               }
             }
+
+         $user = $this->loginController->GetUserProfileDetails($this->getId());
           if(basename($this->pic) === "" && $user->getSex() == "Man") 
           {
             $html .= '<div id="imgArea"><img src="img/default.jpg">';
@@ -122,7 +124,7 @@ class ProfileView extends BaseView
            $html .= '<div id="imgArea"><img src="img/kvinna.png">';
          }
 
-          $user = $this->loginController->GetUserProfileDetails($this->getId());
+         
 
             $age = "";
 
