@@ -53,7 +53,7 @@ class ProfileView extends BaseView
     </nav>";
 
     $html .='<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">';
-
+    $user = $this->loginController->GetUserProfileDetails($this->getId());
     foreach ($Images as $value) {  
       $img = $this->imagesModel->getImages($this->loginController->getId());
       $removeImg = $this->imagesModel->getImgToRemove(basename($value));
@@ -63,13 +63,17 @@ class ProfileView extends BaseView
       }
     }
   
-    if(basename($this->pic) === "") 
+    if(basename($this->pic) === "" && $user->getSex() == "Man") 
     {
       $html .= '<div id="imgArea"><img src="img/default.jpg">';
     }
+    else if(basename($this->pic) === "" && $user->getSex() == "Kvinna")
+    {
+      $html .= '<div id="imgArea"><img src="img/kvinna.png">';
+    }
 
 
-    $user = $this->loginController->GetUserProfileDetails($this->getId());
+    
 
     $html .= '<div class="progressBar">
         <div class="bar"></div>
@@ -109,10 +113,14 @@ class ProfileView extends BaseView
                   $this->pic = $value;
               }
             }
-          
-          if(basename($this->pic) === "") {
-           $html .= '<div id="imgArea"><img src="img/default.jpg">';
+          if(basename($this->pic) === "" && $user->getSex() == "Man") 
+          {
+            $html .= '<div id="imgArea"><img src="img/default.jpg">';
           }
+         else if(basename($this->pic) === "" && $user->getSex() == "Kvinna")
+         {
+           $html .= '<div id="imgArea"><img src="img/kvinna.png">';
+         }
 
           $user = $this->loginController->GetUserProfileDetails($this->getId());
 

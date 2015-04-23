@@ -19,6 +19,11 @@ class LoggedInView extends BaseView
         $this->imagesModel = new ImagesModel();
         $this->feedView = new FeedView();
     }
+
+    public function GetUserProfileDetails($id) 
+    {
+        return $this->model->GetUserProfileDetails($id);
+    }
    
     public function showLoggedInPage() {
         $this->username = $this->model->getUsername();
@@ -37,6 +42,7 @@ class LoggedInView extends BaseView
         <body>
         <div class='container'>
         <br>";
+        $user = $this->GetUserProfileDetails($this->model->getId());
         $Images = glob("imgs/*.*");
             foreach ($Images as $value) {  
 
@@ -47,10 +53,15 @@ class LoggedInView extends BaseView
                 $this->pic = $value;
               }
             }
-         
-        if(basename($this->pic) === "") {
-           $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$this->username.' är inloggad</h4></div>';
-        }
+
+        if(basename($this->pic) === "" && $user->getSex() == "Man") 
+          {
+             $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$this->username.' är inloggad</h4></div>';
+          }
+         else if(basename($this->pic) === "" && $user->getSex() == "Kvinna")
+         {
+            $html .= '<div id="imgArea"><img src="img/kvinna.png"><h4>'.$this->username.' är inloggad</h4></div>';
+         }
         $html .= "
             <br><br>
             <nav class='navbar navbar-default' role='navigation'>
