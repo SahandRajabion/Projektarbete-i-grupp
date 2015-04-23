@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 22 apr 2015 kl 11:32
+-- Tid vid skapande: 23 apr 2015 kl 14:33
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.5.8
+-- PHP-version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databas: `scroll_paging`
+-- Databas: `lsn_social_network`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=180 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=181 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -113,7 +113,8 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (176, '2015-04-21 23:47:05', '127.0.0.1', 1, 'yousif'),
 (177, '2015-04-22 01:58:26', '127.0.0.1', 0, 'abdi'),
 (178, '2015-04-22 01:58:30', '127.0.0.1', 0, 'abdi'),
-(179, '2015-04-22 01:59:29', '127.0.0.1', 1, 'Sahib');
+(179, '2015-04-22 01:59:29', '127.0.0.1', 1, 'Sahib'),
+(180, '2015-04-23 12:28:11', '127.0.0.1', 1, 'TestUser');
 
 -- --------------------------------------------------------
 
@@ -211,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumpning av Data i tabell `user`
@@ -220,7 +221,34 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
 (34, 'Sahib', 'sahib@hotmail.se', '$2a$10$Y.9z8htHcHlSRhx9py9ZwesH5eWGlhbvCnnaaCsVXGUBZ3OJ9gPKC', 1, 721170, '2.jpg'),
 (35, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$ijmvQY7SSF.j7CLZ4vT80.YeduxEvJ5T20M13ZeTX/BEVcQf8xopW', 1, 0, NULL),
-(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0, NULL);
+(36, 'Sahand', 'sr222hn@student.lnu.se', '$2a$10$iqEVr9iEOIADVtNfAwvNXeS29MPwIma06ASrwoEG9KXROnIOSWK1u', 1, 0, NULL),
+(44, 'TestUser', 'sahandrajabion@gmail.com', '$2a$10$i/Cd3GDx8beOth7rGN95HOV4i.rrJR/tYw3GHmTyaW/rbW6HHtfn6', 3, 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `userdetails`
+--
+
+CREATE TABLE IF NOT EXISTS `userdetails` (
+  `userDetailid` int(11) NOT NULL AUTO_INCREMENT,
+  `UserId` int(11) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `sex` varchar(10) NOT NULL,
+  `birthday` datetime NOT NULL,
+  `schoolForm` varchar(50) NOT NULL,
+  `institute` varchar(50) NOT NULL,
+  PRIMARY KEY (`userDetailid`),
+  KEY `UserId` (`UserId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+
+--
+-- Dumpning av Data i tabell `userdetails`
+--
+
+INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `institute`) VALUES
+(29, 44, 'Sahand', 'Rajabion', 'Man', '1992-05-12 00:00:00', 'Campus', 'UD');
 
 --
 -- Restriktioner för dumpade tabeller
