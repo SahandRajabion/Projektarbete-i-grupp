@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `sex` varchar(10) NOT NULL,
-  `birthday` datetime NOT NULL,
+  `birthday` date NOT NULL,
   `schoolForm` varchar(50) NOT NULL,
   `institute` varchar(50) NOT NULL,
   PRIMARY KEY (`userDetailid`),
