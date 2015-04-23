@@ -3,6 +3,30 @@
 	padding:0;
 }
 
+.profile{
+margin-left: 436px;
+text-align: center;
+margin-top: 81px;
+background: none repeat scroll 0% 0% #47F285;
+border-radius: 70px;
+width: 510px;}
+
+.btn-info1 {
+    color: #FFF;
+    background-color: #5BC0DE;
+    border-color: #46B8DA;
+    width: 184;
+    border-radius: 0px;
+}
+
+.btn1{
+	    border-radius: 0px;
+	    width: 135px;
+
+
+
+}
+
 .content {
 	padding: 10px;
 	min-height: 100px;

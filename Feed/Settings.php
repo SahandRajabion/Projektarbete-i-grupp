@@ -3,7 +3,7 @@
 class Settings {
 	public static $DB_USERNAME = "root";
 	public static $DB_PASSWORD = "";
-	public static $DB_CONNECTION = "mysql:host=127.0.0.1;dbname=scroll_paging";
+	public static $DB_CONNECTION = "mysql:host=127.0.0.1;dbname=lsn_social_network";
 	public static $ROOT_PATH = "Feed";
 	public static $ERROR_LOG = "errors.log";
 	public static $DO_DEBUG = true;
