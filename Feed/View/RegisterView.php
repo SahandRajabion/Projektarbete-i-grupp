@@ -5,6 +5,9 @@ require_once('recaptchalib.php');
 
 class RegisterView extends BaseView {
 
+	private $emailRegEx; 		
+
+
 	/**
   	* Function to render message
   	*/
@@ -43,9 +46,6 @@ class RegisterView extends BaseView {
 			return strip_tags($_POST[$this->confirmPasswordLocation]);
 		}
 	}
-
-
-
 
 
 
@@ -110,6 +110,14 @@ class RegisterView extends BaseView {
         if(isset($_POST[$this->registerLocation])){
             $usernameInput = $this->getUserName();
             $username .= htmlspecialchars($usernameInput);
+        }
+
+        $this->emailRegEx = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
+        $email = $this->getEmail();
+        if(!preg_match($this->emailRegEx, $email)){
+
+        	 $email = "";
+
         }
 
                 $html = "<!DOCTYPE html>
@@ -183,7 +191,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->emailRegLocation'>Epost: </label>
 					        <div class='col-sm-10'>
 					         <div style='color: #FF0000;'>*</div>
-					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='".htmlspecialchars($this->getEmail())."' type='text' size='20' maxlength='40'/>
+					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='".htmlspecialchars($email)."' type='text' size='20' maxlength='40'/>
 					        </div>
 					      </div>
 
