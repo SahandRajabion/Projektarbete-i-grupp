@@ -80,13 +80,9 @@ class ValidateNewUser {
 		return true;
 	}
 
-	public function validateBirthday($birthday){
-
-		 if ($birthday == NULL) {
-			return false;
-		}
-
-	    else if(!preg_match($this->birthdayRegEx, $birthday)) {
+	public function validateBirthday($birthday)
+	{
+	    if(!preg_match($this->birthdayRegEx, $birthday)) {
 			return false;
 		}
 

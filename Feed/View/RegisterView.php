@@ -146,7 +146,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->fNameLocation'>Förnamn: </label>
 					        <div class='col-sm-10'>
 					        <div style='color: #FF0000;'>*</div>
-					          <input id='fName' class='form-control1'  name='$this->fNameLocation' value='".$this->getFname()."' type='text' size='20' maxlength='20'/>
+					          <input id='fName' class='form-control1'  name='$this->fNameLocation' value='". htmlspecialchars($this->getFname())."' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 
@@ -155,7 +155,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->lNameLocation'>Efternamn: </label>
 					        <div class='col-sm-10'>
 					        <div style='color: #FF0000;'>*</div>
-					          <input id='lName' class='form-control1'  name='$this->lNameLocation' value='".$this->getLname()."' type='text' size='20' maxlength='20'/>
+					          <input id='lName' class='form-control1'  name='$this->lNameLocation' value='". htmlspecialchars($this->getLname())."' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 
@@ -175,7 +175,7 @@ class RegisterView extends BaseView {
 					      <div class='form-group'>
 					        <label class='col-sm-2 control-label1' for='$this->birthdayLocation'>Födelsedag: </label>
 					        <div class='col-sm-10'>
-					        <input id='birthday' name='$this->birthdayLocation' type='date' value='1992-05-12'/> 
+					        <input id='birthday' name='$this->birthdayLocation' type='date' value='' placeholder='1992-05-12'/> 
 							</div>
 					      </div>
 
@@ -183,7 +183,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->emailRegLocation'>Epost: </label>
 					        <div class='col-sm-10'>
 					         <div style='color: #FF0000;'>*</div>
-					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='".$this->getEmail()."' type='text' size='20' maxlength='40'/>
+					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='".htmlspecialchars($this->getEmail())."' type='text' size='20' maxlength='40'/>
 					        </div>
 					      </div>
 
@@ -194,7 +194,6 @@ class RegisterView extends BaseView {
 					          <input id='email2' class='form-control1'  name='$this->emailConfirmLocation' type='text' size='20' maxlength='40'/>
 					        </div>
 					      </div>
-
 
 					        <div class='form-group'>
 					        <label class='col-sm-2 control-label1' for='$this->schoolLocation'>Välj din studieform: </label>
@@ -210,7 +209,7 @@ class RegisterView extends BaseView {
 
 
 					        <div class='form-group'>
-					        <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program?: </label>
+					        <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
 					        <div class='col-sm-10'>
 					        <div style='color: #FF0000;'>*</div>
 
@@ -242,6 +241,7 @@ class RegisterView extends BaseView {
 					      </div>
 
 					      <div class='form-group'>
+					      <label class='col-sm-2 control-label1'>Skriv in ReCaptcha text: </label>
 					         <div class='col-sm-10'>
 					         <div style='color: #FF0000;'>*</div>
 
