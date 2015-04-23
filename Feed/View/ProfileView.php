@@ -81,8 +81,8 @@ class ProfileView extends BaseView
       </div>
       <div id="imgChange"><span>Bläddra</span></br>
         <input type="File" accept="imgs/*" name="image_upload_file" id="image_upload_file">
-        <input type="submit" name="change" value="Byt" class="btn1 btn-info1" id="change">
-        <input type="submit" name="default" value="Ändra till standardbild" class="btn1 btn-info1" id="default">
+        <input type="submit" name="change" value="Byt" class="btn btn-info" id="change">
+        <input type="submit" name="default" value="Ändra till standardbild" class="btn btn-info" id="default">
       </div>
     </div>
   </form>
@@ -95,13 +95,13 @@ class ProfileView extends BaseView
               $age = $this->calculateAge($user->getBirthday());
             }
 
-            $html .= '<div class="profile">
+            $html .= '
             <strong>Förnamn:</strong> ' . $user->getfName() . '<br>
             <strong>Efternamn:</strong> ' . $user->getlName() . ' <br>
             <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
             <strong>Ålder:</strong> ' . $age . ' <br>
             <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
-            <strong>Studieform:</strong> ' . $user->getSchoolForm().'</div>';
+            <strong>Studieform:</strong> ' . $user->getSchoolForm();
         }
 
         // IF NOT THE ONE WHO OWNS PROFILE
@@ -134,13 +134,13 @@ class ProfileView extends BaseView
               $age = $this->calculateAge($user->getBirthday());
             }
 
-            $html .= '<div class="profile">
+            $html .= '
             <strong>Förnamn:</strong>' . $user->getfName() . '<br>
             <strong>Efternamn:</strong>' . $user->getlName() . ' <br>
             <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
             <strong>Ålder:</strong> ' . $age . ' <br>
             <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
-            <strong>Studieform:</strong> ' . $user->getSchoolForm().'</div>';
+            <strong>Studieform:</strong> ' . $user->getSchoolForm();
 
         $html .='</div>
                 </div>';
