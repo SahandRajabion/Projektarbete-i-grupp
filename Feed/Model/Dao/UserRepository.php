@@ -14,12 +14,21 @@ class UserRepository extends Repository
 	private static $userId = 'userid';
 	private static $date = 'Date';
 	private static $email = 'email';
+	private static $firstName = 'firstname';
+	private static $lastName = 'lastname';
+	private static $sex = 'sex';
+	private static $schoolForm = 'schoolForm';
+	private static $institute = 'institute';
+	private static $birthday = 'birthday';
+	private static $userID = 'userId';	
+
 	private $db;
 	private $users;
 
 	public function __construct() 
 	{
 		$this->dbTable = 'user';
+		$this->dbTableDetails = 'userdetails';
 		$this->db = $this->connection();
 		$this->users = new Users();
 	}
@@ -37,16 +46,45 @@ class UserRepository extends Repository
 	}
 
 	public function add(User $user) {
-			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .") VALUES (?,?)";
-			$params = array($user->getUsername(), $user->getPassword());
+			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .", ". self::$email .") VALUES (?,?,?)";
+			$params = array($user->getUsername(), $user->getPassword(), $user->getEmail());
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+			$id = $this->db->lastInsertId(); 
+			
+			return $id;
+	}
+
+	public function addDetails(User $user, $id) {
+			$sql = "INSERT INTO $this->dbTableDetails (". self::$userID .", ". self::$firstName .", ". self::$lastName .", ". self::$sex . ", ". self::$birthday .", ". self::$schoolForm .", ". self::$institute .") VALUES (".$id.",?,?,?,?,?,?)";
+			$params = array($user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute());
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 	}
+	
 	
 	public function exists($username) 
 	{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($username);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetch();
+
+		if ($results == false) 
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+
+	public function existsEmail($email) 
+	{
+		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$email . "= ?";
+		$params = array($email);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
 
