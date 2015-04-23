@@ -66,7 +66,6 @@ class LoggedInView extends BaseView
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
               <ul class='nav navbar-nav'>
                  <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->model->getId()."'>Min profil</a></li>
-                 <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Ändra lösenord</a></li>
                  <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
               </ul>
            </div>

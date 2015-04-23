@@ -29,8 +29,26 @@ class upload extends BaseView
       }
       
     echo  $responseMessages;
+     $html = "
+            <br><br>
+            <nav class='navbar navbar-default' role='navigation'>
+            <div class='navbar-header'>
+              <button type='button' class='navbar-toggle' data-toggle='collapse' 
+                 data-target='#example-navbar-collapse'>
+                 <span class='sr-only'>Toggle navigation</span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+              </button>
+           </div>
+           <div class='collapse navbar-collapse' id='example-navbar-collapse'>
+              <ul class='nav navbar-nav'>
+                 <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Ändra lösenord</a></li>
+              </ul>
+           </div>
+        </nav>";
     $Images = glob("imgs/*.*");
-      $html = '<a href="?">Tillbaka</a>';
+      $html .= '<a href="?">Tillbaka</a>';
       $html .= '<div id="imgContainer">';
 
         if ($this->loginController->getId() == $this->getId()) {
@@ -55,7 +73,7 @@ class upload extends BaseView
                 <div class="bar"></div>
                 <div class="percent">0%</div>
               </div>
-              <div id="imgChange"><span>Ändra profilbild</span></br>
+              <div id="imgChange"><span>Bläddra</span></br>
                 <input type="File" accept="imgs/*" name="image_upload_file" id="image_upload_file">
                 <input type="submit" name="change" value="Byt" class="btn btn-info" id="change">
                 <input type="submit" name="default" value="Ändra till standardbild" class="btn btn-info" id="default">
@@ -63,6 +81,8 @@ class upload extends BaseView
             </div>
           </form>
         </div>';
+
+         
         }
         else
         {

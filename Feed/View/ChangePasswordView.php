@@ -2,12 +2,15 @@
 
 require_once("helper/CookieStorage.php");
 require_once("View/BaseView.php");
-
+//require_once('Model/LoginModel.php');
 class ChangePasswordView extends BaseView
 {
+	//private $model;
+
 	public function __construct() 
 	{
 		$this->cookie = new CookieStorage();
+		//$this->model = new LoginModel();
 	}
 
 	public function didUserPressToChangePassword() {
@@ -70,6 +73,7 @@ class ChangePasswordView extends BaseView
                 </head>
                 <body>
                  <div class='container'>";		
+//                 var_dump($this->model->getId());
 
 		$html .= "
 		</br>
