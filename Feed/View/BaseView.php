@@ -25,6 +25,16 @@ abstract class BaseView
     protected $code = 'gjaQwrA';
     protected $userProfileLocation = 'profile';
 
+    protected $emailRegLocation='emailRegLocation';
+    protected $emailConfirmLocation='emailConfirmLocation';
+    protected $fNameLocation='fNameLocation';
+    protected $lNameLocation='LNameLocation';
+    protected $sexLocation='sexLocation';
+    protected $birthdayLocation='birthdayLocation';
+	protected $schoolLocation='schoolLocation';
+    protected $instituteLocation='instituteLocation';
+    
+
 	public function getId() {
 	   if (isset($_GET[$this->id])) {
 	      return $_GET[$this->id];

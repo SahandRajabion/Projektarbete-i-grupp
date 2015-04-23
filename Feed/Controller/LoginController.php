@@ -11,6 +11,7 @@ require_once("View/ForgetPasswordView.php");
 require_once("helper/UserAgent.php");
 require_once("Validation/ValidatePassword.php");
 require_once("Validation/ValidateUsername.php");
+require_once("Validation/ValidateNewUser.php");
 require_once("Model/Hash.php");
 require_once("Model/Dao/UserRepository.php");
 require_once("Model/User.php");
@@ -38,6 +39,7 @@ class LoginController
     private $showResetPasswordPage;
     private $validateUsername;
     private $validatePassword;
+    private $validateNewUser;
     private $changePasswordView;
     private $validationErrors = 0;
     private $loginMessage;
@@ -55,6 +57,7 @@ class LoginController
         $this->changePasswordView = new ChangePasswordView();
         $this->validateUsername = new ValidateUsername();
         $this->validatePassword = new ValidatePassword();
+        $this->validateNewUser = new ValidateNewUser();
         $this->userRepository = new UserRepository();
         $this->forgetPasswordView = new ForgetPasswordView();
         $this->hash = new Hash();
@@ -512,7 +515,16 @@ class LoginController
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
 
-            $username = $this->registerView->getUsername();            
+            $username = $this->registerView->getUsername(); 
+            $email = $this->registerView->getEmail(); 
+            $confirmEmail = $this->registerView->getConfirmEmail(); 
+            $fName = $this->registerView->getFname(); 
+            $lName = $this->registerView->getLname(); 
+            $sex = $this->registerView->getSex();
+            $birthday = $this->registerView->getBirthday();
+            
+            $schoolForm = $this->registerView->getSchoolForm();
+            $institute = $this->registerView->getInstitute(); 
             $password = $this->registerView->getPassword();
             $confirmPassword = $this->registerView->getConfirmPassword();
 
@@ -558,6 +570,71 @@ class LoginController
                 }   
             }            
 
+            if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateIfSameEmail($email, $confirmEmail) == false) {
+                        $msgId = 25; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+             if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateEmail($email, $confirmEmail)==false) {
+                        $msgId = 28; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateNames($fName, $lName) == false) {
+                        $msgId = 29; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateSex($sex) == false) {
+                        $msgId = 30; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateBirthday($birthday) == false) {
+                        $msgId = 31; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+             if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateSchoolForm($schoolForm) == false) {
+                        $msgId = 32; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateInstitute($institute) == false) {
+                        $msgId = 33; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                }
+            }
+
+
+
             if ($this->validationErrors == 0) 
             {
                 if (!$resp->is_valid) 
@@ -571,21 +648,36 @@ class LoginController
               
             if($this->validationErrors == 0 && $resp->is_valid) {
                $hash = $this->hash->crypt($password);
-               $newUser = new User($username, $hash);
+               $newUser = new User($username, $hash, $email, $fName, $lName, $sex, $birthday, $schoolForm, $institute);
 
                if ($this->userRepository->exists($username) == false) {
-                $this->userRepository->add($newUser);
+             
+               if($this->userRepository->existsEmail($email) == false){
+                $id = $this->userRepository->add($newUser);
+                $this->userRepository->addDetails($newUser, $id);
+
                 $msgId = 12;
                 $this->model->setMessage($msgId);
                 $this->setMessage();
                 $this->showRegisterPage = false;
                 $this->loginView->setRegister($username);                
                }
+
                else {
+
+                $msgId = 26;
+                $this->model->setMessage($msgId);
+                $this->setMessage();
+
+             }
+         }
+            
+             else {
                 $msgId = 5;
                 $this->model->setMessage($msgId);
                 $this->setMessage();
-               }     
+               }    
+     
             }
 
         }
