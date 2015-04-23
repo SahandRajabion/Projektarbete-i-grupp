@@ -48,6 +48,7 @@ class LoginController
     private $author;
     private $forgetPasswordView;
 
+
     public function __construct() {
         $this->loginView = new LoginView();
         $this->htmlView = new HTMLView();
@@ -62,6 +63,8 @@ class LoginController
         $this->forgetPasswordView = new ForgetPasswordView();
         $this->hash = new Hash();
         $this->resetPassword = new ResetPasswordView();
+        $this->loginMessage = new LoginMessage($msg='');
+
     }
 
     /**
@@ -71,6 +74,7 @@ class LoginController
          $this->doGoToRegisterPage();
             $this->registerNewUser();
             $this->doGoToForgetPasswordPage();
+            $this->doGoToForgetPasswordPageFromRegisterView();
             $this->didGetResetPasswordPage();
             $this->doReturnToLoginPage();
             $this->doLogInCookie();
@@ -240,6 +244,22 @@ class LoginController
             $this->showLoginpage = false;
         }
     }
+
+
+     public function doGoToForgetPasswordPageFromRegisterView() {
+        if ($this->didUserPressGoToForgetPasswordPage()) {
+            $this->showForgetPasswordPage = true;
+            $this->showLoginpage = false;
+        }
+    }
+
+      public function didUserPressGoToForgetPasswordPage() {
+        if (isset($_GET['forgetPassword'])) {
+            return true;
+        }
+        return false;
+    }
+
 
     public function getCode() {
         return $this->resetPassword->getCode();
@@ -671,9 +691,14 @@ class LoginController
 
                else {
 
-                $msgId = 26;
-                $this->model->setMessage($msgId);
-                $this->setMessage();
+                $errorMsgForgetEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">
+                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <strong>Eposten finns redan registrerad, välj <a href=?forgetPassword>Glömt lösenord</a>
+                                             för att återställa lösenordet</strong></div>';
+
+                                            echo $errorMsgForgetEmail;
+
 
              }
          }

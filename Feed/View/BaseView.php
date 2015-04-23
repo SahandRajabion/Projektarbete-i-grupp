@@ -33,7 +33,7 @@ abstract class BaseView
     protected $birthdayLocation='birthdayLocation';
 	protected $schoolLocation='schoolLocation';
     protected $instituteLocation='instituteLocation';
-    
+
 
 	public function getId() {
 	   if (isset($_GET[$this->id])) {

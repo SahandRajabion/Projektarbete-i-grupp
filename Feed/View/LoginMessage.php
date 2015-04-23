@@ -2,6 +2,7 @@
 
 class LoginMessage {
     private $messageId;
+
     private $messages = array('Användarnamn saknas', 'Lösenordet saknas', "Felaktig användarnamn och/eller Lösenord ",
                               "Felaktig information o cookies", 'Användarnamn har otillåtet tecken',
                               'användarnamn är upptagen', 'Lösenordet matchar ej', 'Lösenordet måste vara minst 6 tecken',
@@ -9,13 +10,15 @@ class LoginMessage {
                               "Logga in lyckades, vi kommer ihåg dig nästa gång", "Logga in lyckades", "Du loggat ut",
                               'Registering lyckades', "Du är inloggad med cookies", "ReCaptcha text är fel", "Du är nu IP blockad", "Nuvarande Lösenord är fel",
                               "Lösenordet har ändrat, du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nya Lösenordet kan inte ändras till samma Nuvarande lösenord",
-                              "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat", "Epost matchar ej", "Eposten finns redan registrerad, välj glömt lösenord för att återställa lösenordet" , "Kontrollera så att alla fält är inmatade, samt i rätt format."
+                              "Threads topic is too long", "Threads topic cannot be empty", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat", "Epost matchar ej", "Eposten finns redan registrerad, välj  för att återställa lösenordet" , "Kontrollera så att alla fält är inmatade, samt i rätt format."
                               , "Kontrollera så att email adressen är ifylld och i rätt format", "Kontrollera så att för- och efternamn är korrekt ifyllda", "Är du man eller kvinna?", "Kontrollera så att ditt födelsedatum är i rätt format (1999-01-01).", "Pluggar/undervisar du på Campus eller Distans?", "Vilket program läser du på Linnéuniversitetet?");   
-
+    
 
     public function __construct($messageId) {
         $this->messageId = $messageId;
+
     }
+
 
     /**
      * @return string html with feedback
