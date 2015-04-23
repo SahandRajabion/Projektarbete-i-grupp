@@ -91,12 +91,12 @@ class ProfileView extends BaseView
               $age = $this->calculateAge($user->getBirthday());
             }
 
-            $html .= 'Förnamn:' . $user->getfName() . '<br>
-            Efternamn:' . $user->getlName() . ' <br>
-            Kön: '  . $user->getSex() .  ' <br>
-            Ålder: ' . $age . ' <br>
-            Program: ' . $user->getInstitute() . ' <br>
-            Studieform: ' . $user->getSchoolForm();
+            $html .= '<strong>Förnamn:</strong> ' . $user->getfName() . '<br>
+            <strong>Efternamn:</strong> ' . $user->getlName() . ' <br>
+            <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
+            <strong>Ålder:</strong> ' . $age . ' <br>
+            <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
+            <strong>Studieform:</strong> ' . $user->getSchoolForm();
         }
 
         // IF NOT THE ONE WHO OWNS PROFILE
@@ -123,12 +123,12 @@ class ProfileView extends BaseView
               $age = $this->calculateAge($user->getBirthday());
             }
 
-            $html .= 'Förnamn:' . $user->getfName() . '<br>
-            Efternamn:' . $user->getlName() . ' <br>
-            Kön: '  . $user->getSex() .  ' <br>
-            Ålder: ' . $age . ' <br>
-            Program: ' . $user->getInstitute() . ' <br>
-            Studieform: ' . $user->getSchoolForm();
+            $html .= '<strong>Förnamn:</strong>' . $user->getfName() . '<br>
+            <strong>Efternamn:</strong>' . $user->getlName() . ' <br>
+            <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
+            <strong>Ålder:</strong> ' . $age . ' <br>
+            <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
+            <strong>Studieform:</strong> ' . $user->getSchoolForm();
 
         $html .='</div>
                 </div>';
