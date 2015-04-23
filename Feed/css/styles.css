@@ -5,6 +5,7 @@
 
 
 
+
 .content {
 	padding: 10px;
 	min-height: 100px;
@@ -12,7 +13,7 @@
 }
 
 /* items ******************/
-#loader {
+#loader{
 	text-align: center;
 	display: none;
 }
