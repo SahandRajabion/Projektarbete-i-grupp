@@ -29,7 +29,13 @@ class upload extends BaseView
       }
       
     echo  $responseMessages;
-     $html = "
+    
+    $Images = glob("imgs/*.*");
+      $html = '<a href="?">Tillbaka</a>';
+      $html .= '<div id="imgContainer">';
+
+        if ($this->loginController->getId() == $this->getId()) {
+           $html = "
             <br><br>
             <nav class='navbar navbar-default' role='navigation'>
             <div class='navbar-header'>
@@ -47,11 +53,6 @@ class upload extends BaseView
               </ul>
            </div>
         </nav>";
-    $Images = glob("imgs/*.*");
-      $html .= '<a href="?">Tillbaka</a>';
-      $html .= '<div id="imgContainer">';
-
-        if ($this->loginController->getId() == $this->getId()) {
                 # code...
              $html .='<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">';
 
