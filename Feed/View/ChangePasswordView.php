@@ -2,15 +2,16 @@
 
 require_once("helper/CookieStorage.php");
 require_once("View/BaseView.php");
-//require_once('Model/LoginModel.php');
+require_once('Model/LoginModel.php');
+
 class ChangePasswordView extends BaseView
 {
-	//private $model;
+	private $model;
 
 	public function __construct() 
 	{
 		$this->cookie = new CookieStorage();
-		//$this->model = new LoginModel();
+		$this->model = new LoginModel();
 	}
 
 	public function didUserPressToChangePassword() {
@@ -60,6 +61,7 @@ class ChangePasswordView extends BaseView
 	public function showChangePasswordForm() 
 	{
 		$this->message = $this->renderCookieMessage($this->messageLocation);
+		$id = $this->model->getId();
 
                 $html = "<!DOCTYPE html>
                 <html>
@@ -73,11 +75,10 @@ class ChangePasswordView extends BaseView
                 </head>
                 <body>
                  <div class='container'>";		
-//                 var_dump($this->model->getId());
 
 		$html .= "
 		</br>
-		<a href='?'>Tillbaka</a>
+		<a href='?" . $this->userProfileLocation . "&" . $this->id . "=$id'>Tillbaka</a>
                     <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
                        <fieldset>
 						<h1>Byt lösenord</h1>

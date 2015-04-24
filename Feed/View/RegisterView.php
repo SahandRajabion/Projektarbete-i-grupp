@@ -47,59 +47,6 @@ class RegisterView extends BaseView {
 		}
 	}
 
-
-
-	public function getEmail() {
-		if (isset($_POST[$this->emailRegLocation])) {
-			return $_POST[$this->emailRegLocation];
-		}
-	}
-
-	public function getConfirmEmail() {
-		if (isset($_POST[$this->emailConfirmLocation])) {
-			return $_POST[$this->emailConfirmLocation];
-		}
-	}
-
-	public function getFname() {
-		if (isset($_POST[$this->fNameLocation])) {
-			return $_POST[$this->fNameLocation];
-		}
-	}
-
-	public function getLname() {
-		if (isset($_POST[$this->lNameLocation])) {
-			return $_POST[$this->lNameLocation];
-		}
-	}
-
-
-
-	public function getSex() {
-		if (isset($_POST[$this->sexLocation])) {
-			return $_POST[$this->sexLocation];
-		}
-	}
-
-	public function getBirthday() {
-		if (isset($_POST[$this->birthdayLocation])) {
-			return $_POST[$this->birthdayLocation];
-		}
-	}
-
-		public function getSchoolForm() {
-		if (isset($_POST[$this->schoolLocation])) {
-			return $_POST[$this->schoolLocation];
-		}
-	}
-
-	public function getInstitute() {
-		if (isset($_POST[$this->instituteLocation])) {
-			return $_POST[$this->instituteLocation];
-		}
-	}
-
-
 	/**
   	* Show register page
   	*

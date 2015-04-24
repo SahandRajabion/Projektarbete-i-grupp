@@ -143,6 +143,10 @@ class MasterController extends Navigation
 
              	if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToShowProfile())
     	        {
+    	        	if ($this->profileView->didUserPressToEditProfile()) 
+    	        	{
+    	        		$this->loginController->editUserDetails();
+    	        	}
 
 	             	return $this->uploadController->imgUpload();
              	}

@@ -20,7 +20,7 @@ $(document).ready(function () {
                     });
                     
                 }
-                setTimeout(checkForRemovedPosts, 500);
+                setTimeout(checkForRemovedPosts, 100);
             }
         });
     }
@@ -36,7 +36,7 @@ $(document).ready(function () {
                     $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
                 }
         
-                setTimeout(getLatestComments, 500);
+                setTimeout(getLatestComments, 100);
             }
         });
     }
@@ -50,7 +50,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#items").prepend(response);
 
-                setTimeout(getLatestPosts, 500);
+                setTimeout(getLatestPosts, 100);
             }
         });
     }

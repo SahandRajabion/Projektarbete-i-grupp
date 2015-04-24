@@ -19,12 +19,14 @@ require_once("Model/UserReset.php");
 require_once("Settings.php");
 require_once('recaptchalib.php');
 require_once("View/RegisterView.php");
+require_once("View/ProfileView.php");
 
 class LoginController 
 {
+    private $profileView;
     private $htmlView;
-     private $registerView;
-     private $showRegisterPage;
+    private $registerView;
+    private $showRegisterPage;
     private $loggedInView;
     private $loginView;
     private $model;
@@ -48,7 +50,6 @@ class LoginController
     private $author;
     private $forgetPasswordView;
 
-
     public function __construct() {
         $this->loginView = new LoginView();
         $this->htmlView = new HTMLView();
@@ -64,7 +65,7 @@ class LoginController
         $this->hash = new Hash();
         $this->resetPassword = new ResetPasswordView();
         $this->loginMessage = new LoginMessage($msg='');
-
+        $this->profileView = new ProfileView();
     }
 
     /**
@@ -87,6 +88,90 @@ class LoginController
     public function GetUserProfileDetails($id) 
     {
         return $this->model->GetUserProfileDetails($id);
+    }
+
+    public function editUserDetails() 
+    {
+            $fName = $this->profileView->getFname(); 
+            $lName = $this->profileView->getLname(); 
+            $sex = $this->profileView->getSex();
+            $birthday = $this->profileView->getBirthday();
+            
+            $schoolForm = $this->profileView->getSchoolForm();
+            $institute = $this->profileView->getInstitute(); 
+
+            if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateNames($fName, $lName) == false) {
+                        $msgId = 29; 
+                        $this->validationErrors++;
+                        $this->loginMessage = new LoginMessage($msgId);        
+                        $message = $this->loginMessage->getMessage();
+
+                        echo $message;  
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateSex($sex) == false) {
+                        $msgId = 30; 
+                        $this->validationErrors++;
+                        $this->loginMessage = new LoginMessage($msgId);        
+                        $message = $this->loginMessage->getMessage();
+
+                        echo $message;  
+                }
+            }
+
+              if ($this->validationErrors == 0) {
+                if (isset($birthday) && empty($birthday) == false) {
+                    if ($birthday != "0000-00-00") {
+                        if($this->validateNewUser->validateBirthday($birthday) == false) {
+                                $msgId = 31; 
+                                $this->validationErrors++;
+                                $this->loginMessage = new LoginMessage($msgId);        
+                                $message = $this->loginMessage->getMessage();
+
+                                echo $message;  
+                        }
+                    }
+                }
+            }
+
+             if ($this->validationErrors == 0) {
+                if($this->validateNewUser->validateSchoolForm($schoolForm) == false) 
+                {
+                    $msgId = 32; 
+                    $this->validationErrors++;
+                    $this->loginMessage = new LoginMessage($msgId);        
+                    $message = $this->loginMessage->getMessage();
+                    
+                    echo $message;                           
+                }
+            }
+
+            if ($this->validationErrors == 0) 
+            {
+                if($this->validateNewUser->validateInstitute($institute) == false) 
+                {
+                    $msgId = 33; 
+                    $this->validationErrors++;
+                    $this->loginMessage = new LoginMessage($msgId);        
+                    $message = $this->loginMessage->getMessage();
+
+                    echo $message;                  
+                }
+            }
+    
+            if($this->validationErrors == 0) 
+            {
+                $editUser = new User(null, null, null, $fName, $lName, $sex, $birthday, $schoolForm, $institute);
+                $this->userRepository->editUserDetails($editUser, $this->getId());
+
+                $msgId = 21;
+                $this->loginMessage = new LoginMessage($msgId);  
+                $message = $this->loginMessage->getMessage();
+                echo $message;
+            }
     }
  
     /**
@@ -630,14 +715,13 @@ class LoginController
                 }
             }
 
-              if ($this->validationErrors == 0) {
-                if (isset($birthday) && empty($birthday) == false) {
-                    if($this->validateNewUser->validateBirthday($birthday) == false) {
-                            $msgId = 31; 
-                            $this->validationErrors++;
-                            $this->model->setMessage($msgId);
-                            $this->setMessage();
-                    }
+              if ($this->validationErrors == 0) 
+              {
+                if($this->validateNewUser->validateBirthday($birthday) == false) {
+                        $msgId = 31; 
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
                 }
             }
 

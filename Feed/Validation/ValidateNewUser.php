@@ -10,7 +10,6 @@ class ValidateNewUser {
 
 	function __construct()
 	{
-		# code...
 		//Regx took from http://www.phpportalen.net/.
 		$this->emailRegEx = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 		$this->nameRegEx = "/^([a-zA-ZÅÄÖåäö]{2,10})([- ]{1})?([a-zA-ZÅÄÖåäö]{2,10})?$/";

@@ -31,6 +31,14 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
+	public function editUserDetails(User $user, $userId) 
+	{
+		$sql = "UPDATE $this->dbTableDetails SET " . self::$firstName . "= ?, " . self::$lastName . "= ?, " . self::$sex . "= ?, " . self::$birthday . "= ?, " . self::$schoolForm . "= ?, " . self::$institute . "= ? WHERE " . self::$userId . "= ?";
+		$params = array($user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute(), $userId);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+	}
+
 	public function GetUserProfileDetails($id) 
 	{
 		$sql = "SELECT * FROM $this->dbTableDetails WHERE " . self::$userId . "= ?";
@@ -40,9 +48,23 @@ class UserRepository extends Repository
 
 		$result = $query->fetch();
 
-		$user = new User(null, null, null, $result[self::$firstName], $result[self::$lastName],  $result[self::$sex],  $result[self::$birthday], $result[self::$schoolForm], $result[self::$institute]);
+		$email = $this->getEmailFromId($id);
+
+		$user = new User(null, null, $email, $result[self::$firstName], $result[self::$lastName],  $result[self::$sex],  $result[self::$birthday], $result[self::$schoolForm], $result[self::$institute]);
 
 		return $user;
+	}
+
+	public function getEmailFromId($id) 
+	{
+		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$result = $query->fetch();
+
+		return $result['email'];
 	}
 
 	public function getUsernameFromId($id) 
