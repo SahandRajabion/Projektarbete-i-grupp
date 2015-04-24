@@ -718,10 +718,12 @@ class LoginController
               if ($this->validationErrors == 0) 
               {
                 if($this->validateNewUser->validateBirthday($birthday) == false) {
+                    if (isset($birthday) && empty($birthday) == false) {
                         $msgId = 31; 
                         $this->validationErrors++;
                         $this->model->setMessage($msgId);
                         $this->setMessage();
+                    }
                 }
             }
 
