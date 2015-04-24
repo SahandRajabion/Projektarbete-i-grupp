@@ -3,7 +3,7 @@
 require_once('View/HTMLView.php');
 require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
-require_once('Controller/LoginController.php');
+require_once('Model/LoginModel.php');
 
 class ProfileView extends BaseView
 {
@@ -15,24 +15,50 @@ class ProfileView extends BaseView
   {
     $this->mainView = new HTMLView();
     $this->imagesModel = new ImagesModel();
-    $this->loginController = new LoginController();
+    $this->loginModel = new LoginModel();
   }
 
+  public function didUserPressToEditProfile() 
+  {
+      if (isset($_POST[$this->editProfileLocation])) 
+      {
+          return true;
+      }
+
+      return false;
+  }
 
  public function userProfile($msg = '') {
     $responseMessages = '';
 
     if ($msg != '') {
       $responseMessages .= '<strong>' . $msg . '</strong>';
-    }
-      
-    echo  $responseMessages;
+    }    
+
+    echo $responseMessages;   
+
     $Images = glob("imgs/*.*");
 
-    $html = '<a href="?">Tillbaka</a>';
+    $html = '<!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/custom.css" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>LSN</title>
+        </head>
+
+        <body>
+        <div class="container">
+        </br>
+
+        <a href="?">Tillbaka</a>
+        ';
+
     $html .= '<div id="imgContainer">';
 
-    if ($this->loginController->getId() == $this->getId()) {
+    if ($this->loginModel->getId() == $this->getId()) {
+
        $html .= "
         <br><br>
         <nav class='navbar navbar-default' role='navigation'>
@@ -53,15 +79,19 @@ class ProfileView extends BaseView
     </nav>";
 
     $html .='<form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">';
-    $user = $this->loginController->GetUserProfileDetails($this->getId());
     foreach ($Images as $value) {  
-      $img = $this->imagesModel->getImages($this->loginController->getId());
+
+      $img = $this->imagesModel->getImages($this->loginModel->getId());
       $removeImg = $this->imagesModel->getImgToRemove(basename($value));
+
       if ($img->getImgName() == basename($value)) {
           $html .= '<div id="imgArea"><img src="'.$value.'">';
           $this->pic = $value;
       }
     }
+
+
+    $user = $this->loginModel->GetUserProfileDetails($this->getId());
   
     if(basename($this->pic) === "" && $user->getSex() == "Man") 
     {
@@ -71,9 +101,6 @@ class ProfileView extends BaseView
     {
       $html .= '<div id="imgArea"><img src="img/kvinna.png">';
     }
-
-
-    
 
     $html .= '<div class="progressBar">
         <div class="bar"></div>
@@ -89,19 +116,171 @@ class ProfileView extends BaseView
 </div>'; 
 
             $age = "";
+
+            $sex = $user->getSex();
             $birthday = $user->getBirthday();
+            $studyForm = $user->getSchoolForm();
+            $institute = $user->getInstitute();
+            $email = $user->getEmail();
+
+            $firstName = htmlspecialchars($user->getfName());
+            $lastName = htmlspecialchars($user->getlName());
+
             if (empty($birthday) == false)
             {
-              $age = $this->calculateAge($user->getBirthday());
+                $age = $this->calculateAge($user->getBirthday());
             }
+            
+            $html .=    "<form action='' class='form-horizontal' method=post enctype=multipart/form-data>
+                       <fieldset>
+                       $this->message
 
-            $html .= '
-            <strong>Förnamn:</strong> ' . $user->getfName() . '<br>
-            <strong>Efternamn:</strong> ' . $user->getlName() . ' <br>
-            <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
-            <strong>Ålder:</strong> ' . $age . ' <br>
-            <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
-            <strong>Studieform:</strong> ' . $user->getSchoolForm();
+                 <div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->fNameLocation'>Förnamn: </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+                    <input id='fName' class='form-control1'  name='$this->fNameLocation' value='" . $firstName . "' type='text' size='20' maxlength='20'/>
+                  </div>
+                </div>
+
+
+                 <div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->lNameLocation'>Efternamn: </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+                    <input id='lName' class='form-control1'  name='$this->lNameLocation' value='". $lastName . "' type='text' size='20' maxlength='20'/>
+                  </div>
+                </div>
+
+                <div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->sexLocation'>Kön: </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>";
+
+                  if ($sex == "Man") 
+                  {
+                    $html .= "
+                    <select name='$this->sexLocation'>
+                    <option value=''>VÄLJ KÖN</option>
+                  <option value='Man' selected>Man</option>
+                  <option value='Kvinna'>Kvinna</option>
+                </select>
+                    </div>
+                  </div>";
+              }
+
+              else 
+              {
+                                   $html .= "
+                    <select name='$this->sexLocation'>
+                    <option value=''>VÄLJ KÖN</option>
+                  <option value='Man'>Man</option>
+                  <option value='Kvinna' selected>Kvinna</option>
+                </select>
+                    </div>
+                  </div>"; 
+              }
+
+
+              if ($birthday == "0000-00-00") 
+              {
+                  $birthday = "";
+              }
+
+                $html .= "<div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->birthdayLocation'>Födelsedag: </label>
+                  <div class='col-sm-10'>
+                  <input id='birthday' name='$this->birthdayLocation' type='date' value='" . $birthday . "' placeholder='1992-05-12'/> 
+              </div>
+                </div>";
+
+                if ($studyForm == "Campus") {
+                  $html .= "<div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->schoolLocation'>Välj din studieform: </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+                  <select name='$this->schoolLocation'>
+                  <option value=''>VÄLJ STUDIEFORM</option>
+                <option value='Campus' selected>Campus</option>
+                <option value='Distans'>Distans</option>
+              </select>
+                  </div>
+                </div>";
+              }
+
+              else 
+              {
+                  $html .= "<div class='form-group'>
+                          <label class='col-sm-2 control-label1' for='$this->schoolLocation'>Välj din studieform: </label>
+                          <div class='col-sm-10'>
+                          <div style='color: #FF0000;'>*</div>
+                          <select name='$this->schoolLocation'>
+                          <option value=''>VÄLJ STUDIEFORM</option>
+                        <option value='Campus'>Campus</option>
+                        <option value='Distans' selected>Distans</option>
+                      </select>
+                          </div>
+                        </div>";
+              }
+
+              if ($institute == "UD") 
+              {
+                  $html .= "<div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+
+                  <select name='$this->instituteLocation'>
+                  <option value=''>VÄLJ PROGRAM</option>
+                <option value='UD' selected>Utveckling av digitala tjänster</option>
+                <option value='WP'>Webbprogrammering</option>
+                <option value='ID'>Iteraktionsdesign</option>
+              </select>
+                  </div>
+                </div>";
+              }
+
+              else if ($institute == "WP") 
+              {
+                  $html .= "<div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+
+                  <select name='$this->instituteLocation'>
+                  <option value=''>VÄLJ PROGRAM</option>
+                <option value='UD'>Utveckling av digitala tjänster</option>
+                <option value='WP' selected>Webbprogrammering</option>
+                <option value='ID'>Iteraktionsdesign</option>
+              </select>
+                  </div>
+                </div>";
+              }
+
+              else 
+              {
+                  $html .= "<div class='form-group'>
+                  <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
+                  <div class='col-sm-10'>
+                  <div style='color: #FF0000;'>*</div>
+
+                  <select name='$this->instituteLocation'>
+                  <option value=''>VÄLJ PROGRAM</option>
+                <option value='UD'>Utveckling av digitala tjänster</option>
+                <option value='WP'>Webbprogrammering</option>
+                <option value='ID' selected>Iteraktionsdesign</option>
+              </select>
+                  </div>
+                </div>";
+              }
+
+              $html .= "<div class='form-group'>
+                   <div class='col-sm-offset-2'>
+                   <input class='btn btn-default' name='$this->editProfileLocation' type='submit' value='Redigera användaruppgifter' />
+                 </div>
+               </div>
+             </fieldset>
+             </form>";
         }
 
         // IF NOT THE ONE WHO OWNS PROFILE
@@ -115,7 +294,7 @@ class ProfileView extends BaseView
               }
             }
 
-         $user = $this->loginController->GetUserProfileDetails($this->getId());
+         $user = $this->loginModel->GetUserProfileDetails($this->getId());
           if(basename($this->pic) === "" && $user->getSex() == "Man") 
           {
             $html .= '<div id="imgArea"><img src="img/default.jpg">';
@@ -135,15 +314,18 @@ class ProfileView extends BaseView
             }
 
             $html .= '
-            <strong>Förnamn:</strong>' . $user->getfName() . '<br>
-            <strong>Efternamn:</strong>' . $user->getlName() . ' <br>
-            <strong>Kön:</strong> '  . $user->getSex() .  ' <br>
-            <strong>Ålder:</strong> ' . $age . ' <br>
-            <strong>Program:</strong> ' . $user->getInstitute() . ' <br>
+            <strong>Förnamn:</strong> <br>' . $user->getfName() . '<br>
+            <strong>Efternamn:</strong> <br>' . $user->getlName() . ' <br>
+            <strong>Kön:</strong> <br> '  . $user->getSex() .  ' <br>
+            <strong>Ålder:</strong> <br> ' . $age . ' <br>
+            <strong>Program:</strong> <br> ' . $user->getInstitute() . ' <br>
             <strong>Studieform:</strong> ' . $user->getSchoolForm();
 
         $html .='</div>
-                </div>';
+                </div>
+                </div>
+        </body>
+        </html>';
       }
       
       return $html;
