@@ -3,7 +3,7 @@
 class LoginMessage {
     private $messageId;
 
-    private $messages = array('Användarnamn saknas', 'Lösenordet saknas', "Felaktig användarnamn och/eller lösenord ",
+    private $messages = array('Användarnamn saknas', 'Lösenord saknas', "Felaktig användarnamn och/eller lösenord ",
                               "Felaktig information i cookies", 'Användarnamn har otillåtet tecken',
                               'Användarnamn är upptagen', 'Lösenordet matchar ej', 'Lösenordet måste vara minst 6 tecken',
                               'Användarnamn måste vara minst 3 tecken',
