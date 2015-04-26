@@ -53,14 +53,14 @@ function beforeSubmit()
 				case 'image/jpeg': 
 	                break;
 	            default:
-	                $("#output").html("<b>"+ftype+"</b> Filen är av en fel typ!");
+	                $("#output").html("<br>Filen är i fel format. Bara png, gif och jpeg är tillåtna.");
 					return false
 	        }
 			
 			
 			if(fsize>5242880) 
 			{
-				$("#output").html("<b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
+				$("#output").html("<br><b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
 				return false
 			}
 		}
