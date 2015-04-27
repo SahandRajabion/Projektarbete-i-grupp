@@ -12,7 +12,8 @@ require_once('Model/Image.php');
 	private static $urlCode = "code";
 	private static $imgName = "imgName"; 
 	private static $Title = "Title";
-		
+	private $db;
+	
 	public function __construct() {
 		$this->table = "feed";
 		$this->db = $this->connection();

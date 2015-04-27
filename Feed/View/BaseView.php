@@ -4,6 +4,7 @@ require_once("Settings.php");
 
 abstract class BaseView 
 {
+	protected $createNewCourseLocation = "createNewCourse";
 	protected $logOutLocation = 'logout';
 	protected $ContactLocation = 'ContactUs';
 	protected $changePasswordLocation = 'changepassword';

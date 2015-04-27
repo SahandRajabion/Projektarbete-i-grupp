@@ -27,6 +27,12 @@ class LoggedInView extends BaseView
    
     public function showLoggedInPage() {
         $this->username = $this->model->getUsername();
+        $adminMenu = "";
+
+        if ($this->model->isAdmin()) 
+        {
+            $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
+        }
 
         $html = "<!DOCTYPE html>
         <html>
@@ -76,6 +82,7 @@ class LoggedInView extends BaseView
            </div>
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
               <ul class='nav navbar-nav'>
+                 $adminMenu
                  <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->model->getId()."'>Min profil</a></li>
                  <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
               </ul>

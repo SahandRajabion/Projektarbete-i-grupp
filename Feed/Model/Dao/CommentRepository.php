@@ -9,6 +9,7 @@ class CommentRepository extends Repository {
 	private static $id = "id";
 	private static $commentId = "CommentId";
 	private static $userId = "UserId";
+	private $db;
 
 	public function __construct() 
 	{

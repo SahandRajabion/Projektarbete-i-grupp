@@ -5,18 +5,19 @@ require_once("Model/StartProfileImg.php");
  		private static $imgName = "imgName";
  		private static $userId = "UserId";
  		private static $username = 'username';
+ 		private $db;
+ 		
  		public function __construct() {
  			$this->tabel = "user";
+ 			$this->db = $this->connection();
  		}
 
 		public function getImagesInformation($userId) {
-			 try {
-
-				$f = new ImagesRepository();
-				$db = $f->connection();
+			 try 
+			 {
 				$sql = "SELECT * FROM  $this->tabel WHERE UserId = ?";
 				$params = array($userId);
-				$query = $db->prepare($sql);
+				$query = $this->db->prepare($sql);
 				$query->execute($params);
 				$results = $query->fetchAll();
 				if($results) {
@@ -34,11 +35,10 @@ require_once("Model/StartProfileImg.php");
 
 		public function getImagesName($username) {
 			 try {
-				$f = new ImagesRepository();
-				$db = $f->connection();
+
 				$sql = "SELECT * FROM  $this->tabel WHERE username = ?";
 				$params = array($username);
-				$query = $db->prepare($sql);
+				$query = $this->db->prepare($sql);
 				$query->execute($params);
 				$results = $query->fetchAll();
 				if($results) {
@@ -56,11 +56,9 @@ require_once("Model/StartProfileImg.php");
 
 		public function getImagesToRemove($name) {
 			 try {
-				$f = new ImagesRepository();
-				$db = $f->connection();
 				$sql = "SELECT * FROM  $this->tabel  WHERE " . self::$imgName . "= ?";
 				$params = array($name);
-				$query = $db->prepare($sql);
+				$query = $this->db->prepare($sql);
 				$query->execute($params);
 				$result = $query->fetch();
 				if($result == false) {
@@ -80,10 +78,9 @@ require_once("Model/StartProfileImg.php");
 		// save updating image .
  		public function updateImage(ProfilePic $img) {
 			try {
-				$db = $this->connection();
 				$sql = "UPDATE $this->tabel SET " . self::$imgName . " = ? WHERE ".  self::$userId ."= ? LIMIT 1";
 				$params = array($img->getImgName(),$img->getUserId());
-				$query = $db->prepare($sql);
+				$query = $this->db->prepare($sql);
 				$query->execute($params);
 			}
 			catch (Exception $e) {

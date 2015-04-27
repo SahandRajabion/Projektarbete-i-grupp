@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 27 apr 2015 kl 13:46
+-- Tid vid skapande: 27 apr 2015 kl 21:16
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.5.8
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=236 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=246 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -46,7 +46,17 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (232, '2015-04-26 11:19:13', '127.0.0.1', 1, 'Tommy'),
 (233, '2015-04-26 11:22:13', '127.0.0.1', 1, 'Tommy'),
 (234, '2015-04-27 11:37:33', '127.0.0.1', 1, 'Tommy'),
-(235, '2015-04-27 11:39:55', '127.0.0.1', 1, 'Asoglu');
+(235, '2015-04-27 11:39:55', '127.0.0.1', 1, 'Asoglu'),
+(236, '2015-04-27 11:52:22', '127.0.0.1', 0, 'Tommy'),
+(237, '2015-04-27 11:52:25', '127.0.0.1', 1, 'Tommy'),
+(238, '2015-04-27 11:52:39', '127.0.0.1', 1, 'Asoglu'),
+(239, '2015-04-27 11:54:14', '127.0.0.1', 1, 'Tommy'),
+(240, '2015-04-27 11:56:20', '127.0.0.1', 1, 'Asoglu'),
+(241, '2015-04-27 16:46:47', '127.0.0.1', 1, 'Tommy'),
+(242, '2015-04-27 17:40:49', '127.0.0.1', 1, 'Tommy'),
+(243, '2015-04-27 17:44:46', '127.0.0.1', 1, 'Asoglu'),
+(244, '2015-04-27 17:44:52', '127.0.0.1', 1, 'Tommy'),
+(245, '2015-04-27 19:00:03', '127.0.0.1', 1, 'Tommy');
 
 -- --------------------------------------------------------
 
@@ -77,15 +87,15 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseName` varchar(100) NOT NULL,
   `CourseCode` varchar(20) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
-(1, 'Grundläggande spelprogrammering', '1DV437'),
-(2, 'Webbteknisk Introduktion', '1IK415');
+(3, 'Inledande programmering med C#', '1DV402'),
+(4, 'Webbteknik II', '1DV499');
 
 -- --------------------------------------------------------
 
@@ -106,7 +116,14 @@ CREATE TABLE IF NOT EXISTS `feed` (
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=295 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=296 ;
+
+--
+-- Dumpning av Data i tabell `feed`
+--
+
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
+(295, NULL, NULL, 'dsds', NULL, '2015-04-27 11:56:13', 37);
 
 -- --------------------------------------------------------
 
@@ -154,7 +171,16 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumpning av Data i tabell `programcourse`
+--
+
+INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
+(1, 1, 3),
+(2, 2, 3),
+(3, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -184,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
-(37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 3, 0, NULL),
+(37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 0, '20150408_101646.jpg'),
 (38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL);
 
 -- --------------------------------------------------------
@@ -212,8 +238,8 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 --
 
 INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `ProgramId`) VALUES
-(34, 37, 'Tommy', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
-(35, 38, 'Asoglu', 'Abdi', 'Man', '1995-12-11', 'Campus', 2);
+(34, 37, 'Tom', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
+(35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller

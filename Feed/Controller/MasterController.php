@@ -11,13 +11,16 @@ require_once("View/LoggedInView.php");
 require_once("View/ForgetPasswordView.php");
 require_once("View/ResetPasswordView.php");
 require_once("View/ContactView.php");
+require_once("View/CreateCourseView.php");
 require_once("Controller/ContactController.php");
 require_once('Controller/UploadController.php');
+require_once('Controller/AdminController.php');
 require_once('View/ProfileView.php');
 
 class MasterController extends Navigation
 {
 	private $contactController;
+	private $adminController;
 	private $contactView;
 	private $loginController;
     private $htmlView;
@@ -32,6 +35,7 @@ class MasterController extends Navigation
     private $profileView;
     private $feed;
     private $renderContact = false;
+    private $createCourseView;
 
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
@@ -40,6 +44,8 @@ class MasterController extends Navigation
 
 	function __construct()
 	{
+		$this->adminController = new AdminController();
+		$this->createCourseView = new CreateCourseView();
 		$this->forgetPasswordView = new ForgetPasswordView();
 		$this->model = new LoginModel();
 		$this->loginController = new LoginController();
@@ -115,7 +121,7 @@ class MasterController extends Navigation
 					 }
 				}	
 
-				if ($this->loginController->isAuthenticated() && $this->changePasswordView->didUserPressToChangePassword())
+				else if ($this->loginController->isAuthenticated() && $this->changePasswordView->didUserPressToChangePassword())
 	            {
 	                if ($this->changePasswordView->didUserPressSubmit()) 
 	                {
@@ -128,7 +134,7 @@ class MasterController extends Navigation
 	                }   
 	            }
 
-            	if ($this->contactView->didUserPressToContact())
+            	else if ($this->contactView->didUserPressToContact())
     	        {
 	             	if ($this->contactView->hasSubmitToSend()) 
 	                {
@@ -141,7 +147,18 @@ class MasterController extends Navigation
 	                }
              	}
 
-             	if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToShowProfile())
+				else if ($this->loginController->isAuthenticated() && $this->createCourseView->DidUserPressToCreateCourse())
+    	        {
+    	        	if ($this->createCourseView->DidUserPressSubmitNewCourse()) 
+    	        	{
+    	        		$this->adminController->CreateNewCourse();
+    	        	}
+
+	             	return $this->createCourseView->ShowCreateCourseForm();
+             	}
+
+
+             	else if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToShowProfile())
     	        {
     	        	if ($this->profileView->didUserPressToEditProfile()) 
     	        	{

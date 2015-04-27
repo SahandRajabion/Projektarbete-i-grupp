@@ -7,6 +7,7 @@ class LogRepository extends Repository
 	private static $attemptTime = "AttemptTime";
 	private static $result = "Result";
 	private static $username = "Username";
+	private $db;
 
 	public function __construct() 
 	{
