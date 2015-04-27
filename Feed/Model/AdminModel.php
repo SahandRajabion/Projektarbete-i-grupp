@@ -58,7 +58,7 @@ class AdminModel
 	    	if ($this->courseRepository->CourseCodeExists($courseCode)) 
 	    	{ 	
 	    		$this->validationErrors++;
-	    		$msgId = 38;
+	    		$msgId = 41;
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 

@@ -21,8 +21,6 @@ class FeedView extends BaseView
     private $postTitle = "Title";
     private $date = "Date";
    
-
-
     public function __construct() 
     {
         $this->postRepository = new PostRepository();
@@ -85,9 +83,9 @@ class FeedView extends BaseView
                     $html .= "<img src='View/Images/" . $feedItem[$this->imgName] . "' width='500' height='315'>";
                 }
 
-                if (empty($feedItem[$this->code]) == false) 
+                if (empty($feedItem[$this->youtubeCode]) == false) 
                 {
-                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem[$this->code] ."' frameborder='0' allowfullscreen></iframe>";                  
+                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem[$this->youtubeCode] ."' frameborder='0' allowfullscreen></iframe>";                  
                 }
 
                 $html .= "
