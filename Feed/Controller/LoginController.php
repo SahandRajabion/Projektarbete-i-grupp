@@ -453,7 +453,7 @@ class LoginController
 
         if ($this->showLoggedInPage) {
            // $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());  
-              $this->htmlView->echoHTML($this->ProgramView->showCoursePage())
+              $this->htmlView->echoHTML($this->programView->showCoursePage());
         }
         else {
             if ($this->showForgetPasswordPage) {
