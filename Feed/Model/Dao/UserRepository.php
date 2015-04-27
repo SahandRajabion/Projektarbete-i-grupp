@@ -18,7 +18,7 @@ class UserRepository extends Repository
 	private static $lastName = 'lastname';
 	private static $sex = 'sex';
 	private static $schoolForm = 'schoolForm';
-	private static $institute = 'institute';
+	private static $institute = 'ProgramId';
 	private static $birthday = 'birthday';
 	private $db;
 	private $users;

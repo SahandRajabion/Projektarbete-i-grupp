@@ -223,7 +223,7 @@ class ProfileView extends BaseView
                         </div>";
               }
 
-              if ($institute == "UD") 
+              if ($institute == "2") 
               {
                   $html .= "<div class='form-group'>
                   <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
@@ -232,15 +232,15 @@ class ProfileView extends BaseView
 
                   <select name='$this->instituteLocation'>
                   <option value=''>VÄLJ PROGRAM</option>
-                <option value='UD' selected>Utveckling av digitala tjänster</option>
-                <option value='WP'>Webbprogrammering</option>
-                <option value='ID'>Iteraktionsdesign</option>
+                <option value='2' selected>Utveckling av digitala tjänster</option>
+                <option value='1'>Webbprogrammering</option>
+                <option value='3'>Iteraktionsdesign</option>
               </select>
                   </div>
                 </div>";
               }
 
-              else if ($institute == "WP") 
+              else if ($institute == "1") 
               {
                   $html .= "<div class='form-group'>
                   <label class='col-sm-2 control-label1' for='$this->instituteLocation'>Vad läser du för program? </label>
@@ -249,9 +249,9 @@ class ProfileView extends BaseView
 
                   <select name='$this->instituteLocation'>
                   <option value=''>VÄLJ PROGRAM</option>
-                <option value='UD'>Utveckling av digitala tjänster</option>
-                <option value='WP' selected>Webbprogrammering</option>
-                <option value='ID'>Iteraktionsdesign</option>
+                <option value='2'>Utveckling av digitala tjänster</option>
+                <option value='1' selected>Webbprogrammering</option>
+                <option value='3'>Iteraktionsdesign</option>
               </select>
                   </div>
                 </div>";
@@ -266,9 +266,9 @@ class ProfileView extends BaseView
 
                   <select name='$this->instituteLocation'>
                   <option value=''>VÄLJ PROGRAM</option>
-                <option value='UD'>Utveckling av digitala tjänster</option>
-                <option value='WP'>Webbprogrammering</option>
-                <option value='ID' selected>Iteraktionsdesign</option>
+                <option value='2'>Utveckling av digitala tjänster</option>
+                <option value='1'>Webbprogrammering</option>
+                <option value='3' selected>Iteraktionsdesign</option>
               </select>
                   </div>
                 </div>";

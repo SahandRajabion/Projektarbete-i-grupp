@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 24 apr 2015 kl 22:51
+-- Tid vid skapande: 27 apr 2015 kl 13:46
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.5.8
 
@@ -33,7 +33,20 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=229 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=236 ;
+
+--
+-- Dumpning av Data i tabell `attempts`
+--
+
+INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `Username`) VALUES
+(229, '2015-04-24 20:56:35', '127.0.0.1', 1, 'Tommy'),
+(230, '2015-04-26 11:15:52', '127.0.0.1', 0, 'Tommy'),
+(231, '2015-04-26 11:15:59', '127.0.0.1', 1, 'Tommy'),
+(232, '2015-04-26 11:19:13', '127.0.0.1', 1, 'Tommy'),
+(233, '2015-04-26 11:22:13', '127.0.0.1', 1, 'Tommy'),
+(234, '2015-04-27 11:37:33', '127.0.0.1', 1, 'Tommy'),
+(235, '2015-04-27 11:39:55', '127.0.0.1', 1, 'Asoglu');
 
 -- --------------------------------------------------------
 
@@ -56,6 +69,27 @@ CREATE TABLE IF NOT EXISTS `comments` (
 -- --------------------------------------------------------
 
 --
+-- Tabellstruktur `course`
+--
+
+CREATE TABLE IF NOT EXISTS `course` (
+  `CourseId` int(11) NOT NULL AUTO_INCREMENT,
+  `CourseName` varchar(100) NOT NULL,
+  `CourseCode` varchar(20) NOT NULL,
+  PRIMARY KEY (`CourseId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumpning av Data i tabell `course`
+--
+
+INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
+(1, 'Grundläggande spelprogrammering', '1DV437'),
+(2, 'Webbteknisk Introduktion', '1IK415');
+
+-- --------------------------------------------------------
+
+--
 -- Tabellstruktur `feed`
 --
 
@@ -72,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=294 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=295 ;
 
 -- --------------------------------------------------------
 
@@ -85,6 +119,42 @@ CREATE TABLE IF NOT EXISTS `img` (
   `imgName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`imgId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `program`
+--
+
+CREATE TABLE IF NOT EXISTS `program` (
+  `ProgramId` int(11) NOT NULL AUTO_INCREMENT,
+  `ProgramName` varchar(100) NOT NULL,
+  PRIMARY KEY (`ProgramId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumpning av Data i tabell `program`
+--
+
+INSERT INTO `program` (`ProgramId`, `ProgramName`) VALUES
+(1, 'Webbprogrammerare'),
+(2, 'Utvecklare av digitala tjänster'),
+(3, 'Interaktionsdesigner');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `programcourse`
+--
+
+CREATE TABLE IF NOT EXISTS `programcourse` (
+  `ProgramCourseId` int(11) NOT NULL AUTO_INCREMENT,
+  `ProgramId` int(11) NOT NULL,
+  `CourseId` int(11) NOT NULL,
+  PRIMARY KEY (`ProgramCourseId`),
+  KEY `CourseId` (`CourseId`),
+  KEY `ProgramId` (`ProgramId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -107,7 +177,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+
+--
+-- Dumpning av Data i tabell `user`
+--
+
+INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
+(37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 3, 0, NULL),
+(38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,10 +201,19 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `sex` varchar(10) NOT NULL,
   `birthday` date DEFAULT NULL,
   `schoolForm` varchar(50) NOT NULL,
-  `institute` varchar(50) NOT NULL,
+  `ProgramId` int(11) NOT NULL,
   PRIMARY KEY (`userDetailid`),
-  KEY `UserId` (`UserId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+  KEY `UserId` (`UserId`),
+  KEY `ProgramId` (`ProgramId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+
+--
+-- Dumpning av Data i tabell `userdetails`
+--
+
+INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `ProgramId`) VALUES
+(34, 37, 'Tommy', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
+(35, 38, 'Asoglu', 'Abdi', 'Man', '1995-12-11', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller
@@ -144,6 +231,20 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `feed`
   ADD CONSTRAINT `feed_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restriktioner för tabell `programcourse`
+--
+ALTER TABLE `programcourse`
+  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restriktioner för tabell `userdetails`
+--
+ALTER TABLE `userdetails`
+  ADD CONSTRAINT `userdetails_ibfk_2` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

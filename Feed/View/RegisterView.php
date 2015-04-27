@@ -170,9 +170,9 @@ class RegisterView extends BaseView {
 
 					        <select name='$this->instituteLocation'>
 					        <option value=''>VÄLJ PROGRAM</option>
-    						<option value='UD'>Utveckling av digitala tjänster</option>
-    						<option value='WP'>Webbprogrammering</option>
-    						<option value='ID'>Iteraktionsdesign</option>
+    						<option value='2'>Utvecklare av digitala tjänster</option>
+    						<option value='1'>Webbprogrammerare</option>
+    						<option value='3'>Iteraktionsdesign</option>
 							</select>
 					        </div>
 					      </div>
