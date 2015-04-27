@@ -84,14 +84,14 @@ class CreateCourseView extends BaseView
 						 <div class='form-group'>
 					         <label class='col-sm-2 control-label' for='$this->courseNameLocation'>Kursnamn: </label>
 					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseNameLocation' type='text' size='40' maxlength='40'>
+					           <input class='form-control' name='$this->courseNameLocation' value='".$this->GetCourseName()."' type='text' size='40' maxlength='40'>
 					         </div>
 					      </div>
 
 					     <div class='form-group'>
 					         <label class='col-sm-2 control-label' for='$this->courseCodeLocation'>Kurskod: </label>
 					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseCodeLocation' type='text' size='6' maxlength='6'>
+					           <input class='form-control' name='$this->courseCodeLocation' value='".$this->GetCourseCode()."' type='text' size='6' maxlength='6'>
 					         </div>
 					      </div>
 

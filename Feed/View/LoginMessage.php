@@ -26,7 +26,7 @@ class LoginMessage {
 
         if($this->messageId < 9 || $this->messageId == 14 || $this->messageId == 15 || $this->messageId == 16 
           || $this->messageId == 18 || $this->messageId == 19 || $this->messageId == 20 || $this->messageId == 23 || $this->messageId == 24 || $this->messageId == 25 || $this->messageId == 26 || $this->messageId == 28 || $this->messageId == 29 || $this->messageId == 30 || $this->messageId == 31 || $this->messageId == 32 || $this->messageId == 33 || $this->messageId == 34 || $this->messageId == 35
-          || $this->messageId == 36 || $this->messageId == 37 || $this->messageId == 38  || $this->messageId == 39 || $this->messageId == 40) {
+          || $this->messageId == 36 || $this->messageId == 37 || $this->messageId == 38  || $this->messageId == 39) {
             $alert = "<div class='alert alert-danger alert-error'>";
         }    
         else{
