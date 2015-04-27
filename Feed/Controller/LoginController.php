@@ -20,6 +20,7 @@ require_once("Settings.php");
 require_once('recaptchalib.php');
 require_once("View/RegisterView.php");
 require_once("View/ProfileView.php");
+require_once("View/ProgramView.php");
 
 class LoginController 
 {
@@ -49,6 +50,7 @@ class LoginController
     private $topic;
     private $author;
     private $forgetPasswordView;
+    private $programView;
 
     public function __construct() {
         $this->loginView = new LoginView();
@@ -66,6 +68,8 @@ class LoginController
         $this->resetPassword = new ResetPasswordView();
         $this->loginMessage = new LoginMessage($msg='');
         $this->profileView = new ProfileView();
+        $this->programView = new ProgramView();
+
     }
 
     /**
@@ -448,7 +452,8 @@ class LoginController
     public function renderPage() {
 
         if ($this->showLoggedInPage) {
-            $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());  
+           // $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());  
+              $this->htmlView->echoHTML($this->ProgramView->showCoursePage())
         }
         else {
             if ($this->showForgetPasswordPage) {
