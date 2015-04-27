@@ -109,10 +109,11 @@ class ProfileView extends BaseView
       <div id="imgChange"><span>Bläddra</span></br>
         <input type="File" accept="imgs/*" name="image_upload_file" id="image_upload_file">
         <input type="submit" name="change" value="Byt" class="btn btn-info" id="change">
-        <input type="submit" name="default" value="Ändra till standardbild" class="btn btn-info" id="default">
+        <input type="submit" name="default" value="Ändra till standard" class="btn btn-info" id="default">
       </div>
-    </div>
-  </form>
+    </div><br/><br/>
+    <br/><br/><br/>
+    <br/><br/></form>
 </div>'; 
 
             $age = "";

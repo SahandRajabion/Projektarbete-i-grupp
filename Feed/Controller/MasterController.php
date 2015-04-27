@@ -62,7 +62,7 @@ class MasterController extends Navigation
 
 	}
 
-		public function doControll() 
+		public function doControll()  
 		{			
 			try 
 			{	
