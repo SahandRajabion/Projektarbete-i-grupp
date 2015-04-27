@@ -304,14 +304,16 @@ class ProfileView extends BaseView
            $html .= '<div id="imgArea"><img src="img/kvinna.png">';
          }
 
-         
+
+            $birthday = $user->getBirthday();
 
             $age = "";
 
-            if (empty($birthday) == false)
+            if ($birthday != "0000-00-00") 
             {
-              $age = $this->calculateAge($user->getBirthday());
+              $age = $this->calculateAge($birthday);
             }
+          
 
             $html .= '
             <strong>Förnamn:</strong> <br>' . $user->getfName() . '<br>
