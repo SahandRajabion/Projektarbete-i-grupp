@@ -42,6 +42,17 @@ abstract class BaseView
 	protected $schoolLocation='schoolLocation';
     protected $instituteLocation='instituteLocation';
 
+    public static function escape($string) 
+    {
+    	return htmlspecialchars($string, ENT_QUOTES, 'utf-8');   
+    }
+    public function getToken() 
+    {
+    	if (isset($_POST['CSRFToken'])) {
+	      return $_POST['CSRFToken'];
+	   }	
+    }
+
 	public function getId() {
 	   if (isset($_GET[$this->id])) {
 	      return $_GET[$this->id];
@@ -97,10 +108,9 @@ abstract class BaseView
 		}
 	}	 
 
-
 	public function getPassword() {
 		if (isset($_POST[$this->passwordLocation])) {
-			return strip_tags($_POST[$this->passwordLocation]);
+			return $_POST[$this->passwordLocation];
 		}
 	}
 
@@ -130,8 +140,4 @@ abstract class BaseView
 	public function redirectToLoginPage() {
 		header("Location: ?");
 	}
-
-
-
-
 }

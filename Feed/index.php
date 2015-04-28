@@ -2,8 +2,13 @@
 
 require_once('View/HTMLView.php');
 require_once('Controller/MasterController.php');
+require_once("Settings.php");
+require_once("View/BaseView.php");
 
 session_start();
+
+try 
+{
 
 $htmlView = new HTMLView();
 $masterController = new MasterController();
@@ -11,6 +16,16 @@ $masterController = new MasterController();
 // Run Application
 $html = $masterController->doControll();
 $htmlView->EchoHTML($html);
+
+}
+catch (Exception $e) 
+{
+	error_log($e->getMessage() . "\n", 3, Settings::$ERROR_LOG);
+	if (Settings::$DO_DEBUG) 
+	{
+		throw $e;
+	}
+}
 
 ?>
 

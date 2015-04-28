@@ -8,6 +8,7 @@ require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
 require_once('View/HTMLView.php');
 require_once('View/FeedView.php');
+require_once('View/BaseView.php');
 
 $userRepository = new UserRepository();
 $postRepository = new PostRepository();
@@ -39,8 +40,8 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
             </form>";
 
             $html .= "<form class='post-edit' method='post' action=''> 
-            <input type='hidden' name='Post' id='Post' value='" . $feedItem['Post'] . "'>
-            <input type='hidden' name='Title' id='Title' value='" . $feedItem['Title'] . "'>
+            <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($feedItem['Post']) . "'>
+            <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($feedItem['Title']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
         }

@@ -42,8 +42,8 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
             </form>";
 
             $html .= "<form class='post-edit' method='post' action=''> 
-            <input type='hidden' name='Post' id='Post' value='" . $feedItem['Post'] . "'>
-            <input type='hidden' name='Title' id='Title' value='" . $feedItem['Title'] . "'>
+            <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($feedItem['Post']) . "'>
+            <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($feedItem['Title']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
         }

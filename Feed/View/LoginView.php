@@ -65,7 +65,7 @@ class LoginView extends BaseView {
         
         if (isset($_POST[$this->submitLocation]) || $this->register == true) 
         {
-            $username = htmlspecialchars($this->username);
+            $username = $this->escape($this->username);
         }
 
         if ($this->hasCookieMessage()) 
@@ -182,7 +182,7 @@ class LoginView extends BaseView {
 
     public function getAuthentication() {
         $this->username = $_POST[$this->usernameLocation];
-        $this->password = strip_tags($_POST[$this->passwordLocation]);
+        $this->password = $_POST[$this->passwordLocation];
 
     }
 
@@ -261,6 +261,6 @@ class LoginView extends BaseView {
 
     public function setRegister($username) {
         $this->register = true;
-        $this->username = $username;
+        $this->username = $this->escape($username);
     }    
 }

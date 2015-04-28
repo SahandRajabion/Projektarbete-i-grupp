@@ -4,6 +4,7 @@ require_once('View/HTMLView.php');
 require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
 require_once('Model/LoginModel.php');
+require_once('Model/Token.php');
 
 class ProfileView extends BaseView
 {
@@ -277,6 +278,7 @@ class ProfileView extends BaseView
 
               $html .= "<div class='form-group'>
                    <div class='col-sm-offset-2'>
+                   <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
                    <input class='btn btn-default' name='$this->editProfileLocation' type='submit' value='Redigera användaruppgifter' />
                  </div>
                </div>

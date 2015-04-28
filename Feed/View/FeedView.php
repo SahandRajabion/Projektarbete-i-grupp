@@ -66,8 +66,8 @@ class FeedView extends BaseView
                     </form>";
 
                     $html .= "<form class='post-edit' method='post' action=''> 
-                    <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . $feedItem[$this->postContent] . "'>
-                    <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . $feedItem[$this->postTitle] . "'>
+                    <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . BaseView::escape($feedItem[$this->postContent]) . "'>
+                    <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . BaseView::escape($feedItem[$this->postTitle]) . "'>
                     <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $feedItem[$this->id] ."'>
                     <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
                 }

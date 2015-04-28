@@ -22,6 +22,7 @@ require_once("View/RegisterView.php");
 require_once("View/ProfileView.php");
 require_once("View/ProgramView.php");
 require_once("View/CourseView.php");
+require_once("Model/Token.php");
 
 class LoginController 
 {
@@ -106,6 +107,10 @@ class LoginController
 
     public function editUserDetails() 
     {
+        $token = $this->profileView->getToken();
+        
+        if (Token::check($token))
+        {
             $fName = $this->profileView->getFname(); 
             $lName = $this->profileView->getLname(); 
             $sex = $this->profileView->getSex();
@@ -186,6 +191,7 @@ class LoginController
                 $message = $this->loginMessage->getMessage();
                 echo $message;
             }
+        }
     }
  
     /**
@@ -598,84 +604,96 @@ class LoginController
 
     public function changePassword() 
     {
-        $currentPassword = $this->changePasswordView->getPassword(); 
-        $newConfirmPassword = $this->changePasswordView->getNewPassword();
-        $newPassword = $this->changePasswordView->getNewConfirmPassword();      
+        $token = $this->changePasswordView->getToken();
 
-        if ($this->model->isCorrectPassword($currentPassword) == false) 
+        if (Token::check($token)) 
         {
-            $msgId = 16;
-            $this->validationErrors++;
-            $this->loginMessage = new LoginMessage($msgId);        
-            $message = $this->loginMessage->getMessage();
+            $currentPassword = $this->changePasswordView->getPassword(); 
+            $newConfirmPassword = $this->changePasswordView->getNewPassword();
+            $newPassword = $this->changePasswordView->getNewConfirmPassword();      
 
-            $this->changePasswordView->saveCookieMessage($message);
-            $this->changePasswordView->redirectToChangePassword();                         
-        }
-
-        if ($this->validationErrors == 0) 
-        {
-            if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
-                $msgId = 18;
+            if ($this->model->isCorrectPassword($currentPassword) == false) 
+            {
+                $msgId = 16;
                 $this->validationErrors++;
                 $this->loginMessage = new LoginMessage($msgId);        
                 $message = $this->loginMessage->getMessage();
 
                 $this->changePasswordView->saveCookieMessage($message);
-                $this->changePasswordView->redirectToChangePassword();     
+                $this->changePasswordView->redirectToChangePassword();                         
             }
 
-            else 
+            if ($this->validationErrors == 0) 
             {
-                if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
-                    $msgId = 6;
+                if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
+                    $msgId = 18;
                     $this->validationErrors++;
                     $this->loginMessage = new LoginMessage($msgId);        
                     $message = $this->loginMessage->getMessage();
 
                     $this->changePasswordView->saveCookieMessage($message);
                     $this->changePasswordView->redirectToChangePassword();     
+                }
+
+                else 
+                {
+                    if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
+                        $msgId = 6;
+                        $this->validationErrors++;
+                        $this->loginMessage = new LoginMessage($msgId);        
+                        $message = $this->loginMessage->getMessage();
+
+                        $this->changePasswordView->saveCookieMessage($message);
+                        $this->changePasswordView->redirectToChangePassword();     
+                    }
                 }
             }
-        }
 
-        if ($this->validationErrors == 0) 
-        {
-            if ($this->validatePassword->validateIfSamePassword($newPassword, $currentPassword)) {
-                    $msgId = 19;
+            if ($this->validationErrors == 0) 
+            {
+                if ($this->validatePassword->validateIfSamePassword($newPassword, $currentPassword)) {
+                        $msgId = 19;
+                        $this->validationErrors++;
+                        $this->loginMessage = new LoginMessage($msgId);        
+                        $message = $this->loginMessage->getMessage();
+
+                        $this->changePasswordView->saveCookieMessage($message);
+                        $this->changePasswordView->redirectToChangePassword();     
+                    }
+            }
+
+            if ($this->validationErrors == 0) {
+                if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
+                    $msgId = 23;
                     $this->validationErrors++;
-                    $this->loginMessage = new LoginMessage($msgId);        
-                    $message = $this->loginMessage->getMessage();
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();
 
                     $this->changePasswordView->saveCookieMessage($message);
-                    $this->changePasswordView->redirectToChangePassword();     
-                }
-        }
+                    $this->changePasswordView->redirectToChangePassword();                 
+                }   
+            }                
 
-        if ($this->validationErrors == 0) {
-            if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
-                $msgId = 23;
-                $this->validationErrors++;
-                $this->model->setMessage($msgId);
-                $this->setMessage();                    
+            if($this->validationErrors == 0) 
+            {
+                $hash = $this->hash->crypt($newPassword);
+
+                $user = new User($this->model->getUsername(), $hash);
+                $this->userRepository->editPassword($user);
+
+                $msgId = 17;
+                $this->loginMessage = new LoginMessage($msgId);        
+                $message = $this->loginMessage->getMessage();
+
+                $this->changePasswordView->saveCookieMessage($message);
+                $this->model->doLogOut();
+                $this->changePasswordView->redirectToLoginPage();              
             }   
-        }                
-
-        if($this->validationErrors == 0) 
+        }
+        else 
         {
-            $hash = $this->hash->crypt($newPassword);
-
-            $user = new User($this->model->getUsername(), $hash);
-            $this->userRepository->editPassword($user);
-
-            $msgId = 17;
-            $this->loginMessage = new LoginMessage($msgId);        
-            $message = $this->loginMessage->getMessage();
-
-            $this->changePasswordView->saveCookieMessage($message);
-            $this->model->doLogOut();
-            $this->changePasswordView->redirectToLoginPage();              
-        }            
+            $this->changePasswordView->redirectToChangePassword();   
+        }         
     }
 
 
@@ -702,6 +720,10 @@ class LoginController
             $institute = $this->registerView->getInstitute(); 
             $password = $this->registerView->getPassword();
             $confirmPassword = $this->registerView->getConfirmPassword();
+            $token = $this->registerView->getToken();
+
+            if (Token::check($token)) 
+            {
 
             if($this->validateUsername->validateUsernameLength($username) == false) {
                 $msgId = 8;
@@ -862,6 +884,8 @@ class LoginController
                }    
      
             }
+
+        }
 
         }
     }

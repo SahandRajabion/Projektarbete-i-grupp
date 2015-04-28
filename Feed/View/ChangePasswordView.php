@@ -3,6 +3,7 @@
 require_once("helper/CookieStorage.php");
 require_once("View/BaseView.php");
 require_once('Model/LoginModel.php');
+require_once('Model/Token.php');
 
 class ChangePasswordView extends BaseView
 {
@@ -107,6 +108,7 @@ class ChangePasswordView extends BaseView
 
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
+				           	 <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
 					         <input class='btn btn-default' name='$this->submitNewPasswordLocation' type='submit' value='Byt lösenord' />
 					       </div>
 					     </div>

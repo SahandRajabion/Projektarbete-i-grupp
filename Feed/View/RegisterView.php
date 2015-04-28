@@ -1,12 +1,11 @@
 <?php
 
 require_once('recaptchalib.php');
-
+require_once('Model/Token.php');
 
 class RegisterView extends BaseView {
 
 	private $emailRegEx; 		
-
 
 	/**
   	* Function to render message
@@ -43,7 +42,7 @@ class RegisterView extends BaseView {
 
 	public function getConfirmPassword() {
 		if (isset($_POST[$this->confirmPasswordLocation])) {
-			return strip_tags($_POST[$this->confirmPasswordLocation]);
+			return $_POST[$this->confirmPasswordLocation];
 		}
 	}
 
@@ -56,7 +55,7 @@ class RegisterView extends BaseView {
         $username = "";
         if(isset($_POST[$this->registerLocation])){
             $usernameInput = $this->getUserName();
-            $username .= htmlspecialchars($usernameInput);
+            $username .= $this->escape($usernameInput);
         }
 
         $this->emailRegEx = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
@@ -101,7 +100,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->fNameLocation'>Förnamn: </label>
 					        <div class='col-sm-10'>
 					        <div style='color: #FF0000;'>*</div>
-					          <input id='fName' class='form-control1'  name='$this->fNameLocation' value='". htmlspecialchars($this->getFname())."' type='text' size='20' maxlength='20'/>
+					          <input id='fName' class='form-control1'  name='$this->fNameLocation' value='". $this->escape($this->getFname()) . "' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 
@@ -110,7 +109,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->lNameLocation'>Efternamn: </label>
 					        <div class='col-sm-10'>
 					        <div style='color: #FF0000;'>*</div>
-					          <input id='lName' class='form-control1'  name='$this->lNameLocation' value='". htmlspecialchars($this->getLname())."' type='text' size='20' maxlength='20'/>
+					          <input id='lName' class='form-control1'  name='$this->lNameLocation' value='". $this->escape($this->getLname()) . "' type='text' size='20' maxlength='20'/>
 					        </div>
 					      </div>
 
@@ -138,7 +137,7 @@ class RegisterView extends BaseView {
 					        <label class='col-sm-2 control-label1' for='$this->emailRegLocation'>Epost: </label>
 					        <div class='col-sm-10'>
 					         <div style='color: #FF0000;'>*</div>
-					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='".htmlspecialchars($email)."' type='text' size='20' maxlength='40'/>
+					          <input id='email1' class='form-control1'  name='$this->emailRegLocation' value='" . $this->escape($email) . "' type='text' size='20' maxlength='40'/>
 					        </div>
 					      </div>
 
@@ -206,6 +205,7 @@ class RegisterView extends BaseView {
 
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
+				           	 <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
 					         <input class='btn btn-default' name='$this->registerLocation' type='submit' value='Registrera' />
 					       </div>
 					     </div>
