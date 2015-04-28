@@ -505,14 +505,14 @@ class LoginController
             $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
 
             else if ($this->didUserPressPU()) {
-            $this->programId = 4;
-            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
+            $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());}
 
             else {
             $this->htmlView->echoHTML($this->programView->showCoursePage());
             }
 
         }
+
         else {
 
 

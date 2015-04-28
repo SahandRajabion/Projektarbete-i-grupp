@@ -38,7 +38,6 @@ require_once('Model/Dao/Repository.php');
 	{
 
 			foreach ($nrcourses as $key) {
-				# code...
 				$this->key = $key;
 			}
 			

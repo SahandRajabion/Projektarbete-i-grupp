@@ -44,7 +44,8 @@ class CourseView extends BaseView
         <html>
         <head>
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-        <link rel='stylesheet' type='text/css' href='css/styleVal.css' />       
+        <link rel='stylesheet' type='text/css' href='css/styleVal.css' />  
+        <link rel='stylesheet' type='text/css' href='css/programStyle.css' />       
         <script src='js/script.js'></script>
         <title>LSN</title>                
         <meta charset='utf-8'>
@@ -83,7 +84,7 @@ class CourseView extends BaseView
      		   {
      		   	foreach ($course as $key) {
      		   		# code...
-     		   		$html .=" <li> <a href='?Course=" . $key . "'>" . $key . "</li>";
+     		   		$html .="<div class='items'> <li> <a href='?Course=" . $key . "'>" . $key . "</li></div></br>";
      		   	}
 
                 

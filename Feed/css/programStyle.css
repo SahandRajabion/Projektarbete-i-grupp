@@ -1,0 +1,74 @@
+div#title {
+  text-align: center;
+}
+
+
+img {
+  border-radius: 207px;
+  max-height: 264px;
+  max-width: 259px;
+}
+
+div#UD {
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 23px;
+}
+
+div#WP {
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 316px;
+}
+
+
+div#ID {
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 609px;
+}
+
+div#public {
+  margin-left: 900px;
+  margin-top: 2%;
+  position: absolute;
+}
+
+
+.mg-image img {
+    -webkit-transition: all 1s ease; /* Safari and Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -o-transition: all 1s ease; /* IE 9 */
+    -ms-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+        max-width: 100%;
+}
+.mg-image:hover img {
+    -webkit-transform:scale(1.25); /* Safari and Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* IE 9 */
+    -o-transform:scale(1.25); /* Opera */
+     transform:scale(1.25);
+}
+
+@mixin transition($value) {
+    -webkit-transition: $value;
+    transition: $value;
+}
+
+.items {
+  list-style-type: none;
+  padding: 0;
+  position: relative;
+  height: 55px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 30px;
+}
+
+  .items li {
+  height: 10px;
+  width: 100%;
+  line-height: 50px;
+}
+

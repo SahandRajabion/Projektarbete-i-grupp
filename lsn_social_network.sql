@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 27 apr 2015 kl 21:16
+-- Tid vid skapande: 28 apr 2015 kl 20:33
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.5.8
+-- PHP-version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=246 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=263 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -53,10 +53,27 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (239, '2015-04-27 11:54:14', '127.0.0.1', 1, 'Tommy'),
 (240, '2015-04-27 11:56:20', '127.0.0.1', 1, 'Asoglu'),
 (241, '2015-04-27 16:46:47', '127.0.0.1', 1, 'Tommy'),
-(242, '2015-04-27 17:40:49', '127.0.0.1', 1, 'Tommy'),
-(243, '2015-04-27 17:44:46', '127.0.0.1', 1, 'Asoglu'),
-(244, '2015-04-27 17:44:52', '127.0.0.1', 1, 'Tommy'),
-(245, '2015-04-27 19:00:03', '127.0.0.1', 1, 'Tommy');
+(242, '2015-04-27 17:41:34', '127.0.0.1', 1, 'ssss'),
+(243, '2015-04-27 18:13:07', '127.0.0.1', 1, 'ssss'),
+(244, '2015-04-27 18:28:16', '127.0.0.1', 1, 'ssss'),
+(245, '2015-04-27 18:34:41', '127.0.0.1', 1, 'ssss'),
+(246, '2015-04-27 18:38:40', '127.0.0.1', 1, 'ssss'),
+(247, '2015-04-27 20:07:16', '127.0.0.1', 0, 'tommy'),
+(248, '2015-04-27 20:08:18', '127.0.0.1', 0, 'tommy'),
+(249, '2015-04-27 20:08:26', '127.0.0.1', 0, 'tommy'),
+(250, '2015-04-27 20:09:04', '127.0.0.1', 1, 'ssss'),
+(251, '2015-04-27 20:14:48', '127.0.0.1', 1, 'ssss'),
+(252, '2015-04-27 20:45:48', '127.0.0.1', 1, 'ssss'),
+(253, '2015-04-28 13:17:04', '127.0.0.1', 1, 'ssss'),
+(254, '2015-04-28 13:17:22', '127.0.0.1', 1, 'ssss'),
+(255, '2015-04-28 13:26:00', '127.0.0.1', 1, 'ssss'),
+(256, '2015-04-28 13:33:19', '127.0.0.1', 1, 'ssss'),
+(257, '2015-04-28 16:35:43', '127.0.0.1', 1, 'ssss'),
+(258, '2015-04-28 17:12:41', '127.0.0.1', 1, 'ssss'),
+(259, '2015-04-28 17:17:43', '127.0.0.1', 1, 'ssss'),
+(260, '2015-04-28 17:23:39', '127.0.0.1', 1, 'ssss'),
+(261, '2015-04-28 17:23:52', '127.0.0.1', 1, 'ssss'),
+(262, '2015-04-28 17:25:22', '127.0.0.1', 1, 'ssss');
 
 -- --------------------------------------------------------
 
@@ -87,15 +104,18 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseName` varchar(100) NOT NULL,
   `CourseCode` varchar(20) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
-(3, 'Inledande programmering med C#', '1DV402'),
-(4, 'Webbteknik II', '1DV499');
+(16, 'Inledande programmering med C#', 'eeewf'),
+(17, 'Javascript', '309DVK'),
+(18, 'Shaderprogrammering', '309DVd'),
+(19, 'Inledande programmering med PHP', '309DV2'),
+(20, 'Java programmering', '309DV3');
 
 -- --------------------------------------------------------
 
@@ -171,16 +191,20 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(1, 1, 3),
-(2, 2, 3),
-(3, 1, 4);
+(14, 2, 16),
+(15, 2, 17),
+(16, 3, 18),
+(17, 1, 19),
+(18, 2, 19),
+(19, 1, 20),
+(20, 2, 20);
 
 -- --------------------------------------------------------
 
@@ -203,15 +227,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumpning av Data i tabell `user`
 --
 
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
-(37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 0, '20150408_101646.jpg'),
-(38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL);
+(37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 0, NULL),
+(38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL),
+(39, 'ssss', 'sahandsdsdd@hotmail.com', '$2a$10$19pBtKlQu2TVLEMmISkpDexYqbYQqWW0CITrx1dHAhV4mPa0wLhxS', 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -231,15 +256,16 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   PRIMARY KEY (`userDetailid`),
   KEY `UserId` (`UserId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumpning av Data i tabell `userdetails`
 --
 
 INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `ProgramId`) VALUES
-(34, 37, 'Tom', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
-(35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2);
+(34, 37, 'Tommy', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
+(35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2),
+(36, 39, 'ssss', 'ssss', 'Man', '1992-05-12', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller

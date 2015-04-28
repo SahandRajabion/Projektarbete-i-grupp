@@ -27,7 +27,8 @@ class ProgramView extends baseView {
 	    <html>
 	    <head>
 	    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-		<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
+		<link rel='stylesheet' type='text/css' href='css/styleVal.css' />	
+		<link rel='stylesheet' type='text/css' href='css/programStyle.css' />		
 		<script src='js/script.js'></script>
 	    <title>LSN</title>                
 	    <meta charset='utf-8'>
@@ -62,26 +63,37 @@ class ProgramView extends baseView {
 				 	
 		$html .= "
 		</br>
-		<h1>Course Page</h1>
+		<div id='title'>
+		<h1>Vad läser du för program ?</h1>
+		</div>
 		<br/>
 
 		<div id='UD'>
-        <a href='?". $this->UDCourseLocation . "'><img src='img/ud.jpg'/></a>
-
+		<div class= 'mg-image'>
+        <a href='?". $this->UDCourseLocation . "'><img src='img/UD.gif'/></a>
         </div>
+        </div>
+
 
         <div id='WP'>
-        <a href='?". $this->WPCourseLocation . "'><img src='img/wp.png'/></a>
+        <div class= 'mg-image'>
+        <a href='?". $this->WPCourseLocation . "'><img src='img/WP.gif'/></a>
         </div>
+        </div>
+
 
         <div id='ID'>
-        <a href='?". $this->IDCourseLocation . "'><img src=''/></a>
+        <div class= 'mg-image'>
+        <a href='?". $this->IDCourseLocation . "'><img src='img/ID.png'/></a>
+        </div>
         </div>
 
-        <div id='Public'>
-        <a href='?". $this->PUCourseLocation . "'><img src='img/Penguins.jpg'/></a>
-        </div>
 
+        <div id='public'>
+        <div class= 'mg-image'>
+        <a href='?". $this->PUCourseLocation . "'><img src='img/public.png'/></a>
+        </div>
+        </div>
         ";
 
 
