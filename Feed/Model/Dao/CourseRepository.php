@@ -6,7 +6,10 @@ require_once('Model/Dao/Repository.php');
  {
 	private $db;
 	private $courseTable;
-	
+ 	private static $programID = "ProgramId";
+ 	private static $courseID = "CourseId";
+ 	private $key;
+
 	public function __construct() {
 		$this->dbTable = "programcourse";
 		$this->courseTable = "course";
@@ -14,8 +17,62 @@ require_once('Model/Dao/Repository.php');
 		$this->db = $this->connection();
 	}
 
-	public function CourseNameExists($courseName) 
+
+
+	public function GetAllCourseNr($programId) 
 	{
+		$sql = "SELECT CourseId FROM $this->dbTable WHERE " . self::$programID . "= ?";
+		$params = array($programId);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetchAll();
+
+		return $results;
+
+
+	}
+
+
+	public function getCourses($nrcourses) 
+	{
+
+			foreach ($nrcourses as $key) {
+				# code...
+				$this->key = $key;
+			}
+			
+			$sql ="SELECT * FROM $this->courseTable WHERE CourseId = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($this->key);
+
+			$query->execute($params);
+
+			$results = $query->fetchAll();
+			if ($results) {
+				# code...
+				foreach ($results as $result) 
+				{
+					if ($result['CourseId'] == $this->key) {
+						# code...
+						$courseName[] =  $result['CourseName'];
+					}
+				
+				}
+				return $courseName;
+
+			}
+			else {
+				return null;
+			}
+			
+
+	}
+
+
+	
+	public function CourseNameExists($courseName) 
+	{	
 		$sql = "SELECT * FROM $this->courseTable WHERE CourseName = ?";
 		$params = array($courseName);
 		$query = $this->db->prepare($sql);

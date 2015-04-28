@@ -21,6 +21,7 @@ require_once('recaptchalib.php');
 require_once("View/RegisterView.php");
 require_once("View/ProfileView.php");
 require_once("View/ProgramView.php");
+require_once("View/CourseView.php");
 
 class LoginController 
 {
@@ -51,6 +52,8 @@ class LoginController
     private $author;
     private $forgetPasswordView;
     private $programView;
+    private $courseView;
+    private $programId;
 
     public function __construct() {
         $this->loginView = new LoginView();
@@ -69,6 +72,7 @@ class LoginController
         $this->loginMessage = new LoginMessage($msg='');
         $this->profileView = new ProfileView();
         $this->programView = new ProgramView();
+        $this->courseView = new CourseView();
 
     }
 
@@ -87,6 +91,17 @@ class LoginController
             $this->doLogOut();
             $this->doLogIn();
             $this->renderPage();
+            $this->didUserPressUD();
+    }
+
+    public function didUserPressUD(){
+
+        if($this->programView->didUserPressUD()){
+
+            return true;
+        }
+
+        return false;
     }
 
     public function GetUserProfileDetails($id) 
@@ -452,9 +467,17 @@ class LoginController
     public function renderPage() {
 
         if ($this->showLoggedInPage) {
-           // $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());  
-              $this->htmlView->echoHTML($this->programView->showCoursePage());
-        }
+
+            if ($this->didUserPressUD()) {
+                $this->programId = 2;
+                $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));
+            }
+              else {
+
+                $this->htmlView->echoHTML($this->programView->showCoursePage());
+              }
+            }
+        
         else {
             if ($this->showForgetPasswordPage) {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
@@ -467,6 +490,7 @@ class LoginController
             else  if ($this->showRegisterPage) {
                 $this->htmlView->echoHTML($this->registerView->showRegisterPage());
             }
+
             else {
                  $this->htmlView->echoHTML($this->loginView->showLoginpage()); 
             }

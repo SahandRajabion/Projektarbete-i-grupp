@@ -27,6 +27,7 @@ abstract class BaseView
     protected $code = 'gjaQwrA';
     protected $userProfileLocation = 'profile';
     protected $editProfileLocation = 'editProfile';
+    protected $UDCourseLocation = 'UDCourseLocation';
 
     protected $emailRegLocation='emailRegLocation';
     protected $emailConfirmLocation='emailConfirmLocation';
