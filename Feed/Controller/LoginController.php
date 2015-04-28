@@ -92,17 +92,12 @@ class LoginController
             $this->doLogIn();
             $this->renderPage();
             $this->didUserPressUD();
+            $this->didUserPressWP();
+            $this->didUserPressID();
+            $this->didUserPressPU();
+
     }
 
-    public function didUserPressUD(){
-
-        if($this->programView->didUserPressUD()){
-
-            return true;
-        }
-
-        return false;
-    }
 
     public function GetUserProfileDetails($id) 
     {
@@ -324,6 +319,36 @@ class LoginController
         return false;
     }
 
+
+    public function didUserPressUD(){
+        if($this->programView->didUserPressUD()){
+            return true;
+        }
+        return false;
+    }
+
+    public function didUserPressWP(){
+        if($this->programView->didUserPressWP()){
+            return true;
+        }
+        return false;
+    }
+
+    public function didUserPressID(){
+        if($this->programView->didUserPressID()){
+            return true;
+        }
+        return false;
+    }
+
+
+    public function didUserPressPU(){
+        if($this->programView->didUserPressPU()){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * checks if we have logged in session and checks so the session isnt hacked
      */
@@ -467,22 +492,34 @@ class LoginController
     public function renderPage() {
 
         if ($this->showLoggedInPage) {
+         if ($this->didUserPressWP()) {
+            $this->programId = 1;
+            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
 
-            if ($this->didUserPressUD()) {
-                $this->programId = 2;
-                $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));
-            }
-              else {
+            else if ($this->didUserPressUD()) {
+            $this->programId = 2;
+            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
 
-                $this->htmlView->echoHTML($this->programView->showCoursePage());
-              }
+            else if ($this->didUserPressID()) {
+            $this->programId = 3;
+            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
+
+            else if ($this->didUserPressPU()) {
+            $this->programId = 4;
+            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
+
+            else {
+            $this->htmlView->echoHTML($this->programView->showCoursePage());
             }
-        
+
+        }
         else {
+
+
             if ($this->showForgetPasswordPage) {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
             }
-
+    
             else if($this->showResetPasswordPage) {
                 $this->htmlView->echoHTML($this->resetPassword->showResetPasswordPage());
             }

@@ -28,6 +28,10 @@ abstract class BaseView
     protected $userProfileLocation = 'profile';
     protected $editProfileLocation = 'editProfile';
     protected $UDCourseLocation = 'UDCourseLocation';
+    protected $WPCourseLocation = 'WPCourseLocation';
+    protected $IDCourseLocation = 'IDCourseLocation';
+    protected $PUCourseLocation = 'PUCourseLocation';
+
 
     protected $emailRegLocation='emailRegLocation';
     protected $emailConfirmLocation='emailConfirmLocation';

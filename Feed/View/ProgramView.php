@@ -71,15 +71,15 @@ class ProgramView extends baseView {
         </div>
 
         <div id='WP'>
-        <a href='WPCourseView.php'><img src='img/wp.png'/></a>
+        <a href='?". $this->WPCourseLocation . "'><img src='img/wp.png'/></a>
         </div>
 
         <div id='ID'>
-        <a href='IDCourseView.php'><img src=''/></a>
+        <a href='?". $this->IDCourseLocation . "'><img src=''/></a>
         </div>
 
         <div id='Public'>
-        <a href='PublicCourseView.php'><img src='img/Penguins.jpg'/></a>
+        <a href='?". $this->PUCourseLocation . "'><img src='img/Penguins.jpg'/></a>
         </div>
 
         ";
@@ -95,6 +95,30 @@ class ProgramView extends baseView {
 
 	 public function didUserPressUD() {
         if (isset($_GET[$this->UDCourseLocation])) {
+            return true;
+        }
+        return false;
+
+    }
+
+     public function didUserPressID() {
+        if (isset($_GET[$this->IDCourseLocation])) {
+            return true;
+        }
+        return false;
+
+    }
+
+     public function didUserPressWP() {
+        if (isset($_GET[$this->WPCourseLocation])) {
+            return true;
+        }
+        return false;
+
+    }
+
+     public function didUserPressPU() {
+        if (isset($_GET[$this->PUCourseLocation])) {
             return true;
         }
         return false;
