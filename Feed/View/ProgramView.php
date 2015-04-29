@@ -2,20 +2,17 @@
 require_once('View/BaseView.php');
 require_once("./Model/LoginModel.php");
 
-
 class ProgramView extends baseView {
     private $model;
-    private $phone;
 
+    public function __construct() {
 
-		public function __construct() {
+    $this->model = new LoginModel();
 
-		$this->model = new LoginModel();
+    }
 
-		}
-
-		public function showCoursePage() {
-		$this->username = $this->model->getUsername();
+    public function showCoursePage() {
+    $this->username = $this->model->getUsername();
         $adminMenu = "";
 
         if ($this->model->isAdmin()) 
@@ -23,21 +20,21 @@ class ProgramView extends baseView {
             $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
         }
 
-		 $html = "<!DOCTYPE html>
-	    <html>
-	    <head>
-	    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-		<link rel='stylesheet' type='text/css' href='css/styleVal.css' />	
-		<link rel='stylesheet' type='text/css' href='css/programStyle.css' />		
-		<script src='js/script.js'></script>
-	    <title>LSN</title>                
-	    <meta charset='utf-8'>
-	    <meta name='viewport' content='width=device-width, initial-scale=1'>
-	    </head>
-	    <body>
-	     <div class='container'>";		
+     $html = "<!DOCTYPE html>
+      <html>
+      <head>
+      <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+    <link rel='stylesheet' type='text/css' href='css/styleVal.css' /> 
+    <link rel='stylesheet' type='text/css' href='css/programStyle.css' />   
+    <script src='js/script.js'></script>
+      <title>LSN</title>                
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      </head>
+      <body>
+       <div class='container'>";    
 
-	 $html .= "
+   $html .= "
             <br><br>
             <nav class='navbar navbar-default' role='navigation'>
             <div class='navbar-header'>
@@ -60,16 +57,16 @@ class ProgramView extends baseView {
         $this->message
         ";
         
-				 	
-		$html .= "
-		</br>
-		<div id='title'>
-		<h1>Vad läser du för program ?</h1>
-		</div>
-		<br/>
+          
+    $html .= "
+    </br>
+    <div id='title'>
+    <h1>Vad läser du för program ?</h1>
+    </div>
+    <br/>
 
-		<div id='UD'>
-		<div class= 'mg-image'>
+    <div id='UD'>
+    <div class= 'mg-image'>
         <a href='?". $this->UDCourseLocation . "'><img src='img/UD.gif'/></a>
         </div>
         </div>
@@ -97,15 +94,15 @@ class ProgramView extends baseView {
         ";
 
 
-		$html .= "</div>
-				</body>
-				</html>";
+    $html .= "</div>
+        </body>
+        </html>";
 
-		return $html;
-	}
+    return $html;
+  }
 
 
-	 public function didUserPressUD() {
+   public function didUserPressUD() {
         if (isset($_GET[$this->UDCourseLocation])) {
             return true;
         }

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class LoginMessage {
     private $messageId;
@@ -36,8 +36,8 @@ class LoginMessage {
           $ret = "
           $alert
           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
-					<p>$message</p>
-					</div>";
+          <p>$message</p>
+          </div>";
         }
         else {
             $ret = "<p>$message</p>";

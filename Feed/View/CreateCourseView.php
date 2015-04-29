@@ -1,6 +1,7 @@
 <?php
 
 require_once("View/BaseView.php");
+require_once('Model/Token.php');
 
 class CreateCourseView extends BaseView
 {
@@ -84,14 +85,14 @@ class CreateCourseView extends BaseView
 						 <div class='form-group'>
 					         <label class='col-sm-2 control-label' for='$this->courseNameLocation'>Kursnamn: </label>
 					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseNameLocation' value='".htmlspecialchars($this->GetCourseName())."' type='text' size='40' maxlength='40'>
+					           <input class='form-control' value='" . $this->escape($this->GetCourseName()) . "' name='$this->courseNameLocation' type='text' size='40' maxlength='40'>
 					         </div>
 					      </div>
 
 					     <div class='form-group'>
 					         <label class='col-sm-2 control-label' for='$this->courseCodeLocation'>Kurskod: </label>
 					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseCodeLocation' value='".htmlspecialchars($this->GetCourseCode())."' type='text' size='6' maxlength='6'>
+					           <input class='form-control' value='" . $this->escape($this->GetCourseCode()) . "' name='$this->courseCodeLocation' type='text' size='6' maxlength='6'>
 					         </div>
 					      </div>
 
@@ -106,6 +107,7 @@ class CreateCourseView extends BaseView
 
 					     <div class='form-group'>
 				           <div class='col-sm-offset-2 col-sm-10'>
+				           	 <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
 					         <input class='btn btn-default' name='$this->submitNewCourseLocation' type='submit' value='Skapa kurs' />
 					       </div>
 					     </div>

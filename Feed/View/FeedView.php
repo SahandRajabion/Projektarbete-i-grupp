@@ -21,6 +21,8 @@ class FeedView extends BaseView
     private $postTitle = "Title";
     private $date = "Date";
    
+
+
     public function __construct() 
     {
         $this->postRepository = new PostRepository();
@@ -46,7 +48,7 @@ class FeedView extends BaseView
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
-        { 
+        {
                 $last_id = $feedItem[$this->id];
 
                 if ($counter < 1) 

@@ -26,18 +26,18 @@ class CourseView extends BaseView
      
 
      public function GetCourseHTML($id)
-    {	
+    {   
 
-    	$nrcourses = $this->courseRepository->GetAllCourseNr($id);
+        $nrcourses = $this->courseRepository->GetAllCourseNr($id);
 
-    	foreach ($nrcourses as $key) {
-    		# code...
-    		$courses[] = $this->courseRepository->getCourses($key);
+        foreach ($nrcourses as $key) {
+            # code...
+            $courses[] = $this->courseRepository->getCourses($key);
             $this->key = $key;
-    	}
+        }
 
-    	
-		$this->username = $this->model->getUsername();
+        
+        $this->username = $this->model->getUsername();
         $adminMenu = "";
 
         if ($this->model->isAdmin()) 
@@ -83,19 +83,19 @@ class CourseView extends BaseView
         ";
 
       if ($courses != null) {
-      	# code...
+        # code...
 
-      		  foreach ($courses as $course) 
-     		   {
+              foreach ($courses as $course) 
+               {
 
-     		   	foreach ($course as $key) {
-     		   		# code...
+                foreach ($course as $key) {
+                    # code...
 
                     $courseId =$this->courseRepository->getCourseID($key);
-     		   		$html .="<div class='items'> <li> <a href='?".$this->course."&".$this->id."=".$courseId. "'>" . $key . "</li></div></br>";
+                    $html .="<div class='items'> <li> <a href='?".$this->course."&".$this->id."=".$courseId. "'>" . $key . "</li></div></br>";
                     $this->skit = $courseId;
-     		   	}
-      		  }
+                }
+              }
       }
 
     

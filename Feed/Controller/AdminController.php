@@ -3,6 +3,7 @@
 require_once("Model/AdminModel.php");
 require_once("Model/LoginModel.php");
 require_once("View/CreateCourseView.php");
+require_once("Model/Token.php");
 
 class AdminController 
 {
@@ -19,15 +20,21 @@ class AdminController
 
     public function CreateNewCourse() 
     {
-    	if ($this->loginModel->isAdmin()) 
-    	{
-            $checkedBoxValues = $this->createCourseView->GetCheckedBoxes();
-            $courseName = $this->createCourseView->GetCourseName();
-            $courseCode = $this->createCourseView->GetCourseCode();
+        $token = $this->createCourseView->getToken();
+        
+        if (Token::check($token))
+        {
+        	if ($this->loginModel->isAdmin()) 
+        	{
+                $checkedBoxValues = $this->createCourseView->GetCheckedBoxes();
+                $courseName = $this->createCourseView->GetCourseName();
+                $courseCode = $this->createCourseView->GetCourseCode();
 
-        	$this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode);
-    	}
+            	$this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode);
+        	}
+        }
     }
+    
 }
 
 

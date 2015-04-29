@@ -8,7 +8,6 @@ require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
 require_once('View/HTMLView.php');
 require_once('View/FeedView.php');
-require_once('View/BaseView.php');
 
 $userRepository = new UserRepository();
 $postRepository = new PostRepository();

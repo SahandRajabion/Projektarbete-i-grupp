@@ -24,16 +24,6 @@ class PostModel
 	{
 		return $this->postRepository->AddPost($post);
 	}
-	public function addCoursePost(PostCourse $post) 
-	{
-		return $this->postRepository->AddCoursePost($post);
-	}
-
-
-	public function getCoursePosts($id) 
-	{
-		return $this->postRepository->getCoursePosts($id);
-	}
 
 	public function getPosts($post) 
 	{

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 29 apr 2015 kl 22:01
+-- Tid vid skapande: 30 apr 2015 kl 01:13
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.4.24
+-- PHP-version: 5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=254 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=264 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -53,18 +53,28 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (239, '2015-04-27 11:54:14', '127.0.0.1', 1, 'Tommy'),
 (240, '2015-04-27 11:56:20', '127.0.0.1', 1, 'Asoglu'),
 (241, '2015-04-27 16:46:47', '127.0.0.1', 1, 'Tommy'),
-(242, '2015-04-27 17:40:49', '127.0.0.1', 1, 'Tommy'),
-(243, '2015-04-27 17:44:46', '127.0.0.1', 1, 'Asoglu'),
-(244, '2015-04-27 17:44:52', '127.0.0.1', 1, 'Tommy'),
-(245, '2015-04-27 19:00:03', '127.0.0.1', 1, 'Tommy'),
-(246, '2015-04-27 19:23:19', '127.0.0.1', 0, 'Admin'),
-(247, '2015-04-27 19:23:31', '127.0.0.1', 0, 'Admin'),
-(248, '2015-04-27 19:23:42', '127.0.0.1', 0, 'Sahib'),
-(249, '2015-04-27 19:24:51', '127.0.0.1', 1, 'Sahib'),
-(250, '2015-04-27 19:25:18', '127.0.0.1', 1, 'Sahib'),
-(251, '2015-04-28 20:58:47', '127.0.0.1', 1, 'Sahib'),
-(252, '2015-04-29 16:53:36', '127.0.0.1', 1, 'Sahib'),
-(253, '2015-04-29 18:47:23', '127.0.0.1', 1, 'Sahib');
+(242, '2015-04-27 17:41:34', '127.0.0.1', 1, 'ssss'),
+(243, '2015-04-27 18:13:07', '127.0.0.1', 1, 'ssss'),
+(244, '2015-04-27 18:28:16', '127.0.0.1', 1, 'ssss'),
+(245, '2015-04-27 18:34:41', '127.0.0.1', 1, 'ssss'),
+(246, '2015-04-27 18:38:40', '127.0.0.1', 1, 'ssss'),
+(247, '2015-04-27 20:07:16', '127.0.0.1', 0, 'tommy'),
+(248, '2015-04-27 20:08:18', '127.0.0.1', 0, 'tommy'),
+(249, '2015-04-27 20:08:26', '127.0.0.1', 0, 'tommy'),
+(250, '2015-04-27 20:09:04', '127.0.0.1', 1, 'ssss'),
+(251, '2015-04-27 20:14:48', '127.0.0.1', 1, 'ssss'),
+(252, '2015-04-27 20:45:48', '127.0.0.1', 1, 'ssss'),
+(253, '2015-04-28 13:17:04', '127.0.0.1', 1, 'ssss'),
+(254, '2015-04-28 13:17:22', '127.0.0.1', 1, 'ssss'),
+(255, '2015-04-28 13:26:00', '127.0.0.1', 1, 'ssss'),
+(256, '2015-04-28 13:33:19', '127.0.0.1', 1, 'ssss'),
+(257, '2015-04-28 16:35:43', '127.0.0.1', 1, 'ssss'),
+(258, '2015-04-28 17:12:41', '127.0.0.1', 1, 'ssss'),
+(259, '2015-04-28 17:17:43', '127.0.0.1', 1, 'ssss'),
+(260, '2015-04-28 17:23:39', '127.0.0.1', 1, 'ssss'),
+(261, '2015-04-28 17:23:52', '127.0.0.1', 1, 'ssss'),
+(262, '2015-04-28 17:25:22', '127.0.0.1', 1, 'ssss'),
+(263, '2015-04-29 22:59:53', '127.0.0.1', 1, 'Tommy');
 
 -- --------------------------------------------------------
 
@@ -82,25 +92,19 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `PostId` (`id`),
   KEY `id` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
--- Tabellstruktur `commentscourse`
+-- Dumpning av Data i tabell `comments`
 --
 
-CREATE TABLE IF NOT EXISTS `commentscourse` (
-  `CommentId` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `body` text COLLATE utf8_unicode_ci NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id` int(10) NOT NULL,
-  `UserId` int(11) NOT NULL,
-  PRIMARY KEY (`CommentId`),
-  KEY `PostId` (`id`),
-  KEY `id` (`id`),
-  KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`) VALUES
+(3, 'dsds', '2015-04-29 22:21:27', 295, 37),
+(4, 'dsksdk', '2015-04-29 22:36:30', 295, 37),
+(5, 'dsds', '2015-04-29 22:37:48', 297, 37),
+(9, 'dssld', '2015-04-29 23:00:02', 297, 37),
+(10, 'dssd', '2015-04-29 23:05:32', 297, 37),
+(11, 'dsd', '2015-04-29 23:10:59', 298, 37);
 
 -- --------------------------------------------------------
 
@@ -113,17 +117,18 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseName` varchar(100) NOT NULL,
   `CourseCode` varchar(20) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
-(3, 'Inledande programmering med C#', '1DV402'),
-(4, 'Webbteknik II', '1DV499'),
-(5, 'JOJO', '12DVA2'),
-(6, 'SS', 'SDAD23');
+(16, 'Inledande programmering med C#', 'eeewf'),
+(17, 'Javascript', '309DVK'),
+(18, 'Shaderprogrammering', '309DVd'),
+(19, 'Inledande programmering med PHP', '309DV2'),
+(20, 'Java programmering', '309DV3');
 
 -- --------------------------------------------------------
 
@@ -144,45 +149,17 @@ CREATE TABLE IF NOT EXISTS `feed` (
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=297 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=299 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
 INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
-(295, NULL, NULL, 'dsds', NULL, '2015-04-27 11:56:13', 37);
-
--- --------------------------------------------------------
-
---
--- Tabellstruktur `feedcourse`
---
-
-CREATE TABLE IF NOT EXISTS `feedcourse` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `imgName` varchar(255) DEFAULT NULL,
-  `Title` varchar(255) DEFAULT NULL,
-  `Post` varchar(255) DEFAULT NULL,
-  `code` varchar(255) DEFAULT NULL,
-  `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserId` int(11) NOT NULL,
-  `CourseId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `imgName` (`imgName`,`code`),
-  KEY `id_2` (`id`),
-  KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=346 ;
-
---
--- Dumpning av Data i tabell `feedcourse`
---
-
-INSERT INTO `feedcourse` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`) VALUES
-(343, NULL, NULL, 'a', NULL, '2015-04-29 19:57:06', 39, NULL),
-(344, NULL, NULL, 'nu dÃ¥', NULL, '2015-04-29 19:58:10', 39, NULL),
-(345, NULL, NULL, 'nu fan', NULL, '2015-04-29 19:58:40', 39, 3);
+(295, NULL, NULL, 'dsds', NULL, '2015-04-27 11:56:13', 37),
+(296, NULL, NULL, 'dsldsl', NULL, '2015-04-29 22:36:34', 37),
+(297, NULL, NULL, 'dsds', NULL, '2015-04-29 22:37:43', 37),
+(298, NULL, NULL, '''&gt;<br />''&gt;', NULL, '2015-04-29 23:05:39', 37);
 
 -- --------------------------------------------------------
 
@@ -199,18 +176,6 @@ CREATE TABLE IF NOT EXISTS `img` (
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `imgcourse`
---
-
-CREATE TABLE IF NOT EXISTS `imgcourse` (
-  `imgId` int(11) NOT NULL AUTO_INCREMENT,
-  `imgName` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`imgId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
-
--- --------------------------------------------------------
-
---
 -- Tabellstruktur `program`
 --
 
@@ -218,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `program` (
   `ProgramId` int(11) NOT NULL AUTO_INCREMENT,
   `ProgramName` varchar(100) NOT NULL,
   PRIMARY KEY (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumpning av Data i tabell `program`
@@ -242,18 +207,20 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(1, 1, 3),
-(2, 2, 3),
-(3, 1, 4),
-(4, 2, 5),
-(5, 1, 6);
+(14, 2, 16),
+(15, 2, 17),
+(16, 3, 18),
+(17, 1, 19),
+(18, 2, 19),
+(19, 1, 20),
+(20, 2, 20);
 
 -- --------------------------------------------------------
 
@@ -285,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`) VALUES
 (37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 0, '20150408_101646.jpg'),
 (38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL),
-(39, 'Sahib', 'sahib@hotmail.se', '$2a$10$sGGdcsAVtsQGnN5f410ZYe4sB9AEHFGQdO9wrWb9OfNGwLeBtLAwq', 1, 0, 'img/default.jpg');
+(39, 'ssss', 'sahandsdsdd@hotmail.com', '$2a$10$19pBtKlQu2TVLEMmISkpDexYqbYQqWW0CITrx1dHAhV4mPa0wLhxS', 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,9 +279,9 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 --
 
 INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `ProgramId`) VALUES
-(34, 37, 'Tom', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
+(34, 37, 'Tommy', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
 (35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2),
-(36, 39, 'Sahib', 'Sahib', 'Man', '1990-08-05', 'Campus', 2);
+(36, 39, 'ssss', 'ssss', 'Man', '1992-05-12', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller
@@ -337,15 +304,15 @@ ALTER TABLE `feed`
 -- Restriktioner för tabell `programcourse`
 --
 ALTER TABLE `programcourse`
-  ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restriktioner för tabell `userdetails`
 --
 ALTER TABLE `userdetails`
-  ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `userdetails_ibfk_2` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `userdetails_ibfk_2` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

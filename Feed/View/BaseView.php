@@ -22,17 +22,10 @@ abstract class BaseView
 	protected $message;
     protected $adminPanelLocation = 'adminPanel';
     protected $id = 'id';
-    protected $course = 'Course';
     protected $cookie;
-    protected $youtubeCode = "code";
     protected $code = 'gjaQwrA';
     protected $userProfileLocation = 'profile';
     protected $editProfileLocation = 'editProfile';
-    protected $UDCourseLocation = 'UDCourseLocation';
-    protected $WPCourseLocation = 'WPCourseLocation';
-    protected $IDCourseLocation = 'IDCourseLocation';
-    protected $PUCourseLocation = 'PUCourseLocation';
-
 
     protected $emailRegLocation='emailRegLocation';
     protected $emailConfirmLocation='emailConfirmLocation';
@@ -42,8 +35,15 @@ abstract class BaseView
     protected $birthdayLocation='birthdayLocation';
 	protected $schoolLocation='schoolLocation';
     protected $instituteLocation='instituteLocation';
+    protected $youtubeCode = 'code';
 
-    public static function escape($string) 
+    protected $course = 'Course';
+    protected $UDCourseLocation = 'UDCourseLocation';
+    protected $WPCourseLocation = 'WPCourseLocation';
+    protected $IDCourseLocation = 'IDCourseLocation';
+    protected $PUCourseLocation = 'PUCourseLocation';
+
+   public static function escape($string) 
     {
     	return htmlspecialchars($string, ENT_QUOTES, 'utf-8');   
     }
@@ -109,6 +109,7 @@ abstract class BaseView
 		}
 	}	 
 
+
 	public function getPassword() {
 		if (isset($_POST[$this->passwordLocation])) {
 			return $_POST[$this->passwordLocation];
@@ -141,4 +142,8 @@ abstract class BaseView
 	public function redirectToLoginPage() {
 		header("Location: ?");
 	}
+
+
+
+
 }

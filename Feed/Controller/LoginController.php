@@ -21,8 +21,8 @@ require_once('recaptchalib.php');
 require_once("View/RegisterView.php");
 require_once("View/ProfileView.php");
 require_once("View/ProgramView.php");
-require_once("View/CourseView.php");
 require_once("Model/Token.php");
+require_once("View/CourseView.php");
 
 class LoginController 
 {
@@ -52,9 +52,6 @@ class LoginController
     private $topic;
     private $author;
     private $forgetPasswordView;
-    private $programView;
-    private $courseView;
-    private $programId;
 
     public function __construct() {
         $this->loginView = new LoginView();
@@ -74,38 +71,73 @@ class LoginController
         $this->profileView = new ProfileView();
         $this->programView = new ProgramView();
         $this->courseView = new CourseView();
-
     }
 
     /**
      *Call controlfunctions
      */
-    public function doControll() {
-         $this->doGoToRegisterPage();
-            $this->registerNewUser();
-            $this->doGoToForgetPasswordPage();
-            $this->doGoToForgetPasswordPageFromRegisterView();
-            $this->didGetResetPasswordPage();
-            $this->doReturnToLoginPage();
-            $this->doLogInCookie();
-            $this->isLoggedIn();
-            $this->doLogOut();
-            $this->doLogIn();
-            $this->renderPage();
-            $this->didUserPressUD();
-            $this->didUserPressWP();
-            $this->didUserPressID();
-            $this->didUserPressPU();
+    public function doControll() 
+    {
+        $this->doGoToRegisterPage();
+        $this->registerNewUser();
+        $this->doGoToForgetPasswordPage();
+        $this->doGoToForgetPasswordPageFromRegisterView();
+        $this->didGetResetPasswordPage();
+        $this->doReturnToLoginPage();
+        $this->doLogInCookie();
+        $this->isLoggedIn();
+        $this->doLogOut();
+        $this->doLogIn();
+        $this->renderPage();
 
+        $this->didUserPressUD();
+        $this->didUserPressWP();
+        $this->didUserPressID();
+        $this->didUserPressPU();
     }
 
+  public function didUserPressUD()
+  {
+        if ($this->programView->didUserPressUD())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function didUserPressWP()
+    {
+        if ($this->programView->didUserPressWP())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function didUserPressID()
+    {
+        if ($this->programView->didUserPressID())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function didUserPressPU(){
+        if($this->programView->didUserPressPU()){
+            return true;
+        }
+        return false;
+    }    
 
     public function GetUserProfileDetails($id) 
     {
         return $this->model->GetUserProfileDetails($id);
     }
 
-    public function editUserDetails() 
+     public function editUserDetails() 
     {
         $token = $this->profileView->getToken();
         
@@ -325,36 +357,6 @@ class LoginController
         return false;
     }
 
-
-    public function didUserPressUD(){
-        if($this->programView->didUserPressUD()){
-            return true;
-        }
-        return false;
-    }
-
-    public function didUserPressWP(){
-        if($this->programView->didUserPressWP()){
-            return true;
-        }
-        return false;
-    }
-
-    public function didUserPressID(){
-        if($this->programView->didUserPressID()){
-            return true;
-        }
-        return false;
-    }
-
-
-    public function didUserPressPU(){
-        if($this->programView->didUserPressPU()){
-            return true;
-        }
-        return false;
-    }
-
     /**
      * checks if we have logged in session and checks so the session isnt hacked
      */
@@ -497,35 +499,40 @@ class LoginController
      */
     public function renderPage() {
 
-        if ($this->showLoggedInPage) {
-         if ($this->didUserPressWP()) {
-            $this->programId = 1;
-            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
+        if ($this->showLoggedInPage) 
+        {
 
-            else if ($this->didUserPressUD()) {
-            $this->programId = 2;
-            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
+            if ($this->didUserPressWP()) 
+            {
+                $this->programId = 1;
+                $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));
+            }
+            else if ($this->didUserPressUD()) 
+            {
+                $this->programId = 2;
+                $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));
+            }
+            else if ($this->didUserPressID()) 
+            {
+                $this->programId = 3;
+                $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));
+            }
+            else if ($this->didUserPressPU()) 
+            {
+                $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());
+            }
 
-            else if ($this->didUserPressID()) {
-            $this->programId = 3;
-            $this->htmlView->echoHTML($this->courseView->GetCourseHTML($this->programId));}
-
-            else if ($this->didUserPressPU()) {
-            $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());}
-
-            else {
-            $this->htmlView->echoHTML($this->programView->showCoursePage());
+            else 
+            {
+                $this->htmlView->echoHTML($this->programView->showCoursePage());
             }
 
         }
-
         else {
-
-
             if ($this->showForgetPasswordPage) {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
             }
-    
+
             else if($this->showResetPasswordPage) {
                 $this->htmlView->echoHTML($this->resetPassword->showResetPasswordPage());
             }
@@ -533,7 +540,6 @@ class LoginController
             else  if ($this->showRegisterPage) {
                 $this->htmlView->echoHTML($this->registerView->showRegisterPage());
             }
-
             else {
                  $this->htmlView->echoHTML($this->loginView->showLoginpage()); 
             }
@@ -611,18 +617,15 @@ class LoginController
             $currentPassword = $this->changePasswordView->getPassword(); 
             $newConfirmPassword = $this->changePasswordView->getNewPassword();
             $newPassword = $this->changePasswordView->getNewConfirmPassword();      
-
             if ($this->model->isCorrectPassword($currentPassword) == false) 
             {
                 $msgId = 16;
                 $this->validationErrors++;
                 $this->loginMessage = new LoginMessage($msgId);        
                 $message = $this->loginMessage->getMessage();
-
                 $this->changePasswordView->saveCookieMessage($message);
                 $this->changePasswordView->redirectToChangePassword();                         
             }
-
             if ($this->validationErrors == 0) 
             {
                 if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
@@ -630,11 +633,9 @@ class LoginController
                     $this->validationErrors++;
                     $this->loginMessage = new LoginMessage($msgId);        
                     $message = $this->loginMessage->getMessage();
-
                     $this->changePasswordView->saveCookieMessage($message);
                     $this->changePasswordView->redirectToChangePassword();     
                 }
-
                 else 
                 {
                     if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
@@ -642,13 +643,11 @@ class LoginController
                         $this->validationErrors++;
                         $this->loginMessage = new LoginMessage($msgId);        
                         $message = $this->loginMessage->getMessage();
-
                         $this->changePasswordView->saveCookieMessage($message);
                         $this->changePasswordView->redirectToChangePassword();     
                     }
                 }
             }
-
             if ($this->validationErrors == 0) 
             {
                 if ($this->validatePassword->validateIfSamePassword($newPassword, $currentPassword)) {
@@ -656,35 +655,28 @@ class LoginController
                         $this->validationErrors++;
                         $this->loginMessage = new LoginMessage($msgId);        
                         $message = $this->loginMessage->getMessage();
-
                         $this->changePasswordView->saveCookieMessage($message);
                         $this->changePasswordView->redirectToChangePassword();     
                     }
             }
-
             if ($this->validationErrors == 0) {
                 if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
                     $msgId = 23;
                     $this->validationErrors++;
                     $this->model->setMessage($msgId);
                     $this->setMessage();
-
                     $this->changePasswordView->saveCookieMessage($message);
                     $this->changePasswordView->redirectToChangePassword();                 
                 }   
             }                
-
             if($this->validationErrors == 0) 
             {
                 $hash = $this->hash->crypt($newPassword);
-
                 $user = new User($this->model->getUsername(), $hash);
                 $this->userRepository->editPassword($user);
-
                 $msgId = 17;
                 $this->loginMessage = new LoginMessage($msgId);        
                 $message = $this->loginMessage->getMessage();
-
                 $this->changePasswordView->saveCookieMessage($message);
                 $this->model->doLogOut();
                 $this->changePasswordView->redirectToLoginPage();              
@@ -696,18 +688,15 @@ class LoginController
         }         
     }
 
-
-     /**
+   /**
      * register a user
      */
     public function registerNewUser() {
         if ($this->registerView->didUserPressSubmit()) {
-
             $resp = recaptcha_check_answer (Settings::$SECRET_KEY,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
                                 $_POST["recaptcha_response_field"]);
-
             $username = $this->registerView->getUsername(); 
             $email = $this->registerView->getEmail(); 
             $confirmEmail = $this->registerView->getConfirmEmail(); 
@@ -724,14 +713,12 @@ class LoginController
 
             if (Token::check($token)) 
             {
-
             if($this->validateUsername->validateUsernameLength($username) == false) {
                 $msgId = 8;
                 $this->validationErrors++;
                 $this->model->setMessage($msgId);
                 $this->setMessage();
             }
-
             if ($this->validationErrors == 0) {
                 if($this->validateUsername->validateCharacters($username) == false || preg_match(Settings::$REGEX, $username)) {
                     $msgId = 4;
@@ -740,7 +727,6 @@ class LoginController
                     $this->setMessage();                    
                 }   
             }
-
             if ($this->validationErrors == 0) {
                 if ($this->validatePassword->validatePasswordLength($password, $confirmPassword) == false) {
                     $msgId = 7;
@@ -757,7 +743,6 @@ class LoginController
                     }
                 }
             }
-
             if ($this->validationErrors == 0) {
                 if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
                     $msgId = 23;
@@ -766,7 +751,6 @@ class LoginController
                     $this->setMessage();                    
                 }   
             }            
-
             if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateIfSameEmail($email, $confirmEmail) == false) {
                         $msgId = 25; 
@@ -775,7 +759,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
              if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateEmail($email, $confirmEmail)==false) {
                         $msgId = 28; 
@@ -784,7 +767,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
               if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateNames($fName, $lName) == false) {
                         $msgId = 29; 
@@ -793,7 +775,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
               if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateSex($sex) == false) {
                         $msgId = 30; 
@@ -802,7 +783,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
               if ($this->validationErrors == 0) 
               {
                 if($this->validateNewUser->validateBirthday($birthday) == false) {
@@ -814,7 +794,6 @@ class LoginController
                     }
                 }
             }
-
              if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateSchoolForm($schoolForm) == false) {
                         $msgId = 32; 
@@ -823,7 +802,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
               if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateInstitute($institute) == false) {
                         $msgId = 33; 
@@ -832,9 +810,6 @@ class LoginController
                         $this->setMessage();
                 }
             }
-
-
-
             if ($this->validationErrors == 0) 
             {
                 if (!$resp->is_valid) 
@@ -849,31 +824,24 @@ class LoginController
             if($this->validationErrors == 0 && $resp->is_valid) {
                $hash = $this->hash->crypt($password);
                $newUser = new User($username, $hash, $email, $fName, $lName, $sex, $birthday, $schoolForm, $institute);
-
                if ($this->userRepository->exists($username) == false) {
              
                if($this->userRepository->existsEmail($email) == false){
                 $id = $this->userRepository->add($newUser);
                 $this->userRepository->addDetails($newUser, $id);
-
                 $msgId = 12;
                 $this->model->setMessage($msgId);
                 $this->setMessage();
                 $this->showRegisterPage = false;
                 $this->loginView->setRegister($username);                
                }
-
                else {
-
                 $errorMsgForgetEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
                                             <button type="button" class="close" data-dismiss="alert">
                                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                             <strong>Eposten finns redan registrerad, välj <a href=?forgetPassword>Glömt lösenord</a>
                                              för att återställa lösenordet</strong></div>';
-
                                             echo $errorMsgForgetEmail;
-
-
              }
          }
             
@@ -884,13 +852,9 @@ class LoginController
                }    
      
             }
-
         }
-
         }
     }
-
-
 }
 
 

@@ -1,5 +1,5 @@
 <?php
-require_once('Model/Dao/Repository.php');
+
 class LogRepository extends Repository 
 {
 

@@ -12,12 +12,11 @@ require_once("View/ForgetPasswordView.php");
 require_once("View/ResetPasswordView.php");
 require_once("View/ContactView.php");
 require_once("View/CreateCourseView.php");
-require_once("View/CourseView.php");
 require_once("Controller/ContactController.php");
 require_once('Controller/UploadController.php');
 require_once('Controller/AdminController.php');
 require_once('View/ProfileView.php');
-require_once('View/CourseFeedView.php');
+
 class MasterController extends Navigation
 {
 	private $contactController;
@@ -37,8 +36,6 @@ class MasterController extends Navigation
     private $feed;
     private $renderContact = false;
     private $createCourseView;
-    private $courseView;
-    private $courseFeedView;
 
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
@@ -49,7 +46,6 @@ class MasterController extends Navigation
 	{
 		$this->adminController = new AdminController();
 		$this->createCourseView = new CreateCourseView();
-		$this->courseView = new CourseView();
 		$this->forgetPasswordView = new ForgetPasswordView();
 		$this->model = new LoginModel();
 		$this->loginController = new LoginController();
@@ -62,12 +58,11 @@ class MasterController extends Navigation
       	$this->uploadController = new UploadController();
       	$this->profileView = new ProfileView();
       	$this->feed = new FeedView();
-      	$this->courseFeedView = new CourseFeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 
 	}
 
-		public function doControll() 
+		public function doControll()  
 		{			
 			try 
 			{	
@@ -172,14 +167,6 @@ class MasterController extends Navigation
 
 	             	return $this->uploadController->imgUpload();
              	}
-
-             	else if ($this->loginController->isAuthenticated() && $this->courseView->hasSubmitAcourse()) {
-             		# code...
-             		//echo $this->courseView->getId();
-
-             		return $this->courseFeedView->GetCourseFeedHTML();
-             		
-             	}
 	            // REGISTER OR LOGIN
 	            else 
 	            {
@@ -196,8 +183,6 @@ class MasterController extends Navigation
                 }
 			}
 	}
-
-
 
 	public function getUsername() {
 		return $this->forgetPasswordView->getUsername();	
