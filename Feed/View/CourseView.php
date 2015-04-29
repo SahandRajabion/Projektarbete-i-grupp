@@ -1,6 +1,7 @@
 <?php
 
 require_once('Model/Dao/CourseRepository.php');
+require_once('Model/Dao/PostRepository.php');
 require_once('View/BaseView.php');
 require_once('Model/LoginModel.php');
 
@@ -10,13 +11,16 @@ class CourseView extends BaseView
 {
     private $courseRepository;
     private $model;
-    private $test;
- 
+    private $key;
+    private $skit;
+    private $postRepository;
 
     public function __construct() 
     {
         $this->courseRepository = new CourseRepository();
+        $this->postRepository = new PostRepository();
         $this->model = new LoginModel();
+
 
     }
      
@@ -29,6 +33,7 @@ class CourseView extends BaseView
     	foreach ($nrcourses as $key) {
     		# code...
     		$courses[] = $this->courseRepository->getCourses($key);
+            $this->key = $key;
     	}
 
     	
@@ -82,21 +87,38 @@ class CourseView extends BaseView
 
       		  foreach ($courses as $course) 
      		   {
+
      		   	foreach ($course as $key) {
      		   		# code...
-     		   		$html .="<div class='items'> <li> <a href='?Course=" . $key . "'>" . $key . "</li></div></br>";
+
+                    $courseId =$this->courseRepository->getCourseID($key);
+     		   		$html .="<div class='items'> <li> <a href='?".$this->course."&".$this->id."=".$courseId. "'>" . $key . "</li></div></br>";
+                    $this->skit = $courseId;
      		   	}
-
-                
       		  }
-
       }
-   
+
     
-        $html .= "</div>
+        $html .= "</div>    
                 </body>
                 </html>";
 
         return $html;
     }
+
+    // public function getSkiten() {
+
+    //     return $_SESSION[$this->session];
+
+    // }
+
+
+    public function hasSubmitAcourse() {
+         if (isset($_GET[$this->course])) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

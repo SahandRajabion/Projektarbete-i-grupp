@@ -136,4 +136,40 @@ require_once('Model/Dao/Repository.php');
 			die('An unknown error has happened');
 		}
 	}
+
+
+	public function getCourseID($courseName) 
+	{
+
+		
+			
+			$sql ="SELECT * FROM $this->courseTable WHERE CourseName = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($courseName);
+
+			$query->execute($params);
+
+			$results = $query->fetchAll();
+			if ($results) {
+				# code...
+				foreach ($results as $result) 
+				{
+					if ($result['CourseName'] == $courseName) {
+						# code...
+						$courseid =  $result['CourseId'];
+					}
+				
+				}
+				return $courseid;
+
+			}
+			else {
+				return null;
+			}
+			
+
+	}
+
+
+
  }

@@ -1,8 +1,8 @@
 <?php
-
+require_once('Model/Dao/LogRepository.php');
 require_once('./Controller/LoginController.php');
 require_once('Model/Dao/UserRepository.php');
-require_once('Model/Dao/LogRepository.php');
+
 
 
 class LoginModel{

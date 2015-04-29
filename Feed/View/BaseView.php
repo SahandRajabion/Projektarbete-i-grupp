@@ -22,6 +22,7 @@ abstract class BaseView
 	protected $message;
     protected $adminPanelLocation = 'adminPanel';
     protected $id = 'id';
+    protected $course = 'Course';
     protected $cookie;
     protected $youtubeCode = "code";
     protected $code = 'gjaQwrA';

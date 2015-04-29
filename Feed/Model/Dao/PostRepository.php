@@ -12,11 +12,15 @@ require_once('Model/Image.php');
 	private static $urlCode = "code";
 	private static $imgName = "imgName"; 
 	private static $Title = "Title";
+	private static $courseID = "CourseId";
 	private $db;
-	
+	// private $session = 'session';
+
 	public function __construct() {
 		$this->table = "feed";
+		$this->courseTable = "feedcourse";
 		$this->db = $this->connection();
+		
 	}
 
 
@@ -208,4 +212,46 @@ require_once('Model/Image.php');
 			die('An unknown error hase happened');
 		}
 	}
+
+
+
+	public function getCoursePosts($courseid) 
+	{		
+		try 
+		{ 
+			$sql = "SELECT * FROM $this->courseTable WHERE " .  self::$courseID . " = ? ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
+			$params = array($courseid);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+			$feedItems = $query->fetchAll();
+			return $feedItems;
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+	
+
+	public function AddCoursePost(PostCourse $post) 
+	{
+		try 
+		{	
+			$sql = "INSERT INTO $this->courseTable (" . self::$post . ", " .  self::$userId . ", " .  self::$courseID . ") VALUES (?, ?, ?)";
+			$params = array($post->getPost(), $post->getUserId(),$post->getCourseId());
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			$id = $this->db->lastInsertId();
+
+			return $id;
+		} 
+		catch (PDOException $ex) 
+		{
+			die('An unknown error hase happened');
+		}
+	}
+
  }

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once('Model/Dao/UserRepository.php');
 require_once('Model/Dao/PostRepository.php');
@@ -7,7 +7,7 @@ require_once('Model/LoginModel.php');
 require_once('View/UploadView.php');
 require_once('View/BaseView.php');
 
-class FeedView extends BaseView
+class CourseFeedView extends BaseView
 {
     private $userRepository;
     private $postRepository;
@@ -20,6 +20,7 @@ class FeedView extends BaseView
     private $postContent = "Post";
     private $postTitle = "Title";
     private $date = "Date";
+    private $courseCode;
    
     public function __construct() 
     {
@@ -30,9 +31,10 @@ class FeedView extends BaseView
         $this->uploadView = new UploadView();   
     }
 
-    public function GetFeedHTML()
+    public function GetCourseFeedHTML()
     {
-        $feedItems = $this->postRepository->getPosts();
+        $feedItems = $this->postRepository->getCoursePosts($this->getId());
+      
         $last_id = 0;
         $first_id = 0;
         $first_comment_id = 0;
@@ -40,7 +42,7 @@ class FeedView extends BaseView
      
         $html = "<div class='content'>";
 
-        $html .= $this->uploadView->RenderUploadForm();
+        $html .= $this->uploadView->RenderCourseForm();
 
         $html .= "<ul id='items'>";    
 
@@ -92,48 +94,7 @@ class FeedView extends BaseView
                 </form>
                 ";
 
-                $comments = $this->commentRepository->GetCommentsForPost($feedItem[$this->id]);
-
-                if (empty($comments) == false) 
-                {
-                    foreach ($comments as $comment) 
-                    {
-                        $data = $comment->GetData();
-
-                        
-                        if ($first_comment_id < $data['CommentId']) 
-                        {
-                            $first_comment_id = $data['CommentId'];
-                        }
-
-                        $data['date'] = strtotime($data['date']);
-
-                        $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
-
-                        if ($this->loginModel->getId() == $comment->GetUserId()) {
-                            $html .=
-                            '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-                            <img src="images/icon_del.gif" border="0" />
-                            </a>';
-                        }
-
-                        $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
-                        </div>';
-                    }            
-                }
-
-                $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
-                    <form class='comment-form' method='post' action=''>
-                        <div>
-                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
-                            <label for='body'>Skriv en kommentar</label>
-                            <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                            <input type='submit' id='submit' value='Kommentera'/>
-                        </div>
-                    </form>
-                </div>
-                </div>";                
+                         
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
