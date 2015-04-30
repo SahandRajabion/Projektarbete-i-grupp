@@ -167,6 +167,13 @@ class MasterController extends Navigation
 
 	             	return $this->uploadController->imgUpload();
              	}
+
+				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse()) {
+
+             		return $this->feed->GetFeedHTML();
+             		
+             	}
+
 	            // REGISTER OR LOGIN
 	            else 
 	            {

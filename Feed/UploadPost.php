@@ -19,7 +19,7 @@ $feed = new FeedView();
 $postModel = new PostModel();
 $loginController = new LoginController();
 $counter = 1;
-
+ 
 function GetUrlCode() 
 {
 	return $uploadPage->getUrlCode();
@@ -56,7 +56,7 @@ try
 		if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
 		{
 		   	$image = new Image($NewFileName,$uploadPage->getTitle(), $loginController->getId());
-			$id = $postModel->addImage($image);
+			$id = $postModel->addImage($image, $_POST['courseid']);
 		}
 
 		else
@@ -73,7 +73,7 @@ try
 			{
 
 				$post = new Post($uploadPage->getTitle(), $loginController->getId());
-				$id = $postModel->addPost($post);
+				$id = $postModel->addPost($post, $_POST['courseid']);
 			}
 
 			else
@@ -84,7 +84,7 @@ try
 				{
 					$newURL = substr($fullURL, 32);
 					$video = new Youtube($newURL, $loginController->getId());
-					$id = $postModel->addVideo($video);
+					$id = $postModel->addVideo($video, $_POST['courseid']);
 				} 
 			}
 		}

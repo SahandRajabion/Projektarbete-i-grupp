@@ -105,12 +105,12 @@ require_once('Model/Image.php');
 		}	
 	}
 
-	public function AddPost(Post $post) 
+	public function AddPost(Post $post, $courseId) 
 	{
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ") VALUES (?, ?)";
-			$params = array($post->getPost(), $post->getUserId());
+			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", CourseId) VALUES (?, ?, ?)";
+			$params = array($post->getPost(), $post->getUserId(), $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
@@ -175,12 +175,12 @@ require_once('Model/Image.php');
  		}
  	}
 
- 	public function AddVideo(Youtube $youtube) 
+ 	public function AddVideo(Youtube $youtube, $courseId) 
  	{
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ") VALUES(?, ?)";
-			$params = array($youtube->getVideoURL(), $youtube->getUserId());
+			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ", CourseId) VALUES(?, ?, ?)";
+			$params = array($youtube->getVideoURL(), $youtube->getUserId(), $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
@@ -192,11 +192,11 @@ require_once('Model/Image.php');
 		}
  	}
 
-	public function AddImage(Image $image) {
+	public function AddImage(Image $image, $courseId) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ") VALUES (?, ?, ?)";
-			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId());
+			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ", CourseId) VALUES (?, ?, ?, ?)";
+			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId(), $courseId);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
 

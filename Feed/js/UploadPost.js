@@ -21,6 +21,7 @@ $(document).ready(function() {
 //function after succesful file upload (when server response)
 function afterSuccess(responseText, statusText, xhr, $form)
 {
+	alert(responseText);
 	$('#progressbox').fadeOut(); //hide progress bar
 
 	working = false;

@@ -11,18 +11,18 @@ class PostModel
 		$this->postRepository = new PostRepository();
 	}
 
-	public function addImage(Image $image) {
-		return $this->postRepository->AddImage($image);
+	public function addImage(Image $image, $courseId) {
+		return $this->postRepository->AddImage($image, $courseId);
 	}	
 
-	public function addVideo(Youtube $video) 
+	public function addVideo(Youtube $video, $courseId) 
 	{
-		return $this->postRepository->AddVideo($video);
+		return $this->postRepository->AddVideo($video, $courseId);
 	}
 
-	public function addPost(Post $post) 
+	public function addPost(Post $post, $courseId) 
 	{
-		return $this->postRepository->AddPost($post);
+		return $this->postRepository->AddPost($post, $courseId);
 	}
 
 	public function getPosts($post) 

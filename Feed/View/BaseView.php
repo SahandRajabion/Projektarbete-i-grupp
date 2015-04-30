@@ -47,12 +47,20 @@ abstract class BaseView
     {
     	return htmlspecialchars($string, ENT_QUOTES, 'utf-8');   
     }
+    
     public function getToken() 
     {
     	if (isset($_POST['CSRFToken'])) {
 	      return $_POST['CSRFToken'];
 	   }	
     }
+
+  public function hasSubmitAcourse() {
+         if (isset($_GET[$this->course])) {
+            return true;
+        }
+        return false;
+    }    
 
 	public function getId() {
 	   if (isset($_GET[$this->id])) {
