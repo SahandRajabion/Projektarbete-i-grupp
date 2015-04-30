@@ -70,12 +70,12 @@ class CommentRepository extends Repository {
 		}
 	}
 
-	public function InsertComment($comment, $id, $userId) 
+	public function InsertComment($comment, $id, $userId, $courseId) 
 	{
 		try 
 		{
-	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ", " . self::$userId . ") VALUES (?, ?, ?)";
-			$params = array($comment, $id, $userId);
+	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ", " . self::$userId . ", CourseId) VALUES (?, ?, ?, ?)";
+			$params = array($comment, $id, $userId, $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 			$commentId = $this->db->lastInsertId();

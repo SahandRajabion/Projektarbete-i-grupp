@@ -14,7 +14,7 @@ $validationResult = Comment::validate($values);
 
 if($validationResult)
 {
-	$values['CommentId'] = $commentRepository->InsertComment($values['body'], $values['id'], $loginModel->getId());
+	$values['CommentId'] = $commentRepository->InsertComment($values['body'], $values['id'], $loginModel->getId(), $values['courseid']);
 	
 	$values['date'] = date('r', time());
 

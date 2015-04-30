@@ -128,6 +128,7 @@ class FeedView extends BaseView
                 $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
                         <div>
+                            <input type='hidden' id='courseid' name='courseid' value='" . $this->getId() . "'>
                              <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
                             <label for='body'>Skriv en kommentar</label>
                             <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>

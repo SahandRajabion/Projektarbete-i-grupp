@@ -40,6 +40,7 @@ class Comment
 		$data	= array();
 
 		$data['id'] = $_POST['id'];
+		$data['courseid'] = $_POST['courseid'];
 		
 		if(!($data['body'] = filter_input(INPUT_POST, 'body', FILTER_CALLBACK, array('options'=>'Comment::ValidateText'))))
 		{
