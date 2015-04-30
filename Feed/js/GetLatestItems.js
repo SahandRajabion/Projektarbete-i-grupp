@@ -30,7 +30,14 @@ $(document).ready(function () {
             return n.id.split("comment").join("");
         });
 
-        var max = Math.max.apply(Math, arrayOfCommentIds);
+        if (arrayOfCommentIds != "") 
+        { 
+            var max = Math.max.apply(Math, arrayOfCommentIds);
+        }
+        else 
+        {
+            var max = 0;
+        }
 
         $.ajax({
             type: "POST",
@@ -51,8 +58,17 @@ $(document).ready(function () {
         var arrayOfPostIds = $.map($(".post"), function(n, i){
             return n.id.split("post").join("");
         });
-        var max = Math.max.apply(Math, arrayOfPostIds);
-        
+
+        if (arrayOfPostIds != "") {
+            var max = Math.max.apply(Math, arrayOfPostIds);
+        }
+
+        else 
+        {
+            var max = 0;
+        }
+
+
         $.ajax({
             type: "POST",
             url: "GetLatestItems.php",
