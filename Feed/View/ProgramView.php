@@ -24,7 +24,7 @@ class ProgramView extends baseView {
       <html>
       <head>
       <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-    <link rel='stylesheet' type='text/css' href='css/programStyle.css' />   
+    <link rel='stylesheet' type='text/css' href='css/programStyles.css' />   
     <script src='js/script.js'></script>
       <title>LSN</title>                
       <meta charset='utf-8'>
