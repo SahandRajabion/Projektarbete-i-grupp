@@ -2,8 +2,8 @@
 
 require_once("Model/Dao/PostRepository.php");
 
-if (isset($_POST['arrayOfPostIds']) && empty($_POST['arrayOfPostIds']) == false && count($_POST['arrayOfPostIds']) > 1
-	&& isset($_POST['course_id']) && empty($_POST['course_id']) == false && count($_POST['course_id']) > 1) {
+if (isset($_POST['arrayOfPostIds']) && empty($_POST['arrayOfPostIds']) == false
+	&& isset($_POST['course_id']) && empty($_POST['course_id']) == false) {
 
 	$sitePostIds = $_POST['arrayOfPostIds']; 
 	$course_id = $_POST['course_id'];
