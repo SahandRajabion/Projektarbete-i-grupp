@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Värd: 10.209.1.136
--- Skapad: 30 apr 2015 kl 10:01
--- Serverversion: 5.5.32
--- PHP-version: 5.3.10-1ubuntu3.11
+-- Värd: 127.0.0.1
+-- Tid vid skapande: 30 apr 2015 kl 19:53
+-- Serverversion: 5.6.15-log
+-- PHP-version: 5.5.8
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Databas: `198884-scrollpaging`
+-- Databas: `lsn_social_network`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=271 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=296 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -81,7 +81,32 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (267, '2015-04-30 07:25:54', '194.47.173.94', 1, 'Tommy'),
 (268, '2015-04-30 07:26:23', '194.47.173.94', 0, 'hejhejhej'),
 (269, '2015-04-30 07:26:31', '194.47.173.94', 1, 'Sahib'),
-(270, '2015-04-30 07:28:30', '194.47.173.94', 1, 'Tommy');
+(270, '2015-04-30 07:28:30', '194.47.173.94', 1, 'Tommy'),
+(271, '2015-04-30 08:04:47', '127.0.0.1', 1, 'Tommy'),
+(272, '2015-04-30 12:25:20', '127.0.0.1', 1, 'Tommy'),
+(273, '2015-04-30 12:33:47', '127.0.0.1', 1, 'Tommy'),
+(274, '2015-04-30 12:36:57', '127.0.0.1', 1, 'Tommy'),
+(275, '2015-04-30 12:39:15', '127.0.0.1', 1, 'Tommy'),
+(276, '2015-04-30 13:57:05', '127.0.0.1', 1, 'Tommy'),
+(277, '2015-04-30 14:01:55', '127.0.0.1', 1, 'Tommy'),
+(278, '2015-04-30 14:07:14', '127.0.0.1', 1, 'Tommy'),
+(279, '2015-04-30 14:10:14', '127.0.0.1', 1, 'Tommy'),
+(280, '2015-04-30 15:36:01', '127.0.0.1', 1, 'Tommy'),
+(281, '2015-04-30 15:41:13', '127.0.0.1', 1, 'Tommy'),
+(282, '2015-04-30 15:43:42', '127.0.0.1', 1, 'Tommy'),
+(283, '2015-04-30 15:46:41', '127.0.0.1', 1, 'Tommy'),
+(284, '2015-04-30 16:24:51', '127.0.0.1', 1, 'Tommy'),
+(285, '2015-04-30 16:37:32', '127.0.0.1', 1, 'Tommy'),
+(286, '2015-04-30 16:41:06', '127.0.0.1', 1, 'Tommy'),
+(287, '2015-04-30 16:45:54', '127.0.0.1', 1, 'Tommy'),
+(288, '2015-04-30 16:50:57', '127.0.0.1', 1, 'Tommy'),
+(289, '2015-04-30 16:52:32', '127.0.0.1', 1, 'Tommy'),
+(290, '2015-04-30 16:53:45', '127.0.0.1', 1, 'Tommy'),
+(291, '2015-04-30 16:54:31', '127.0.0.1', 1, 'Tommy'),
+(292, '2015-04-30 16:56:53', '127.0.0.1', 1, 'Tommy'),
+(293, '2015-04-30 16:59:20', '127.0.0.1', 1, 'Tommy'),
+(294, '2015-04-30 17:33:00', '127.0.0.1', 1, 'Tommy'),
+(295, '2015-04-30 17:45:41', '127.0.0.1', 1, 'Tommy');
 
 -- --------------------------------------------------------
 
@@ -95,22 +120,34 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id` int(10) NOT NULL,
   `UserId` int(11) NOT NULL,
+  `CourseId` int(11) DEFAULT NULL,
   PRIMARY KEY (`CommentId`),
   KEY `PostId` (`id`),
   KEY `id` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=65 ;
 
 --
 -- Dumpning av Data i tabell `comments`
 --
 
-INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`) VALUES
-(3, 'dsds', '2015-04-29 22:21:27', 295, 37),
-(4, 'dsksdk', '2015-04-29 22:36:30', 295, 37),
-(5, 'dsds', '2015-04-29 22:37:48', 297, 37),
-(9, 'dssld', '2015-04-29 23:00:02', 297, 37),
-(10, 'dssd', '2015-04-29 23:05:32', 297, 37);
+INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`, `CourseId`) VALUES
+(18, 'dssd', '2015-04-30 15:07:50', 314, 37, 1),
+(20, 'dssd', '2015-04-30 15:12:39', 316, 37, 1),
+(21, 'dsds', '2015-04-30 15:12:45', 314, 37, 1),
+(37, 'Kommentar 1', '2015-04-30 15:32:07', 333, 37, 22),
+(38, 'Kommentar 2', '2015-04-30 15:32:12', 333, 37, 22),
+(39, 'Kommentar 3', '2015-04-30 15:32:20', 337, 37, 22),
+(40, 'Kommentar 4', '2015-04-30 15:32:34', 333, 37, 22),
+(43, 'Kommentar 10', '2015-04-30 15:46:55', 337, 37, 22),
+(44, 'Kommentar 11', '2015-04-30 15:46:59', 337, 37, 22),
+(45, 'Kommentar 12', '2015-04-30 15:47:05', 337, 37, 22),
+(48, 'Tja', '2015-04-30 16:46:52', 334, 37, 22),
+(49, 'Fuaa', '2015-04-30 16:47:04', 334, 37, 22),
+(55, 'hej', '2015-04-30 17:11:51', 334, 37, 22),
+(62, 'fuaa', '2015-04-30 17:25:34', 338, 37, 22),
+(63, 'hej', '2015-04-30 17:26:58', 333, 37, 22),
+(64, 'hejsan', '2015-04-30 17:35:39', 338, 37, 22);
 
 -- --------------------------------------------------------
 
@@ -123,19 +160,15 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseName` varchar(100) NOT NULL,
   `CourseCode` varchar(20) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
-(16, 'Inledande programmering med C#', 'eeewf'),
-(17, 'Javascript', '309DVK'),
-(18, 'Shaderprogrammering', '309DVd'),
-(19, 'Inledande programmering med PHP', '309DV2'),
-(20, 'Java programmering', '309DV3'),
-(21, 'test', '409Dsf');
+(1, 'Allmänt', ''),
+(22, 'fsdfl', 'fsdfld');
 
 -- --------------------------------------------------------
 
@@ -151,21 +184,28 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `code` varchar(255) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UserId` int(11) NOT NULL,
+  `CourseId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`),
-  KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=300 ;
+  KEY `UserId` (`UserId`),
+  KEY `CourseId` (`CourseId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=342 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
-INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`) VALUES
-(295, NULL, NULL, 'dsds', NULL, '2015-04-27 11:56:13', 37),
-(296, NULL, NULL, 'dsldsl', NULL, '2015-04-29 22:36:34', 37),
-(297, NULL, NULL, 'dsds', NULL, '2015-04-29 22:37:43', 37);
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`) VALUES
+(314, NULL, NULL, 'dsds', NULL, '2015-04-30 14:29:37', 37, 1),
+(316, NULL, NULL, 'dssdÃ¤Ã¤', NULL, '2015-04-30 15:10:07', 37, 1),
+(333, NULL, NULL, 'Test 1', NULL, '2015-04-30 15:30:07', 37, 22),
+(334, NULL, NULL, 'Test 2', NULL, '2015-04-30 15:30:10', 37, 22),
+(335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 22),
+(336, NULL, NULL, 'Test 4', NULL, '2015-04-30 15:30:16', 37, 22),
+(337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 22),
+(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 22);
 
 -- --------------------------------------------------------
 
@@ -187,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `img` (
 
 CREATE TABLE IF NOT EXISTS `program` (
   `ProgramId` int(11) NOT NULL AUTO_INCREMENT,
-  `ProgramName` varchar(100) NOT NULL,
+  `ProgramName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`ProgramId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
@@ -213,23 +253,14 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(14, 2, 16),
-(15, 2, 17),
-(16, 3, 18),
-(17, 1, 19),
-(18, 2, 19),
-(19, 1, 20),
-(20, 2, 20),
-(21, 1, 21),
-(22, 2, 21),
-(23, 3, 21);
+(24, 2, 22);
 
 -- --------------------------------------------------------
 
@@ -312,13 +343,14 @@ ALTER TABLE `comments`
 -- Restriktioner för tabell `feed`
 --
 ALTER TABLE `feed`
+  ADD CONSTRAINT `feed_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `feed_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restriktioner för tabell `programcourse`
 --
 ALTER TABLE `programcourse`
-  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

@@ -62,6 +62,13 @@ abstract class BaseView
         return false;
     }    
 
+	public function checkIfIdInUrl() {
+	   if (isset($_GET[$this->id])) {
+	      return true;
+	   }
+	   return false;
+	 }
+
 	public function getId() {
 	   if (isset($_GET[$this->id])) {
 	      return $_GET[$this->id];

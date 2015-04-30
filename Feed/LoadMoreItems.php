@@ -15,12 +15,14 @@ $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
 $loginModel = new LoginModel();
 
-if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_POST['last_id']))
+if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_POST['last_id'])
+    && isset($_POST["course_id"]) && strlen($_POST['course_id']) > 0 && is_numeric($_POST['course_id']))
 {
     // Hämtar ut sista id som har postats från Ajax anropet
     $last_id = $_POST['last_id'];
+    $course_id = $_POST['course_id'];
 
-    $feedItems = $postRepository->GetMorePostItems($last_id);
+    $feedItems = $postRepository->GetMorePostItems($last_id, $course_id);
 
     //$last_id = 0;
     $html = "";
@@ -97,7 +99,8 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
         $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
             <form class='comment-form' method='post' action=''>
                 <div>
-                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
+                    <input type='hidden' id='courseid' name='courseid' value='" . $course_id . "'>
+                    <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
                     <label for='body'>Skriv en kommentar</label>
                     <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                     <input type='submit' id='submit' value='Kommentera'/>
@@ -105,13 +108,6 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
             </form>
         </div>
         </div>";                     
-    }
-
-    // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-    if ($last_id != NULL) 
-    {
-        //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>";
     }
 
     $htmlView->EchoHTML($html);

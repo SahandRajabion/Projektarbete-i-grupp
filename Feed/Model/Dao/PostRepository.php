@@ -13,6 +13,7 @@ require_once('Model/Image.php');
 	private static $imgName = "imgName"; 
 	private static $Title = "Title";
 	private $db;
+	private $table;
 	
 	public function __construct() {
 		$this->table = "feed";
@@ -20,15 +21,16 @@ require_once('Model/Image.php');
 	}
 
 
-	public function getAllPostIds() 
+	public function getAllPostIds($course_id) 
 	{		
 		try 
 		{ 
 			$arrayOfIds = array();
 			
-			$sql = "SELECT id FROM $this->table ORDER BY (" .  self::$id . ") DESC";
+			$sql = "SELECT id FROM $this->table WHERE CourseId = ? ORDER BY (" .  self::$id . ") DESC";
 			$query = $this->db->prepare($sql);
-			$query->execute();
+			$params = array($course_id);
+			$query->execute($params);
 			$postIds = $query->fetchAll();
 
 			foreach ($postIds as $id) 
@@ -56,12 +58,12 @@ require_once('Model/Image.php');
 		return $results;
 	}
 
- 	public function GetLatestPostItems($first_id) {	
+ 	public function GetLatestPostItems($first_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? ORDER BY " . self::$id . " DESC";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? AND CourseId = ? ORDER BY " . self::$id . " DESC";
 			$query = $this->db->prepare($sql);
-			$params = array($first_id);
+			$params = array($first_id, $course_id);
 			$query->execute($params);
 			$feedItems = $query->fetchAll();
  
@@ -73,12 +75,12 @@ require_once('Model/Image.php');
 		}
 	}
 
- 	public function GetMorePostItems($last_id) {	
+ 	public function GetMorePostItems($last_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? AND CourseId = ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
-			$params = array($last_id);
+			$params = array($last_id, $course_id);
 			$query->execute($params);
 			$feedItems = $query->fetchAll();
  
@@ -114,9 +116,7 @@ require_once('Model/Image.php');
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
-			$id = $this->db->lastInsertId();
-
-			return $id;
+	
 		} 
 		catch (PDOException $ex) 
 		{
@@ -124,31 +124,14 @@ require_once('Model/Image.php');
 		}
 	}
 
-	public function getPost($id) 
+	public function getPosts($courseId) 
 	{		
 		try 
 		{ 
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id . " = ?";
-			$params = array($id);
+			$sql = "SELECT * FROM $this->table WHERE CourseId = ? ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
+			$params = array($courseId);
 			$query->execute($params);
-			$feedItem = $query->fetch();
-			return $feedItem;
-		} 
-		
-		catch (PDOException $e) 
-		{
-			echo "PDOException : " . $e->getMessage();
-		}
-	}
-
-	public function getPosts() 
-	{		
-		try 
-		{ 
-			$sql = "SELECT * FROM $this->table ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
-			$query = $this->db->prepare($sql);
-			$query->execute();
 			$feedItems = $query->fetchAll();
 			return $feedItems;
 		} 

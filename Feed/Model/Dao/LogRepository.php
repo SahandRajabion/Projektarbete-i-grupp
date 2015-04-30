@@ -8,6 +8,7 @@ class LogRepository extends Repository
 	private static $result = "Result";
 	private static $username = "Username";
 	private $db;
+	private $dbLogTable;
 
 	public function __construct() 
 	{

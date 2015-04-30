@@ -1,11 +1,13 @@
 <?php
 require_once("Model/Dao/Repository.php");
 require_once("Model/StartProfileImg.php");
- 	class ImagesRepository extends Repository  {
+
+ class ImagesRepository extends Repository  {
  		private static $imgName = "imgName";
  		private static $userId = "UserId";
  		private static $username = 'username';
  		private $db;
+ 		private $tabel;
  		
  		public function __construct() {
  			$this->tabel = "user";

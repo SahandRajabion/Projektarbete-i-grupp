@@ -2,6 +2,8 @@
  
 require_once('View/Navigation.php');
 require_once("Model/LoginModel.php");
+require_once("Model/Dao/UserRepository.php");
+require_once("Model/Dao/CourseRepository.php");
 require_once("Settings.php");
 require_once("View/BaseView.php");
 require_once("View/ChangePasswordView.php");
@@ -36,6 +38,7 @@ class MasterController extends Navigation
     private $feed;
     private $renderContact = false;
     private $createCourseView;
+    private $courseRepository;
 
 	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 	         <button type="button" class="close" data-dismiss="alert">
@@ -56,6 +59,7 @@ class MasterController extends Navigation
       	$this->contactView = new ContactView();
       	$this->contactController = new ContactController();
       	$this->uploadController = new UploadController();
+      	$this->courseRepository = new CourseRepository();
       	$this->profileView = new ProfileView();
       	$this->feed = new FeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
@@ -168,9 +172,11 @@ class MasterController extends Navigation
 	             	return $this->uploadController->imgUpload();
              	}
 
-				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse()) {
+             	// KOLLAR OM ID FINNS SAMT OM IDN FINNS I DATABASEN
+				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() 
+							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId())) {
 
-             		return $this->feed->GetFeedHTML();
+             		return $this->feed->showCourseFeed($this->feed->getId());
              		
              	}
 

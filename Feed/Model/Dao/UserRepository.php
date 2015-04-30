@@ -22,6 +22,7 @@ class UserRepository extends Repository
 	private static $birthday = 'birthday';
 	private $db;
 	private $users;
+	private $dbTableDetails;
 
 	public function __construct() 
 	{

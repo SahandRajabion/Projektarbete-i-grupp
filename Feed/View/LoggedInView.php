@@ -25,7 +25,7 @@ class LoggedInView extends BaseView
         return $this->model->GetUserProfileDetails($id);
     }
    
-    public function showLoggedInPage() {
+    public function showPublicCourseFeed() {
         $this->username = $this->model->getUsername();
         $adminMenu = "";
 
@@ -88,9 +88,10 @@ class LoggedInView extends BaseView
               </ul>
            </div>
         </nav>
-        $this->message
-        ";
-        $html .= $this->feedView->GetFeedHTML();
+        $this->message";
+
+        // Hård kodat för få ut allmänt
+        $html .= $this->feedView->GetFeedHTML(1);
         $html .= "</div>
         </body>
         </html>";

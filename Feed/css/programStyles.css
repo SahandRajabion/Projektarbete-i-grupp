@@ -3,7 +3,7 @@ div#title {
 }
 
 
-img {
+.mg-image img {
   border-radius: 207px;
   max-height: 264px;
   max-width: 259px;

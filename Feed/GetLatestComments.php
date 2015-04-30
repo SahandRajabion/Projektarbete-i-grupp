@@ -9,17 +9,16 @@ require_once("Model/Comment.php");
 $commentRepository = new CommentRepository();
 $loginModel = new LoginModel();
 
-if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 && is_numeric($_POST['first_comment_id']))
+if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 && is_numeric($_POST['first_comment_id']) && isset($_POST["course_id"]) && strlen($_POST['course_id']) > 0 && is_numeric($_POST['course_id']))
 {
     $first_comment_id = $_POST['first_comment_id'];
+    $course_id = $_POST['course_id'];
 
-	$comment = $commentRepository->GetLatestCommentItem($first_comment_id);
+	$comment = $commentRepository->GetLatestCommentItem($first_comment_id, $course_id);
 
 	if ($comment != null) {
 
 		$data = $comment->GetData();
-
-		$first_comment_id = $data["CommentId"];
 
 		$html = "";
 
@@ -39,13 +38,6 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 		<a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
 		</div>';	
 
-	    // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-	    if ($first_comment_id != NULL) 
-	    {
-	        //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-	        $html .= "<script type='text/javascript'>var first_comment_id = " . $first_comment_id . ";</script>";
-	    }
-
-		echo (json_encode(array('postId'=>$data['id'], 'html'=>$html, 'insertBeforeId'=>$_POST['first_comment_id'])));
+		echo (json_encode(array('postId'=>$data['id'], 'html'=>$html)));
 	}
 }

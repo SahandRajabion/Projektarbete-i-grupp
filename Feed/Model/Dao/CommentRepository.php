@@ -17,12 +17,12 @@ class CommentRepository extends Repository {
 		$this->dbTable = "comments";
 	}
 
- 	public function GetLatestCommentItem($first_id) {	
+ 	public function GetLatestCommentItem($first_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$commentId  ." > ? ORDER BY " . self::$commentId . " DESC";
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$commentId  ." > ? AND CourseId = ? ORDER BY " . self::$commentId . " DESC";
 			$query = $this->db->prepare($sql);
-			$params = array($first_id);
+			$params = array($first_id, $course_id);
 			$query->execute($params);
 			$result = $query->fetch();
 

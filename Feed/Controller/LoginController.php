@@ -519,7 +519,7 @@ class LoginController
             }
             else if ($this->didUserPressPU()) 
             {
-                $this->htmlView->echoHTML($this->loggedInView->showLoggedInPage());
+                $this->htmlView->echoHTML($this->loggedInView->showPublicCourseFeed());
             }
 
             else 

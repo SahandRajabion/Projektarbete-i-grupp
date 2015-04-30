@@ -9,7 +9,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "CheckForRemovedPosts.php",
-            data: {arrayOfPostIds: arrayOfPostIds},              
+            data: {arrayOfPostIds: arrayOfPostIds, course_id:course_id},              
             success: function (response) 
             {
                 if (response != "") 
@@ -26,27 +26,37 @@ $(document).ready(function () {
     }
 
     function getLatestComments() {
+        var arrayOfCommentIds = $.map($(".comment"), function(n, i){
+            return n.id.split("comment").join("");
+        });
+
+        var max = Math.max.apply(Math, arrayOfCommentIds);
+
         $.ajax({
             type: "POST",
             url: "GetLatestComments.php",
-            data: {first_comment_id:first_comment_id},              
-            success: function (response) {
+            data: {first_comment_id:max, course_id:course_id},              
+            success: function (response) {   
                 if (response != "") {
                     var obj = JSON.parse(response);
                     $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
                 }
-        
-                setTimeout(getLatestComments, 100);
+
+                setTimeout(getLatestComments, 1000);
             }
         });
     }
 
     function getLatestPosts() {
-
+        var arrayOfPostIds = $.map($(".post"), function(n, i){
+            return n.id.split("post").join("");
+        });
+        var max = Math.max.apply(Math, arrayOfPostIds);
+        
         $.ajax({
             type: "POST",
             url: "GetLatestItems.php",
-            data: {first_id:first_id},              
+            data: {first_id:max, course_id:course_id},              
             success: function (response) {
                 $("#items").prepend(response);
 

@@ -15,19 +15,18 @@ $commentRepository = new CommentRepository();
 $htmlView = new HTMLView();
 $loginModel = new LoginModel();
 
-if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_POST['first_id']))
+if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_POST['first_id']) && isset($_POST["course_id"]) && strlen($_POST['course_id']) > 0 && is_numeric($_POST['course_id']))
 {
     $first_id = $_POST['first_id'];
+    $course_id = $_POST['course_id'];
 
-    $feedItems = $postRepository->GetLatestPostItems($first_id);
+    $feedItems = $postRepository->GetLatestPostItems($first_id, $course_id);
 
     $html = "";
 
     // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
     foreach ($feedItems as $feedItem) 
     {
-        $first_id = $feedItem['id'];
-
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
 
         if ($loginModel->getId() == $feedItem['UserId']) 
@@ -94,7 +93,8 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
             <form class='comment-form' method='post' action=''>
                 <div>
-                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
+                    <input type='hidden' id='courseid' name='courseid' value='" . $course_id . "'>
+                    <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
                     <label for='body'>Skriv en kommentar</label>
                     <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
                     <input type='submit' id='submit' value='Kommentera'/>
@@ -102,13 +102,6 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
             </form>
         </div>
         </div>";                     
-    }
-
-    // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-    if ($first_id != NULL) 
-    {
-        //Måste ha med att länka med js filerna för den annars kmr den ej känna till js klasserna för någon anledning
-        $html .= "<script type='text/javascript'>var first_id = " . $first_id . ";</script>";
     }
 
     $htmlView->EchoHTML($html);

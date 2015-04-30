@@ -17,7 +17,22 @@ require_once('Model/Dao/Repository.php');
 		$this->db = $this->connection();
 	}
 
+	public function doIdExist($id) 
+	{
+		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseID . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
 
+		$results = $query->fetch();
+
+		if ($results == false) 
+		{
+			return false;
+		}
+
+		return true;
+	}
 
 	public function GetAllCourseNr($programId) 
 	{
@@ -61,14 +76,22 @@ require_once('Model/Dao/Repository.php');
 				return $courseName;
 
 			}
-			else {
+			else 
+			{
 				return null;
 			}
-			
-
 	}
 
+	public function getCourseName($id) 
+	{
+		$sql = "SELECT * FROM $this->courseTable  WHERE CourseId = ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetch();
 
+		return $result['CourseName'];
+	}
 	
 	public function CourseNameExists($courseName) 
 	{	

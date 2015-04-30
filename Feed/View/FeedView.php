@@ -1,19 +1,23 @@
 ﻿<?php
 
+require_once('Model/Dao/CourseRepository.php');
 require_once('Model/Dao/UserRepository.php');
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/Dao/CommentRepository.php');
 require_once('Model/LoginModel.php');
 require_once('View/UploadView.php');
+require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
 
 class FeedView extends BaseView
 {
+    private $courseRepository;
     private $userRepository;
     private $postRepository;
     private $uploadView;
     private $commentRepository;
     private $loginModel;
+    private $imagesModel;
     private $title = "message";
     private $hiddenFeedId = "hiddenFeedId";
     private $imgName = "imgName";
@@ -28,35 +32,102 @@ class FeedView extends BaseView
         $this->postRepository = new PostRepository();
         $this->userRepository = new UserRepository();
         $this->commentRepository = new CommentRepository();
+        $this->courseRepository = new CourseRepository();
         $this->loginModel = new LoginModel();
         $this->uploadView = new UploadView();   
+        $this->imagesModel = new ImagesModel();
     }
 
-    public function GetFeedHTML()
-    {
-        $feedItems = $this->postRepository->getPosts();
-        $last_id = 0;
-        $first_id = 0;
-        $first_comment_id = 0;
-        $counter = 0;
-     
-        $html = "<div class='content'>";
+   public function showCourseFeed($courseId) {
+        $username = $this->loginModel->getUsername();
+        $adminMenu = "";
+        $pic = "";
 
-        $html .= $this->uploadView->RenderUploadForm();
+        if ($this->loginModel->isAdmin()) 
+        {
+            $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
+        }
+
+        $html = "<!DOCTYPE html>
+        <html>
+        <head>
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
+        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
+        <title>LSN</title>
+        </head>
+
+        <body>
+        <div class='container'>
+        <br>";
+        $user = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+        $Images = glob("imgs/*.*");
+            foreach ($Images as $value) {  
+
+              $img = $this->imagesModel->getImgs($username);
+              if ($img->getImg() == basename($value)) {
+                
+                $html .= '<div id="imgArea"><img src="'.$value.'"><h4>'.$username.' är inloggad</h4></div>';
+                $pic = $value;
+              }
+            }
+
+        if(basename($pic) === "" && $user->getSex() == "Man") 
+          {
+             $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$username.' är inloggad</h4></div>';
+          }
+         else if(basename($pic) === "" && $user->getSex() == "Kvinna")
+         {
+            $html .= '<div id="imgArea"><img src="img/kvinna.png"><h4>'.$username.' är inloggad</h4></div>';
+         }
+        $html .= "
+            <br><br>
+            <nav class='navbar navbar-default' role='navigation'>
+            <div class='navbar-header'>
+              <button type='button' class='navbar-toggle' data-toggle='collapse' 
+                 data-target='#example-navbar-collapse'>
+                 <span class='sr-only'>Toggle navigation</span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+                 <span class='icon-bar'></span>
+              </button>
+           </div>
+           <div class='collapse navbar-collapse' id='example-navbar-collapse'>
+              <ul class='nav navbar-nav'>
+                 $adminMenu
+                 <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->loginModel->getId()."'>Min profil</a></li>
+                 <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
+              </ul>
+           </div>
+        </nav>
+        $this->message";
+
+        $html .= $this->GetFeedHTML($courseId);
+
+        $html .= "</div>
+        </body>
+        </html>";
+
+        return $html;
+    }    
+
+    public function GetFeedHTML($courseId)
+    {
+        $feedItems = $this->postRepository->getPosts($courseId);
+
+        $html = "
+        <h1 style='text-align:center'>" . $this->courseRepository->getCourseName($courseId) . "</h1>
+        <div class='content'>";
+
+        $html .= $this->uploadView->RenderUploadForm($courseId);
 
         $html .= "<ul id='items'>";    
 
      // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
      foreach ($feedItems as $feedItem) 
         {
-                $last_id = $feedItem[$this->id];
-
-                if ($counter < 1) 
-                {
-                    $first_id = $feedItem[$this->id];
-                    $counter++;
-                }
-
                 $html .= "<div class='post' id='post" . $feedItem[$this->id] . "'>";
 
                 if ($this->loginModel->getId() == $feedItem['UserId']) 
@@ -102,12 +173,6 @@ class FeedView extends BaseView
                     {
                         $data = $comment->GetData();
 
-                        
-                        if ($first_comment_id < $data['CommentId']) 
-                        {
-                            $first_comment_id = $data['CommentId'];
-                        }
-
                         $data['date'] = strtotime($data['date']);
 
                         $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
@@ -128,7 +193,7 @@ class FeedView extends BaseView
                 $html .= "<div id='addCommentContainer" . $feedItem[$this->id] . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
                         <div>
-                            <input type='hidden' id='courseid' name='courseid' value='" . $this->getId() . "'>
+                            <input type='hidden' id='courseid' name='courseid' value='" . $courseId . "'>
                              <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $feedItem[$this->id] . "'>
                             <label for='body'>Skriv en kommentar</label>
                             <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
@@ -140,9 +205,7 @@ class FeedView extends BaseView
         }
 
         // Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-        $html .= "<script type='text/javascript'>var last_id = " . $last_id . ";</script>
-                <script type='text/javascript'>var first_id = " . $first_id . ";</script>
-                <script type='text/javascript'>var first_comment_id = " . $first_comment_id . ";</script>
+        $html .= "<script type='text/javascript'>var course_id = " . $courseId . ";</script>
                 </ul>
                 <p id='loader'><img src='images/ajax-loader.gif'></p>
                 </div>";
