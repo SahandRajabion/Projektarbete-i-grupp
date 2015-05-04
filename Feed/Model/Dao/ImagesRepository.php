@@ -38,7 +38,7 @@ require_once("Model/StartProfileImg.php");
 		public function getImagesName($username) {
 			 try {
 
-				$sql = "SELECT * FROM  $this->tabel WHERE username = ?";
+				$sql = "SELECT * FROM  $this->tabel WHERE " . self::$username . " = ?";
 				$params = array($username);
 				$query = $this->db->prepare($sql);
 				$query->execute($params);
