@@ -42,11 +42,14 @@ abstract class BaseView
     protected $WPCourseLocation = 'WPCourseLocation';
     protected $IDCourseLocation = 'IDCourseLocation';
     protected $PUCourseLocation = 'PUCourseLocation';
-
+	
     protected $courseCodeLocation = "courseCode";
 	protected $courseNameLocation = "courseName";
 	protected $programCheckBoxLocation = "programCheckBox";
 	protected $submitNewCourseLocation = "submitNewCourse";
+    protected $rssUrlLocation = "rssUrlLocation";
+
+
 
    public static function escape($string) 
     {
