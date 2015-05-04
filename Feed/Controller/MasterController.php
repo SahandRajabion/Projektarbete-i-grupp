@@ -173,8 +173,7 @@ class MasterController extends Navigation
              	}
 
              	// KOLLAR OM ID FINNS SAMT OM IDN FINNS I DATABASEN
-				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() 
-							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId())) {
+				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() && $this->courseRepository->doIdExist($this->feed->getId())) {
 
              		return $this->feed->showCourseFeed($this->feed->getId());
              		
