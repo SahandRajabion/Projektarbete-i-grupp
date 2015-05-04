@@ -6,11 +6,6 @@ require_once('Model/Token.php');
 class CreateCourseView extends BaseView
 {
 
-	private $courseCodeLocation = "courseCode";
-	private $courseNameLocation = "courseName";
-	private $programCheckBoxLocation = "programCheckBox";
-	private $submitNewCourseLocation = "submitNewCourse";
-
 	public function DidUserPressToCreateCourse() {
 		if (isset($_GET[$this->createNewCourseLocation])) {
 			return true;
