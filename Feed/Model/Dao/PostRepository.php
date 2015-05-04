@@ -12,6 +12,10 @@ require_once('Model/Image.php');
 	private static $urlCode = "code";
 	private static $imgName = "imgName"; 
 	private static $Title = "Title";
+    private static $courseId = "CourseId";
+
+
+
 	private $db;
 	private $table;
 	
@@ -27,7 +31,7 @@ require_once('Model/Image.php');
 		{ 
 			$arrayOfIds = array();
 			
-			$sql = "SELECT id FROM $this->table WHERE CourseId = ? ORDER BY (" .  self::$id . ") DESC";
+			$sql = "SELECT id FROM $this->table WHERE  " . self::$courseId . " = ? ORDER BY (" .  self::$id . ") DESC";
 			$query = $this->db->prepare($sql);
 			$params = array($course_id);
 			$query->execute($params);
@@ -61,7 +65,7 @@ require_once('Model/Image.php');
  	public function GetLatestPostItems($first_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? AND CourseId = ? ORDER BY " . self::$id . " DESC";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." > ? AND " . self::$courseId . " = ? ORDER BY " . self::$id . " DESC";
 			$query = $this->db->prepare($sql);
 			$params = array($first_id, $course_id);
 			$query->execute($params);
@@ -78,7 +82,7 @@ require_once('Model/Image.php');
  	public function GetMorePostItems($last_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? AND CourseId = ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$id  ." < ? AND " . self::$courseId . " = ? ORDER BY " . self::$id . " DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
 			$params = array($last_id, $course_id);
 			$query->execute($params);
@@ -96,7 +100,7 @@ require_once('Model/Image.php');
 	{
 		try 
 		{
-			$sql = "UPDATE feed SET Post = ?, Title = ? WHERE id = ?";
+			$sql = "UPDATE $this->table SET " . self::$post . " = ?, " . self::$Title . " = ? WHERE " . self::$id . " = ?";
 			$params = array($postContent, $postTitle, $feedId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
@@ -111,7 +115,7 @@ require_once('Model/Image.php');
 	{
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", CourseId) VALUES (?, ?, ?)";
+			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", " . self::$courseId . ") VALUES (?, ?, ?)";
 			$params = array($post->getPost(), $post->getUserId(), $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
@@ -128,7 +132,7 @@ require_once('Model/Image.php');
 	{		
 		try 
 		{ 
-			$sql = "SELECT * FROM $this->table WHERE CourseId = ? ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
+			$sql = "SELECT * FROM $this->table WHERE " . self::$courseId . " = ? ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
 			$params = array($courseId);
 			$query->execute($params);
@@ -162,7 +166,7 @@ require_once('Model/Image.php');
  	{
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ", CourseId) VALUES(?, ?, ?)";
+			$sql = "INSERT INTO $this->table (" . self::$urlCode . ", " .  self::$userId . ", " . self::$courseId . ") VALUES(?, ?, ?)";
 			$params = array($youtube->getVideoURL(), $youtube->getUserId(), $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
@@ -178,7 +182,7 @@ require_once('Model/Image.php');
 	public function AddImage(Image $image, $courseId) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ", CourseId) VALUES (?, ?, ?, ?)";
+			$sql = "INSERT INTO $this->table (".self::$imgName. ", " .self::$Title. ", " .  self::$userId . ", " . self::$courseId . ") VALUES (?, ?, ?, ?)";
 			$params = array($image->getImageName(), $image->GetTitle(), $image->getUserId(), $courseId);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
