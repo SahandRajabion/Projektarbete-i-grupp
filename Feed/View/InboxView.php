@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 	require_once('View/HTMLView.php');
 	require_once('Model/Messages.php');
@@ -35,6 +35,10 @@
 
 			
 			$html = '</br>'.
+					'<script type="text/javascript" src="js/jquery.js"></script>'.
+					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
+					'<link rel="stylesheet" href="css/styles.css">'.
 					'<a href=?profile&id='. $this->loginModel->getId() . '>Back</a>'.
 					'</br>'.
 					'</br>';
@@ -101,6 +105,10 @@
 
 			
 			$html = '</br>'.
+				'<script type="text/javascript" src="js/jquery.js"></script>'.
+				'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
+					'<link rel="stylesheet" href="css/styles.css">'.
 					'<a href=?profile&id='. $this->loginModel->getId() . '>Back</a>'.
 					'</br>'.
 					'</br>';
@@ -156,6 +164,10 @@
 
 			$html = 
 					'</br>'.
+						'<script type="text/javascript" src="js/jquery.js"></script>'.
+						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
+					'<link rel="stylesheet" href="css/styles.css">'.
 					'<a href="?'.$this->inboxLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
 					'</br>'.
@@ -228,6 +240,10 @@
 
 			$html = 
 					'</br>'.
+						'<script type="text/javascript" src="js/jquery.js"></script>'.
+						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
+					'<link rel="stylesheet" href="css/styles.css">'.
 					'<a href="?'.$this->inboxLocation.'">Back</a>'.
 					'</br>'.
 					'</br>'.

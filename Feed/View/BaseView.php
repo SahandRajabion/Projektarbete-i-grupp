@@ -15,6 +15,7 @@ abstract class BaseView
 	protected $sendLocation = "send";
 	protected $msgLocation = 'msg';
 	protected $sentMsgLocation = 'SentMsg';
+	protected $toUserIdLocation = 'toUserId';
 	protected $username;
 	protected $register = false;
 	protected $submitLocation = "submit";

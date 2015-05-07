@@ -1,5 +1,5 @@
 <?php
-
+ 
 	require_once('View/HTMLView.php');
 	require_once('View/BaseView.php');
 	require_once('Model/LoginModel.php');
@@ -31,6 +31,8 @@
 		    <head>
 		    <meta charset='utf-8'>
 		    <meta name='viewport' content='width=device-width, initial-scale=1'>
+		    <link rel='stylesheet' href='css/styles.css'>
+		    <link rel='stylesheet' href='css/bootstrap.min.css'>
 		    </head>
 		    <body>
 		     <div class='container'>";		
