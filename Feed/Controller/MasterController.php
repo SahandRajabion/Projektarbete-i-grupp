@@ -18,6 +18,10 @@ require_once("Controller/ContactController.php");
 require_once('Controller/UploadController.php');
 require_once('Controller/AdminController.php');
 require_once('View/ProfileView.php');
+require_once("View/InboxView.php");
+require_once('Model/Messages.php');
+require_once('Model/Dao/MessagesRepository.php');
+require_once('View/MessageFormView.php');
 
 class MasterController extends Navigation
 {
@@ -39,6 +43,10 @@ class MasterController extends Navigation
     private $renderContact = false;
     private $createCourseView;
     private $courseRepository;
+    private $inboxView;
+    private $messages;
+    private $messageRepository;
+    private $messageFormView;
 
 	function __construct()
 	{
@@ -57,6 +65,10 @@ class MasterController extends Navigation
       	$this->courseRepository = new CourseRepository();
       	$this->profileView = new ProfileView();
       	$this->feed = new FeedView();
+      	$this->inboxView = new InboxView();
+      	$this->messages = new Messages();
+      	$this->messageRepository = new MessagesRepository();
+      	$this->messageFormView = new MessageFormView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -122,6 +134,108 @@ class MasterController extends Navigation
 	                    return $this->changePasswordView->showChangePasswordForm();
 	                }   
 	            }
+
+	             else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToInbox())
+	            {
+
+	    
+	            			if ($this->inboxView->getId() == $this->model->getId()) {
+	            				# code...
+	            				 return $this->inboxView->rednerInbox();
+	            			}
+	            		
+	              
+	            }
+
+
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToSend())
+	            {
+
+
+	            			if ($this->inboxView->getId() == $this->model->getId()) {
+	            				# code...
+	            				 return $this->inboxView->rednerSendMsg();
+	            			}
+	            			//else 
+	            			//{
+	            		//		return $this->inboxView->redirectToErrorPage();
+	            		//	}
+	              
+	            }
+
+
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToSeeSentMsg()) {
+	            		$UserName = $this->userRepository->getUsernameFromId($this->model->getId());
+	            		$ids = $this->messageRepository->getMsgIdFromUserName($UserName);	
+	            
+	            		foreach ($ids as $id) {
+	         
+	            			if ($this->inboxView->getId() == $id) {
+	            				# code...
+	            				return $this->inboxView->rednerShowMsg();
+	            			}
+
+	            		}
+	            		
+	            }
+
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveMsg()) {
+	            			# code...
+	            		$this->messages->deleteMessage($this->inboxView->getId());
+	            		return $this->inboxView->rednerInbox();
+	            }	
+
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveSentMsg()) {
+	            			# code...
+	            		$this->messages->deleteMessage($this->inboxView->getId());
+	            		return $this->inboxView->rednerSendMsg();
+	            }	
+
+	           else if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToSendAnewMsg()) {
+	            			# code...
+	           			if ($this->loginController->isAuthenticated() && $this->messageFormView->didUserPressToSendMsg()) {
+	            			# code...
+				         
+				           			$name = $this->messageFormView->getUserName();
+				           			$id = $this->messageFormView->getToUserId();
+				           			$sub = $this->messageFormView->getUserSubject();
+				           			$date = date("M/d/Y");
+				           			$time = time();
+				           			$MSG = $this->messageFormView->getUserMsg();
+				           			$open = 0;
+				            		$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
+				            		echo("Your message has been sent");
+				         }	
+	            		return $this->messageFormView->rednerMessageFormView();
+	            }	
+
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToSeeMsg()) {
+
+	            		$open = 1;
+	            		$this->messageRepository->IfOpenTheMsg($open,$this->inboxView->getId());
+	            		if ($this->inboxView->didUserPressToReplayMsg()) {
+	            			# code...
+	            			$sub = $this->inboxView->getReplayUserName(). " Replied to you";
+	            			$time = time();
+	            			$date = date("M/d/Y");
+	            			$open = 0;
+	            			$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
+	            			$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	            		}
+
+	            		$ids = $this->messageRepository->getMsgIdFromUserId( $this->model->getId());	
+	            
+	            		foreach ($ids as $id) {
+	         
+	            			if ($this->inboxView->getId() == $id) {
+	            				# code...
+	            				return $this->inboxView->rednerMsg();
+	            			}
+
+	            		}
+	            		
+	            }
+
 
             	else if ($this->contactView->didUserPressToContact() && $this->contactView->hasSubmitToSend())
     	        {
