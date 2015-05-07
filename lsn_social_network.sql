@@ -363,3 +363,27 @@ ALTER TABLE `userdetails`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+--
+-- Tabellstruktur `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `MsgId` int(11) NOT NULL AUTO_INCREMENT,
+  `FromName` varchar(32) NOT NULL,
+  `Email` varchar(60) NOT NULL,
+  `Subject` varchar(255) NOT NULL,
+  `Date` varchar(32) NOT NULL,
+  `Time` int(11) NOT NULL,
+  `Messages` text NOT NULL,
+  `Open` int(11) NOT NULL,
+  PRIMARY KEY (`MsgId`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumpning av Data i tabell `messages`
+--
+
+INSERT INTO `messages` (`MsgId`, `FromName`, `Email`, `Subject`, `Date`, `Time`, `Messages`, `Open`) VALUES
+(5, 'sahib', 'sahib@hotmail.se', 'hej', '2015', 1, 'hej detta e en test.', 1);
