@@ -6,45 +6,6 @@
 class Validation 
 {
 
-//Message for Contact function.
-  	private static $ErrorMsgAndEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 		    <button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								        <strong>Epost & meddelande fälten måste innehålla något.</strong></div>';										          
-	private static $ErrorNameMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 		    <button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								        <strong>Kontrollera namnet, fel format.</strong></div>';
-	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 	         <button type="button" class="close" data-dismiss="alert">
-  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								         <strong>Kontrollera epost, fel format.</strong></div>';
-	private static $ErrorEmptyMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 			<button type="button" class="close" data-dismiss="alert">
-  									    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  							            <strong>Meddelande fältet får ej vara tomt.</strong></div>';
-	private static $ErrorEmptyName = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 		 <button type="button" class="close" data-dismiss="alert">
-  									 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  									<strong>Ett namn måste anges.</strong></div>';
-	private static $ErrorEmptyEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 		   <button type="button" class="close" data-dismiss="alert">
-  								       <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								       <strong>En epost-adress måste anges.</strong></div>';
-	private static $ERRORInput = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 	  <button type="button" class="close" data-dismiss="alert">
-  								  <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  							      <strong>Ett namn måste anges.<br> En epost-adress måste anges. <br> Meddelande fältet får ej vara tomt.</strong></div>';
-	private static $ErrorMiniName = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 		 <button type="button" class="close" data-dismiss="alert">
-  								     <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  							         <strong>Namnet måste bestå av minst 3 tecken.</strong></div>';
-	private static $ErrorMiniMsg = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 	    <button type="button" class="close" data-dismiss="alert">
-  								    <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								    <strong>Meddelandet måste innehålla minst 3 tecken.</strong></div>';
-
-
   	//Messages for upload function.
 	private static $ErrorUPLOAD_ERR_FORM_SIZE = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 				     <button type="button" class="close" data-dismiss="alert">
@@ -77,33 +38,35 @@ class Validation
 	//Validation for contact form.
 		public function ContactFormValidation($Name,$Email,$Message) {
 			if ($Name == null && $Email == null && $Message == null) {
-				return self::$ERRORInput;
+				return 46;
 			}
 		   else if ($Name == null) {
-				return self::$ErrorEmptyName;
+				return 47;
 			}
 			else if (mb_strlen($Name) < 3) {
-				return self::$ErrorMiniName;
-			}
-			else if($Email == null && $Message == null) {
-				return self::$ErrorMsgAndEmail;
-			}
-			else if ($Email == null) {
-				return self::$ErrorEmptyEmail;
-			}
-			else if ($Message == null) {
-				return self::$ErrorEmptyMessage;
-			}
-			else if (mb_strlen($Message) < 3) {
-				return self::$ErrorMiniMsg;
+				return 50;
 			}
 			else if(!preg_match($this->Exp, $Name)) {
-				return self::$ErrorNameMessage;
+				return 53;
 			}
+			
+			else if($Email == null && $Message == null) {
+				return 48;
+			}
+			else if ($Email == null) {
+				return 49;
+			}
+
 			else if(!preg_match($this->emailExp, $Email)) {
-				return self::$ErrorEmailMessage;
-			}	
-				
+				return 54;
+			}
+			
+			else if ($Message == null) {
+				return 51;
+			}
+			else if (mb_strlen($Message) < 3) {
+				return 52;
+			}				
 				return true;
 		}
 

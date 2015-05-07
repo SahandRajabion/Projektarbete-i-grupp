@@ -6,6 +6,10 @@ require_once('Model/Token.php');
 class CreateCourseView extends BaseView
 {
 
+	private $courseCodeLocation = "courseCode";
+	private $courseNameLocation = "courseName";
+	private $programCheckBoxLocation = "programCheckBox";
+	private $submitNewCourseLocation = "submitNewCourse";
 
 	public function DidUserPressToCreateCourse() {
 		if (isset($_GET[$this->createNewCourseLocation])) {
@@ -56,17 +60,6 @@ class CreateCourseView extends BaseView
 		}
 	}	
 
-
-	public function GetRSSUrl() 
-	{
-		if (isset($_POST[$this->rssUrlLocation])) 
-		{
-			return $_POST[$this->rssUrlLocation];
-		}
-	}	
-
-
-
 	public function ShowCreateCourseForm() 
 	{
 	    $html = "<!DOCTYPE html>
@@ -100,13 +93,6 @@ class CreateCourseView extends BaseView
 					         <label class='col-sm-2 control-label' for='$this->courseCodeLocation'>Kurskod: </label>
 					         <div class='col-sm-10'>
 					           <input class='form-control' name='$this->courseCodeLocation' type='text' size='6' maxlength='6'>
-					         </div>
-					      </div>
-
-					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->rssUrlLocation'>RSS-feed URL: </label>
-					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->rssUrlLocation' type='text' size='6' maxlength='1000'>
 					         </div>
 					      </div>
 

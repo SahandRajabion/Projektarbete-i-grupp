@@ -5,18 +5,14 @@ require_once("./Model/LoginModel.php");
 require_once("./helper/CookieStorage.php");
 require_once("View/BaseView.php");
 
-class LoginView extends BaseView {
-
-    private $username;
+class LoginView extends BaseView 
+{
     private $password;
     private $encryptedPassword;
     private $htmlView;
     private $model;
     private $cookiePassword;
     private $cookieExpireTime;
-    private $register = false;
-    private $submitLocation = "submit";
-    private $checkBoxLocation = "checkbox";
 
     public function __construct() {
         $this->htmlView = new HTMLView();
@@ -73,77 +69,116 @@ class LoginView extends BaseView {
             $this->message = $this->renderCookieMessage($this->messageLocation);
         }
 
-        $html = "<!DOCTYPE html>
-                <html>
-                <head>
-                <title>LSN</title>
-                <meta charset='utf-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                </head>
-                <body>
-                 <div class='container'>";
+        $html = 
+        '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        $html .= "</br>
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>LSN</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/customCss.css" rel="stylesheet">
         
-        <br/>
-        
-        <nav class='navbar navbar-default' role='navigation'>
-            <div class='navbar-header'>
-              <button type='button' class='navbar-toggle' data-toggle='collapse' 
-                 data-target='#example-navbar-collapse'>
-                 <span class='sr-only'>Toggle navigation</span>
-                 <span class='icon-bar'></span>
-                 <span class='icon-bar'></span>
-                 <span class='icon-bar'></span>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        </head>
+
+        <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
               </button>
-           </div>
-           <div class='collapse navbar-collapse' id='example-navbar-collapse'>
-              <ul class='nav navbar-nav'>
+              <a class="navbar-brand" href="?">LSN</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <form action="?" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                       <input type="text" value="' . $username . '" name="' . $this->usernameLocation . '" size="20" maxlength="20" placeholder="Username" class="form-control">
+                    </div>
+                </div>
 
-                 <li><a href='?$this->registerLocation' name='$this->registerLocation'>Registrera användare</a></li>
-                 <li><a href='?$this->forgetPasswordLocation' name='$this->forgetPasswordLocation'>Glömt lösenord</a></li>
-                 <li><a name='ContactUs' href='?". $this->ContactLocation . "'>Kontakta oss</a></li>
+                <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                      <input type="password" name="' . $this->passwordLocation . '" size="20" maxlength="20" placeholder="Password" class="form-control">
+                    </div>
+                </div>
 
-              </ul>
-           </div>
+                <div class="checkbox">
+                <label class="text-muted">
+                <input type="checkbox" name="' . $this->checkBoxLocation . '"> Remember me
+                </label>
+                </div>
+
+                <button type="submit" name="' . $this->submitLocation . '" class="btn btn-primary">Sign in</button>
+
+              </form>
+            </div>
+            <!--/.navbar-collapse -->
+          </div>
         </nav>
-        <h1>LSN</h1>
-        <br/>
-                    <form action=?login class='form-horizontal' method=post enctype=multipart/form-data>
-                       <fieldset>
-                          $this->message
-                          <div class='form-group'>
-                            <label class='col-sm-2 control-label' for='$this->usernameLocation'>Användarnamn: </label>
-                            <div class='col-sm-10'>
-                              <input id='$this->usernameLocation' class='form-control' value='$username' name='$this->usernameLocation' type='text' size='20' maxlength='20'/>
-                            </div>
-                          </div>
-                          <div class='form-group'>
-                             <label class='col-sm-2 control-label' for='$this->passwordLocation'>Lösenord: </label>
-                             <div class='col-sm-10'>
-                               <input id='$this->passwordLocation' class='form-control' name='$this->passwordLocation' type='password' maxlength='20' size='20'>
-                             </div>
-                          </div>
-                          <div class='form-group'>
-                             <div class='col-sm-offset-2 col-sm-10'>
-                               <div class='checkbox'>
-                                  <label>
-                                  <input class='$this->checkBoxLocation' type='checkbox' name='$this->checkBoxLocation'/> Kom ihåg mig
-                                  </label>
-                               </div>
-                             </div>
-                          </div>
-                         <div class='form-group'>
-                           <div class='col-sm-offset-2 col-sm-10'>
-                             <input class='btn btn-default' name='$this->submitLocation' type='submit' value='Logga in' />
-                           </div>
-                         </div>
-                       </fieldset>
-                   </form>";
+        <div class="jumbotron">
+          <div class="container">
+            ' . $this->message . '
+            <img src="img/lnu-logo.png" class="img-rounded"> <h1>Linnaéus Social Network</h1>
+            <p>Are you a student in computer science institution who is looking to get to know other students or trying to get the lastest information for courses</p>
+            <p><a class="btn btn-primary btn-lg" href="?' . $this->registerLocation . '" name="' . $this->registerLocation . '" role="button">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            Sign up here</a></p>
+          </div>
+        </div>
 
-            $html .= "</div>
-                </body>
-                </html>";            
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <h2>Contact us</h2>
+              <p>If you have any suggestions or questions about Linnaéus Social Network. </p>
+              <p>
+              <a class="btn btn-default" name="ContactUs" href="?' . $this->ContactLocation . '" role="button">
+              <span class="glyphicon glyphicon-envelope" aria-hidden="true" /></span>
+              Contact us
+              </a>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <h2>Forgot password</h2>
+              <p>If you have forgot your password to your account on Linnaéus Social Network. </p>
+              <p>
+              <a class="btn btn-default" href="?' . $this->forgetPasswordLocation . '" name="' . $this->forgetPasswordLocation . '" role="button">
+              <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+              Forgot password
+              </a>
+              </p>
+           </div>
+          </div>
+
+          <hr>
+
+          <footer>
+            <p>&copy; Linnaéus Social Network 2015</p>
+          </footer>
+        </div> 
+        <!-- /container -->
+
+        <script src="js/jquery.min.js"></script>
+
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+        </body>
+        </html>';        
 
         return $html;
     }

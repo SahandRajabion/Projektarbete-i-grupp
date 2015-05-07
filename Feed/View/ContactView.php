@@ -1,5 +1,4 @@
 <?php
-	require_once('View/HTMLView.php');
 	require_once('Validation/Validation.php');
 	require_once('View/BaseView.php');
 	class contactView extends BaseView{
@@ -12,64 +11,166 @@
 		private $GetEmail;
 		private $mainView;	
 		private $validation;
+
 		public function __construct() {
-			$this->mainView = new HTMLView();
  			$this->validation = new Validation();
 		}
+
+	public function getUserName() {
+		if (isset($_POST[$this->usernameLocation])) {
+			return $_POST[$this->usernameLocation];
+		}
+	}
+		
 		//render contact form.
-		public function ContactForm($message = '') {
+		public function ContactForm() {
+        $loginUsername = "";
+
+        if (isset($_POST[$this->submitLocation])) 
+        {
+            $loginUsername = $this->escape($this->getUserName());
+        }
+
 			if($this->validation->ContactFormValidation($this->getName(),$this->getEmail(),$this->getMsg()) !== true ){
 				$this->GetName = $this->getName();
 				$this->GetMeg = $this->getMsg();
 				$this->GetEmail = $this->getEmail();
 			}
-			$responseMessages = ''; 
-			if ($message != '') {
-					
-				$responseMessages .= '<strong>' . $message . '</strong>';
-			}
 			
-                $contactUs = "<!DOCTYPE html>
-                <html>
-                <head>
-                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-				<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
-				<script src='js/script.js'></script>	
-                <title>LSN</title>                
-                <meta charset='utf-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                </head>
-                <body>
-                 <div class='container'>";
-			echo $responseMessages;
-			$contactUs .=
-			'<a href="?">Tillbaka</a>'.
-			'<h3>Kontakt forumlär</h3>'.
-			'<form class="form-horizontal"  method="post" action="">'.
-			'<label><strong>Ditt namn</strong> : </label>'.
-			'<input type="text" name="'.$this->name.'" maxlength="30" value="'.$this->GetName.'"  class="form-control" placeholder="Ange namn">' .
-			'<label><strong>Din epost</strong> : </label>'.
-			'<input type="text" name="'.$this->email.'" maxlength="50" class="form-control" placeholder="Ange epost" value="'.$this->GetEmail.'">' .
-		 	'<label><strong>Meddelande</strong> : </label>'.
-			'<textarea name="'.$this->msg.'" cols="45" rows="5" maxlength="500" class="form-control" placeholder="Skriv ditt meddelande här..." wrap="hard">'.$this->GetMeg.'</textarea>' .
-			'<input type="submit" name="'.$this->send.'" value="Skicka" class="btn btn-default">'.
-			'</form>';
-			 $contactUs .= "</div>
-                </body>
-                </html>"; 
-			return $contactUs;
+        $html = 
+        '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>Contact Us | LSN</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/customCss.css" rel="stylesheet">
+        
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+
+        </head>
+
+        <body>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="?">LSN</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <form action="?' . $this->ContactLocation . '" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="input-group">
+                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                       <input type="text" value="' . $loginUsername . '" name="' . $this->usernameLocation . '" size="20" maxlength="20" placeholder="Username" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                      <input type="password" name="' . $this->passwordLocation . '" size="20" maxlength="20" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+
+                <div class="checkbox">
+                <label class="text-muted">
+                <input type="checkbox" name="' . $this->checkBoxLocation . '"> Remember me
+                </label>
+                </div>
+
+                <button type="submit" name="' . $this->submitLocation . '" class="btn btn-primary">Sign in</button>
+
+              </form>
+            </div>
+            <!--/.navbar-collapse -->
+          </div>
+        </nav>
+
+        <div class="jumbotron">
+          <div class="container">
+          ' . $this->message . '
+            <div class="row">
+                      <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                      <form role="form" action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <h2>Contact Us</h2> 
+
+                      <div class="form-group">
+                          <div class="input-group">
+                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input type="text" name="' . $this->name . '" value="' . $this->escape($this->GetName) . '" class="form-control input-lg" placeholder="Name" maxlength="20" size="20">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="input-group">
+                             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                  <input type="email" name="' . $this->email . '" value="' . $this->escape($this->GetEmail). '" class="form-control input-lg" placeholder="Email" maxlength="40" size="40">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="input-group">
+                             <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                              <textarea id="contactTextArea" maxlength="500" name="' . $this->msg . '" placeholder="Message" class="form-control input-lg" rows="3">' . $this->escape($this->GetMeg) . '</textarea>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                          <div class="col-xs-12 col-md-6">
+                            <input type="submit" value="Send Message" name="' . $this->send . '" class="btn btn-primary btn-block btn-lg">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <footer>
+            <p>&copy; Linnaéus Social Network 2015</p>
+          </footer>
+        </div> 
+        <!-- /container -->
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+        </body>
+        </html>';    
+
+        return $html;
 		}
-		public function RenderContactForm($errorMessage = '') {
-			return $this->mainView->echoHTML($this->ContactForm($errorMessage));
-		}
+
+    /**
+    * Function to render message
+    */
+    public function setMessage($message) {
+        $this->message .= $message;
+    }  
+
 		public function getName() {
 			if (isset($_POST[$this->name])) {
-				return htmlentities($_POST[$this->name]);
+				return $_POST[$this->name];
 			}
 		}
 		public function getEmail() {
 	 		if (isset($_POST[$this->email])) {
-				return htmlentities($_POST[$this->email]);
+				return $_POST[$this->email];
 			}
 		}
 		public function getMsg() {

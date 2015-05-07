@@ -3,15 +3,15 @@
 class LoginMessage {
     private $messageId;
 
-    private $messages = array('Användarnamn saknas', 'Lösenord saknas', "Felaktig användarnamn och/eller lösenord ",
-                              "Felaktig information i cookies", 'Användarnamn har otillåtet tecken',
-                              'Användarnamn är upptagen', 'Lösenordet matchar ej', 'Lösenordet måste vara minst 6 tecken',
-                              'Användarnamn måste vara minst 3 tecken',
-                              "Logga in lyckades, vi kommer ihåg dig nästa gång", "Logga in lyckades", "Du loggat ut",
-                              'Registering lyckades', "Du är inloggad med cookies", "ReCaptcha text är fel", "Du är nu IP blockad", "Nuvarande lösenord är fel",
-                              "Lösenordet har ändrat, du måste logga in igen på nytt", "Nya Lösenord måste vara minst 6 tecken", "Nytt lösenord kan inte ändras till samma nuvarande lösenord",
-                              "Kurs måste hamna under något program", "Användaruppgifterna har uppdaterats", "Thread has been created", "Lösenordet har otillåtet tecken","Lösenordet har återskapat", "Epost matchar ej", "Eposten finns redan registrerad, välj  för att återställa lösenordet" , "Kontrollera så att alla fält är inmatade, samt i rätt format.", "Kontrollera så att email adressen är ifylld och i rätt format", "Kontrollera så att för- och efternamn är korrekt ifyllda", "Är du man eller kvinna?", "Kontrollera så att ditt födelsedatum är i rätt format (1999-01-01).", "Pluggar/undervisar du på Campus eller Distans?", "Vilket program läser du på Linnéuniversitetet?"
-                              , "Kursnamn innehåller otillåtna tecken", "Kursnamn får ej vara tomt", "Kurskod får ej vara tomt", "Kurskod innehåller otillåtna tecken", "Kursnamn finns redan", "Kurskod får bara innehålla 6 tecken", "Kurs har skapats", "Kurskod finns redan");   
+    private $messages = array('Username is required', 'Password is required', "Username or password is incorrect",
+                              "Invalid information in cookies", 'Username has invalid characters',
+                              'Username is taken', 'Passwords is not matching', 'Password need atleast 6 characters',
+                              'Username need atleast 3 characters',
+                              "You are logged in and will remembered next time", "You are logged in", "You are logged out",
+                              'Registration was successful', "You are logged in with cookies", "ReCaptcha text is incorrect", "You are blocked", "Current password is incorrect",
+                              "Password has changed, you have to login again", "New password needs atleast 6 characters", "New password cannot be changed to be same",
+                              "Course has to be under a program", "User details has changed", "Email is not a valid email", "Password has invalid characters","Password has been reset", "Email is not matching", "Email already exists, you can choose to reset password" , "Check so every input is filled in correct format", "Check so email is filled and is in valid email", "Check that firstname and surname is filled and is in correct format", "Are you a man or woman?", "Check that your birthdate is in correct format (1999-01-01)", "Are you studying or lecturing on Campus or Distance?", "What program are you studying on Linnaéus University?"
+                              , "Coursename contains invalid characters", "Coursename cannot be empty", "Coursecode cannot be empty", "Coursecode contains invalid characters", "Coursename already exists", "Coursecode can only contain 6 characters", "Course has been created", "Coursecode already exist", "A mail with instructions has been sent", "Password contains invalid characters", "Password has been reset", "Message has been sent", "All inputs must be filled", "Name cannot be empty", "Email and message cannot be empty", "Email cannot be empty", "Name must be atleast 3 characters", "Message cannot be empty", "Message must be atleast 3 characters", "Name is not in valid format", "Email is not in valid format", "ReCaptcha is not enabled due to no internet access. Please retry when you have a internet access.");   
 
     public function __construct($messageId) {
         $this->messageId = $messageId;
@@ -26,21 +26,26 @@ class LoginMessage {
 
         if($this->messageId < 9 || $this->messageId == 14 || $this->messageId == 15 || $this->messageId == 16 
           || $this->messageId == 18 || $this->messageId == 19 || $this->messageId == 20 || $this->messageId == 23 || $this->messageId == 24 || $this->messageId == 25 || $this->messageId == 26 || $this->messageId == 28 || $this->messageId == 29 || $this->messageId == 30 || $this->messageId == 31 || $this->messageId == 32 || $this->messageId == 33 || $this->messageId == 34 || $this->messageId == 35
-          || $this->messageId == 36 || $this->messageId == 37 || $this->messageId == 38  || $this->messageId == 39 || $this->messageId == 41) {
-            $alert = "<div class='alert alert-danger alert-error'>";
+          || $this->messageId == 36 || $this->messageId == 37 || $this->messageId == 38  || $this->messageId == 22 || $this->messageId == 39 || $this->messageId == 41 || $this->messageId == 43 || $this->messageId == 46 || $this->messageId == 47 || $this->messageId == 48 || $this->messageId == 49 || $this->messageId == 50 || $this->messageId == 51 || $this->messageId == 52 || $this->messageId == 53 
+          || $this->messageId == 54 || $this->messageId == 55) {
+            $alert = "
+          <div class='alert alert-danger alert-error'>
+           <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+          ";
         }    
         else{
-            $alert = "<div class='alert alert-success'>";
+            $alert = "<div class='alert alert-success'>
+             <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>";
         }
         if(!empty($message)) {
           $ret = "
           $alert
           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
-          <p>$message</p>
+          <span id='sizeOfPTag'>$message</span>
           </div>";
         }
         else {
-            $ret = "<p>$message</p>";
+            $ret = "<span id='sizeOfPTag'>$message</span>";
         }
         return $ret;
     }

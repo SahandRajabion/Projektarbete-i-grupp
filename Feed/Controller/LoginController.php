@@ -23,6 +23,7 @@ require_once("View/ProfileView.php");
 require_once("View/ProgramView.php");
 require_once("Model/Token.php");
 require_once("View/CourseView.php");
+require_once("View/ContactView.php");
 
 class LoginController 
 {
@@ -52,8 +53,11 @@ class LoginController
     private $topic;
     private $author;
     private $forgetPasswordView;
+    private $contactPage;
+    private $showContactPage;
 
     public function __construct() {
+        $this->contactPage = new ContactView();
         $this->loginView = new LoginView();
         $this->htmlView = new HTMLView();
         $this->loggedInView = new LoggedInView();
@@ -78,6 +82,7 @@ class LoginController
      */
     public function doControll() 
     {
+        $this->doGoToContactPage();
         $this->doGoToRegisterPage();
         $this->registerNewUser();
         $this->doGoToForgetPasswordPage();
@@ -130,7 +135,22 @@ class LoginController
             return true;
         }
         return false;
-    }    
+    }
+
+    public function setMessageFromOutside($msgId, $page) 
+    {
+        if ($page === "forget") {
+            $this->showForgetPasswordPage = true;
+        }
+        else if ($page === "contact") 
+        {
+            $this->showContactPage = true;
+        }
+
+        $this->model->setMessage($msgId);
+        $this->setMessage();     
+        $this->renderPage();
+    } 
 
     public function GetUserProfileDetails($id) 
     {
@@ -382,6 +402,13 @@ class LoginController
         }
     }
 
+    public function doGoToContactPage() 
+    {
+        if ($this->contactPage->didUserPressToContact()) {
+            $this->showContactPage = true;
+        }        
+    }
+
 
      public function doGoToForgetPasswordPageFromRegisterView() {
         if ($this->didUserPressGoToForgetPasswordPage()) {
@@ -427,38 +454,29 @@ class LoginController
                             if ($this->validationErrors == 0) 
                             {
                                 if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
+                                        $msgId = 18; 
                                         $this->validationErrors++;
-                                        $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-                                         <button type="button" class="close" data-dismiss="alert">
-                                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                         <strong>Lösenordet måste vara minst 6 tecken!.</strong></div>';
-
-                                        echo $errorMessage;
-  
+                                        $this->model->setMessage($msgId);
+                                        $this->setMessage();
                                 }
                                 else 
                                 {
-                                    if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) {
+                                    if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) 
+                                    {
+                                            $msgId = 6; 
                                             $this->validationErrors++;
-                                            $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert">
-                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <strong>Lösenordet matchar ej!.</strong></div>';
-
-                                            echo $errorMessage;  
+                                            $this->model->setMessage($msgId);
+                                            $this->setMessage(); 
                                     }
                                 }
                             }
 
                             if ($this->validationErrors == 0) {
                                 if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
-                                    $this->validationErrors++;
-                                       $errorMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-                                         <button type="button" class="close" data-dismiss="alert">
-                                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                         <strong>Lösenordet inneåller otillåtet tecken!.</strong></div>';
-
-                                        echo $errorMessage;                
+                                        $msgId = 43; 
+                                        $this->validationErrors++;
+                                        $this->model->setMessage($msgId);
+                                        $this->setMessage();             
                                 }   
                             }                
 
@@ -469,14 +487,9 @@ class LoginController
                                 $user = new UserReset($code, $hash);
                                 $this->userRepository->editForgotPassword($user);
 
-                                $successMessage = '<div class="alert alert-success alert-dismissible" role="alert">
-                                             <button type="button" class="close" data-dismiss="alert">
-                                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                             Lösenordet har återskapat <strong><a href="?login">Logga in</a></strong></div>';
-
-
-                                echo $successMessage;  
-
+                                $msgId = 44; 
+                                $this->model->setMessage($msgId);
+                                $this->setMessage();
                             }               
                          
                         }
@@ -497,11 +510,10 @@ class LoginController
     /**
      * decides which view that should be rendered
      */
-    public function renderPage() {
-
+    public function renderPage() 
+    {
         if ($this->showLoggedInPage) 
         {
-
             if ($this->didUserPressWP()) 
             {
                 $this->programId = 1;
@@ -529,7 +541,9 @@ class LoginController
 
         }
         else {
-            if ($this->showForgetPasswordPage) {
+
+            if ($this->showForgetPasswordPage) 
+            {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
             }
 
@@ -537,10 +551,16 @@ class LoginController
                 $this->htmlView->echoHTML($this->resetPassword->showResetPasswordPage());
             }
 
+            else if ($this->showContactPage) 
+            {
+                $this->htmlView->echoHTML($this->contactPage->ContactForm());   
+            }
+
             else  if ($this->showRegisterPage) {
                 $this->htmlView->echoHTML($this->registerView->showRegisterPage());
             }
-            else {
+            else 
+            {
                  $this->htmlView->echoHTML($this->loginView->showLoginpage()); 
             }
           }
@@ -552,16 +572,42 @@ class LoginController
     }
 
     public function setMessage() {
+
         $message = new LoginMessage($this->model->getMessage());
 
-        if (!$this->model->isLoggedIn()) {
+        if (!$this->model->isLoggedIn()) 
+        {
             if ($this->showRegisterPage) {
                 $this->registerView->setMessage($message->getMessage());
-            }             
-            $this->loginView->setMessage($message->getMessage());
+            }
+
+            else if ($this->showForgetPasswordPage) 
+            {
+                $this->forgetPasswordView->setMessage($message->getMessage());
+            }
+
+            else if($this->showResetPasswordPage) {
+                $this->resetPassword->setMessage($message->getMessage());
+            }
+
+            else if ($this->showContactPage) 
+            {
+                $this->contactPage->setMessage($message->getMessage());
+            }
+
+            else if ($this->showContactPage) 
+            {
+                $this->contactPage->setMessage($message->getMessage());
+            }
+
+            else 
+            {
+                $this->loginView->setMessage($message->getMessage());
+            }
         }
-        else{ 
-            $this->loggedInView->setMessage($message->getMessage());
+        else
+        { 
+            $this->programView->setMessage($message->getMessage());
         }
     }
 
@@ -693,6 +739,10 @@ class LoginController
      */
     public function registerNewUser() {
         if ($this->registerView->didUserPressSubmit()) {
+
+            if (isset($_POST["recaptcha_challenge_field"])) 
+            {
+
             $resp = recaptcha_check_answer (Settings::$SECRET_KEY,
                                 $_SERVER["REMOTE_ADDR"],
                                 $_POST["recaptcha_challenge_field"],
@@ -713,146 +763,164 @@ class LoginController
 
             if (Token::check($token)) 
             {
-            if($this->validateUsername->validateUsernameLength($username) == false) {
-                $msgId = 8;
-                $this->validationErrors++;
-                $this->model->setMessage($msgId);
-                $this->setMessage();
-            }
-            if ($this->validationErrors == 0) {
-                if($this->validateUsername->validateCharacters($username) == false || preg_match(Settings::$REGEX, $username)) {
-                    $msgId = 4;
-                    $this->validationErrors++;
-                    $this->model->setMessage($msgId);
-                    $this->setMessage();                    
-                }   
-            }
-            if ($this->validationErrors == 0) {
-                if ($this->validatePassword->validatePasswordLength($password, $confirmPassword) == false) {
-                    $msgId = 7;
-                    $this->validationErrors++;
+                if ($this->validationErrors == 0) 
+                {
+                    if($this->validateUsername->validateUsernameLength($username) == false) 
+                    {
+                        $msgId = 8;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                    }
+                }
+                
+                if ($this->validationErrors == 0) {
+                    if($this->validateUsername->validateCharacters($username) == false || preg_match(Settings::$REGEX, $username)) {
+                        $msgId = 4;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();                    
+                    }   
+                }
+
+                if ($this->validationErrors == 0) {
+                    if ($this->validatePassword->validatePasswordLength($password, $confirmPassword) == false) {
+                        $msgId = 7;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();
+                    }
+                    else {
+                        if($this->validatePassword->validateIfSamePassword($password, $confirmPassword) == false) {
+                            $msgId = 6;
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                        }
+                    }
+                }
+                if ($this->validationErrors == 0) {
+                    if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
+                        $msgId = 23;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();                    
+                    }   
+                }            
+                if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateIfSameEmail($email, $confirmEmail) == false) {
+                            $msgId = 25; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                 if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateEmail($email, $confirmEmail)==false) {
+                            $msgId = 28; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                  if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateNames($fName, $lName) == false) {
+                            $msgId = 29; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                  if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateSex($sex) == false) {
+                            $msgId = 30; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                  if ($this->validationErrors == 0) 
+                  {
+                    if($this->validateNewUser->validateBirthday($birthday) == false) {
+                        if (isset($birthday) && empty($birthday) == false) {
+                            $msgId = 31; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                        }
+                    }
+                }
+                 if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateSchoolForm($schoolForm) == false) {
+                            $msgId = 32; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                  if ($this->validationErrors == 0) {
+                    if($this->validateNewUser->validateInstitute($institute) == false) {
+                            $msgId = 33; 
+                            $this->validationErrors++;
+                            $this->model->setMessage($msgId);
+                            $this->setMessage();
+                    }
+                }
+                if ($this->validationErrors == 0) 
+                {
+                    if (!$resp->is_valid) 
+                    {
+                        $msgId = 14;
+                        $this->validationErrors++;
+                        $this->model->setMessage($msgId);
+                        $this->setMessage();                
+                    }
+                }
+                  
+                if($this->validationErrors == 0 && $resp->is_valid) {
+                   $hash = $this->hash->crypt($password);
+                   $newUser = new User($username, $hash, $email, $fName, $lName, $sex, $birthday, $schoolForm, $institute);
+                   if ($this->userRepository->exists($username) == false) 
+                   {
+                 
+                       if($this->userRepository->existsEmail($email) == false){
+                        $id = $this->userRepository->add($newUser);
+                        $this->userRepository->addDetails($newUser, $id);
+                        $msgId = 12;
+                        $this->model->setMessage($msgId);
+                        $this->showRegisterPage = false;
+                        $this->setMessage();
+                        $this->loginView->setRegister($username);                
+                       }
+                       else 
+                       {
+                        $errorMsgForgetEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert">
+                                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <strong>Eposten finns redan registrerad, välj <a href=?forgetPassword>Glömt lösenord</a>
+                                                     för att återställa lösenordet</strong></div>';
+                                                    echo $errorMsgForgetEmail;
+                     }
+                }
+                
+                 else {
+                    $msgId = 5;
                     $this->model->setMessage($msgId);
                     $this->setMessage();
-                }
-                else {
-                    if($this->validatePassword->validateIfSamePassword($password, $confirmPassword) == false) {
-                        $msgId = 6;
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                    }
+                   }    
+         
                 }
             }
-            if ($this->validationErrors == 0) {
-                if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
-                    $msgId = 23;
-                    $this->validationErrors++;
-                    $this->model->setMessage($msgId);
-                    $this->setMessage();                    
-                }   
-            }            
-            if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateIfSameEmail($email, $confirmEmail) == false) {
-                        $msgId = 25; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
+
             }
-             if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateEmail($email, $confirmEmail)==false) {
-                        $msgId = 28; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
-            }
-              if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateNames($fName, $lName) == false) {
-                        $msgId = 29; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
-            }
-              if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateSex($sex) == false) {
-                        $msgId = 30; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
-            }
-              if ($this->validationErrors == 0) 
-              {
-                if($this->validateNewUser->validateBirthday($birthday) == false) {
-                    if (isset($birthday) && empty($birthday) == false) {
-                        $msgId = 31; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                    }
-                }
-            }
-             if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateSchoolForm($schoolForm) == false) {
-                        $msgId = 32; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
-            }
-              if ($this->validationErrors == 0) {
-                if($this->validateNewUser->validateInstitute($institute) == false) {
-                        $msgId = 33; 
-                        $this->validationErrors++;
-                        $this->model->setMessage($msgId);
-                        $this->setMessage();
-                }
-            }
-            if ($this->validationErrors == 0) 
+
+            else 
             {
-                if (!$resp->is_valid) 
-                {
-                    $msgId = 14;
-                    $this->validationErrors++;
+                    $msgId = 55;
                     $this->model->setMessage($msgId);
-                    $this->setMessage();                
-                }
+                    $this->setMessage();
             }
-              
-            if($this->validationErrors == 0 && $resp->is_valid) {
-               $hash = $this->hash->crypt($password);
-               $newUser = new User($username, $hash, $email, $fName, $lName, $sex, $birthday, $schoolForm, $institute);
-               if ($this->userRepository->exists($username) == false) {
-             
-               if($this->userRepository->existsEmail($email) == false){
-                $id = $this->userRepository->add($newUser);
-                $this->userRepository->addDetails($newUser, $id);
-                $msgId = 12;
-                $this->model->setMessage($msgId);
-                $this->setMessage();
-                $this->showRegisterPage = false;
-                $this->loginView->setRegister($username);                
-               }
-               else {
-                $errorMsgForgetEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert">
-                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                            <strong>Eposten finns redan registrerad, välj <a href=?forgetPassword>Glömt lösenord</a>
-                                             för att återställa lösenordet</strong></div>';
-                                            echo $errorMsgForgetEmail;
-             }
-         }
-            
-             else {
-                $msgId = 5;
-                $this->model->setMessage($msgId);
-                $this->setMessage();
-               }    
-     
-            }
-        }
+
         }
     }
 }

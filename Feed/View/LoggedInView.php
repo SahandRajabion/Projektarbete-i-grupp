@@ -10,7 +10,6 @@ class LoggedInView extends BaseView
 {
     private $feedView;
     private $model;
-    private $username;
     private $imagesModel;
     private $pic;
 
@@ -81,11 +80,13 @@ class LoggedInView extends BaseView
               </button>
            </div>
            <div class='collapse navbar-collapse' id='example-navbar-collapse'>
+           <form method='post' enctype='multipart/form-data'>
               <ul class='nav navbar-nav'>
                  $adminMenu
                  <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->model->getId()."'>Min profil</a></li>
-                 <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
+                 <li><button type='submit' name='". $this->logOutLocation . "' class='btn-link'>Logga ut</button></li>
               </ul>
+          </form>
            </div>
         </nav>
         $this->message";
@@ -117,7 +118,7 @@ class LoggedInView extends BaseView
         return false;
     }
 
-    /**
+        /**
      * @param $message string containing feedback
      */
     public function setMessage($message) {

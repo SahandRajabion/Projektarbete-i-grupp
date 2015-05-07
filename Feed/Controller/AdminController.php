@@ -29,9 +29,8 @@ class AdminController
                 $checkedBoxValues = $this->createCourseView->GetCheckedBoxes();
                 $courseName = $this->createCourseView->GetCourseName();
                 $courseCode = $this->createCourseView->GetCourseCode();
-                $rssFeedUrl = $this->createCourseView->GetRSSUrl();
 
-            	$this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode, $rssFeedUrl);
+            	$this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode);
         	}
         }
     }

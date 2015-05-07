@@ -40,11 +40,6 @@ class MasterController extends Navigation
     private $createCourseView;
     private $courseRepository;
 
-	private static $ErrorEmailMessage = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 	         <button type="button" class="close" data-dismiss="alert">
-  							   	         <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-  								         <strong>Kontrollera epost, fel format.</strong></div>';
-
 	function __construct()
 	{
 		$this->adminController = new AdminController();
@@ -63,7 +58,6 @@ class MasterController extends Navigation
       	$this->profileView = new ProfileView();
       	$this->feed = new FeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
-
 	}
 
 		public function doControll()  
@@ -73,8 +67,8 @@ class MasterController extends Navigation
 				if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) 
 				{
 					if (!preg_match($this->emailExp, $this->getEmail())) 
-					{
-						echo self::$ErrorEmailMessage;
+					{	
+						$this->loginController->setMessageFromOutside(22, "forget");
 					}
 
 					else
@@ -97,17 +91,12 @@ class MasterController extends Navigation
 							$headers = 'From: LSN@sahibsahib.com' . "\r\n" .
 									   'X-Mailer: PHP/' . phpversion();
 
-							$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
-	  							 				 <button type="button" class="close" data-dismiss="alert">
-	  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-	  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
-
 							$this->userRepository->resetPassword($this->code,$this->getEmail());
 							$this->userRepository->resetPasswordTime($date,$this->getEmail());
 							
-							if (mail($to, $subject, $message,$headers)) {
-								# code...
-								echo $successMSG;
+							if (mail($to, $subject, $message,$headers)) 
+							{
+								$this->loginController->setMessageFromOutside(42, "forget");
 							 }
 							}
 								
@@ -115,11 +104,7 @@ class MasterController extends Navigation
 					}
 					else
 						  {
-							$successMSG = '<div class="alert alert-success alert-dismissible" role="alert">
-	  							 				 <button type="button" class="close" data-dismiss="alert">
-	  											 <span aria-hidden="true">&times;</span><span class="sr-only">Stäng</span></button>
-	  										     Ett meddelande med instruktioner om återställning av lösenord har skickats till: <strong>'.$this->getEmail().'</strong></div>';
-	  						echo $successMSG;
+							$this->loginController->setMessageFromOutside(42, "forget");
 						}	
 
 					 }
@@ -138,17 +123,9 @@ class MasterController extends Navigation
 	                }   
 	            }
 
-            	else if ($this->contactView->didUserPressToContact())
+            	else if ($this->contactView->didUserPressToContact() && $this->contactView->hasSubmitToSend())
     	        {
-	             	if ($this->contactView->hasSubmitToSend()) 
-	                {
-	                	$this->renderContact = true;
-	                    $this->contactController->doContact();
-	                }
-	                else
-	                {
-	              	  return $this->contactView->RenderContactForm();
-	                }
+	                $this->contactController->doContact();
              	}
 
 				else if ($this->loginController->isAuthenticated() && $this->createCourseView->DidUserPressToCreateCourse())
@@ -173,7 +150,8 @@ class MasterController extends Navigation
              	}
 
              	// KOLLAR OM ID FINNS SAMT OM IDN FINNS I DATABASEN
-				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() && $this->courseRepository->doIdExist($this->feed->getId())) {
+				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() 
+							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId())) {
 
              		return $this->feed->showCourseFeed($this->feed->getId());
              		

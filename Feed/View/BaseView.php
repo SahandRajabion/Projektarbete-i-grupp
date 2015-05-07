@@ -4,6 +4,10 @@ require_once("Settings.php");
 
 abstract class BaseView 
 {
+	protected $username;
+	protected $register = false;
+	protected $submitLocation = "submit";
+    protected $checkBoxLocation = "checkbox";
 	protected $createNewCourseLocation = "createNewCourse";
 	protected $logOutLocation = 'logout';
 	protected $ContactLocation = 'ContactUs';
@@ -42,20 +46,12 @@ abstract class BaseView
     protected $WPCourseLocation = 'WPCourseLocation';
     protected $IDCourseLocation = 'IDCourseLocation';
     protected $PUCourseLocation = 'PUCourseLocation';
-	
-    protected $courseCodeLocation = "courseCode";
-	protected $courseNameLocation = "courseName";
-	protected $programCheckBoxLocation = "programCheckBox";
-	protected $submitNewCourseLocation = "submitNewCourse";
-    protected $rssUrlLocation = "rssUrlLocation";
-
-
 
    public static function escape($string) 
     {
     	return htmlspecialchars($string, ENT_QUOTES, 'utf-8');   
     }
-    
+      
     public function getToken() 
     {
     	if (isset($_POST['CSRFToken'])) {

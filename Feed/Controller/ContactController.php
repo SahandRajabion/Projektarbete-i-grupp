@@ -3,15 +3,19 @@
 	require_once('View/ContactView.php');
 	require_once('Validation/Validation.php');
 	require_once('Model/ContactModel.php');
+	require_once('Controller/LoginController.php');
 
 	class ContactController {
 		private $validation;
 		private $contact;
 		private $emailContact;
+		private $loginController;
+
 		public function __construct() {
 			$this->contact = new ContactView();
 			$this->validation = new Validation();
 			$this->emailContact = new ContactModel();
+			$this->loginController = new LoginController();
 		}
 		//funcations for contact from 
 		private function getContctName() {
@@ -33,9 +37,9 @@
 			$Message = $this->getContactMsg();
 			$this->validation->ContactFormValidation($Name,$Email,$Message);
 		}
+
 		//Render contact form and make sure that all is right to make a contact message.
 		public function doContact() {
-			$this->contact->RenderContactForm();
 			$Name = $this->getContctName();
 			$Email = $this->getContactEmail();
 			$Message = $this->getContactMsg();
@@ -49,9 +53,12 @@
 			    		$headers .= "MIME-Version: 1.0\r\n";
 			    		$headers .= "Content-type: text/plain; charset=utf-8\r\n";
     				    $this->emailContact->EmailContact($messages,$headers);
+    				    $this->loginController->setMessageFromOutside(45, "contact");
+
 				}
 				else {
-					return $this->contact->ContactForm($this->validation->ContactFormValidation($Name,$Email,$Message));
+					$msgId = $this->validation->ContactFormValidation($Name,$Email,$Message);
+					$this->loginController->setMessageFromOutside($msgId, "contact");
 				}
 				
 			}

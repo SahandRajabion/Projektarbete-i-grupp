@@ -12,7 +12,7 @@ class AdminModel
 		$this->courseRepository = new CourseRepository();
 	}
 
-    public function CreateNewCourse($checkBoxValues, $courseName, $courseCode, $rssFeedUrl) 
+    public function CreateNewCourse($checkBoxValues, $courseName, $courseCode) 
     {
     	if ($this->validationErrors == 0) 
     	{
@@ -121,7 +121,7 @@ class AdminModel
 
     	if ($this->validationErrors == 0) 
     	{
-    		$courseId = $this->courseRepository->AddCourse($courseName, $courseCode, $rssFeedUrl);
+    		$courseId = $this->courseRepository->AddCourse($courseName, $courseCode);
 
     		foreach ($checkBoxValues as $programId) 
     		{
