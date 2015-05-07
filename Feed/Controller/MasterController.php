@@ -48,6 +48,16 @@ class MasterController extends Navigation
     private $messageRepository;
     private $messageFormView;
 
+    private static $Error_Sub_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong>Subject is required</strong></div>';
+
+  	private static $Error_Msg_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong>Message is required</strong></div>';
+
 	function __construct()
 	{
 		$this->adminController = new AdminController();
@@ -203,8 +213,21 @@ class MasterController extends Navigation
 				           			$time = time();
 				           			$MSG = $this->messageFormView->getUserMsg();
 				           			$open = 0;
-				            		$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
-				            		echo("Your message has been sent");
+				           			if ($sub == "") {
+				           				# code...
+				           				echo self::$Error_Sub_TYPE;
+				           				
+				           			}
+				           			else if ($MSG == "") {
+				           				# code...
+				           				echo self::$Error_Msg_TYPE;
+				           			}
+				           			else
+				           			{
+				           				$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
+				            			header("Location: ?send&id=" . $this->model->getId());
+				           			}
+				            		
 				         }	
 	            		return $this->messageFormView->rednerMessageFormView();
 	            }	
@@ -219,8 +242,16 @@ class MasterController extends Navigation
 	            			$time = time();
 	            			$date = date("M/d/Y");
 	            			$open = 0;
-	            			$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
-	            			$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	            			if ($this->inboxView->getUserReplayMsg() != "") {
+	            				# code...
+	                     		$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
+	            				$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	            			}
+	            			else
+	            			{
+	            				echo self::$Error_Msg_TYPE;
+	            			}
+
 	            		}
 
 	            		$ids = $this->messageRepository->getMsgIdFromUserId( $this->model->getId());	

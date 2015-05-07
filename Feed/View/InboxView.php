@@ -240,23 +240,16 @@
 
 			$html = 
 					'</br>'.
-						'<script type="text/javascript" src="js/jquery.js"></script>'.
-						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+					'<script type="text/javascript" src="js/jquery.js"></script>'.
+					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
-					'<a href="?'.$this->inboxLocation.'">Back</a>'.
+					'<a href="?'.$this->sendLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
 					'</br>'.
 					'<a class="remove btn danger" href="?'.$this->removeSentLocation.'&'.$this->id.'='.$this->getId().'">Delete this message</a>'.
 					'<div id="msg">'.
-					'<strong>From: </strong>'.
-					'<strong>'.$msg->getFromName().'</strong>'.
 					'</br>'.
-					'<strong>Date: </strong>'.
-					'<strong>'.$msg->getDate().'</strong>'.
-					'</br>'.
-					'<strong>Time: </strong>'.
-					'<strong>'.time_passed($msg->getTime()).'</strong>'.
 					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
 					if ($replayMsgs != null) {
 						# code...
