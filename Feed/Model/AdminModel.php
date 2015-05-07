@@ -120,6 +120,25 @@ class AdminModel
     	}
 
     	if ($this->validationErrors == 0) 
+    	{	
+    		if($rssFeedUrl != null)
+    		{
+
+	    		if (preg_match('/^(http:\/\/)(coursepress\.lnu\.se\/kurs\/)(.+)(\/feed)\/?$/', $rssFeedUrl) == false) 
+	    		{
+
+	    			$this->validationErrors++;
+	    			$msgId = 56;
+	            	$this->loginMessage = new LoginMessage($msgId);        
+	            	$message = $this->loginMessage->getMessage();
+
+	           		 echo $message;
+	    		}
+	   		}
+   		 }
+
+
+    	if ($this->validationErrors == 0) 
     	{
     		$courseId = $this->courseRepository->AddCourse($courseName, $courseCode, $rssFeedUrl);
 
