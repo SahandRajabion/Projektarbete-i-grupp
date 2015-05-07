@@ -8,6 +8,8 @@ require_once('Model/LoginModel.php');
 require_once('View/UploadView.php');
 require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
+require_once('View/RSSFeedView.php');
+
 
 class FeedView extends BaseView
 {
@@ -24,6 +26,8 @@ class FeedView extends BaseView
     private $postContent = "Post";
     private $postTitle = "Title";
     private $date = "Date";
+    private $rssFeedView;   
+
    
 
 
@@ -36,6 +40,8 @@ class FeedView extends BaseView
         $this->loginModel = new LoginModel();
         $this->uploadView = new UploadView();   
         $this->imagesModel = new ImagesModel();
+        $this->rssFeedView = new RSSFeedView();
+
     }
 
    public function showCourseFeed($courseId) {
@@ -122,6 +128,13 @@ class FeedView extends BaseView
         <div class='content'>";
 
         $html .= $this->uploadView->RenderUploadForm($courseId);
+        $rssURL = $this->courseRepository->checkIfRSSUrlExists($courseId);
+
+        if($rssURL != null)
+        {
+            $html.="<a name='renderRSS' href='?". $this->rssFeedLocation .'&'.$this->id.'='.$courseId."'>Klicka för att se de senaste kursinformationen från CoursePress</a></br></br></br></br></br>";
+        }
+
 
         $html .= "<ul id='items'>";    
 
@@ -224,6 +237,20 @@ class FeedView extends BaseView
         if (isset($_POST[$this->title])) {
             return nl2br($_POST[$this->title]);
         }
+    }
+
+    public function hasSubmitRssFeedLocation() {
+        
+        if (isset($_GET[$this->rssFeedLocation])) {
+            return true;
+    }
+
+        return false;
+    }
+
+    public function renderFeed($courseId)
+    {
+      return $this->showCourseFeed($courseId);
     }
 
 

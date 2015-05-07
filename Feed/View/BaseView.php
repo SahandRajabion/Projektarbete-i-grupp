@@ -64,6 +64,9 @@ abstract class BaseView
 	protected $courseNameLocation = "courseName";
 	protected $programCheckBoxLocation = "programCheckBox";
 	protected $submitNewCourseLocation = "submitNewCourse";
+	protected $rssFeedLocation = "rssFeedLocation";
+	protected $backToFeedLocation ="backToFeedLocation";
+
 
 
    public static function escape($string) 

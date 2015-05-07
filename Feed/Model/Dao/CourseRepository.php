@@ -164,10 +164,20 @@ require_once('Model/Dao/Repository.php');
 	}
 
 
+	public function getRSSLink($courseId) 
+	{
+		$sql = "SELECT RssUrl FROM $this->courseTable  WHERE " . self::$courseID . "= ?";
+		$params = array($courseId);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetch();
+
+		return $result['RssUrl'];
+	}
+
+
 	public function getCourseID($courseName) 
 	{
-
-		
 			
 			$sql ="SELECT * FROM $this->courseTable WHERE " . self::$courseName . " = ?";
 			$query = $this->db->prepare($sql);
@@ -192,8 +202,16 @@ require_once('Model/Dao/Repository.php');
 			else {
 				return null;
 			}
-			
+	}
 
+	public function checkIfRSSUrlExists($courseId) 
+	{	
+		$sql = "SELECT RssUrl FROM $this->courseTable WHERE " . self::$courseID . "= ?";
+		$params = array($courseId);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$results = $query->fetch();
+		return $results['RssUrl'];
 	}
 
 

@@ -22,6 +22,8 @@ require_once("View/InboxView.php");
 require_once('Model/Messages.php');
 require_once('Model/Dao/MessagesRepository.php');
 require_once('View/MessageFormView.php');
+require_once('View/RSSFeedView.php');
+
 
 class MasterController extends Navigation
 {
@@ -47,6 +49,8 @@ class MasterController extends Navigation
     private $messages;
     private $messageRepository;
     private $messageFormView;
+    private $rssFeedView;
+
 
     private static $Error_Sub_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
   							 				    <button type="button" class="close" data-dismiss="alert">
@@ -79,6 +83,7 @@ class MasterController extends Navigation
       	$this->messages = new Messages();
       	$this->messageRepository = new MessagesRepository();
       	$this->messageFormView = new MessageFormView();
+      	$this->rssFeedView = new RSSFeedView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -146,7 +151,7 @@ class MasterController extends Navigation
 	            }
 
 	             else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToInbox())
-	            {
+	             {
 
 	    
 	            			if ($this->inboxView->getId() == $this->model->getId()) {
@@ -163,14 +168,10 @@ class MasterController extends Navigation
 
 
 	            			if ($this->inboxView->getId() == $this->model->getId()) {
-	            				# code...
+	            				
 	            				 return $this->inboxView->rednerSendMsg();
 	            			}
-	            			//else 
-	            			//{
-	            		//		return $this->inboxView->redirectToErrorPage();
-	            		//	}
-	              
+	            			
 	            }
 
 
@@ -181,7 +182,6 @@ class MasterController extends Navigation
 	            		foreach ($ids as $id) {
 	         
 	            			if ($this->inboxView->getId() == $id) {
-	            				# code...
 	            				return $this->inboxView->rednerShowMsg();
 	            			}
 
@@ -190,21 +190,17 @@ class MasterController extends Navigation
 	            }
 
 	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveMsg()) {
-	            			# code...
 	            		$this->messages->deleteMessage($this->inboxView->getId());
 	            		return $this->inboxView->rednerInbox();
 	            }	
 
 	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveSentMsg()) {
-	            			# code...
 	            		$this->messages->deleteMessage($this->inboxView->getId());
 	            		return $this->inboxView->rednerSendMsg();
 	            }	
 
 	           else if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToSendAnewMsg()) {
-	            			# code...
 	           			if ($this->loginController->isAuthenticated() && $this->messageFormView->didUserPressToSendMsg()) {
-	            			# code...
 				         
 				           			$name = $this->messageFormView->getUserName();
 				           			$id = $this->messageFormView->getToUserId();
@@ -299,6 +295,18 @@ class MasterController extends Navigation
 							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId())) {
 
              		return $this->feed->showCourseFeed($this->feed->getId());
+             		
+             	}
+
+             	else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitRssFeedLocation()) {
+
+             		return $this->rssFeedView->RSSFeedId($this->feed->getId());
+             		
+             	}
+
+             	else if ($this->loginController->isAuthenticated() && $this->rssFeedView->didPressBackButton()) {
+
+             		return $this->feed->renderFeed($this->feed->getId());
              		
              	}
 
