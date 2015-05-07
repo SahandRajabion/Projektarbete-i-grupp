@@ -127,11 +127,11 @@ require_once('Model/Dao/Repository.php');
 		return true;
 	}
 
-	public function AddCourse($courseName, $courseCode) {
+	public function AddCourse($courseName, $courseCode, $rssFeedUrl) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->courseTable (CourseName, CourseCode) VALUES (?, ?)";
-			$params = array($courseName, $courseCode);
+			$sql = "INSERT INTO $this->courseTable (CourseName, CourseCode, RssUrl) VALUES (?, ?, ?)";
+			$params = array($courseName, $courseCode, $rssFeedUrl);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
