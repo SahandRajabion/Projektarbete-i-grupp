@@ -9,6 +9,7 @@ class CommentRepository extends Repository {
 	private static $id = "id";
 	private static $commentId = "CommentId";
 	private static $userId = "UserId";
+	private static $courseId ="CourseId";
 	private $db;
 
 	public function __construct() 
@@ -20,7 +21,7 @@ class CommentRepository extends Repository {
  	public function GetLatestCommentItem($first_id, $course_id) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$commentId  ." > ? AND CourseId = ? ORDER BY " . self::$commentId . " DESC";
+			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$commentId  ." > ? AND " . self::$courseId  ." = ? ORDER BY " . self::$commentId . " DESC";
 			$query = $this->db->prepare($sql);
 			$params = array($first_id, $course_id);
 			$query->execute($params);
@@ -74,7 +75,7 @@ class CommentRepository extends Repository {
 	{
 		try 
 		{
-	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ", " . self::$userId . ", CourseId) VALUES (?, ?, ?, ?)";
+	        $sql = "INSERT INTO $this->dbTable (" . self::$comment . ", " . self::$id . ", " . self::$userId . ", " . self::$courseId  .") VALUES (?, ?, ?, ?)";
 			$params = array($comment, $id, $userId, $courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);

@@ -8,6 +8,9 @@ require_once('Model/Dao/Repository.php');
 	private $courseTable;
  	private static $programID = "ProgramId";
  	private static $courseID = "CourseId";
+ 	private static $courseName = "CourseName";
+ 	private static $courseCode = "CourseCode";
+ 	private static $rssUrl = "RssUrl";
  	private $key;
 
 	public function __construct() {
@@ -56,7 +59,7 @@ require_once('Model/Dao/Repository.php');
 				$this->key = $key;
 			}
 			
-			$sql ="SELECT * FROM $this->courseTable WHERE CourseId = ?";
+			$sql ="SELECT * FROM $this->courseTable WHERE " . self::$courseID . " = ?";
 			$query = $this->db->prepare($sql);
 			$params = array($this->key);
 
@@ -84,7 +87,7 @@ require_once('Model/Dao/Repository.php');
 
 	public function getCourseName($id) 
 	{
-		$sql = "SELECT * FROM $this->courseTable  WHERE CourseId = ?";
+		$sql = "SELECT * FROM $this->courseTable  WHERE " . self::$courseID . " = ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
@@ -95,7 +98,7 @@ require_once('Model/Dao/Repository.php');
 	
 	public function CourseNameExists($courseName) 
 	{	
-		$sql = "SELECT * FROM $this->courseTable WHERE CourseName = ?";
+		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseName . " = ?";
 		$params = array($courseName);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
@@ -112,7 +115,7 @@ require_once('Model/Dao/Repository.php');
 	
 	public function CourseCodeExists($courseCode) 
 	{
-		$sql = "SELECT * FROM $this->courseTable WHERE CourseCode = ?";
+		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseCode . " = ?";
 		$params = array($courseCode);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
@@ -130,7 +133,7 @@ require_once('Model/Dao/Repository.php');
 	public function AddCourse($courseName, $courseCode, $rssFeedUrl) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->courseTable (CourseName, CourseCode, RssUrl) VALUES (?, ?, ?)";
+			$sql = "INSERT INTO $this->courseTable (" . self::$courseName . ", " . self::$courseCode . ", " . self::$rssUrl . ") VALUES (?, ?, ?)";
 			$params = array($courseName, $courseCode, $rssFeedUrl);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
@@ -148,7 +151,7 @@ require_once('Model/Dao/Repository.php');
 	public function AddCourseToProgram($programId, $courseId) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->dbTable (ProgramId , CourseId) VALUES (?, ?)";
+			$sql = "INSERT INTO $this->dbTable (" . self::$programID . " , " . self::$courseID . ") VALUES (?, ?)";
 			$params = array($programId, $courseId);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
@@ -166,7 +169,7 @@ require_once('Model/Dao/Repository.php');
 
 		
 			
-			$sql ="SELECT * FROM $this->courseTable WHERE CourseName = ?";
+			$sql ="SELECT * FROM $this->courseTable WHERE " . self::$courseName . " = ?";
 			$query = $this->db->prepare($sql);
 			$params = array($courseName);
 

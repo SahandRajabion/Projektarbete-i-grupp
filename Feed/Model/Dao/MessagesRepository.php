@@ -92,7 +92,7 @@ require_once('Model/MessagesSent.php');
 	{
 		try 
 		{
-			$sql = "UPDATE $this->table SET Open = ? WHERE MsgId = ?";
+			$sql = "UPDATE $this->table SET Open = ? WHERE ".self::$MsgId."= ?";
 			$params = array($open,$msgId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
