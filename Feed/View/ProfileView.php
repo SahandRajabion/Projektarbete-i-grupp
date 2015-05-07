@@ -12,6 +12,7 @@ class ProfileView extends BaseView
   private $mainView;
   private $imagesModel;
   private $pic;
+  private $loginModel;
 
   function __construct()
   {
@@ -76,6 +77,8 @@ class ProfileView extends BaseView
        <div class='collapse navbar-collapse' id='example-navbar-collapse'>
           <ul class='nav navbar-nav'>
              <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Ändra lösenord</a></li>
+             <li><a name='Inbox' href='?" . $this->inboxLocation .'&'.$this->id.'='.$this->getId()."'>Inbox</a></li>
+             <li><a name='Inbox' href='?" . $this->sendLocation .'&'.$this->id.'='.$this->getId()."'>Sent</a></li>
           </ul>
        </div>
     </nav>";
@@ -319,13 +322,19 @@ class ProfileView extends BaseView
             }
           
 
-            $html .= '
+            $html .=
+
+             '
             <strong>Förnamn:</strong> <br>' . $user->getfName() . '<br>
             <strong>Efternamn:</strong> <br>' . $user->getlName() . ' <br>
             <strong>Kön:</strong> <br> '  . $user->getSex() .  ' <br>
             <strong>Ålder:</strong> <br> ' . $age . ' <br>
             <strong>Program:</strong> <br> ' . $user->getInstitute() . ' <br>
-            <strong>Studieform:</strong> ' . $user->getSchoolForm();
+            <strong>Studieform:</strong> ' . $user->getSchoolForm(). '</br>'.
+            '</br>'.
+            '<a href="?'.$this->msgFormLocation.'&'.$this->id.'='.$this->getId().'">Send message to '.$user->getfName().'</a>';
+          
+            
 
         $html .='</div>
                 </div>
@@ -337,6 +346,15 @@ class ProfileView extends BaseView
       return $html;
   }
 
+
+  public function didUserPressToSendAnewMsg() {
+    
+      if (isset($_GET[$this->msgFormLocation])) {
+        return true;
+      }
+
+      return false;
+    }
   public function hasSubmitToUpload() {
     if (isset($_POST['change'])) {
       return true;

@@ -1,9 +1,20 @@
 <?php
 
-require_once("Settings.php");
+require_once("Settings.php"); 
 
 abstract class BaseView 
 {
+
+	protected $inboxLocation = 'Inbox';
+	protected $removeLocation = 'remove';
+	protected $removeSentLocation = 'removeSent';
+	protected $msgFormLocation = 'NewMsg';
+	protected $subjectLocation = 'SendSubject';
+	protected $sendMessageLocation = 'sendMsg';
+	protected $submitSendMsgLocation = 'submitAnewMsg';
+	protected $sendLocation = "send";
+	protected $msgLocation = 'msg';
+	protected $sentMsgLocation = 'SentMsg';
 	protected $username;
 	protected $register = false;
 	protected $submitLocation = "submit";
