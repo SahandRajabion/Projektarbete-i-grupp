@@ -1,11 +1,11 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 07 maj 2015 kl 23:10
+-- Tid vid skapande: 08 maj 2015 kl 00:32
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.4.24
+-- PHP-version: 5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -215,16 +215,18 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseId` int(11) NOT NULL AUTO_INCREMENT,
   `CourseName` varchar(100) NOT NULL,
   `CourseCode` varchar(20) NOT NULL,
+  `RssUrl` varchar(255) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
-INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`) VALUES
-(1, 'Allmänt', ''),
-(22, 'fsdfl', 'fsdfld');
+INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`, `RssUrl`) VALUES
+(1, 'Allmänt', '', ''),
+(22, 'fsdfl', 'fsdfld', ''),
+(23, 'sasda', 'sadsad', 'http://coursepress.lnu.se/kurs/objektorienterad-programmering-med-cplusplus/feed');
 
 -- --------------------------------------------------------
 
@@ -330,14 +332,15 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(24, 2, 22);
+(24, 2, 22),
+(25, 2, 23);
 
 -- --------------------------------------------------------
 
