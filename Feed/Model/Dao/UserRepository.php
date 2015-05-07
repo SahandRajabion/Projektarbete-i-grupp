@@ -32,6 +32,15 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
+	public function getUserIdByUserName($user) {
+		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
+		$params = array($user);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetch();
+		return $result;
+	}
+
 	public function editUserDetails(User $user, $userId) 
 	{
 		$sql = "UPDATE $this->dbTableDetails SET " . self::$firstName . "= ?, " . self::$lastName . "= ?, " . self::$sex . "= ?, " . self::$birthday . "= ?, " . self::$schoolForm . "= ?, " . self::$institute . "= ? WHERE " . self::$userId . "= ?";
@@ -70,15 +79,19 @@ class UserRepository extends Repository
 
 	public function getUsernameFromId($id) 
 	{
+
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
 
 		$result = $query->fetch();
-
+		
 		return $result['Username'];
 	}
+
+
+
 
 	public function add(User $user) {
 			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .", ". self::$email .") VALUES (?,?,?)";
