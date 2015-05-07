@@ -1,11 +1,11 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 30 apr 2015 kl 19:53
+-- Tid vid skapande: 07 maj 2015 kl 23:10
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.5.8
+-- PHP-version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=296 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=352 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -106,7 +106,63 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (292, '2015-04-30 16:56:53', '127.0.0.1', 1, 'Tommy'),
 (293, '2015-04-30 16:59:20', '127.0.0.1', 1, 'Tommy'),
 (294, '2015-04-30 17:33:00', '127.0.0.1', 1, 'Tommy'),
-(295, '2015-04-30 17:45:41', '127.0.0.1', 1, 'Tommy');
+(295, '2015-04-30 17:45:41', '127.0.0.1', 1, 'Tommy'),
+(296, '2015-05-05 22:29:22', '127.0.0.1', 1, 'Tommy'),
+(297, '2015-05-05 23:53:00', '127.0.0.1', 1, 'Sahib'),
+(298, '2015-05-06 00:32:36', '127.0.0.1', 1, 'Sahib'),
+(299, '2015-05-06 00:33:10', '127.0.0.1', 1, 'Tommy'),
+(300, '2015-05-06 00:33:36', '127.0.0.1', 1, 'Sahib'),
+(301, '2015-05-06 00:38:50', '127.0.0.1', 1, 'Tommy'),
+(302, '2015-05-06 00:43:07', '127.0.0.1', 0, 'Tommy'),
+(303, '2015-05-06 00:43:11', '127.0.0.1', 0, 'Tommy'),
+(304, '2015-05-06 00:43:18', '127.0.0.1', 1, 'Tommy'),
+(305, '2015-05-06 00:44:05', '127.0.0.1', 1, 'Sahib'),
+(306, '2015-05-06 01:57:25', '127.0.0.1', 1, 'Tommy'),
+(307, '2015-05-06 02:07:47', '127.0.0.1', 1, 'Sahib'),
+(308, '2015-05-06 02:10:48', '127.0.0.1', 1, 'Tommy'),
+(309, '2015-05-06 02:11:21', '127.0.0.1', 1, 'Sahib'),
+(310, '2015-05-06 02:13:05', '127.0.0.1', 1, 'Tommy'),
+(311, '2015-05-06 02:13:38', '127.0.0.1', 1, 'Sahib'),
+(312, '2015-05-06 02:25:38', '127.0.0.1', 1, 'Sahib'),
+(313, '2015-05-06 02:25:58', '127.0.0.1', 1, 'Tommy'),
+(314, '2015-05-06 02:27:11', '127.0.0.1', 1, 'Sahib'),
+(315, '2015-05-06 02:29:13', '127.0.0.1', 1, 'Tommy'),
+(316, '2015-05-06 02:35:50', '127.0.0.1', 1, 'Sahib'),
+(317, '2015-05-06 02:46:27', '127.0.0.1', 1, 'Tommy'),
+(318, '2015-05-06 02:49:10', '127.0.0.1', 1, 'Sahib'),
+(319, '2015-05-06 02:53:36', '127.0.0.1', 1, 'Tommy'),
+(320, '2015-05-06 03:05:44', '127.0.0.1', 1, 'Tommy'),
+(321, '2015-05-06 03:05:59', '127.0.0.1', 1, 'Sahib'),
+(322, '2015-05-06 03:09:10', '127.0.0.1', 1, 'Sahib'),
+(323, '2015-05-06 03:09:34', '127.0.0.1', 1, 'Tommy'),
+(324, '2015-05-06 03:10:25', '127.0.0.1', 1, 'Sahib'),
+(325, '2015-05-06 20:31:46', '127.0.0.1', 1, 'Sahib'),
+(326, '2015-05-06 20:33:08', '127.0.0.1', 1, 'Tommy'),
+(327, '2015-05-06 20:34:27', '127.0.0.1', 1, 'Sahib'),
+(328, '2015-05-06 20:37:31', '127.0.0.1', 1, 'Tommy'),
+(329, '2015-05-06 20:38:55', '127.0.0.1', 1, 'Sahib'),
+(330, '2015-05-06 20:43:32', '127.0.0.1', 0, 'Tommy'),
+(331, '2015-05-06 20:43:38', '127.0.0.1', 1, 'Tommy'),
+(332, '2015-05-06 21:18:58', '127.0.0.1', 1, 'Sahib'),
+(333, '2015-05-06 21:28:51', '127.0.0.1', 1, 'Tommy'),
+(334, '2015-05-06 21:31:48', '127.0.0.1', 1, 'Sahib'),
+(335, '2015-05-06 21:38:56', '127.0.0.1', 0, 'Tommy'),
+(336, '2015-05-06 21:39:03', '127.0.0.1', 1, 'Tommy'),
+(337, '2015-05-07 10:21:11', '127.0.0.1', 1, 'Sahib'),
+(338, '2015-05-07 10:27:47', '127.0.0.1', 0, 'Tommy'),
+(339, '2015-05-07 10:27:52', '127.0.0.1', 1, 'Tommy'),
+(340, '2015-05-07 12:37:26', '127.0.0.1', 1, 'Sahib'),
+(341, '2015-05-07 12:58:37', '127.0.0.1', 1, 'Asoglu'),
+(342, '2015-05-07 13:19:55', '127.0.0.1', 1, 'Sahib'),
+(343, '2015-05-07 13:57:03', '127.0.0.1', 1, 'Sahib'),
+(344, '2015-05-07 13:57:25', '127.0.0.1', 1, 'Tommy'),
+(345, '2015-05-07 14:09:42', '127.0.0.1', 1, 'Sahib'),
+(346, '2015-05-07 14:16:46', '127.0.0.1', 1, 'Tommy'),
+(347, '2015-05-07 15:44:36', '127.0.0.1', 1, 'Sahib'),
+(348, '2015-05-07 20:52:07', '127.0.0.1', 1, 'Sahib'),
+(349, '2015-05-07 20:56:30', '127.0.0.1', 1, 'Sahib'),
+(350, '2015-05-07 21:00:43', '127.0.0.1', 1, 'Sahib'),
+(351, '2015-05-07 21:06:18', '127.0.0.1', 1, 'Sahib');
 
 -- --------------------------------------------------------
 
@@ -191,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `feed` (
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`),
   KEY `CourseId` (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=342 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=343 ;
 
 --
 -- Dumpning av Data i tabell `feed`
@@ -205,7 +261,8 @@ INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, 
 (335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 22),
 (336, NULL, NULL, 'Test 4', NULL, '2015-04-30 15:30:16', 37, 22),
 (337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 22),
-(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 22);
+(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 22),
+(342, NULL, NULL, 'hej ', NULL, '2015-05-06 00:32:59', 40, 22);
 
 -- --------------------------------------------------------
 
@@ -222,6 +279,26 @@ CREATE TABLE IF NOT EXISTS `img` (
 -- --------------------------------------------------------
 
 --
+-- Tabellstruktur `messages`
+--
+
+CREATE TABLE IF NOT EXISTS `messages` (
+  `MsgId` int(11) NOT NULL AUTO_INCREMENT,
+  `FromName` varchar(32) NOT NULL,
+  `Subject` varchar(255) NOT NULL,
+  `Date` varchar(32) NOT NULL,
+  `Time` int(11) NOT NULL,
+  `Messages` text NOT NULL,
+  `Open` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `NEWMSGID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MsgId`),
+  KEY `MsgId` (`MsgId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellstruktur `program`
 --
 
@@ -229,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `program` (
   `ProgramId` int(11) NOT NULL AUTO_INCREMENT,
   `ProgramName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumpning av Data i tabell `program`
@@ -261,6 +338,24 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
 (24, 2, 22);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `spcmsg`
+--
+
+CREATE TABLE IF NOT EXISTS `spcmsg` (
+  `SPCMSGID` int(11) NOT NULL AUTO_INCREMENT,
+  `MSGID` int(11) NOT NULL,
+  `MESSAGE` text NOT NULL,
+  `Name` varchar(32) DEFAULT NULL,
+  `TIME` int(11) DEFAULT NULL,
+  `DATE` varchar(32) DEFAULT NULL,
+  `NEWMSGID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SPCMSGID`),
+  KEY `MSGID` (`MSGID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -343,47 +438,29 @@ ALTER TABLE `comments`
 -- Restriktioner för tabell `feed`
 --
 ALTER TABLE `feed`
-  ADD CONSTRAINT `feed_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `feed_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `feed_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `feed_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restriktioner för tabell `programcourse`
 --
 ALTER TABLE `programcourse`
-  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `programcourse_ibfk_1` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `programcourse_ibfk_2` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restriktioner för tabell `spcmsg`
+--
+ALTER TABLE `spcmsg`
+  ADD CONSTRAINT `spcmsg_ibfk_1` FOREIGN KEY (`MSGID`) REFERENCES `messages` (`MsgId`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Restriktioner för tabell `userdetails`
 --
 ALTER TABLE `userdetails`
-  ADD CONSTRAINT `userdetails_ibfk_2` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `userdetails_ibfk_2` FOREIGN KEY (`ProgramId`) REFERENCES `program` (`ProgramId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
---
--- Tabellstruktur `messages`
---
-
-CREATE TABLE IF NOT EXISTS `messages` (
-  `MsgId` int(11) NOT NULL AUTO_INCREMENT,
-  `FromName` varchar(32) NOT NULL,
-  `Email` varchar(60) NOT NULL,
-  `Subject` varchar(255) NOT NULL,
-  `Date` varchar(32) NOT NULL,
-  `Time` int(11) NOT NULL,
-  `Messages` text NOT NULL,
-  `Open` int(11) NOT NULL,
-  PRIMARY KEY (`MsgId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
---
--- Dumpning av Data i tabell `messages`
---
-
-INSERT INTO `messages` (`MsgId`, `FromName`, `Email`, `Subject`, `Date`, `Time`, `Messages`, `Open`) VALUES
-(5, 'sahib', 'sahib@hotmail.se', 'hej', '2015', 1, 'hej detta e en test.', 1);
