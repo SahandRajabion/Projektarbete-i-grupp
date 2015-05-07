@@ -23,7 +23,7 @@ class ProgramView extends baseView {
     {
         $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
     }
-
+ 
 
     $user = $this->model->GetUserProfileDetails($this->model->getId());
     $Images = glob("imgs/*.*");
@@ -95,8 +95,10 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="?">Progammes <span class="sr-only">(current)</span></a></li>
-              </ul>
+                <li class="active"><a href="?">Progammes <span class="sr-only">(current)</span></a></li>'.
+              '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>'.
+              '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent</a></li>'.
+              '</ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             ' . $this->message . '

@@ -27,7 +27,7 @@ class ProfileView extends BaseView
       {
           return true;
       }
-
+ 
       return false;
   }
 
@@ -77,8 +77,6 @@ class ProfileView extends BaseView
        <div class='collapse navbar-collapse' id='example-navbar-collapse'>
           <ul class='nav navbar-nav'>
              <li><a name='changePassword' href='?" . $this->changePasswordLocation . "'>Ändra lösenord</a></li>
-             <li><a name='Inbox' href='?" . $this->inboxLocation .'&'.$this->id.'='.$this->getId()."'>Inbox</a></li>
-             <li><a name='Inbox' href='?" . $this->sendLocation .'&'.$this->id.'='.$this->getId()."'>Sent</a></li>
           </ul>
        </div>
     </nav>";

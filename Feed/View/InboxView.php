@@ -39,7 +39,7 @@
 					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
-					'<a href=?profile&id='. $this->loginModel->getId() . '>Back</a>'.
+					'<a href=?>Back</a>'.
 					'</br>'.
 					'</br>';
 
@@ -109,7 +109,7 @@
 				'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
-					'<a href=?profile&id='. $this->loginModel->getId() . '>Back</a>'.
+					'<a href=?>Back</a>'.
 					'</br>'.
 					'</br>';
 
