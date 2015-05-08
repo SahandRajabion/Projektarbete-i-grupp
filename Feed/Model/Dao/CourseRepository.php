@@ -215,5 +215,18 @@ require_once('Model/Dao/Repository.php');
 	}
 
 
+	public function searchAutoComplete($keyword)
+	{
+		$sql = "SELECT CourseName FROM course WHERE CourseName LIKE (:keyword) ORDER BY CourseId ASC LIMIT 0, 7";
+		$query = $this->db->prepare($sql);
+		$query->bindParam(':keyword', $keyword, PDO::PARAM_STR);
+		$query->execute();
+		$list = $query->fetchAll();
+
+		return $list;
+
+	}
+
+
 
  }

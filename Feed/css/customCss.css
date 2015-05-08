@@ -196,3 +196,25 @@ margin-bottom: 8px;
   display: inline-block;
   /*border-radius: 50%;*/
 }
+
+
+.input_container ul {
+  width: 196px;
+  border: 1px solid #eaeaea;
+  position: absolute;
+  z-index: 9;
+  background: #f3f3f3;
+  list-style: none;
+  margin-top: 31px;
+}
+.input_container ul li {
+  padding: 2px;
+}
+.input_container ul li:hover {
+  background: #eaeaea;
+}
+#course_list_id {
+  display: none;
+}
+
+
