@@ -202,14 +202,14 @@
 			$html .= '</br>'.
 				'<div id="msg">'.
 				  "<form action='' class='form-horizontal' method=post enctype=multipart/form-data>";
-				  foreach ($toUser as $key) {
+				//  foreach ($toUser as $key) {
 				  	# code...
 				  	$html .= "<div class='form-group'>
 						         <div class='col-sm-10'>
-						           <input class='form-control' name='$this->toUserIdLocation' value='".$key."' type='hidden'>
+						           <input class='form-control' name='$this->toUserIdLocation' value='".$toUser."' type='hidden'>
 						         </div>
 						      </div>";
-				  }
+				//  }
 				    
 				   $html .= "<div class='form-group'>
 						         <div class='col-sm-10'>

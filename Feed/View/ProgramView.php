@@ -103,10 +103,15 @@ class ProgramView extends baseView {
                 $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
 
             
-                  # code...
-                  if ($open == true) {
-                    # code...
-                    $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox *</a></li>';
+                  if ($open != null) {
+                        # code...
+                       if ($open == 1) {
+                         # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox (One new message)</a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                       }
                   }
                   else {
                       $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>';

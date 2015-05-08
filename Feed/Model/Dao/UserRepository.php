@@ -38,6 +38,7 @@ class UserRepository extends Repository
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
 		$result = $query->fetch();
+	
 		return $result;
 	}
 

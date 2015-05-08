@@ -310,26 +310,28 @@ require_once('Model/MessagesSent.php');
  		try 
 		{
 			$array = array();
-			$sql = "SELECT ".self::$Open." FROM $this->table";
+			$sql = "SELECT * FROM $this->table WHERE ".self::$UserId."= ?";
 			$query = $this->db->prepare($sql);
 			$params = array($userId);
 			$query->execute($params);
 			$results = $query->fetchAll();
  			if ($results) {
-
+ 				$counter = 0;
  				# code...
  			  foreach($results as $result) {
- 				foreach ($result as $key) {
  					
- 					while ($key == 1) {
-						return false;
+ 					if ($result[self::$Open] == 0) {
+
+						$counter++;
 					}
- 				}
 					
 			  }
 
+			 
+					return $counter;
+
  			}
- 			return true;
+ 			return NULL;
 			
 		}
 		catch (PDOException $e) 
