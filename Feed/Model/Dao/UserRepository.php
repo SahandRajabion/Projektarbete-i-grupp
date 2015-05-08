@@ -32,13 +32,43 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
+	public function search($search) {
+		$sql = "SELECT username FROM $this->dbTable WHERE username like ?";
+		$params = array($search."%");
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetchALL();
+		if ($result) {
+
+			return $result;
+		}
+		return null;
+	}
+
+	public function getUserIdByName($user) {
+		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
+		$params = array($user);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetchALL();
+		if ($result) {
+			# code...
+			foreach ($result as $key) {
+				# code...
+				return $key['userid'];
+			}
+		}
+		return null;
+	}
+
+
 	public function getUserIdByUserName($user) {
 		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($user);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
 		$result = $query->fetch();
-	
+
 		return $result;
 	}
 

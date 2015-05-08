@@ -23,6 +23,7 @@ require_once('Model/Messages.php');
 require_once('Model/Dao/MessagesRepository.php');
 require_once('View/MessageFormView.php');
 require_once('View/RSSFeedView.php');
+require_once('View/ProgramView.php');
 
 
 class MasterController extends Navigation
@@ -50,6 +51,8 @@ class MasterController extends Navigation
     private $messageRepository;
     private $messageFormView;
     private $rssFeedView;
+    private $programView;
+    private $name;
 
 
     private static $Error_Sub_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
@@ -83,7 +86,8 @@ class MasterController extends Navigation
       	$this->messages = new Messages();
       	$this->messageRepository = new MessagesRepository();
       	$this->messageFormView = new MessageFormView();
-      	$this->rssFeedView = new RSSFeedView();
+      	$this->rssFeedView = new RssFeedView();
+      	$this->programView = new ProgramView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -91,6 +95,7 @@ class MasterController extends Navigation
 		{			
 			try 
 			{	
+
 				if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) 
 				{
 					if (!preg_match($this->emailExp, $this->getEmail())) 
@@ -136,6 +141,24 @@ class MasterController extends Navigation
 
 					 }
 				}	
+
+				else if ($this->loginController->isAuthenticated() && $this->programView->hasSubmitToSearch())
+    	        {
+    	        
+	                $names = $this->userRepository->search($this->programView->getSearchValue());
+	                $html ='';
+	                foreach ($names as $usernames) {
+	                	# code...
+	                	foreach ($usernames as $name) {
+	                	
+	                			$this->name = $name;
+	                		}	 
+	                		 $userId = $this->userRepository->getUserIdByName($this->name);
+	               			 $html .= '<a href="?profile&id='. $userId .'">'.$this->name.'</a></br></br>';
+	           		}
+
+	             return $html;  
+             	}
 
 				else if ($this->loginController->isAuthenticated() && $this->changePasswordView->didUserPressToChangePassword())
 	            {
@@ -264,7 +287,6 @@ class MasterController extends Navigation
 	            		}
 	            		
 	            }
-
 
             	else if ($this->contactView->didUserPressToContact() && $this->contactView->hasSubmitToSend())
     	        {

@@ -4,7 +4,8 @@ require_once("Settings.php");
 
 abstract class BaseView 
 {
-
+	protected $searchLocation = "Serach";
+	protected $submitSearchLocation = "SubmitSearch";
 	protected $inboxLocation = 'Inbox';
 	protected $removeLocation = 'remove';
 	protected $removeSentLocation = 'removeSent';

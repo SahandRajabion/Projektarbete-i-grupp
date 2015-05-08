@@ -81,9 +81,15 @@ class ProgramView extends baseView {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="?">Linnéus Social Network</a>
+              <a class="navbar-brand" href="?">LSN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+
+              <form action="?" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
+                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" placeholder="Search..." class="form-control">
+                <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary">Search</button>
+              </form>
+
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
                 ' . $adminMenu . '
@@ -202,4 +208,21 @@ class ProgramView extends baseView {
     public function setMessage($message) {
         $this->message = $message;
     }
+
+
+
+    public function hasSubmitToSearch() {
+
+      if (isset($_POST[$this->submitSearchLocation])) { 
+        return true;
+      }
+    }
+
+
+    public function getSearchValue() {
+      if (isset($_POST[$this->searchLocation])) {
+        return trim($_POST[$this->searchLocation]);
+      }
+    }
+
 }

@@ -99,7 +99,7 @@ class LoginView extends BaseView
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="?">Linnaéus Social Network</a>
+              <a class="navbar-brand" href="?">LSN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <form action="?" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
