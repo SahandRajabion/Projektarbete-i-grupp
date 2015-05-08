@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 08 maj 2015 kl 12:25
+-- Tid vid skapande: 08 maj 2015 kl 13:06
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.4.24
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=359 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=362 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -169,7 +169,10 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (355, '2015-05-08 10:19:16', '127.0.0.1', 1, 'Sahib'),
 (356, '2015-05-08 10:19:36', '127.0.0.1', 1, 'Tommy'),
 (357, '2015-05-08 10:21:44', '127.0.0.1', 1, 'Sahib'),
-(358, '2015-05-08 10:22:26', '127.0.0.1', 1, 'Tommy');
+(358, '2015-05-08 10:22:26', '127.0.0.1', 1, 'Tommy'),
+(359, '2015-05-08 10:59:21', '127.0.0.1', 1, 'Sahib'),
+(360, '2015-05-08 11:00:08', '127.0.0.1', 0, 'Tommy'),
+(361, '2015-05-08 11:00:12', '127.0.0.1', 1, 'Tommy');
 
 -- --------------------------------------------------------
 
@@ -302,15 +305,16 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `NEWMSGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`MsgId`),
   KEY `MsgId` (`MsgId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumpning av Data i tabell `messages`
 --
 
 INSERT INTO `messages` (`MsgId`, `FromName`, `Subject`, `Date`, `Time`, `Messages`, `Open`, `UserId`, `NEWMSGID`) VALUES
-(13, 'Sahib', '1', 'May/08/2015', 1431080078, '\r\n2', 1, 37, 0),
-(14, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431080492, '3', 1, 40, 13);
+(16, 'Sahib', 'dfgggdf', 'May/08/2015', 1431082785, 'gfddfgdgdgdgdf', 1, 37, 0),
+(17, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431082818, 'das', 0, 40, 16),
+(18, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431083035, 'sasa', 0, 40, 16);
 
 -- --------------------------------------------------------
 
@@ -373,14 +377,15 @@ CREATE TABLE IF NOT EXISTS `sentmsg` (
   `NEWMSGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`MsgId`),
   KEY `MsgId` (`MsgId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumpning av Data i tabell `sentmsg`
 --
 
 INSERT INTO `sentmsg` (`MsgId`, `FromName`, `Subject`, `Date`, `Time`, `Messages`, `Open`, `UserId`, `NEWMSGID`) VALUES
-(6, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431080492, '3', 0, 40, 13);
+(9, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431082818, 'das', 0, 40, 16),
+(10, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431083035, 'sasa', 0, 40, 16);
 
 -- --------------------------------------------------------
 
@@ -398,14 +403,15 @@ CREATE TABLE IF NOT EXISTS `spcmsg` (
   `NEWMSGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`SPCMSGID`),
   KEY `MSGID` (`MSGID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumpning av Data i tabell `spcmsg`
 --
 
 INSERT INTO `spcmsg` (`SPCMSGID`, `MSGID`, `MESSAGE`, `Name`, `TIME`, `DATE`, `NEWMSGID`) VALUES
-(3, 13, '3', 'Tommy', 1431080492, 'May/08/2015', 13);
+(5, 16, 'das', 'Tommy', 1431082818, 'May/08/2015', 16),
+(6, 16, 'sasa', 'Tommy', 1431083035, 'May/08/2015', 16);
 
 -- --------------------------------------------------------
 

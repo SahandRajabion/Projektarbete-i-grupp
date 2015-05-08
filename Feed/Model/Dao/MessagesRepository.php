@@ -294,15 +294,15 @@ require_once('Model/MessagesSent.php');
  	 public function addReplayMessage($msgID,$msg,$name,$time,$date,$newMsgId) {
  		try 	
  		{
-			$sql = "INSERT INTO spcMsg (" . self::$MSGID . ","  . self::$MESSAGE . ","  . self::$Name .  ","  . self::$TIME .  ","  . self::$DATE .","  . self::$NEWMSGID .") VALUES (?, ?,?,?,?,?)";
+			$sql = "INSERT INTO spcmsg (" . self::$MSGID . ","  . self::$MESSAGE . ","  . self::$Name .  ","  . self::$TIME .  ","  . self::$DATE .","  . self::$NEWMSGID .") VALUES (?, ?,?,?,?,?)";
 			$params = array($msgID, $msg,$name,$time,$date,$newMsgId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
  		}
- 		catch (Exception $e) 
- 		{
- 			die('An unknown error has happened');
- 		}
+ 		 catch (Exception $e) 
+ 		 {
+ 		 	die('An unknown error has happened');
+ 		 }
  	}
 
 	public function GetNrOfMsg() {	
