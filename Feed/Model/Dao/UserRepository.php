@@ -397,7 +397,20 @@ class UserRepository extends Repository
 					return false;
 				}
 
-			}
-		
+			}	
+	}
+
+
+	public function searchAutoCompleteUserNames($keyword){
+
+		$sql = "SELECT Username FROM user WHERE Username LIKE (:keyword) ORDER BY UserId ASC LIMIT 0, 7";
+		$query = $this->db->prepare($sql);
+		$query->bindParam(':keyword', $keyword, PDO::PARAM_STR);
+		$query->execute();
+		$list = $query->fetchAll();
+
+		return $list;
+
+
 	}
 }
