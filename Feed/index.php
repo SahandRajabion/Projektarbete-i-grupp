@@ -26,12 +26,10 @@ catch (Exception $e)
 	}
 }
 
-// Kan fucka up de för dom andra som använder denna JavaScript
 //<script type='text/javascript' src='js/jquery.min.js'></script>
 //<link rel='stylesheet' href='css/bootstrap.min.css'>
 
 
-// FÅR INDIVIDUELL CSS I VARJE HTML UTSKRIVNING ANNARS KAOS
 ?>
 
 <script type='text/javascript' src='js/LoadMoreItems.js'></script>

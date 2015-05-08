@@ -11,7 +11,7 @@
 		private  $Open;
 		private $userid;	
 
-		public function __construct($MsgId,$FromName,$Subject,$Date,$Time,$Messages,$Open,$userid) {
+		public function __construct($MsgId, $FromName, $Subject, $Date, $Time, $Messages, $Open, $userid) {
 			
 			$this->MsgId = $MsgId;
 			$this->FromName = $FromName;
@@ -36,7 +36,6 @@
 
 			return $this->FromName;
 		}
-
 
 		public function getSubject() {
 			return $this->Subject;

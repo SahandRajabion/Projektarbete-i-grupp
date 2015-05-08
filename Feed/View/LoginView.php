@@ -145,7 +145,7 @@ class LoginView extends BaseView
           <div class="row">
             <div class="col-md-4">
               <h2>Contact us</h2>
-              <p>If you have any suggestions or questions about Linnaéus Social Network. </p>
+              <p>If you have any suggestions or questions about Linnéus Social Network, do not hesitate to contact. </p>
               <p>
               <a class="btn btn-default" name="ContactUs" href="?' . $this->ContactLocation . '" role="button">
               <span class="glyphicon glyphicon-envelope" aria-hidden="true" /></span>
@@ -155,7 +155,7 @@ class LoginView extends BaseView
             </div>
             <div class="col-md-4">
               <h2>Forgot password</h2>
-              <p>If you have forgot your password to your account on Linnaéus Social Network. </p>
+              <p>If you have forgot your password to your account, just click the button below to restore your password.</p>
               <p>
               <a class="btn btn-default" href="?' . $this->forgetPasswordLocation . '" name="' . $this->forgetPasswordLocation . '" role="button">
               <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>

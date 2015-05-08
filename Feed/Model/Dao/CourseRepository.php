@@ -187,11 +187,11 @@ require_once('Model/Dao/Repository.php');
 
 			$results = $query->fetchAll();
 			if ($results) {
-				# code...
+
 				foreach ($results as $result) 
 				{
 					if ($result['CourseName'] == $courseName) {
-						# code...
+						
 						$courseid =  $result['CourseId'];
 					}
 				

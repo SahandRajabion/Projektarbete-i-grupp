@@ -31,8 +31,6 @@
 
 		public function InboxHTML() {
 			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
-			//$total = $this->messagesRepository->GetNrOfMsg();
-
 			
 			$html = '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
@@ -55,13 +53,11 @@
 					'</tr>'.
 					'</table>';		
 					if ($inboxes != null) {
-						# code...
 
 						foreach ($inboxes as $inbox) {
 						
-							# code...
 							if ($inbox->getOpen() == 0) {
-							# code...
+
 							$open = '<img src="img/not_open.png" alt="NotOpened" title="NotOpened" />';
 							}
 							else {
@@ -97,7 +93,6 @@
 
 
 		public function SendHTML() {
-			//$total = $this->messagesRepository->GetNrOfMsg();
 
 			$UserName = $this->userRepository->getUsernameFromId($this->loginModel->getId());
 						
@@ -124,7 +119,6 @@
 					'</tr>'.
 					'</table>';		
 					if ($sendMsgs != null) {
-						# code...
 
 						foreach ($sendMsgs as $sendMsg) {	
 
@@ -183,16 +177,14 @@
 					'<strong>'.time_passed($msg->getTime()).'</strong>'.
 					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
 					if ($replayMsgs != null ) {
-						# code...
+
 						foreach ($replayMsgs as $replayMsg) {
 
-						//	if ($replayMsg->getNewMsgId() != null || $replayMsg->getNewMsgId() != "" || $replayMsg->getNewMsgId() != 0) {
-								# code...
+					
 								 $html .=	
 									'<div id="msg">'.
 									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> wrote : ".$replayMsg->getMessages().'</pre>'.
 									'</div>';
-							//}
 						
 						}
 					}
