@@ -91,9 +91,12 @@ class UserRepository extends Repository
 
 		$email = $this->getEmailFromId($id);
 
-		$user = new User(null, null, $email, $result[self::$firstName], $result[self::$lastName],  $result[self::$sex],  $result[self::$birthday], $result[self::$schoolForm], $result[self::$institute]);
-
-		return $user;
+		if ($result) {
+			$user = new User(null, null, $email, $result[self::$firstName], $result[self::$lastName],  $result[self::$sex],  $result[self::$birthday], $result[self::$schoolForm], $result[self::$institute]);
+			return $user;
+		}
+		
+		return null;
 	}
 
 	public function getEmailFromId($id) 

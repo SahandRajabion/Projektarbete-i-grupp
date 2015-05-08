@@ -26,12 +26,9 @@ catch (Exception $e)
 	}
 }
 
-//<script type='text/javascript' src='js/jquery.min.js'></script>
-//<link rel='stylesheet' href='css/bootstrap.min.css'>
-
-
 ?>
 
+<script src="js/oldJquery.js"></script>
 <script type='text/javascript' src='js/LoadMoreItems.js'></script>
 <script type='text/javascript' src='js/GetLatestItems.js'></script>
 <script type='text/javascript' src='js/InsertComment.js'></script>

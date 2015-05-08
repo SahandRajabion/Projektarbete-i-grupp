@@ -5,13 +5,16 @@ require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
 require_once('Model/LoginModel.php');
 require_once('Model/Token.php');
+require_once('Model/Dao/MessagesRepository.php');
 
 
 class ProfileView extends BaseView
 {
+  private $messageRepository;
   private $mainView;
   private $imagesModel;
   private $pic;
+  private $pic2;
   private $loginModel;
 
   function __construct()
@@ -19,6 +22,7 @@ class ProfileView extends BaseView
     $this->mainView = new HTMLView();
     $this->imagesModel = new ImagesModel();
     $this->loginModel = new LoginModel();
+    $this->messageRepository = new MessagesRepository();
   }
 
   public function didUserPressToEditProfile() 
@@ -42,11 +46,15 @@ class ProfileView extends BaseView
 
     $Images = glob("imgs/*.*");
 
+    if ($this->loginModel->getId() == $this->getId()) {
+
     $html = '<!DOCTYPE html>
         <html>
         <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="css/custom.css" /> 
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/styles.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>LSN</title>
         </head>
@@ -60,7 +68,6 @@ class ProfileView extends BaseView
 
     $html .= '<div id="imgContainer">';
 
-    if ($this->loginModel->getId() == $this->getId()) {
 
        $html .= "
         <br><br>
@@ -291,22 +298,68 @@ class ProfileView extends BaseView
         // IF NOT THE ONE WHO OWNS PROFILE
         else
         {
-            foreach ($Images as $value) {  
-              $img = $this->imagesModel->getImages($this->getId());
+
+          $username = $this->loginModel->getUsername();
+
+          $adminMenu = "";
+          $userPic = "";
+          $userPicProfile = "";
+
+
+          if ($this->loginModel->isAdmin()) 
+          {
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+          }
+
+    /// PROFIL BILD FÖR NAV 
+    $users = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+    $Images = glob("imgs/*.*");
+    
+    foreach ($Images as $value) 
+    {  
+        $img = $this->imagesModel->getImages($this->loginModel->getId());
+        if ($img->getImgName() == basename($value)) 
+        {        
+          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $username . '</label></div>';
+          $this->pic = $value;
+        }
+    }
+
+    if (basename($this->pic) === "" && $users->getSex() == "Man") 
+    {
+        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $username . '</label></div>';
+    }
+    else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
+    {
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $username . '</label></div>';
+    }
+
+
+
+      if ($this->loginModel->GetUserProfileDetails($this->getId()) !== NULL) {
+
+      // PROFIL SIDANS USERS BILD
+            foreach ($Images as $value) 
+            { 
+            $img = $this->imagesModel->getImages($this->getId());
+
+            if ($img !== null && empty($img) == false) {
               if ($img->getImgName() == basename($value)) {
-                  $html .= '<div id="imgArea"><img src="'.$value.'">';
-                  $this->pic = $value;
+                  $userPicProfile .= $value;
+                  $this->pic2 = $value;
               }
             }
+          }
 
          $user = $this->loginModel->GetUserProfileDetails($this->getId());
-          if(basename($this->pic) === "" && $user->getSex() == "Man") 
+
+          if(basename($this->pic2) === "" && $user->getSex() == "Man") 
           {
-            $html .= '<div id="imgArea"><img src="img/default.jpg">';
+            $userPicProfile .= 'img/default.jpg';
           }
-         else if(basename($this->pic) === "" && $user->getSex() == "Kvinna")
+         else if(basename($this->pic2) === "" && $user->getSex() == "Kvinna")
          {
-           $html .= '<div id="imgArea"><img src="img/kvinna.png">';
+           $userPicProfile .= 'img/kvinna.png';
          }
 
 
@@ -314,31 +367,167 @@ class ProfileView extends BaseView
 
             $age = "";
 
-            if ($birthday != "0000-00-00") 
+            if ($birthday != "0000-00-00" && $birthday !== NULL) 
             {
               $age = $this->calculateAge($birthday);
             }
-          
+    }
 
-            $html .=
 
-             '
-            <strong>Förnamn:</strong> <br>' . $user->getfName() . '<br>
-            <strong>Efternamn:</strong> <br>' . $user->getlName() . ' <br>
-            <strong>Kön:</strong> <br> '  . $user->getSex() .  ' <br>
-            <strong>Ålder:</strong> <br> ' . $age . ' <br>
-            <strong>Program:</strong> <br> ' . $user->getInstitute() . ' <br>
-            <strong>Studieform:</strong> ' . $user->getSchoolForm(). '</br>'.
-            '</br>'.
-            '<a href="?'.$this->msgFormLocation.'&'.$this->id.'='.$this->getId().'">Send message to '.$user->getfName().'</a>';
-          
+
+     $html = 
+    '<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <link rel="icon" href="../../favicon.ico">
+
+        <title> ' .  $this->escape($this->loginModel->GetUserNameById($this->getId())) . ' Profile | LSN</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/customCss.css" rel="stylesheet">
+
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      </head>
+
+      <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="?">LSN</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+              <li>' . $userPic . '</li>
+                ' . $adminMenu . '
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+              </ul>
+              
+            <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+
+            </div>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li><a href="?">Available Programmes</a></li>';
+           
+                $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
+
             
+                  if ($open != null) {
+                        # code...
+                       if ($open == 1) {
+                         # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                       }
+                  }
+                  else {
+                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+                  }
+                 
+                
 
-        $html .='</div>
+
+              
+                   
+               
+              
+              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+              '</ul>
+            </div>';
+
+
+            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            ' . $this->message . '';
+
+        if ($this->loginModel->GetUserProfileDetails($this->getId()) !== NULL) {
+          $html .= '<div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">' . $this->escape($this->loginModel->GetUserNameById($this->getId())) . '</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="Profile Picture" src="' . $userPicProfile . '" height="100" width="100" class="img-circle"> </div>
+                
+
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>First Name:</td>
+                        <td>'. $this->escape($user->getfName()) . '</td>
+                      </tr>
+
+                      <tr>
+                        <td>Last Name:</td>
+                        <td>' . $this->escape($user->getlName()) . '</td>
+                      </tr>
+
+                      <tr>
+                        <td>Age</td>
+                        <td> ' . $age . '</td>
+                      </tr>
+                   
+                      <tr>
+                        <td>Gender</td>
+                        <td> ' . $user->getSex() . '</td>
+                      </tr>
+
+                      <tr>
+                        <td>Program</td>
+                        <td>' . $this->programToString($user->getInstitute()) . '</td>
+                      </tr>
+
+
+                      <tr>
+                        <td>Study Form</td>
+                        <td>' . $user->getSchoolForm(). '</td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  
+                  <a href="'.$this->msgFormLocation.'&'.$this->id.'='.$this->getId().'" class="btn btn-primary"><i class="glyphicon glyphicon-envelope"></i> Send message</a>
                 </div>
-                </div>
-        </body>
-        </html>';
+              </div>
+            </div>';
+          }
+          else 
+          {
+             $html .= "<h4>This user does not exist</h4>";
+          }
+
+     $html .= '<script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+      </body>
+    </html>';
+
       }
       
       return $html;
@@ -392,4 +581,21 @@ class ProfileView extends BaseView
 
     return $age = $birthday->diff($today)->y;
   }
-}
+
+  public function programToString($id) 
+  {
+    if ($id === "2") 
+    {
+        return "Utvecklare av digitala tjänster";
+    }
+    else if ($id === "1") 
+    {
+      return "Webbprogrammerare";
+    }
+
+    else if ($id === "3")
+    {
+      return "Interaktionsdesigner";
+    }
+  }
+ }

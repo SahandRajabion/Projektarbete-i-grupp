@@ -61,7 +61,7 @@ class ProgramView extends baseView {
 
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Progams | LSN</title>
+        <title>Available Progammes | LSN</title>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/customCss.css" rel="stylesheet">
@@ -85,17 +85,20 @@ class ProgramView extends baseView {
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 
-              <form action="?" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
-                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" placeholder="Search..." class="form-control">
-                <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary">Search</button>
-              </form>
-
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
                 ' . $adminMenu . '
                 <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->model->getId(). '">My profile</a></li>
                 <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
               </ul>
+
+              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+                            <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+              </div>
+            </form>
+
             </div>
           </div>
         </nav>
@@ -104,7 +107,7 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="?">Available Programs <span class="sr-only">(current)</span></a></li>';
+                <li class="active"><a href="?">Available Progammes <span class="sr-only">(current)</span></a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
 
@@ -135,7 +138,7 @@ class ProgramView extends baseView {
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             ' . $this->message . '
-              <h1 class="page-header">Available Programs</h1>
+              <h1 class="page-header">Available Progammes</h1>
 
               <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">

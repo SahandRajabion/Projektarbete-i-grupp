@@ -21,6 +21,11 @@ class LoginModel{
         $this->logRepository = new LogRepository();
     }
 
+    public function GetUserNameById($id) 
+    {
+        return $this->userRepository->getUsernameFromId($id);
+    }
+    
     public function GetUserProfileDetails($id) 
     {
         return $this->userRepository->GetUserProfileDetails($id);
