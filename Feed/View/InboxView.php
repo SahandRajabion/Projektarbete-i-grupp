@@ -31,6 +31,8 @@
 
 		public function InboxHTML() {
 			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
+			//$total = $this->messagesRepository->GetNrOfMsg();
+
 			
 			$html = '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
@@ -53,11 +55,13 @@
 					'</tr>'.
 					'</table>';		
 					if ($inboxes != null) {
+						# code...
 
 						foreach ($inboxes as $inbox) {
 						
+							# code...
 							if ($inbox->getOpen() == 0) {
-
+							# code...
 							$open = '<img src="img/not_open.png" alt="NotOpened" title="NotOpened" />';
 							}
 							else {
@@ -93,6 +97,7 @@
 
 
 		public function SendHTML() {
+			//$total = $this->messagesRepository->GetNrOfMsg();
 
 			$UserName = $this->userRepository->getUsernameFromId($this->loginModel->getId());
 						
@@ -113,12 +118,14 @@
 					'<table>'.
 					'<tr>'.
 					'<td>To</td>'.
+					'<td>Subject</td>'.
 					'<td>Date</td>'.
 					'<td>Time</td>'.
 					'<td>Message</td>'.
 					'</tr>'.
 					'</table>';		
 					if ($sendMsgs != null) {
+						# code...
 
 						foreach ($sendMsgs as $sendMsg) {	
 
@@ -128,6 +135,7 @@
 								'<div id="msg">'.
 								'<table>'.
 								'<td><strong>'.$ToUserName.'</strong></td>'.
+								'<td><strong>'.$sendMsg->getSubject().'</strong></td>'.
 								'<td><strong>'.$sendMsg->getDate().'</strong></td>'.
 								'<td><strong>'.time_passed($sendMsg->getTime()).'</strong></td>'.
 								'<td><strong><a href="?'.$this->sentMsgLocation.'&'.$this->id.'='.$sendMsg->getMsgId().'">Message</a></strong></td>'.
@@ -177,14 +185,16 @@
 					'<strong>'.time_passed($msg->getTime()).'</strong>'.
 					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
 					if ($replayMsgs != null ) {
-
+						# code...
 						foreach ($replayMsgs as $replayMsg) {
 
-					
+						//	if ($replayMsg->getNewMsgId() != null || $replayMsg->getNewMsgId() != "" || $replayMsg->getNewMsgId() != 0) {
+								# code...
 								 $html .=	
 									'<div id="msg">'.
 									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> wrote : ".$replayMsg->getMessages().'</pre>'.
 									'</div>';
+							//}
 						
 						}
 					}
@@ -232,8 +242,8 @@
 
 			$html = 
 					'</br>'.
-					'<script type="text/javascript" src="js/jquery.js"></script>'.
-					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+						'<script type="text/javascript" src="js/jquery.js"></script>'.
+						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
 					'<a href="?'.$this->sendLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
@@ -241,7 +251,14 @@
 					'</br>'.
 					'<a class="remove btn danger" href="?'.$this->removeSentLocation.'&'.$this->id.'='.$this->getId().'">Delete this message</a>'.
 					'<div id="msg">'.
+					'<strong>From: </strong>'.
+					'<strong>'.$msg->getFromName().'</strong>'.
 					'</br>'.
+					'<strong>Date: </strong>'.
+					'<strong>'.$msg->getDate().'</strong>'.
+					'</br>'.
+					'<strong>Time: </strong>'.
+					'<strong>'.time_passed($msg->getTime()).'</strong>'.
 					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
 					if ($replayMsgs != null) {
 						# code...
