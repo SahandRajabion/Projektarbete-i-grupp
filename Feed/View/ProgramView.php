@@ -95,8 +95,8 @@ class ProgramView extends baseView {
               <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
-                            <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
               </div>
+              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
             </form>
 
             </div>
