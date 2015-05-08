@@ -75,7 +75,7 @@ require_once('Model/MessagesSent.php');
  				# code...
  			  foreach($results as $result) {
 
-					$array[] = new MessagesSent($result[self::$MsgId],$result[self::$Date],$result[self::$Time],$result[self::$Messages],$result[self::$UserId]);
+					$array[] = new MessagesSent($result[self::$MsgId],$result[self::$Date],$result[self::$Time],$result[self::$Messages],$result[self::$UserId],$result[self::$Subject]);
 			  }
 
 			  return $array;
