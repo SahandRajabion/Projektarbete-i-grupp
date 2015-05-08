@@ -16,7 +16,7 @@ class LoggedInView extends BaseView
     public function __construct() {
         $this->model = new LoginModel();
         $this->imagesModel = new ImagesModel();
-        $this->feedView = new FeedView();
+        $this->feedView = new FeedView($this->model);
     }
 
     public function GetUserProfileDetails($id) 

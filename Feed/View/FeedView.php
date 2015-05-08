@@ -31,13 +31,13 @@ class FeedView extends BaseView
    
 
 
-    public function __construct() 
+    public function __construct(LoginModel $model) 
     {
         $this->postRepository = new PostRepository();
         $this->userRepository = new UserRepository();
         $this->commentRepository = new CommentRepository();
         $this->courseRepository = new CourseRepository();
-        $this->loginModel = new LoginModel();
+        $this->loginModel = $model;
         $this->uploadView = new UploadView();   
         $this->imagesModel = new ImagesModel();
         $this->rssFeedView = new RSSFeedView();

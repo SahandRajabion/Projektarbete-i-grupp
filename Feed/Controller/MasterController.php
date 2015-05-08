@@ -82,7 +82,7 @@ class MasterController extends Navigation
       	$this->uploadController = new UploadController();
       	$this->courseRepository = new CourseRepository();
       	$this->profileView = new ProfileView();
-      	$this->feed = new FeedView();
+      	$this->feed = new FeedView($this->model);
       	$this->inboxView = new InboxView();
       	$this->messages = new Messages();
       	$this->messageRepository = new MessagesRepository();

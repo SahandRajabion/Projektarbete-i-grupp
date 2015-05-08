@@ -199,13 +199,13 @@ margin-bottom: 8px;
 
 
 .input_container ul {
-  width: 196px;
+  width: 81.5%;
   border: 1px solid #eaeaea;
   position: absolute;
   z-index: 9;
   background: #f3f3f3;
   list-style: none;
-  margin-top: -1px;
+  margin-top: 0px;
 }
 .input_container ul li {
   padding: 2px;
