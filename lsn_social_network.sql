@@ -1,11 +1,11 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 08 maj 2015 kl 02:55
+-- Tid vid skapande: 08 maj 2015 kl 12:25
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.5.8
+-- PHP-version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=366 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=359 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -163,20 +163,13 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (349, '2015-05-07 20:56:30', '127.0.0.1', 1, 'Sahib'),
 (350, '2015-05-07 21:00:43', '127.0.0.1', 1, 'Sahib'),
 (351, '2015-05-07 21:06:18', '127.0.0.1', 1, 'Sahib'),
-(352, '2015-05-07 22:44:12', '127.0.0.1', 1, 'Tommy'),
-(353, '2015-05-07 23:20:28', '127.0.0.1', 1, 'Tommy'),
-(354, '2015-05-07 23:47:50', '127.0.0.1', 0, 'Sahand'),
-(355, '2015-05-07 23:48:55', '127.0.0.1', 1, 'Sahand'),
-(356, '2015-05-07 23:49:40', '127.0.0.1', 1, 'Tommy'),
-(357, '2015-05-07 23:50:19', '127.0.0.1', 1, 'Sahand'),
-(358, '2015-05-07 23:56:41', '127.0.0.1', 1, 'Sahand'),
-(359, '2015-05-08 00:19:52', '127.0.0.1', 1, 'Sahand'),
-(360, '2015-05-08 00:45:34', '127.0.0.1', 1, 'Sahand'),
-(361, '2015-05-08 00:48:36', '127.0.0.1', 1, 'Tommy'),
-(362, '2015-05-08 00:49:04', '127.0.0.1', 0, 'Tommy'),
-(363, '2015-05-08 00:49:08', '127.0.0.1', 1, 'Tommy'),
-(364, '2015-05-08 00:49:47', '127.0.0.1', 1, 'Sahand'),
-(365, '2015-05-08 00:50:34', '127.0.0.1', 1, 'Tommy');
+(352, '2015-05-07 21:21:32', '127.0.0.1', 1, 'Sahib'),
+(353, '2015-05-07 21:30:27', '127.0.0.1', 1, 'Tommy'),
+(354, '2015-05-08 09:28:37', '127.0.0.1', 1, 'Sahib'),
+(355, '2015-05-08 10:19:16', '127.0.0.1', 1, 'Sahib'),
+(356, '2015-05-08 10:19:36', '127.0.0.1', 1, 'Tommy'),
+(357, '2015-05-08 10:21:44', '127.0.0.1', 1, 'Sahib'),
+(358, '2015-05-08 10:22:26', '127.0.0.1', 1, 'Tommy');
 
 -- --------------------------------------------------------
 
@@ -197,6 +190,28 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `UserId` (`UserId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=65 ;
 
+--
+-- Dumpning av Data i tabell `comments`
+--
+
+INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`, `CourseId`) VALUES
+(18, 'dssd', '2015-04-30 15:07:50', 314, 37, 1),
+(20, 'dssd', '2015-04-30 15:12:39', 316, 37, 1),
+(21, 'dsds', '2015-04-30 15:12:45', 314, 37, 1),
+(37, 'Kommentar 1', '2015-04-30 15:32:07', 333, 37, 22),
+(38, 'Kommentar 2', '2015-04-30 15:32:12', 333, 37, 22),
+(39, 'Kommentar 3', '2015-04-30 15:32:20', 337, 37, 22),
+(40, 'Kommentar 4', '2015-04-30 15:32:34', 333, 37, 22),
+(43, 'Kommentar 10', '2015-04-30 15:46:55', 337, 37, 22),
+(44, 'Kommentar 11', '2015-04-30 15:46:59', 337, 37, 22),
+(45, 'Kommentar 12', '2015-04-30 15:47:05', 337, 37, 22),
+(48, 'Tja', '2015-04-30 16:46:52', 334, 37, 22),
+(49, 'Fuaa', '2015-04-30 16:47:04', 334, 37, 22),
+(55, 'hej', '2015-04-30 17:11:51', 334, 37, 22),
+(62, 'fuaa', '2015-04-30 17:25:34', 338, 37, 22),
+(63, 'hej', '2015-04-30 17:26:58', 333, 37, 22),
+(64, 'hejsan', '2015-04-30 17:35:39', 338, 37, 22);
+
 -- --------------------------------------------------------
 
 --
@@ -209,14 +224,15 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseCode` varchar(20) NOT NULL,
   `RssUrl` varchar(255) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumpning av Data i tabell `course`
 --
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`, `RssUrl`) VALUES
-(31, 'Projektarbete i grupp', '2DV409', 'http://coursepress.lnu.se/kurs/projektarbeteigrupp/feed');
+(1, 'Allmänt', '', ''),
+(22, 'fsdfl', 'fsdfld', '');
 
 -- --------------------------------------------------------
 
@@ -239,15 +255,22 @@ CREATE TABLE IF NOT EXISTS `feed` (
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`),
   KEY `CourseId` (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=346 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=343 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
 INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`) VALUES
-(344, NULL, NULL, 'dfgdf', NULL, '2015-05-08 00:49:14', 37, 31),
-(345, NULL, NULL, 'hej<br />', NULL, '2015-05-08 00:49:27', 37, 31);
+(314, NULL, NULL, 'dsds', NULL, '2015-04-30 14:29:37', 37, 1),
+(316, NULL, NULL, 'dssdÃ¤Ã¤', NULL, '2015-04-30 15:10:07', 37, 1),
+(333, NULL, NULL, 'Test 1', NULL, '2015-04-30 15:30:07', 37, 22),
+(334, NULL, NULL, 'Test 2', NULL, '2015-04-30 15:30:10', 37, 22),
+(335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 22),
+(336, NULL, NULL, 'Test 4', NULL, '2015-04-30 15:30:16', 37, 22),
+(337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 22),
+(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 22),
+(342, NULL, NULL, 'hej ', NULL, '2015-05-06 00:32:59', 40, 22);
 
 -- --------------------------------------------------------
 
@@ -279,15 +302,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `NEWMSGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`MsgId`),
   KEY `MsgId` (`MsgId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumpning av Data i tabell `messages`
 --
 
 INSERT INTO `messages` (`MsgId`, `FromName`, `Subject`, `Date`, `Time`, `Messages`, `Open`, `UserId`, `NEWMSGID`) VALUES
-(2, 'Sahand', 'Hej', 'May/08/2015', 1431046209, 'HEj Tommy', 1, 37, 0),
-(3, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431046264, 'Hej Sahand', 0, 42, 2);
+(13, 'Sahib', '1', 'May/08/2015', 1431080078, '\r\n2', 1, 37, 0),
+(14, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431080492, '3', 1, 40, 13);
 
 -- --------------------------------------------------------
 
@@ -323,15 +346,41 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(34, 1, 31),
-(35, 2, 31);
+(24, 2, 22);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `sentmsg`
+--
+
+CREATE TABLE IF NOT EXISTS `sentmsg` (
+  `MsgId` int(11) NOT NULL AUTO_INCREMENT,
+  `FromName` varchar(32) NOT NULL,
+  `Subject` varchar(255) NOT NULL,
+  `Date` varchar(32) NOT NULL,
+  `Time` int(11) NOT NULL,
+  `Messages` text NOT NULL,
+  `Open` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `NEWMSGID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MsgId`),
+  KEY `MsgId` (`MsgId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumpning av Data i tabell `sentmsg`
+--
+
+INSERT INTO `sentmsg` (`MsgId`, `FromName`, `Subject`, `Date`, `Time`, `Messages`, `Open`, `UserId`, `NEWMSGID`) VALUES
+(6, 'Tommy', 'Tommy Replied to you', 'May/08/2015', 1431080492, '3', 0, 40, 13);
 
 -- --------------------------------------------------------
 
@@ -349,14 +398,14 @@ CREATE TABLE IF NOT EXISTS `spcmsg` (
   `NEWMSGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`SPCMSGID`),
   KEY `MSGID` (`MSGID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumpning av Data i tabell `spcmsg`
 --
 
 INSERT INTO `spcmsg` (`SPCMSGID`, `MSGID`, `MESSAGE`, `Name`, `TIME`, `DATE`, `NEWMSGID`) VALUES
-(1, 2, 'Hej Sahand', 'Tommy', 1431046264, 'May/08/2015', 2);
+(3, 13, '3', 'Tommy', 1431080492, 'May/08/2015', 13);
 
 -- --------------------------------------------------------
 
@@ -380,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumpning av Data i tabell `user`
@@ -388,8 +437,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`, `date`) VALUES
 (37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 713847, '20150408_101646.jpg', '2015-04-30 00:41:35'),
+(38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL, NULL),
+(39, 'ssss', 'sahandsdsdd@hotmail.com', '$2a$10$19pBtKlQu2TVLEMmISkpDexYqbYQqWW0CITrx1dHAhV4mPa0wLhxS', 1, 0, NULL, NULL),
 (40, 'Sahib', 'sahib@hotmail.se', '$2a$10$4/BfdHHdF3tT9X364LT9.Os2I5wtNtcRp39g5n6FR2nSDJNJviaYO', 1, 962622, NULL, '2015-04-30 00:17:47'),
-(42, 'Sahand', 'sahandrajabion@gmail.com', '$2a$10$VXTLEILegFSOs/haWlJYoeY/t.gpBu9Xy93ih22T/KGF8oYAwzfVC', 1, 0, NULL, '2015-05-07 23:48:49');
+(41, 'sss', 'saj@hotmail.com', '$2a$10$kpS3ODI0btKFcQQjhHJqOuN8t6qm60g/ZE.AGerJGUQzw74scF1xW', 3, 0, NULL, '2015-04-30 07:23:25');
 
 -- --------------------------------------------------------
 
@@ -409,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   PRIMARY KEY (`userDetailid`),
   KEY `UserId` (`UserId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
 -- Dumpning av Data i tabell `userdetails`
@@ -417,8 +468,10 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 
 INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `sex`, `birthday`, `schoolForm`, `ProgramId`) VALUES
 (34, 37, 'Tommy', 'Nguyen', 'Man', '1994-06-13', 'Campus', 2),
+(35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2),
+(36, 39, 'ssss', 'ssss', 'Man', '1992-05-12', 'Campus', 2),
 (37, 40, 'Sahib', 'Sahib', 'Man', '1990-08-05', 'Campus', 2),
-(39, 42, 'Sahand', 'Rajabion', 'Man', '1992-05-12', 'Campus', 2);
+(38, 41, 'sds', 'dfsfd', 'Man', '1992-12-02', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller
