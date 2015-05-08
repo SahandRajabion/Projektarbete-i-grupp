@@ -53,6 +53,7 @@ class MasterController extends Navigation
     private $rssFeedView;
     private $programView;
     private $name;
+    private $co;
 
 
     private static $Error_Sub_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
@@ -146,16 +147,48 @@ class MasterController extends Navigation
     	        {
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
+	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
 	                $html ='';
-	                foreach ($names as $usernames) {
+	                if ($names != null) {
 	                	# code...
-	                	foreach ($usernames as $name) {
-	                	
-	                			$this->name = $name;
-	                		}	 
-	                		 $userId = $this->userRepository->getUserIdByName($this->name);
-	               			 $html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?profile&id='. $userId .'">'.$this->name.'</a>';
-	           		}
+	                	$html .= '</br><a href="?">Back</a></br><h3>Available users</h3></br>';
+		                foreach ($names as $usernames) {
+		                	# code...
+		                	foreach ($usernames as $name) {
+		                	
+		                		$this->name = $name;
+		                	}	 
+
+		                	$userId = $this->userRepository->getUserIdByName($this->name);
+		               		$html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?profile&id='. $userId .'">'.$this->name.'</a>';
+		           		}
+	                }
+	               
+	                 if ($courses != null) {
+		                 	if ($names == null) {
+		                 		# code...
+		                 		$html .= '</br><a href="?">Back</a>';
+		                 	}
+	                 	$html .= '</br><h3>Available courses</h3></br>';
+		           		foreach ($courses as $course) {
+		                	# code...
+		                	foreach ($course as $co) {
+		                	
+		                		$this->co = $co;
+		                	}	 
+
+		                	$courseId = $this->userRepository->getCourseIdByName($this->co);
+		               		$html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?Course&id='. $courseId .'">'.$this->co.'</a>';
+		           		}
+		           	}
+		           	else {
+
+		           		if ($names == null) {
+		           			# code...
+		           			$html .= '<link href="css/bootstrap.css" rel="stylesheet"><div class="col-sm-3 col-md-6"><a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2></div>';
+		           		}
+		           	}
+
 
 	             return $html;  
              	}

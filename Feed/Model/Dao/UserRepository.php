@@ -20,6 +20,7 @@ class UserRepository extends Repository
 	private static $schoolForm = 'schoolForm';
 	private static $institute = 'ProgramId';
 	private static $birthday = 'birthday';
+	private static $CourseName = "CourseName";
 	private $db;
 	private $users;
 	private $dbTableDetails;
@@ -45,6 +46,36 @@ class UserRepository extends Repository
 		return null;
 	}
 
+
+	public function searchCourse($search) {
+		$sql = "SELECT CourseName FROM course WHERE CourseName like ?";
+		$params = array($search."%");
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetchALL();
+		if ($result) {
+
+			return $result;
+		}
+		return null;
+	}
+
+
+	public function getCourseIdByName($course) {
+		$sql = "SELECT CourseId FROM course WHERE " . self::$CourseName . "= ?";
+		$params = array($course);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetchALL();
+		if ($result) {
+			# code...
+			foreach ($result as $key) {
+				# code...
+				return $key['CourseId'];
+			}
+		}
+		return null;
+	}
 	public function getUserIdByName($user) {
 		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($user);
