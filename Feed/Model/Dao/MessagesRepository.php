@@ -32,13 +32,36 @@ require_once('Model/MessagesSent.php');
 		$this->limit = 8;
 	}
 
+	public function GetMoreMessages($last_id, $user_id) 
+	{
+		try 
+		{
+			$array = array();
+			$sql = "SELECT * FROM $this->table WHERE " . self::$MsgId  ." < ? AND " .  self::$UserId . " = ? ORDER BY " . self::$MsgId . " DESC LIMIT 0, 4";
+			$query = $this->db->prepare($sql);
+			$params = array($last_id, $user_id);
+			$query->execute($params);
+			$messages = $query->fetchAll();
+
+ 			  foreach($messages as $result) {
+
+					$array[] = new MessageModel($result[self::$MsgId],$result[self::$FromName],$result[self::$Subject],$result[self::$Date],$result[self::$Time],$result[self::$Messages],$result[self::$Open],$result[self::$UserId]);
+			  }
+
+			return $array;
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
  	public function GetMessagesForUser($userId) {	
 
 		try 
 		{
 			$array = array();
-			$sql = "SELECT * FROM $this->table  WHERE ".self::$UserId."= ? ORDER BY " . self::$MsgId . " DESC";
+			$sql = "SELECT * FROM $this->table  WHERE ".self::$UserId."= ? ORDER BY " . self::$MsgId . " DESC LIMIT 0,5";
 			$query = $this->db->prepare($sql);
 			$params = array($userId);
 			$query->execute($params);

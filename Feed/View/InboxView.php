@@ -36,9 +36,10 @@
 			
 			$html = '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
+					'<script type="text/javascript">var user_id = ' . $this->getId() . ';</script>' .
 					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/styles.css">'.
+					'<link rel="stylesheet" href="css/style.css">'.
 					'<a href=?>Back</a>'.
 					'</br>'.
 					'</br>';
@@ -69,7 +70,7 @@
 							}
 						
 						    $html .= 
-								'<div id="msg">'.
+								'<div id="msg'.$inbox->getMsgId().'" class="msg">'.
 								'<table>'.
 								'<td><strong>'.$inbox->getFromName().'</strong></td>'.
 								'<td><strong>'.$inbox->getSubject().'</strong></td>'.
@@ -88,6 +89,8 @@
 								 '</div">';
 
 					}
+
+					$html .= "<p id='loader'><img src='images/ajax-loader.gif'></p>";
 			
 					
 
@@ -102,13 +105,13 @@
 			$UserName = $this->userRepository->getUsernameFromId($this->loginModel->getId());
 						
 			$sendMsgs  =  $this->messagesRepository->getMsgByUserName($UserName);
-
 			
 			$html = '</br>'.
 				'<script type="text/javascript" src="js/jquery.js"></script>'.
 				'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
+			
 					'<a href=?>Back</a>'.
 					'</br>'.
 					'</br>';
@@ -150,9 +153,7 @@
 								 '<h3>You do not have any send messages right now!</h3>'.
 								 '</div">';
 
-					}
-			
-					
+					}					
 
 			return $html;
 		}

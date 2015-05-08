@@ -471,7 +471,6 @@ a {
 }
 
  #msg {
-	display:none;
 	margin:2% auto 0 auto;
 	padding:0;
 	width:88%;
@@ -529,9 +528,8 @@ tr.border_bottom td {
 	-webkit-border-radius:5px;
 }
 
-
-#msg {
-	padding:10px;
+.msg {
+	padding:15px;
 }
 
 #msg table, #pages {
