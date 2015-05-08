@@ -398,9 +398,12 @@ class ProfileView extends BaseView
 
         $html .= '<link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/customCss.css" rel="stylesheet">
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
 
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
       </head>
 
       <body>
@@ -422,7 +425,11 @@ class ProfileView extends BaseView
               <div class="form-group">
               <div class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+             
+              <div class="input_container">
+                <input type="text" id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+                <ul id="course_list_id"></ul>
+                </div>
               </div>
               </div>
               <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
