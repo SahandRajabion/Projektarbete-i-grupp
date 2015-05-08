@@ -894,12 +894,9 @@ class LoginController
                        }
                        else 
                        {
-                        $errorMsgForgetEmail = '<div class="alert alert-danger alert-dismissible" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert">
-                                                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <strong>Eposten finns redan registrerad, välj <a href=?forgetPassword>Glömt lösenord</a>
-                                                     för att återställa lösenordet</strong></div>';
-                                                    echo $errorMsgForgetEmail;
+                             $msgId = 57;
+                    $this->model->setMessage($msgId);
+                    $this->setMessage();
                      }
                 }
                 
