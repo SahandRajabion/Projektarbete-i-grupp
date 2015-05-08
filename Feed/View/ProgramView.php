@@ -94,7 +94,7 @@ class ProgramView extends baseView {
               
               <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
               <div class="input_container">
-                <input type="text"  id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+                <input type="text"  id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control1" placeholder="Search">
                 <ul id="course_list_id"></ul>
                 </div>
               </div>
