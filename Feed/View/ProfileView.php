@@ -386,9 +386,17 @@ class ProfileView extends BaseView
 
         <link rel="icon" href="../../favicon.ico">
 
-        <title> ' .  $this->escape($this->loginModel->GetUserNameById($this->getId())) . ' Profile | LSN</title>
+        ';
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        if ($this->loginModel->GetUserProfileDetails($this->getId()) !== NULL) {
+          $html .= '<title> ' .  $this->escape($this->loginModel->GetUserNameById($this->getId())) . '´s Profile | LSN</title>';
+        }
+        else 
+        {
+          $html .= '<title>This user does not exist | LSN</title>';
+        }
+
+        $html .= '<link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/customCss.css" rel="stylesheet">
 
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -468,23 +476,23 @@ class ProfileView extends BaseView
         if ($this->loginModel->GetUserProfileDetails($this->getId()) !== NULL) {
           $html .= '<div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">' . $this->escape($this->loginModel->GetUserNameById($this->getId())) . '</h3>
+              <h3 class="panel-title">' . $this->escape($this->loginModel->GetUserNameById($this->getId())) . '´s Profile</h3>
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="Profile Picture" src="' . $userPicProfile . '" height="100" width="100" class="img-circle"> </div>
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="Profile Picture" src="' . $userPicProfile . '" height="100" width="100"> </div>
                 
 
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
-                        <td>First Name:</td>
+                        <td>First Name</td>
                         <td>'. $this->escape($user->getfName()) . '</td>
                       </tr>
 
                       <tr>
-                        <td>Last Name:</td>
+                        <td>Last Name</td>
                         <td>' . $this->escape($user->getlName()) . '</td>
                       </tr>
 
