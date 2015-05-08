@@ -84,6 +84,13 @@ class ProgramView extends baseView {
               <a class="navbar-brand" href="?">LSN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+            
+              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
@@ -92,12 +99,7 @@ class ProgramView extends baseView {
                 <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
               </ul>
 
-              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-            </form>
+              
 
             </div>
           </div>
