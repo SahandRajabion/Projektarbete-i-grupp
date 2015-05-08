@@ -7,7 +7,7 @@ class LoginMessage {
                               "Invalid information in cookies", 'Username has invalid characters',
                               'Username is taken', 'Passwords is not matching', 'Password need atleast 6 characters',
                               'Username need atleast 3 characters',
-                              "You are logged in and will remembered next time", "You are logged in", "You are logged out",
+                              "You are logged in and will be remembered next time", "You are logged in", "You are logged out",
                               'Registration was successful', "You are logged in with cookies", "ReCaptcha text is incorrect", "You are blocked", "Current password is incorrect",
                               "Password has changed, you have to login again", "New password needs atleast 6 characters", "New password cannot be changed to be same",
                               "Course has to be under a program", "User details has changed", "Email is not a valid email", "Password has invalid characters","Password has been reset", "Email is not matching", "Email already exists, you can choose to reset password" , "Check so every input is filled in correct format", "Check so email is filled and is in valid email", "Check that firstname and surname is filled and is in correct format", "Are you a man or woman?", "Check that your birthdate is in correct format (1999-01-01)", "Are you studying or lecturing on Campus or Distance?", "What program are you studying on Linnaéus University?"

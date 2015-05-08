@@ -99,7 +99,7 @@ class LoginView extends BaseView
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="?">LSN</a>
+              <a class="navbar-brand" href="?">Linnaéus Social Network</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <form action="?" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
@@ -134,7 +134,7 @@ class LoginView extends BaseView
           <div class="container">
             ' . $this->message . '
             <img src="img/lnu-logo.png" class="img-rounded"> <h1>Linnaéus Social Network</h1>
-            <p>Are you a student in computer science institution who is looking to get to know other students or trying to get the lastest information for courses</p>
+            <p>Are you a student at the Linnéus university, studying one of our computer science programs and are interested to get to know your future/current classmates better and at the same time get the latast course updates?</br> Press the button below and get started !</p>
             <p><a class="btn btn-primary btn-lg" href="?' . $this->registerLocation . '" name="' . $this->registerLocation . '" role="button">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Sign up here</a></p>

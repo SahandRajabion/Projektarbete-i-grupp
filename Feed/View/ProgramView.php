@@ -58,7 +58,7 @@ class ProgramView extends baseView {
 
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Progammes | LSN</title>
+        <title>Progams | LSN</title>
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/customCss.css" rel="stylesheet">
@@ -78,7 +78,7 @@ class ProgramView extends baseView {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="?">LSN</a>
+              <a class="navbar-brand" href="?">Linnéus Social Network</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
@@ -95,14 +95,14 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="?">Progammes <span class="sr-only">(current)</span></a></li>'.
+                <li class="active"><a href="?">Available Programs <span class="sr-only">(current)</span></a></li>'.
               '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>'.
-              '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent</a></li>'.
+              '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent Messages</a></li>'.
               '</ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             ' . $this->message . '
-              <h1 class="page-header">Programmes</h1>
+              <h1 class="page-header">Available Programs</h1>
 
               <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
