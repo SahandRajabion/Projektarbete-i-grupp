@@ -1,17 +1,20 @@
 <?php
 require_once('View/BaseView.php');
+require_once('Model/Dao/MessagesRepository.php');
 require_once("./Model/LoginModel.php");
 require_once("./Model/ImagesModel.php");
 
 class ProgramView extends baseView {
     private $model;
     private $pic;
+    private $messageRepository;
     private $imagesModel;
 
     public function __construct() 
     {
       $this->model = new LoginModel();
       $this->imagesModel = new ImagesModel();
+      $this->messageRepository = new MessagesRepository();
     }
 
     public function showCoursePage() {
@@ -95,9 +98,28 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="?">Available Programs <span class="sr-only">(current)</span></a></li>'.
-              '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>'.
-              '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent Messages</a></li>'.
+                <li class="active"><a href="?">Available Programs <span class="sr-only">(current)</span></a></li>';
+           
+                $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
+
+            
+                  # code...
+                  if ($open == true) {
+                    # code...
+                    $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox *</a></li>';
+                  }
+                  else {
+                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>';
+                  }
+                 
+                
+
+
+              
+                   
+               
+              
+              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent Messages</a></li>'.
               '</ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

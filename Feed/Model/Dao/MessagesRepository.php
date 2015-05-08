@@ -305,6 +305,39 @@ require_once('Model/MessagesSent.php');
  		 }
  	}
 
+ 	public function getIfOpenOrNot($userId) {
+
+ 		try 
+		{
+			$array = array();
+			$sql = "SELECT ".self::$Open." FROM $this->table";
+			$query = $this->db->prepare($sql);
+			$params = array($userId);
+			$query->execute($params);
+			$results = $query->fetchAll();
+ 			if ($results) {
+
+ 				# code...
+ 			  foreach($results as $result) {
+ 				foreach ($result as $key) {
+ 					
+ 					while ($key == 1) {
+						return false;
+					}
+ 				}
+					
+			  }
+
+ 			}
+ 			return true;
+			
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+ 	}
+
 	public function GetNrOfMsg() {	
 		try 
 		{
