@@ -84,10 +84,13 @@ class ProgramView extends baseView {
               <a class="navbar-brand" href="?">LSN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-            
+
               <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
               <div class="form-group">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                 <input type="text" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control" placeholder="Search">
+              </div>
               </div>
               <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
             </form>
