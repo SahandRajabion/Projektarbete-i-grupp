@@ -520,7 +520,7 @@ class ProfileView extends BaseView
                     </tbody>
                   </table>
                   
-                  <a href="'.$this->msgFormLocation.'&'.$this->id.'='.$this->getId().'" class="btn btn-primary"><i class="glyphicon glyphicon-envelope"></i> Send message</a>
+                  <a href="?'.$this->msgFormLocation.'&'.$this->id.'='.$this->getId().'" class="btn btn-primary"><i class="glyphicon glyphicon-envelope"></i> Send message</a>
                 </div>
               </div>
             </div>';
