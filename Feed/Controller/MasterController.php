@@ -154,7 +154,7 @@ class MasterController extends Navigation
 	                			$this->name = $name;
 	                		}	 
 	                		 $userId = $this->userRepository->getUserIdByName($this->name);
-	               			 $html .= '<a href="?profile&id='. $userId .'">'.$this->name.'</a></br></br>';
+	               			 $html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?profile&id='. $userId .'">'.$this->name.'</a>';
 	           		}
 
 	             return $html;  
