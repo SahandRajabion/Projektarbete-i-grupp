@@ -17,14 +17,26 @@
 		}
 
 
+		public function getMessageForInbox($msgID) {
+			return $this->messagesRepository->GetAspcMsgForInbox($msgID);
+		}
+
 
 		public function deleteMessage($msgID) {
 			return $this->messagesRepository->DeleteMsg($msgID);
 		}
 
+		public function DeleteSentMsg($msgID) {
+			return $this->messagesRepository->DeleteSentMsg($msgID);
+		}
+
 
 		public function AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgID) {
 			return $this->messagesRepository->addMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgID);
+		}
+
+		public function AddSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgID) {
+			return $this->messagesRepository->addSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgID);
 		}
 
 		public function AddReplayMessage($id,$msg,$name,$time,$date,$newMsgID) {

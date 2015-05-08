@@ -195,7 +195,7 @@ class MasterController extends Navigation
 	            }	
 
 	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveSentMsg()) {
-	            		$this->messages->deleteMessage($this->inboxView->getId());
+	            		$this->messages->DeleteSentMsg($this->inboxView->getId());
 	            		return $this->inboxView->rednerSendMsg();
 	            }	
 
@@ -221,6 +221,7 @@ class MasterController extends Navigation
 				           			else
 				           			{
 				           				$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
+				           				$this->messages->AddSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
 				            			header("Location: ?send&id=" . $this->model->getId());
 				           			}
 				            		
@@ -242,6 +243,7 @@ class MasterController extends Navigation
 	            				# code...
 	                     		$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
 	            				$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	            				$this->messages->AddSentMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
 	            			}
 	            			else
 	            			{

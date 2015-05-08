@@ -159,7 +159,7 @@
 
 		public function showMsg() {
 
-			$msg = $this->messages->getMessage($this->getId());
+			$msg = $this->messages->getMessageForInbox($this->getId());
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());

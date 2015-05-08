@@ -66,7 +66,7 @@ require_once('Model/MessagesSent.php');
 		try 
 		{
 			$array = array();
-			$sql = "SELECT * FROM $this->table  WHERE ".self::$FromName."= ? ORDER BY " . self::$MsgId . " DESC";
+			$sql = "SELECT * FROM sentmsg WHERE ".self::$FromName."= ? ORDER BY " . self::$MsgId . " DESC";
 			$query = $this->db->prepare($sql);
 			$params = array($username);
 			$query->execute($params);
@@ -108,7 +108,7 @@ require_once('Model/MessagesSent.php');
 	public function GetAspcMsg($msgid) {	
 		try 
 		{
-			$sql = "SELECT * FROM $this->table WHERE ".self::$MsgId."= ?";
+			$sql = "SELECT * FROM sentmsg WHERE ".self::$MsgId."= ?";
 			$query = $this->db->prepare($sql);
 			$params = array($msgid);
 			$query->execute($params);
@@ -127,12 +127,33 @@ require_once('Model/MessagesSent.php');
 	}
 
 
+	public function GetAspcMsgForInbox($msgid) {	
+		try 
+		{
+			$sql = "SELECT * FROM $this->table WHERE ".self::$MsgId."= ?";
+			$query = $this->db->prepare($sql);
+			$params = array($msgid);
+			$query->execute($params);
+			$result = $query->fetch();
+ 			if ($result) {
+ 			
+					 return new MessageModel($result[self::$MsgId],$result[self::$FromName],$result[self::$Subject],$result[self::$Date],$result[self::$Time],$result[self::$Messages],$result[self::$Open],$result[self::$UserId]);			
+			  
+ 			}
+			return NULL;
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 	public function getReplayMessage($id) {	
 
 		try 
 		{
 			$array = array();
-			$sql = "SELECT * FROM spcMsg  WHERE ".self::$MSGID."= ? ORDER BY " . self::$SPCMSGID . " ASC";
+			$sql = "SELECT * FROM spcmsg  WHERE ".self::$MSGID."= ? ORDER BY " . self::$SPCMSGID . " ASC";
 			$query = $this->db->prepare($sql);
 			$params = array($id);
 			$query->execute($params);
@@ -188,7 +209,7 @@ require_once('Model/MessagesSent.php');
 		try 
 		{
 			$array = array();
-			$sql = "SELECT * FROM $this->table  WHERE ".self::$FromName."= ?";
+			$sql = "SELECT * FROM sentmsg  WHERE ".self::$FromName."= ?";
 			$query = $this->db->prepare($sql);
 			$params = array($name);
 			$query->execute($params);
@@ -227,6 +248,22 @@ require_once('Model/MessagesSent.php');
  	}
 
 
+ 	public function DeleteSentMsg($msgid) {
+ 		try 	
+ 		{
+			$sql = "DELETE FROM sentmsg WHERE " . self::$MsgId  ."= ?";
+			$params = array($msgid);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			return;
+ 		}
+ 		catch (Exception $e) 
+ 		{
+ 			die('An unknown error has happened');
+ 		}
+ 	}
+
  	public function addMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId) {
  		try 	
  		{
@@ -241,7 +278,19 @@ require_once('Model/MessagesSent.php');
  		}
  	}
 
-
+ 	public function addSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId) {
+ 		try 	
+ 		{
+			$sql = "INSERT INTO sentmsg (" . self::$FromName . ","  . self::$Subject . ", "  . self::$Date . " ," . self::$Time . ", " . self::$Messages .  ", " . self::$Open .", " .  self::$UserId .", " .  self::$NEWMSGID .") VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+			$params = array($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+ 		}
+ 		catch (Exception $e) 
+ 		{
+ 			die('An unknown error has happened');
+ 		}
+ 	}
  	 public function addReplayMessage($msgID,$msg,$name,$time,$date,$newMsgId) {
  		try 	
  		{
