@@ -22,6 +22,7 @@ require_once('Model/MessagesSent.php');
 	private static $DATE ="DATE";
 	private static $SPCMSGID = "SPCMSGID";
 	private static $NEWMSGID = "NEWMSGID";
+	private static $userId = "UserId";
 	private $db;
 	private $table;
 	private $limit;
@@ -56,6 +57,8 @@ require_once('Model/MessagesSent.php');
 		}
 	}
 
+
+
  	public function GetMessagesForUser($userId) {	
 
 		try 
@@ -84,12 +87,13 @@ require_once('Model/MessagesSent.php');
 	}
 
 
+
 	public function getMsgByUserName($username) {
 
 		try 
 		{
 			$array = array();
-			$sql = "SELECT * FROM sentmsg WHERE ".self::$FromName."= ? ORDER BY " . self::$MsgId . " DESC";
+			$sql = "SELECT * FROM sentmsg WHERE ".self::$FromName."= ? ORDER BY " . self::$MsgId . " DESC LIMIT 0,9";
 			$query = $this->db->prepare($sql);
 			$params = array($username);
 			$query->execute($params);
@@ -104,6 +108,45 @@ require_once('Model/MessagesSent.php');
 			  return $array;
  			}
 			return NULL;
+		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+
+	public function getUsernameFromId($id) 
+	{
+
+		$sql = "SELECT * FROM user WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$result = $query->fetch();
+		
+		return $result['Username'];
+	}
+
+	public function GetMoreSentMessages($last_id, $user_id) 
+	{
+		$user_name = $this->getUsernameFromId($user_id);
+		try 
+		{
+			$array = array();
+			$sql = "SELECT * FROM sentmsg WHERE " . self::$MsgId  ." < ? AND " .  self::$FromName . " = ? ORDER BY " . self::$MsgId . " DESC LIMIT 0, 4";
+			$query = $this->db->prepare($sql);
+			$params = array($last_id, $user_name);
+			$query->execute($params);
+			$messages = $query->fetchAll();
+
+ 			  foreach($messages as $result) {
+
+					$array[] = new MessagesSent($result[self::$MsgId],$result[self::$Date],$result[self::$Time],$result[self::$Messages],$result[self::$UserId],$result[self::$Subject]);
+			  }
+
+			return $array;
 		}
 		catch (PDOException $e) 
 		{

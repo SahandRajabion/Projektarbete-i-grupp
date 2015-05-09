@@ -108,6 +108,7 @@
 			
 			$html = '</br>'.
 				'<script type="text/javascript" src="js/jquery.js"></script>'.
+				'<script type="text/javascript">var user_id = ' . $this->loginModel->getId() . ';</script>' .
 				'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<link rel="stylesheet" href="css/styles.css">'.
@@ -135,7 +136,7 @@
 						$ToUserName = $this->userRepository->getUsernameFromId($sendMsg->getUserId());
 
 						    $html .= 
-								'<div id="msg">'.
+								'<div id="msg'.$sendMsg->getMsgId().'" class="msg">'.
 								'<table>'.
 								'<td><strong>'.$ToUserName.'</strong></td>'.
 								'<td><strong>'.$sendMsg->getSubject().'</strong></td>'.
@@ -153,7 +154,9 @@
 								 '<h3>You do not have any send messages right now!</h3>'.
 								 '</div">';
 
-					}					
+					}			
+
+					$html .= "<p id='loader'><img src='images/ajax-loader.gif'></p>";		
 
 			return $html;
 		}
