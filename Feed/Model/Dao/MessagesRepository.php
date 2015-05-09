@@ -33,14 +33,14 @@ require_once('Model/MessagesSent.php');
 		$this->limit = 8;
 	}
 
-	public function GetMoreMessages($last_id, $user_id) 
+	public function GetMoreMessages($last_id, $userId) 
 	{
 		try 
 		{
 			$array = array();
 			$sql = "SELECT * FROM $this->table WHERE " . self::$MsgId  ." < ? AND " .  self::$UserId . " = ? ORDER BY " . self::$MsgId . " DESC LIMIT 0, 4";
 			$query = $this->db->prepare($sql);
-			$params = array($last_id, $user_id);
+			$params = array($last_id, $userId);
 			$query->execute($params);
 			$messages = $query->fetchAll();
 

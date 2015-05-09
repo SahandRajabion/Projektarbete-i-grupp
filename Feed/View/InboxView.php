@@ -36,6 +36,7 @@
 			
 			$html = '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
+					'<script type="text/javascript" src="js/LoadMoreMessages.js"></script>'.
 					'<script type="text/javascript">var user_id = ' . $this->getId() . ';</script>' .
 					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
@@ -107,6 +108,7 @@
 			$sendMsgs  =  $this->messagesRepository->getMsgByUserName($UserName);
 			
 			$html = '</br>'.
+				
 				'<script type="text/javascript" src="js/jquery.js"></script>'.
 				'<script type="text/javascript">var user_id = ' . $this->loginModel->getId() . ';</script>' .
 				'<link rel="stylesheet" href="css/bootstrap.min.css">'.

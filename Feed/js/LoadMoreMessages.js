@@ -13,7 +13,7 @@ $(function() {
                 });
                 
                 var min = Math.min.apply(Math, arrayOfMessageIds);
-
+                    
                 $.ajax({
                     url: 'LoadMoreMessages.php',
                     type: 'POST',

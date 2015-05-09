@@ -29,8 +29,8 @@ catch (Exception $e)
 ?>
 
 <script src="js/oldJquery.js"></script>
-<script type='text/javascript' src='js/LoadMoreSentMsg.js'></script>
-<script type='text/javascript' src='js/LoadMoreMessages.js'></script>
+
+<script type="text/javascript" src="js/LoadMoreSentMsg.js"></script>
 <script type='text/javascript' src='js/LoadMoreItems.js'></script>
 <script type='text/javascript' src='js/GetLatestItems.js'></script>
 <script type='text/javascript' src='js/InsertComment.js'></script>
