@@ -22,6 +22,8 @@ require_once('Model/Dao/Repository.php');
 
 	public function doIdExist($id) 
 	{
+
+	try{
 		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseID . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -35,6 +37,11 @@ require_once('Model/Dao/Repository.php');
 		}
 
 		return true;
+	}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
 	public function GetAllCourseNr($programId) 
@@ -54,7 +61,7 @@ require_once('Model/Dao/Repository.php');
 
 	public function getCourses($nrcourses) 
 	{
-
+		try{
 			foreach ($nrcourses as $key) {
 				$this->key = $key;
 			}
@@ -85,8 +92,16 @@ require_once('Model/Dao/Repository.php');
 			}
 	}
 
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+
 	public function getCourseName($id) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->courseTable  WHERE " . self::$courseID . " = ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -95,9 +110,16 @@ require_once('Model/Dao/Repository.php');
 
 		return $result['CourseName'];
 	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 	
 	public function CourseNameExists($courseName) 
 	{	
+		try{
 		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseName . " = ?";
 		$params = array($courseName);
 		$query = $this->db->prepare($sql);
@@ -111,10 +133,16 @@ require_once('Model/Dao/Repository.php');
 		}
 
 		return true;
+	}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}	
 	
 	public function CourseCodeExists($courseCode) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->courseTable WHERE " . self::$courseCode . " = ?";
 		$params = array($courseCode);
 		$query = $this->db->prepare($sql);
@@ -128,6 +156,12 @@ require_once('Model/Dao/Repository.php');
 		}
 
 		return true;
+	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
 	public function AddCourse($courseName, $courseCode, $rssFeedUrl) {
@@ -166,6 +200,7 @@ require_once('Model/Dao/Repository.php');
 
 	public function getRSSLink($courseId) 
 	{
+		try{
 		$sql = "SELECT RssUrl FROM $this->courseTable  WHERE " . self::$courseID . "= ?";
 		$params = array($courseId);
 		$query = $this->db->prepare($sql);
@@ -174,11 +209,16 @@ require_once('Model/Dao/Repository.php');
 
 		return $result['RssUrl'];
 	}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 	public function getCourseID($courseName) 
 	{
-			
+			try{
 			$sql ="SELECT * FROM $this->courseTable WHERE " . self::$courseName . " = ?";
 			$query = $this->db->prepare($sql);
 			$params = array($courseName);
@@ -203,9 +243,15 @@ require_once('Model/Dao/Repository.php');
 				return null;
 			}
 	}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function checkIfRSSUrlExists($courseId) 
 	{	
+		try{
 		$sql = "SELECT RssUrl FROM $this->courseTable WHERE " . self::$courseID . "= ?";
 		$params = array($courseId);
 		$query = $this->db->prepare($sql);
@@ -214,9 +260,16 @@ require_once('Model/Dao/Repository.php');
 		return $results['RssUrl'];
 	}
 
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 
 	public function searchAutoComplete($keyword)
 	{
+		try{
 		$sql = "SELECT CourseName FROM course WHERE CourseName LIKE (:keyword) ORDER BY CourseId ASC LIMIT 0, 7";
 		$query = $this->db->prepare($sql);
 		$query->bindParam(':keyword', $keyword, PDO::PARAM_STR);
@@ -225,6 +278,12 @@ require_once('Model/Dao/Repository.php');
 
 		return $list;
 
+	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
 

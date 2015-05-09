@@ -49,6 +49,7 @@ require_once('Model/Image.php');
 
 	public function GetUsersPosts($id) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->table WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -57,6 +58,12 @@ require_once('Model/Image.php');
 		$results = $query->fetchAll();
 
 		return $results;
+	}
+
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
  	public function GetLatestPostItems($first_id, $course_id) {	

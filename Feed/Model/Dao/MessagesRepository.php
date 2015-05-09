@@ -118,7 +118,7 @@ require_once('Model/MessagesSent.php');
 
 	public function getUsernameFromId($id) 
 	{
-
+		try{
 		$sql = "SELECT * FROM user WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -127,6 +127,12 @@ require_once('Model/MessagesSent.php');
 		$result = $query->fetch();
 		
 		return $result['Username'];
+	}
+
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
 	public function GetMoreSentMessages($last_id, $user_id) 

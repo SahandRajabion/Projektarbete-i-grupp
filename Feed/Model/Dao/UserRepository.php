@@ -34,6 +34,7 @@ class UserRepository extends Repository
 	}
 
 	public function search($search) {
+		try{
 		$sql = "SELECT username FROM $this->dbTable WHERE username like ?";
 		$params = array($search."%");
 		$query = $this->db->prepare($sql);
@@ -45,9 +46,15 @@ class UserRepository extends Repository
 		}
 		return null;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 	public function searchCourse($search) {
+		try{
 		$sql = "SELECT CourseName FROM course WHERE CourseName like ?";
 		$params = array($search."%");
 		$query = $this->db->prepare($sql);
@@ -60,8 +67,15 @@ class UserRepository extends Repository
 		return null;
 	}
 
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 
 	public function getCourseIdByName($course) {
+		try{
 		$sql = "SELECT CourseId FROM course WHERE " . self::$CourseName . "= ?";
 		$params = array($course);
 		$query = $this->db->prepare($sql);
@@ -76,7 +90,15 @@ class UserRepository extends Repository
 		}
 		return null;
 	}
+
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 	public function getUserIdByName($user) {
+		try{
 		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($user);
 		$query = $this->db->prepare($sql);
@@ -92,8 +114,15 @@ class UserRepository extends Repository
 		return null;
 	}
 
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 
 	public function getUserIdByUserName($user) {
+		try{
 		$sql = "SELECT userid FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($user);
 		$query = $this->db->prepare($sql);
@@ -102,17 +131,29 @@ class UserRepository extends Repository
 
 		return $result;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function editUserDetails(User $user, $userId) 
 	{
+		try{
 		$sql = "UPDATE $this->dbTableDetails SET " . self::$firstName . "= ?, " . self::$lastName . "= ?, " . self::$sex . "= ?, " . self::$birthday . "= ?, " . self::$schoolForm . "= ?, " . self::$institute . "= ? WHERE " . self::$userId . "= ?";
 		$params = array($user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute(), $userId);
 		$query = $this->db->prepare($sql);
 		$query->execute($params);
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function GetUserProfileDetails($id) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->dbTableDetails WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -129,9 +170,15 @@ class UserRepository extends Repository
 		
 		return null;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function getEmailFromId($id) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -141,10 +188,15 @@ class UserRepository extends Repository
 
 		return $result['email'];
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function getUsernameFromId($id) 
 	{
-
+		try{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -154,11 +206,17 @@ class UserRepository extends Repository
 		
 		return $result['Username'];
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 
 
 	public function add(User $user) {
+		try{
 			$sql = "INSERT INTO $this->dbTable (". self::$username .", ". self::$hash .", ". self::$email .") VALUES (?,?,?)";
 			$params = array($user->getUsername(), $user->getPassword(), $user->getEmail());
 			$query = $this->db->prepare($sql);
@@ -167,17 +225,29 @@ class UserRepository extends Repository
 			
 			return $id;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 	public function addDetails(User $user, $id) {
+		try{
 			$sql = "INSERT INTO $this->dbTableDetails (". self::$userId .", ". self::$firstName .", ". self::$lastName .", ". self::$sex . ", ". self::$birthday .", ". self::$schoolForm .", ". self::$institute .") VALUES (?,?,?,?,?,?,?)";
 			$params = array($id, $user->getfName(), $user->getlName(), $user->getSex(), $user->getBirthday(), $user->getSchoolForm(), $user->getInstitute());
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 	
 	
 	public function exists($username) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$username . "= ?";
 		$params = array($username);
 		$query = $this->db->prepare($sql);
@@ -192,10 +262,16 @@ class UserRepository extends Repository
 
 		return true;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 	public function existsEmail($email) 
 	{
+		try{
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$email . "= ?";
 		$params = array($email);
 		$query = $this->db->prepare($sql);
@@ -210,15 +286,26 @@ class UserRepository extends Repository
 
 		return true;
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 	public function get($username) {
+		try{
 			$sql = "SELECT * FROM $this->dbTable WHERE (" . self::$username . ") = ?";
 			$params = array($username);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 			$result = $query->fetch();
 			return $result;
+	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 
 	public function editPassword(User $user)
@@ -285,6 +372,7 @@ class UserRepository extends Repository
 
 
 		public function getEmailForResetPassword($email) {
+			try{
 			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$email . "= ?";
 			$params = array($email);
 			$query = $this->db->prepare($sql);
@@ -307,9 +395,16 @@ class UserRepository extends Repository
 			
 		}
 
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
 
 
 		public function getDateForResetPassword($code) {
+			try{
 			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$code . "= ?";
 			$params = array($code);
 			$query = $this->db->prepare($sql);
@@ -331,6 +426,11 @@ class UserRepository extends Repository
 			}
 			
 		}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 
@@ -371,15 +471,11 @@ class UserRepository extends Repository
 
 
 	public function getAllUserInfoForPassUpdate($code) {
-			
+		try{
 			$sql = "SELECT * FROM $this->dbTable WHERE " . self::$code . "= ?";
-
 			$params = array($code);
-
 			$query = $this->db->prepare($sql);
-
 			$query->execute($params);
-
 			$result = $query->fetch();
 			if ($result == true) 
 			{
@@ -399,10 +495,15 @@ class UserRepository extends Repository
 
 			}	
 	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
 	public function searchAutoCompleteUserNames($keyword){
-
+		try{
 		$sql = "SELECT Username FROM user WHERE Username LIKE (:keyword) ORDER BY UserId ASC LIMIT 0, 7";
 		$query = $this->db->prepare($sql);
 		$query->bindParam(':keyword', $keyword, PDO::PARAM_STR);
@@ -411,6 +512,10 @@ class UserRepository extends Repository
 
 		return $list;
 
-
+	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
 	}
 }

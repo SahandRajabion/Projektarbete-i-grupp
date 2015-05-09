@@ -35,14 +35,15 @@ class CommentRepository extends Repository {
  
 			return $comment;
 		}
-		catch (PDOException $e) 
-		{
-			echo "PDOException : " . $e->getMessage();
-		}
-	}	
+		catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}	
 
 	public function GetUsersComments($id) 
 	{
+	 
+	 try {
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -51,7 +52,12 @@ class CommentRepository extends Repository {
 		$results = $query->fetchAll();
 
 		return $results;
-	}
+		}
+		
+		catch (Exception $e) {
+				die('An unknown error hase happened');
+			}
+		}
 
 	public function DeleteComment($commentId) 
 	{
