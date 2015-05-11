@@ -34,6 +34,7 @@
 			$this->loginController = new LoginController();
 			$this->model = new LoginModel();
 		}
+		
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
 			return $this->uploadPage->hasSubmitToUpload();

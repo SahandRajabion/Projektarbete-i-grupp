@@ -1,6 +1,7 @@
 <?php
 	
 	class ProfilePic {
+		
 		private $imgName;
  		private $userId;
 		public function __construct($imgName,$userId) {

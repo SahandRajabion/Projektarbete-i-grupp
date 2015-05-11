@@ -1,5 +1,6 @@
 <?php
 	require_once('Model/Dao/MessagesRepository.php');
+ 	
  	class Messages {
  		private $messagesRepository;
  		public function __construct() {

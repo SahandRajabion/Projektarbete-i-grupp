@@ -44,12 +44,16 @@ $(document).ready(function () {
             url: "GetLatestComments.php",
             data: {first_comment_id:max, course_id:course_id},              
             success: function (response) {   
+                alert('hej');
+                alert(response);
                 if (response != "") {
                     var obj = JSON.parse(response);
                     $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
+                                        alert(obj.postId);
+
                 }
 
-                setTimeout(getLatestComments, 1000);
+                setTimeout(getLatestComments, 5000);
             }
         });
     }

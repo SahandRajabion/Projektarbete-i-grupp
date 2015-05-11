@@ -1,11 +1,11 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 08 maj 2015 kl 13:06
+-- Tid vid skapande: 11 maj 2015 kl 20:40
 -- Serverversion: 5.6.15-log
--- PHP-version: 5.4.24
+-- PHP-version: 5.5.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `PostId` (`id`),
   KEY `id` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
 
 --
 -- Dumpning av Data i tabell `comments`
@@ -213,7 +213,10 @@ INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`, `CourseId`)
 (55, 'hej', '2015-04-30 17:11:51', 334, 37, 22),
 (62, 'fuaa', '2015-04-30 17:25:34', 338, 37, 22),
 (63, 'hej', '2015-04-30 17:26:58', 333, 37, 22),
-(64, 'hejsan', '2015-04-30 17:35:39', 338, 37, 22);
+(64, 'hejsan', '2015-04-30 17:35:39', 338, 37, 22),
+(65, 'io', '2015-05-11 17:45:51', 337, 37, 23),
+(66, 'gt', '2015-05-11 18:35:37', 356, 37, 23),
+(68, 'fgh', '2015-05-11 18:39:47', 342, 37, 23);
 
 -- --------------------------------------------------------
 
@@ -227,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `CourseCode` varchar(20) NOT NULL,
   `RssUrl` varchar(255) NOT NULL,
   PRIMARY KEY (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumpning av Data i tabell `course`
@@ -235,7 +238,8 @@ CREATE TABLE IF NOT EXISTS `course` (
 
 INSERT INTO `course` (`CourseId`, `CourseName`, `CourseCode`, `RssUrl`) VALUES
 (1, 'Allmänt', '', ''),
-(22, 'fsdfl', 'fsdfld', '');
+(22, 'fsdfl', 'fsdfld', ''),
+(23, 'TestarMashup', 'qwqw', 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/feed');
 
 -- --------------------------------------------------------
 
@@ -250,30 +254,38 @@ CREATE TABLE IF NOT EXISTS `feed` (
   `Post` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserId` int(11) NOT NULL,
+  `UserId` int(11) DEFAULT NULL,
   `CourseId` int(11) DEFAULT NULL,
+  `RssLink` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `imgName` (`imgName`,`code`),
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`),
   KEY `CourseId` (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=343 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=361 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
-INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`) VALUES
-(314, NULL, NULL, 'dsds', NULL, '2015-04-30 14:29:37', 37, 1),
-(316, NULL, NULL, 'dssdÃ¤Ã¤', NULL, '2015-04-30 15:10:07', 37, 1),
-(333, NULL, NULL, 'Test 1', NULL, '2015-04-30 15:30:07', 37, 22),
-(334, NULL, NULL, 'Test 2', NULL, '2015-04-30 15:30:10', 37, 22),
-(335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 22),
-(336, NULL, NULL, 'Test 4', NULL, '2015-04-30 15:30:16', 37, 22),
-(337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 22),
-(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 22),
-(342, NULL, NULL, 'hej ', NULL, '2015-05-06 00:32:59', 40, 22);
+INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`, `RssLink`) VALUES
+(314, NULL, NULL, 'dsds', NULL, '2015-04-30 14:29:37', 37, 23, NULL),
+(316, NULL, NULL, 'dssdÃ¤Ã¤', NULL, '2015-04-30 15:10:07', 37, 23, NULL),
+(333, NULL, NULL, 'Test 1', NULL, '2015-04-30 15:30:07', 37, 23, NULL),
+(334, NULL, NULL, 'Test 2', NULL, '2015-04-30 15:30:10', 37, 23, NULL),
+(335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 23, NULL),
+(336, NULL, '', 'Test 4', NULL, '2015-04-30 15:30:16', 37, 23, NULL),
+(337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 23, NULL),
+(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 23, NULL),
+(342, NULL, NULL, 'hej ', NULL, '2015-05-06 00:32:59', 40, 23, NULL),
+(354, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2014/01/14/forbattrad-json-kod/'),
+(355, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/30/iteration-3-2/'),
+(356, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/16/iteration-3/'),
+(357, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/13/version-2-av-udp-apiet/'),
+(358, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/03/iteration-1/'),
+(359, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/11/12/upp-and-running/'),
+(360, NULL, NULL, 'hg', NULL, '2015-05-11 18:39:43', 37, 23, NULL);
 
 -- --------------------------------------------------------
 
@@ -350,14 +362,15 @@ CREATE TABLE IF NOT EXISTS `programcourse` (
   PRIMARY KEY (`ProgramCourseId`),
   KEY `CourseId` (`CourseId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumpning av Data i tabell `programcourse`
 --
 
 INSERT INTO `programcourse` (`ProgramCourseId`, `ProgramId`, `CourseId`) VALUES
-(24, 2, 22);
+(24, 2, 22),
+(25, 2, 23);
 
 -- --------------------------------------------------------
 

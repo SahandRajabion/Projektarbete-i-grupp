@@ -20,13 +20,14 @@ class PostModel
 		return $this->postRepository->AddVideo($video, $courseId);
 	}
 
-	public function addPost(Post $post, $courseId) 
+	public function addPost($courseId, PostItems $post) 
 	{
-		return $this->postRepository->AddPost($post, $courseId);
+		
+		return $this->postRepository->AddPost($courseId,$post);
 	}
 
 	public function getPosts($post) 
 	{
 		return $this->postRepository->getPosts($post);
 	}
-}
+} 

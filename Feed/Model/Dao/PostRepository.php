@@ -115,21 +115,17 @@ require_once('Model/Image.php');
 		}	
 	}
 
-	public function AddPost(Post $post, $courseId) 
+	public function AddPost( $courseId,PostItems $post) 
 	{
-		try 
-		{	
+
 			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", " .  self::$courseId . ") VALUES (?, ?, ?)";
-			$params = array($post->getPost(), $post->getUserId(), $courseId);
+				$params = array($post->getPost(),$post->getUserId(),$courseId);
+
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
 	
-		} 
-		catch (PDOException $ex) 
-		{
-			die('An unknown error hase happened');
-		}
+	
 	}
 
 	public function getPosts($courseId) 
@@ -200,3 +196,5 @@ require_once('Model/Image.php');
 		}
 	}
  }
+
+ 

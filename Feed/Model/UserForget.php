@@ -8,7 +8,6 @@
 			$this->email = $email;
 		}
 
-
 		public function getEmail() {
 			return $this->email;
 		}

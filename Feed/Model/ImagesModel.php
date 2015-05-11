@@ -1,5 +1,6 @@
 <?php
 	require_once('Model/Dao/ImagesRepository.php');
+ 	
  	class ImagesModel {
  		private $imagesRepository;
  		public function __construct() {

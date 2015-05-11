@@ -1,6 +1,7 @@
 <?php
 	
 	class StartProfileImg {
+		
 		private $imgName;
  		private $username;
 		public function __construct($imgName,$username) {

@@ -6,16 +6,21 @@ require_once('Model/Dao/Repository.php');
  {
 	private $db;
 	private $courseTable;
+	private $rssTable;
  	private static $programID = "ProgramId";
  	private static $courseID = "CourseId";
  	private static $courseName = "CourseName";
  	private static $courseCode = "CourseCode";
  	private static $rssUrl = "RssUrl";
+ 	private static $rssTitleLink = "rssLink";
+
  	private $key;
 
 	public function __construct() {
 		$this->dbTable = "programcourse";
 		$this->courseTable = "course";
+		$this->rssTable = "feed";
+
 
 		$this->db = $this->connection();
 	}
@@ -74,11 +79,11 @@ require_once('Model/Dao/Repository.php');
 
 			$results = $query->fetchAll();
 			if ($results) {
-				# code...
+
 				foreach ($results as $result) 
 				{
 					if ($result['CourseId'] == $this->key) {
-						# code...
+
 						$courseName[] =  $result['CourseName'];
 					}
 				
@@ -181,6 +186,67 @@ require_once('Model/Dao/Repository.php');
 			die('An unknown error has happened');
 		}
 	}
+
+
+	public function checkIfRSSLinkExists($link) 
+	{
+		try{
+		$sql = "SELECT * FROM $this->rssTable WHERE " . self::$rssTitleLink . " = ?";
+		$params = array($link);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetch();
+
+		if ($results == false) 
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+	public function addRSSTitle($rssTitleLink) {
+		try 
+		{	
+			$sql = "INSERT INTO $this->rssTable (" . self::$rssTitleLink . ") VALUES (?)";
+			$params = array($rssTitleLink);
+ 			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+		}
+
+		catch (PDOException $ex) 
+		{
+			die('An unknown error has happened');
+		}
+	}
+
+	public function getRSSData($link) 
+	{
+		try{
+		$sql = "SELECT id FROM $this->rssTable  WHERE " . self::$rssTitleLink . " = ?";
+		$params = array($link);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetch();
+
+		return $result;
+	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+	
 
 	public function AddCourseToProgram($programId, $courseId) {
 		try 

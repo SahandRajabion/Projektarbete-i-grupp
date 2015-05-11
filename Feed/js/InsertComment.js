@@ -19,13 +19,11 @@ $(document).ready(function()
 			if(msg.status)
 			{
 				// Ifall den lyckades så gör så senaste kommentaren visas
-				//$(msg.html).hide().insertBefore('#addCommentContainer' + id).slideDown();
 				$('#body', '#addCommentContainer' + id).val('');
 			}
 
 			else 
-			{
-				// Visa fel om det finns
+			{				// Visa fel om det finns
 				$.each(msg.errors,function(k,v){
 					$('#addCommentContainer' + id + ' label[for='+k+']').append('<span class="error">'+v+'</span>');
 				});
