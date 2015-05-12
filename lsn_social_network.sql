@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 11 maj 2015 kl 20:40
+-- Tid vid skapande: 12 maj 2015 kl 19:34
 -- Serverversion: 5.6.15-log
 -- PHP-version: 5.5.8
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `attempts` (
   `Result` tinyint(1) NOT NULL,
   `Username` varchar(20) NOT NULL,
   PRIMARY KEY (`AttemptID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=362 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=375 ;
 
 --
 -- Dumpning av Data i tabell `attempts`
@@ -172,7 +172,20 @@ INSERT INTO `attempts` (`AttemptID`, `AttemptTime`, `IpAddress`, `Result`, `User
 (358, '2015-05-08 10:22:26', '127.0.0.1', 1, 'Tommy'),
 (359, '2015-05-08 10:59:21', '127.0.0.1', 1, 'Sahib'),
 (360, '2015-05-08 11:00:08', '127.0.0.1', 0, 'Tommy'),
-(361, '2015-05-08 11:00:12', '127.0.0.1', 1, 'Tommy');
+(361, '2015-05-08 11:00:12', '127.0.0.1', 1, 'Tommy'),
+(362, '2015-05-12 01:18:51', '127.0.0.1', 1, 'Sahib'),
+(363, '2015-05-12 01:19:54', '127.0.0.1', 1, 'Tommy'),
+(364, '2015-05-12 02:34:39', '127.0.0.1', 1, 'Sahib'),
+(365, '2015-05-12 02:37:12', '127.0.0.1', 1, 'Tommy'),
+(366, '2015-05-12 10:50:07', '127.0.0.1', 1, 'Sahib'),
+(367, '2015-05-12 11:47:07', '127.0.0.1', 0, 'CoursePressDefault'),
+(368, '2015-05-12 11:47:14', '127.0.0.1', 1, 'CoursePressDefault'),
+(369, '2015-05-12 11:48:20', '127.0.0.1', 1, 'Sahib'),
+(370, '2015-05-12 12:07:55', '127.0.0.1', 1, 'CoursePressDefault'),
+(371, '2015-05-12 13:04:35', '127.0.0.1', 1, 'Sahib'),
+(372, '2015-05-12 16:11:34', '127.0.0.1', 0, 'CoursePressDefault'),
+(373, '2015-05-12 16:11:40', '127.0.0.1', 1, 'CoursePressDefault'),
+(374, '2015-05-12 17:11:57', '127.0.0.1', 1, 'Sahib');
 
 -- --------------------------------------------------------
 
@@ -191,32 +204,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `PostId` (`id`),
   KEY `id` (`id`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=69 ;
-
---
--- Dumpning av Data i tabell `comments`
---
-
-INSERT INTO `comments` (`CommentId`, `body`, `date`, `id`, `UserId`, `CourseId`) VALUES
-(18, 'dssd', '2015-04-30 15:07:50', 314, 37, 1),
-(20, 'dssd', '2015-04-30 15:12:39', 316, 37, 1),
-(21, 'dsds', '2015-04-30 15:12:45', 314, 37, 1),
-(37, 'Kommentar 1', '2015-04-30 15:32:07', 333, 37, 22),
-(38, 'Kommentar 2', '2015-04-30 15:32:12', 333, 37, 22),
-(39, 'Kommentar 3', '2015-04-30 15:32:20', 337, 37, 22),
-(40, 'Kommentar 4', '2015-04-30 15:32:34', 333, 37, 22),
-(43, 'Kommentar 10', '2015-04-30 15:46:55', 337, 37, 22),
-(44, 'Kommentar 11', '2015-04-30 15:46:59', 337, 37, 22),
-(45, 'Kommentar 12', '2015-04-30 15:47:05', 337, 37, 22),
-(48, 'Tja', '2015-04-30 16:46:52', 334, 37, 22),
-(49, 'Fuaa', '2015-04-30 16:47:04', 334, 37, 22),
-(55, 'hej', '2015-04-30 17:11:51', 334, 37, 22),
-(62, 'fuaa', '2015-04-30 17:25:34', 338, 37, 22),
-(63, 'hej', '2015-04-30 17:26:58', 333, 37, 22),
-(64, 'hejsan', '2015-04-30 17:35:39', 338, 37, 22),
-(65, 'io', '2015-05-11 17:45:51', 337, 37, 23),
-(66, 'gt', '2015-05-11 18:35:37', 356, 37, 23),
-(68, 'fgh', '2015-05-11 18:39:47', 342, 37, 23);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=125 ;
 
 -- --------------------------------------------------------
 
@@ -263,29 +251,19 @@ CREATE TABLE IF NOT EXISTS `feed` (
   KEY `id_2` (`id`),
   KEY `UserId` (`UserId`),
   KEY `CourseId` (`CourseId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=361 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=739 ;
 
 --
 -- Dumpning av Data i tabell `feed`
 --
 
 INSERT INTO `feed` (`id`, `imgName`, `Title`, `Post`, `code`, `Date`, `UserId`, `CourseId`, `RssLink`) VALUES
-(314, NULL, NULL, 'dsds', NULL, '2015-04-30 14:29:37', 37, 23, NULL),
-(316, NULL, NULL, 'dssdÃ¤Ã¤', NULL, '2015-04-30 15:10:07', 37, 23, NULL),
-(333, NULL, NULL, 'Test 1', NULL, '2015-04-30 15:30:07', 37, 23, NULL),
-(334, NULL, NULL, 'Test 2', NULL, '2015-04-30 15:30:10', 37, 23, NULL),
-(335, NULL, NULL, 'Test 3<br />', NULL, '2015-04-30 15:30:14', 37, 23, NULL),
-(336, NULL, '', 'Test 4', NULL, '2015-04-30 15:30:16', 37, 23, NULL),
-(337, NULL, NULL, 'Test 5', NULL, '2015-04-30 15:30:21', 37, 23, NULL),
-(338, NULL, NULL, 'dssd', NULL, '2015-04-30 17:01:02', 37, 23, NULL),
-(342, NULL, NULL, 'hej ', NULL, '2015-05-06 00:32:59', 40, 23, NULL),
-(354, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2014/01/14/forbattrad-json-kod/'),
-(355, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/30/iteration-3-2/'),
-(356, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/16/iteration-3/'),
-(357, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/13/version-2-av-udp-apiet/'),
-(358, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/03/iteration-1/'),
-(359, NULL, NULL, NULL, NULL, '2015-05-11 18:35:28', NULL, NULL, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/11/12/upp-and-running/'),
-(360, NULL, NULL, 'hg', NULL, '2015-05-11 18:39:43', 37, 23, NULL);
+(732, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2014/01/14/forbattrad-json-kod/'),
+(733, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/30/iteration-3-2/'),
+(734, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/16/iteration-3/'),
+(735, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/13/version-2-av-udp-apiet/'),
+(736, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/12/03/iteration-1/'),
+(737, NULL, NULL, NULL, NULL, '2015-05-12 17:15:44', 0, 23, 'http://coursepress.lnu.se/kurs/anvanda-komponenter-och-apier/2013/11/12/upp-and-running/');
 
 -- --------------------------------------------------------
 
@@ -448,13 +426,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `Id_2` (`UserId`),
   KEY `Id_3` (`UserId`),
   KEY `UserId` (`UserId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumpning av Data i tabell `user`
 --
 
 INSERT INTO `user` (`UserId`, `Username`, `email`, `Hash`, `Role`, `passreset`, `imgName`, `date`) VALUES
+(0, 'CoursePressDefault', 'sahand___@hotmail.com', '$2a$10$LwMTCO2KkwZeuhwYCS.hgetHKKgY6XlGv/p/HPhpTnr/lQwVV.VYO', 3, 0, NULL, '2015-05-12 11:46:57'),
 (37, 'Tommy', 'tn222eb@student.lnu.se', '$2a$10$yAWlJc1O1Afw.OzqHRvege3No/vPsPQiAGD6QXctK9ThN02S.EaEq', 1, 713847, '20150408_101646.jpg', '2015-04-30 00:41:35'),
 (38, 'Asoglu', 'asoglu@hotmail.com', '$2a$10$d/FkM6YjVwh9bLaapb90zuOSh9qnfJRk.rPdqti6akCwF3R5TBueS', 3, 0, NULL, NULL),
 (39, 'ssss', 'sahandsdsdd@hotmail.com', '$2a$10$19pBtKlQu2TVLEMmISkpDexYqbYQqWW0CITrx1dHAhV4mPa0wLhxS', 1, 0, NULL, NULL),
@@ -479,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   PRIMARY KEY (`userDetailid`),
   KEY `UserId` (`UserId`),
   KEY `ProgramId` (`ProgramId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumpning av Data i tabell `userdetails`
@@ -490,7 +469,8 @@ INSERT INTO `userdetails` (`userDetailid`, `UserId`, `firstname`, `lastname`, `s
 (35, 38, 'Asoglu', 'Abdi', 'Man', '0000-00-00', 'Campus', 2),
 (36, 39, 'ssss', 'ssss', 'Man', '1992-05-12', 'Campus', 2),
 (37, 40, 'Sahib', 'Sahib', 'Man', '1990-08-05', 'Campus', 2),
-(38, 41, 'sds', 'dfsfd', 'Man', '1992-12-02', 'Campus', 2);
+(38, 41, 'sds', 'dfsfd', 'Man', '1992-12-02', 'Campus', 2),
+(39, 0, 'CoursePress', 'RSS', 'Man', '1992-05-12', 'Campus', 2);
 
 --
 -- Restriktioner för dumpade tabeller
