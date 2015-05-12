@@ -23,6 +23,7 @@ require_once('Model/Messages.php');
 require_once('Model/Dao/MessagesRepository.php');
 require_once('View/MessageFormView.php');
 require_once('View/ProgramView.php');
+require_once('View/AdminPanelView.php');
 
 
 class MasterController extends Navigation
@@ -37,6 +38,7 @@ class MasterController extends Navigation
     private $forgetPasswordView;
     private $userRepository;
     private $code;
+    private $adminPanelView;
     private $resetPasswordView;
     private $emailExp;
     private $uploadController;
@@ -64,6 +66,21 @@ class MasterController extends Navigation
   											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   										        <strong>Message is required</strong></div>';
 
+	private static $UpgradeUser = '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong>User has been upgraded</strong></div>';
+
+
+  	private static $DowngradeUser = '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong>User has been downgraded</strong></div>';
+
+  	private static $removeUser = '<div class="alert alert-success alert-dismissible" role="alert">
+  							 				    <button type="button" class="close" data-dismiss="alert">
+  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  										        <strong>User has been removed</strong></div>';
 	function __construct()
 	{
 		$this->adminController = new AdminController();
@@ -145,10 +162,10 @@ class MasterController extends Navigation
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
 	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
-	                $html ='';
+	                $html = $this->getCssView();
 	                if ($names != null) {
 	                	# code...
-	                	$html .= '</br><a href="?">Back</a></br><h3>Available users</h3></br>';
+	                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Available users</h4></div></div></div>';
 		                foreach ($names as $usernames) {
 		                	# code...
 		                	foreach ($usernames as $name) {
@@ -157,16 +174,14 @@ class MasterController extends Navigation
 		                	}	 
 
 		                	$userId = $this->userRepository->getUserIdByName($this->name);
-		               		$html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?profile&id='. $userId .'">'.$this->name.'</a>';
+		               		$html .= '<ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->name.'</a></ul>';
 		           		}
 	                }
 	               
 	                 if ($courses != null) {
-		                 	if ($names == null) {
-		                 		# code...
-		                 		$html .= '</br><a href="?">Back</a>';
-		                 	}
-	                 	$html .= '</br><h3>Available courses</h3></br>';
+		                 		$html .= '<div class="panel panel-info"> <div class="panel-heading">
+	                 			<h4>Available courses</h4>
+          					  </div></div>';
 		           		foreach ($courses as $course) {
 		                	# code...
 		                	foreach ($course as $co) {
@@ -175,17 +190,22 @@ class MasterController extends Navigation
 		                	}	 
 
 		                	$courseId = $this->userRepository->getCourseIdByName($this->co);
-		               		$html .= '<link href="css/bootstrap.css" rel="stylesheet"><br/><a class="input-group-addon" href="?Course&id='. $courseId .'">'.$this->co.'</a>';
+		               		$html .= '<ul class="list-group"><a class="list-group-item" href="?Course&id='. $courseId .'">'.$this->co.'</a></h3></ul>';
 		           		}
 		           	}
 		           	else {
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<link href="css/bootstrap.css" rel="stylesheet"><div class="col-sm-3 col-md-6"><a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2></div>';
+		           			$html .= '<a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2>';
 		           		}
 		           	}
 
+		           	  $html .= '<script src="js/jquery.min.js"></script>
+			        <script src="js/bootstrap.min.js"></script>
+			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			      </body>
+			    </html>';
 
 	             return $html;  
              	}
@@ -262,14 +282,14 @@ class MasterController extends Navigation
 				           			$time = time();
 				           			$MSG = $this->messageFormView->getUserMsg();
 				           			$open = 0;
-				           			if ($sub == "") {
+				           			if ($sub == "" || $MSG == null || empty($MSG) {
 				           				# code...
-				           				echo self::$Error_Sub_TYPE;
+				           				$this->messageFormView->setMessage(self::$Error_Sub_TYPE);
 				           				
 				           			}
-				           			else if ($MSG == "") {
+				           			else if ($MSG == "" || $MSG == null || empty($MSG)) {
 				           				# code...
-				           				echo self::$Error_Msg_TYPE;
+				           				$this->messageFormView->setMessage(self::$Error_Msg_TYPE);
 				           			}
 				           			else
 				           			{
@@ -292,15 +312,16 @@ class MasterController extends Navigation
 	            			$time = time();
 	            			$date = date("M/d/Y");
 	            			$open = 0;
-	            			if ($this->inboxView->getUserReplayMsg() != "") {
+	            			$replayMsg = $this->inboxView->getUserReplayMsg();
+	            			if ($replayMsg == "" || $replayMsg == null || empty($replayMsg)) {
 	            				# code...
-	                     		$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
-	            				$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
-	            				$this->messages->AddSentMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	                     		$this->inboxView->setMessage(self::$Error_Msg_TYPE);
 	            			}
 	            			else
 	            			{
-	            				echo self::$Error_Msg_TYPE;
+	            				$this->messages->AddReplayMessage($this->inboxView->getId(),$this->inboxView->getUserReplayMsg(),$this->inboxView->getReplayUserName(),$time,$date,$this->inboxView->getId());
+	            				$this->messages->AddMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
+	            				$this->messages->AddSentMessage($this->inboxView->getReplayUserName(), $sub, $date, $time,$this->inboxView->getUserReplayMsg(),$open,$this->inboxView->getToUserId(),$this->inboxView->getId());
 	            			}
 
 	            		}
@@ -334,6 +355,51 @@ class MasterController extends Navigation
 	             		return $this->createCourseView->ShowCreateCourseForm();
 	             	}
 
+             	}
+
+
+             	 	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressAdminPanel())
+    	        {
+
+	             	return $this->adminPanelView->renderAdminPanel();
+             	}
+
+
+
+             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressUserList())
+    	        {
+
+    	        	if ($this->adminPanelView->DidUserPressToUppgradeUser()) {
+    	        		# code...
+    	        		$userid = $this->adminPanelView->getUserToUppgrade();
+    	        		$dbRole = $this->userRepository->getRole($userid);
+
+    	        	
+    	        		if($dbRole == 3) {
+    	        			# code...
+    	        			$role = 1; 
+    	        			$this->userRepository->uppGradeUser($role,$userid);
+    	        			$this->adminPanelView->setMessage(self::$UpgradeUser);
+    	        		}
+    	        		else
+    	        		{
+    	        			$role = 3;
+    	        			$this->userRepository->uppGradeUser($role,$userid);
+    	        			$this->adminPanelView->setMessage(self::$DowngradeUser);
+    	        		}
+    	        		
+    	        		
+    	        	}
+
+
+    	        	if ($this->adminPanelView->DidUserPressToRemoveUser()) {
+    	        		# code...
+    	        		$userid = $this->adminPanelView->getUserToRemove();
+    	        	    $this->userRepository->removeUser($userid);
+    	        		$this->adminPanelView->setMessage(self::$removeUser);
+    	        	}
+
+	             	return $this->adminPanelView->renderUserList();
              	}
 
 
@@ -381,5 +447,9 @@ class MasterController extends Navigation
 
 	public function getEmail() {
 		return $this->forgetPasswordView->getEmail();
+	}
+
+	public function getCssView() {
+		return $this->inboxView->cssView();
 	}
 }

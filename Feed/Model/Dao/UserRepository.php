@@ -33,6 +33,80 @@ class UserRepository extends Repository
 		$this->users = new Users();
 	}
 
+
+
+	public function getAllUser() {
+		try{
+		$sql = "SELECT username FROM $this->dbTable";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+		$result = $query->fetchALL();
+
+		if ($result) {
+
+			return $result;
+		}
+		return null;
+	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+
+	public function getRole($userid) {
+	try{
+		$sql = "SELECT Role FROM $this->dbTable WHERE userid = ?";
+		$query = $this->db->prepare($sql);
+		$params = array($userid);
+		$query->execute($params);
+		$result = $query->fetch();
+
+		return $result['Role'];
+		
+	}
+	catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+
+public function removeUser($id) {
+ 		try 	
+ 		{
+			$sql = "DELETE FROM $this->dbTable WHERE " . self::$userId  ."= ?";
+			$params = array($id);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			return;
+ 		}
+ 		catch (Exception $e) 
+ 		{
+ 			die('An unknown error has happened');
+ 		}
+ 	}
+
+
+
+	public function uppGradeUser($role,$userid) 	
+	{
+		try 
+		{
+			$sql = "UPDATE $this->dbTable SET Role = ? WHERE ".self::$userId."= ?";
+			$params = array($role,$userid);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+		}
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}	
+	}
+
+	
 	public function search($search) {
 		try{
 		$sql = "SELECT username FROM $this->dbTable WHERE username like ?";

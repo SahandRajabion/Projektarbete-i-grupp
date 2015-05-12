@@ -59,7 +59,7 @@ class ProfileView extends BaseView
 
           if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
+            $adminMenu .= "<li><a name='AdminPanel' href='?". $this->AdminPanelLocation . "'>Admin Panel</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
