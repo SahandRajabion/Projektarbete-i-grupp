@@ -15,10 +15,11 @@ class PostItems
 	private $creator;
 	private $id;
 	public $date; 
-
+	private $rssPost;
+	private $rssTitle;
 
 	
-	public function __construct($id,$userId, $imgName, $post, $Ptitle, $code, $date, $link, $creator) 
+	public function __construct($id, $userId, $imgName, $post, $Ptitle, $code, $date, $link, $creator, $rssPost, $rssTitle) 
 	{
 		$this->userId = $userId;
 		$this->imgName = $imgName;
@@ -30,7 +31,22 @@ class PostItems
 		$this->date = $date;
 		$this->creator = $creator;
 
+		$this->rssPost = $rssPost;
+		$this->rssTitle = $rssTitle;
+
 	} 
+
+
+	public function getRSSPost() 
+	{
+		return $this->rssPost;
+	}
+
+	public function getRssTitle() 
+	{
+		return $this->rssTitle;
+	}
+
 
 
 	public function getid() 

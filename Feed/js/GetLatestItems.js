@@ -44,8 +44,7 @@ $(document).ready(function () {
             url: "GetLatestComments.php",
             data: {first_comment_id:max, course_id:course_id},              
             success: function (response) {   
-                alert('hej');
-                alert(response);
+              
                 if (response != "") {
                     var obj = JSON.parse(response);
                     $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
@@ -53,7 +52,7 @@ $(document).ready(function () {
 
                 }
 
-                setTimeout(getLatestComments, 5000);
+                setTimeout(getLatestComments, 1000);
             }
         });
     }

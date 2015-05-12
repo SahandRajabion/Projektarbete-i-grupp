@@ -24,6 +24,8 @@ private $imgName = "imgName";
 private $postContent = "Post";
 private $postTitle = "Title";
 private $date = "Date";
+private $pic;
+private $link;
 
 
   public function __construct(LoginModel $model){
@@ -40,16 +42,37 @@ private $date = "Date";
 
     public function showCourseFeed($courseId){
         
-        $username = $this->loginModel->getUsername();
-        $html= "";
-        
-        $adminMenu = "";
-        $pic = "";
+    $this->username = $this->loginModel->getUsername();
+    $adminMenu = "";
+    $userPic = "";
 
-        if ($this->loginModel->isAdmin()) 
-        {
-            $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
+    if ($this->loginModel->isAdmin()) 
+    {
+        $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+    }
+ 
+
+    $user = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+    $Images = glob("imgs/*.*");
+    
+    foreach ($Images as $value) 
+    {  
+        $img = $this->imagesModel->getImgs($this->username);
+        if ($img->getImg() == basename($value)) 
+        {        
+          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $this->username . '</label></div>';
+          $this->pic = $value;
         }
+    }
+
+    if (basename($this->pic) === "" && $user->getSex() == "Man") 
+    {
+        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $this->username . '</label></div>';
+    }
+    else if (basename($this->pic) === "" && $user->getSex() == "Kvinna")
+    {
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $this->username . '</label></div>';
+    }
 
         $html = "<!DOCTYPE html>
         <html>
@@ -58,9 +81,14 @@ private $date = "Date";
         <script src='js/CommentSlideButton.js' type='text/javascript'></script>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
-        <link rel='stylesheet' href='css/style.css' />
-        <link rel='stylesheet' href='css/bootstrap.min.css'>
+
+        <link href='css/bootstrap.min.css' rel='stylesheet'>
+        <link href='css/customCss.css' rel='stylesheet'>
+        <script type='text/javascript' src='jquery.min.js'></script>
+        <script type='text/javascript' src='script.js'></script>
+        
+        <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
+        <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
         <title>LSN</title>
         </head>
 
@@ -68,48 +96,48 @@ private $date = "Date";
         <div class='container'>
         <br>";
 
-        $user = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
-        $Images = glob("imgs/*.*");
-
-            foreach ($Images as $value) {  
-
-              $img = $this->imagesModel->getImgs($username);
-              if ($img->getImg() == basename($value)) {
-
-                $html .= '<div id="imgArea"><img src="'.$value.'"><h4>'.$username.' är inloggad</h4></div>';
-                $pic = $value;
-              }
-            }
-
-        if(basename($pic) === "" && $user->getSex() == "Man") 
-          {
-             $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$username.' är inloggad</h4></div>';
-          }
-         else if(basename($pic) === "" && $user->getSex() == "Kvinna")
-         {
-            $html .= '<div id="imgArea"><img src="img/kvinna.png"><h4>'.$username.' är inloggad</h4></div>';
-         }     
+        
 
        $html .= "
               <br><br>
-              <nav class='navbar navbar-default' role='navigation'>
-              <div class='navbar-header'>
-                <button type='button' class='navbar-toggle' data-toggle='collapse' 
-                   data-target='#example-navbar-collapse'>
-                   <span class='sr-only'>Toggle navigation</span>
-                   <span class='icon-bar'></span>
-                   <span class='icon-bar'></span>
-                   <span class='icon-bar'></span>
-                </button>
-             </div>
-             <div class='collapse navbar-collapse' id='example-navbar-collapse'>
-                <ul class='nav navbar-nav'>
-                $adminMenu
-                   <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->loginModel->getId()."'>Min profil</a></li>
-                   <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
-                </ul>
-             </div>
-          </nav>
+             <nav class='navbar navbar-inverse navbar-fixed-top'>
+          <div class='container'>
+            <div class='navbar-header'>
+              <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false'aria-controls='navbar'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+              </button>
+              <a class='navbar-brand' href='?'>LSN</a>
+            </div>
+            <div id='navbar' class='navbar-collapse collapse'>
+
+              <form class='navbar-form navbar-right' role='search' method='post' enctype='multipart/form-data'>
+              <div class='form-group'>
+              <div class='input-group'>
+              <span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>
+             
+              <div class='input_container'>
+                <input type='text' id='course_id' onkeyup='autocomplet()' name='" . $this->searchLocation . "' size='20' maxlength='20' class='form-control1' placeholder='Search'>
+                <ul id='course_list_id'></ul>
+                </div>
+              </div>
+              </div>
+              <button type='submit' name='" . $this->submitSearchLocation . "' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
+            </form>
+              
+
+              <ul class='nav navbar-nav navbar-right'>
+              <li>'" . $userPic . "'</li>
+                '" . $adminMenu . "'
+                <li><a name='profile' href='?" . $this->userProfileLocation . '&id='.$this->loginModel->getId(). "'>My profile</a></li>
+                <li><a name='logOut' href='?" . $this->logOutLocation . "'>Log out</a></li>
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
           $this->message";
 
          $html .= $this->GetFeedHTML($courseId);
@@ -125,8 +153,9 @@ private $date = "Date";
 
       public function GetFeedHTML($courseId)
       {
-        
-        $feedItems = $this->postRepository->getPosts($courseId);
+        $linkRSS = $this->courseRepository->getRSS($courseId);  
+
+        $feedItems = $this->postRepository->getPosts($courseId, $linkRSS);
         $items = array();
 
         $html = "
@@ -137,13 +166,16 @@ private $date = "Date";
 
         $html .= "<ul id='items'>";
 
-      
+      if($feedItems != null){
+
         foreach ($feedItems as $value) {
          
-         $postItems = new PostItems($value['id'],$value['UserId'], $value['imgName'], $value['Post'], $value['Title'], $value['code'], date('Y-m-d H:i:s', strtotime($value['Date'])), null, null);
+         $postItems = new PostItems($value['id'], $value['UserId'], $value['imgName'], $value['Post'], $value['Title'], $value['code'], date('Y-m-d H:i:s', strtotime($value['Date'])), null, null, null, null);
+  
          $items[] = $postItems;
         }
-
+      }
+        
         $rssURL = $this->courseRepository->checkIfRSSUrlExists($courseId);
 
         if($rssURL != null)
@@ -153,7 +185,7 @@ private $date = "Date";
         foreach($xml->channel->item as $entry){
                   
         $title = $entry->title;
-        $link = $entry->link;
+        $this->link = $entry->link;
         $description = $entry->description;
 
         $pubDate = date('Y-m-d H:i:s', strtotime($entry->pubDate));
@@ -162,26 +194,36 @@ private $date = "Date";
         $dc = $entry->children($namespaces['dc']); 
         $creator = $dc->creator;
         
-          $rssLinkExists = $this->courseRepository->checkIfRSSLinkExists($link);
-          
-          if($rssLinkExists == false){
+        $rssLinkExists = $this->courseRepository->checkIfRSSLinkExists($this->link);
 
-          $this->courseRepository->addRSSTitle($link);
+        $test = null;
+        foreach ($rssLinkExists as $key) {
+          
+          $test .= $key['RssLink']; 
+           
+        }
+      
+          if($test === null){
+
+          $userid = $this->loginModel->getId();
+          $this->courseRepository->addRSSData(0, $courseId, $this->link);
 
           }
 
-          $rssIDs = $this->courseRepository->getRSSData($link);
+          $rssArray = $this->courseRepository->checkIfRSSLinkExists($this->link);
+         
 
-
-         //TODO: Fixa id till comment för RSS
-            foreach ($rssIDs as $id) {
-             $RSSItems = new PostItems($id, null, null, $description , $title, null, $pubDate, $link, $creator);
+            foreach ($rssArray as $rss) {
+              
+             $RSSItems = new PostItems($rss['id'], $rss['UserId'], null, null , null, null, $pubDate, $this->link, $creator, $description, $title);
 
              $items[] = $RSSItems;
     
       }
 
      }
+
+
  }
 
      usort($items, array($this,'sortFeedItemsByDate'));
@@ -189,7 +231,7 @@ private $date = "Date";
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
        
-       if ($this->loginModel->getId() == $key->getUserId()) 
+      /* if ($this->loginModel->getId() == $key->getUserId()) 
         {
           $html .= "<form class='post-remove' method='post' action=''> 
                     <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
@@ -202,20 +244,45 @@ private $date = "Date";
                     <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . BaseView::escape($key->getPTitle()) . "'>
                     <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $key->getid() ."'>
                     <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
-                }
+                }*/
                
 
-                        if ($key->getid() != null) {
+                        $t = $key->getCreator();
+                        if ($key->getCreator() != null || $key->getCreator() != "" || !empty($t)) {
 
-                           $html .="Inlägg skapad av:  ".$key->getCreator()." ";
+                           $html .="Inlägg skapad av:  ".$key->getCreator()." </br>";
                         }   
 
-                        $html .= "<a href='?profile&id=" . $key->getUserId() . "'>" . $this->userRepository->getUsernameFromId($key->getUserId()) . "</a></br>";
+                        $hej = $key->getPost();
+                        if ($key->getPost() != null || $key->getPost() != "" || !empty($hej)){
+                        $q = $key->getUserId();
+                        if ($key->getUserId() != null || $key->getUserId() != "" || !empty($q)) {
+
+
+                          $html .= "<a href='?profile&id=" . $key->getUserId() . "'>" . $this->userRepository->getUsernameFromId($key->getUserId()) . "</a></br>";
+
+                        }}
+
+                        $b = $key->getRssTitle(); 
                         $html .="Datum skapad:</br> ".$key->getDate()."</br> ";
-                        if ($key->getLink() != null) {
-                           $html .= "<a href=" . $key->getLink() . "><h3>".$key->getPTitle()."</h3></a>";
+
+                        if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($b)) {
+                           $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
                         }
-                        $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
+
+                        $a = $key->getRSSPost();
+                        if ($key->getRSSPost() != null || $key->getRSSPost() != "" || !empty($a)) {
+                            $html .=   "<div class='text-values'><p>" . $key->getRSSPost() . "</p></div>";
+                        }
+
+
+                        $hej = $key->getPost();
+                         if ($key->getPost() != null || $key->getPost() != "" || !empty($hej)){
+
+                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
+                        }
+
+                      
                        
                        
                 

@@ -119,8 +119,7 @@ require_once('Model/Image.php');
 	{
 
 			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", " .  self::$courseId . ") VALUES (?, ?, ?)";
-				$params = array($post->getPost(),$post->getUserId(),$courseId);
-
+			$params = array($post->getPost(),$post->getUserId(),$courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
@@ -128,8 +127,42 @@ require_once('Model/Image.php');
 	
 	}
 
-	public function getPosts($courseId) 
+	public function checkIfRSS($link) 
+	{
+		try 
+		{ 
+			$sql = "SELECT * FROM $this->table WHERE RssLink = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($link);
+			$query->execute($params);
+			$rssArray = $query->fetchAll();
+
+		
+			if($rssArray){
+
+				return false;
+
+			}
+
+			return true;
+			
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+
+ }
+
+
+	public function getPosts($courseId, $link) 
 	{		
+		$test = $this->checkIfRSS($link);
+
+	
+		if($test === true){
+		
 		try 
 		{ 
 			$sql = "SELECT * FROM $this->table WHERE CourseId = ? ORDER BY (" .  self::$id . ") DESC LIMIT 0, 4";
@@ -143,6 +176,7 @@ require_once('Model/Image.php');
 		catch (PDOException $e) 
 		{
 			echo "PDOException : " . $e->getMessage();
+		}
 		}
 	}
 

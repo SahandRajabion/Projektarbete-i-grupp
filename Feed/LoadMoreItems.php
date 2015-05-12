@@ -18,7 +18,7 @@ $loginModel = new LoginModel();
 if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_POST['last_id'])
     && isset($_POST["course_id"]) && strlen($_POST['course_id']) > 0 && is_numeric($_POST['course_id']))
 {
-    // Hämtar ut sista id som har postats från Ajax anropet
+    // HÃ¤mtar ut sista id som har postats frÃ¥n Ajax anropet
     $last_id = $_POST['last_id'];
     $course_id = $_POST['course_id'];
 
@@ -27,7 +27,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
     //$last_id = 0;
     $html = "";
 
-    // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+    // Skriver ut varje feed item och sparar undan de sista id som blir frÃ¥n sista feed item
 
     foreach ($feedItems as $feedItem) 
     {

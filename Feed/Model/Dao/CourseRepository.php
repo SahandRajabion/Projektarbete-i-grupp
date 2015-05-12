@@ -12,14 +12,16 @@ require_once('Model/Dao/Repository.php');
  	private static $courseName = "CourseName";
  	private static $courseCode = "CourseCode";
  	private static $rssUrl = "RssUrl";
- 	private static $rssTitleLink = "rssLink";
+ 	private static $rssLink = "rssLink";
+ 	private static $userId = "UserId";
+
 
  	private $key;
 
 	public function __construct() {
 		$this->dbTable = "programcourse";
 		$this->courseTable = "course";
-		$this->rssTable = "feed";
+		$this->feedTable = "feed";
 
 
 		$this->db = $this->connection();
@@ -187,36 +189,14 @@ require_once('Model/Dao/Repository.php');
 		}
 	}
 
+	
+	
 
-	public function checkIfRSSLinkExists($link) 
-	{
-		try{
-		$sql = "SELECT * FROM $this->rssTable WHERE " . self::$rssTitleLink . " = ?";
-		$params = array($link);
-		$query = $this->db->prepare($sql);
-		$query->execute($params);
-
-		$results = $query->fetch();
-
-		if ($results == false) 
-		{
-			return false;
-		}
-
-		return true;
-	}
-
-		catch (PDOException $e) 
-		{
-			echo "PDOException : " . $e->getMessage();
-		}
-	}
-
-	public function addRSSTitle($rssTitleLink) {
+	public function addRSSData($defaultUsrID, $courseId, $link) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->rssTable (" . self::$rssTitleLink . ") VALUES (?)";
-			$params = array($rssTitleLink);
+			$sql = "INSERT INTO $this->feedTable (" . self::$userId .",". self::$courseID . "," . self::$rssLink .") VALUES (?,?,?)";
+			$params = array($defaultUsrID, $courseId, $link);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
 
@@ -228,23 +208,6 @@ require_once('Model/Dao/Repository.php');
 		}
 	}
 
-	public function getRSSData($link) 
-	{
-		try{
-		$sql = "SELECT id FROM $this->rssTable  WHERE " . self::$rssTitleLink . " = ?";
-		$params = array($link);
-		$query = $this->db->prepare($sql);
-		$query->execute($params);
-		$result = $query->fetch();
-
-		return $result;
-	}
-
-		catch (PDOException $e) 
-		{
-			echo "PDOException : " . $e->getMessage();
-		}
-	}
 
 	
 
@@ -352,6 +315,44 @@ require_once('Model/Dao/Repository.php');
 		}
 	}
 
+
+	public function checkIfRSSLinkExists($link) 
+	{
+		try 
+		{ 
+			$sql = "SELECT * FROM $this->feedTable WHERE RssLink = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($link);
+			$query->execute($params);
+			$rssArray = $query->fetchAll();
+
+			return $rssArray;
+			
+		} 
+		
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+
+ }
+
+ public function getRSS($courseId) 
+	{
+		try{
+		$sql = "SELECT RssLink FROM $this->feedTable  WHERE " . self::$courseID . "= ?";
+		$params = array($courseId);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+		$result = $query->fetch();
+
+		return $result['RssLink'];
+	}
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
 
 
  }
