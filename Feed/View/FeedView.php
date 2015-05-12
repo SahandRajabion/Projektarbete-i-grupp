@@ -194,23 +194,23 @@ private $link;
         $dc = $entry->children($namespaces['dc']); 
         $creator = $dc->creator;
         
-        $rssLinkExists = $this->courseRepository->checkIfRSSLinkExists($this->link);
+        $data = $this->courseRepository->getAllRssLinks($this->link);
 
-        $test = null;
-        foreach ($rssLinkExists as $key) {
+        $allLinks = null;
+        foreach ($data as $key) {
           
-          $test .= $key['RssLink']; 
+          $allLinks .= $key['RssLink']; 
            
         }
       
-          if($test === null){
+          if($allLinks === null){
 
           $userid = $this->loginModel->getId();
           $this->courseRepository->addRSSData(0, $courseId, $this->link);
 
           }
 
-          $rssArray = $this->courseRepository->checkIfRSSLinkExists($this->link);
+          $rssArray = $this->courseRepository->getAllRssLinks($this->link);
          
 
             foreach ($rssArray as $rss) {
@@ -231,53 +231,39 @@ private $link;
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
        
-      /* if ($this->loginModel->getId() == $key->getUserId()) 
-        {
-          $html .= "<form class='post-remove' method='post' action=''> 
-                    <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
-                    <input type='hidden' name='" . $this->imgName . "' id='" . $this->imgName . "' value='" . $key->getImgName() . "'>
-                    <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $key->getid() ."'>
-                    </form>";
-
-                    $html .= "<form class='post-edit' method='post' action=''> 
-                    <input type='hidden' name='" . $this->postContent . "' id='" . $this->postContent . "' value='" . BaseView::escape($key->getPost()) . "'>
-                    <input type='hidden' name='" . $this->postTitle . "' id='" . $this->postTitle . "' value='" . BaseView::escape($key->getPTitle()) . "'>
-                    <input type='hidden' name='" . $this->hiddenFeedId . "' id='" . $this->hiddenFeedId . "' value='". $key->getid() ."'>
-                    <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
-                }*/
-               
-
-                        $t = $key->getCreator();
-                        if ($key->getCreator() != null || $key->getCreator() != "" || !empty($t)) {
+     
+                        $creators = $key->getCreator();
+                        if ($key->getCreator() != null || $key->getCreator() != "" || !empty($creators)) {
 
                            $html .="Inlägg skapad av:  ".$key->getCreator()." </br>";
                         }   
 
-                        $hej = $key->getPost();
-                        if ($key->getPost() != null || $key->getPost() != "" || !empty($hej)){
-                        $q = $key->getUserId();
-                        if ($key->getUserId() != null || $key->getUserId() != "" || !empty($q)) {
+                        $posts = $key->getPost();
+                        if ($key->getPost() != null || $key->getPost() != "" || !empty($posts)){
+                        
+                        $usrIds = $key->getUserId();
+                        if ($key->getUserId() != null || $key->getUserId() != "" || !empty($usrIds)) {
 
 
                           $html .= "<a href='?profile&id=" . $key->getUserId() . "'>" . $this->userRepository->getUsernameFromId($key->getUserId()) . "</a></br>";
 
                         }}
 
-                        $b = $key->getRssTitle(); 
+                        $rsstitles = $key->getRssTitle(); 
                         $html .="Datum skapad:</br> ".$key->getDate()."</br> ";
 
-                        if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($b)) {
+                        if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($rsstitles)) {
                            $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
                         }
 
-                        $a = $key->getRSSPost();
-                        if ($key->getRSSPost() != null || $key->getRSSPost() != "" || !empty($a)) {
+                        $rssPosts = $key->getRSSPost();
+                        if ($key->getRSSPost() != null || $key->getRSSPost() != "" || !empty($rssPosts)) {
                             $html .=   "<div class='text-values'><p>" . $key->getRSSPost() . "</p></div>";
                         }
 
 
-                        $hej = $key->getPost();
-                         if ($key->getPost() != null || $key->getPost() != "" || !empty($hej)){
+                        $normalPosts = $key->getPost();
+                         if ($key->getPost() != null || $key->getPost() != "" || !empty($normalPosts)){
 
                             $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
                         }

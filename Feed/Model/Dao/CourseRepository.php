@@ -316,7 +316,7 @@ require_once('Model/Dao/Repository.php');
 	}
 
 
-	public function checkIfRSSLinkExists($link) 
+	public function getAllRssLinks($link) 
 	{
 		try 
 		{ 

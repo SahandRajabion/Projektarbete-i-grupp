@@ -127,7 +127,7 @@ require_once('Model/Image.php');
 	
 	}
 
-	public function checkIfRSS($link) 
+	public function checkRSS($link) 
 	{
 		try 
 		{ 
@@ -158,7 +158,7 @@ require_once('Model/Image.php');
 
 	public function getPosts($courseId, $link) 
 	{		
-		$test = $this->checkIfRSS($link);
+		$test = $this->checkRSS($link);
 
 	
 		if($test === true){
