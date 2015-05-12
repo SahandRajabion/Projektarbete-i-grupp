@@ -42,6 +42,33 @@
 
 			    $html = $this->cssView();
 
+			    $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+		            
+		                  if ($open != null) {
+		                        # code...
+		                       if ($open == 1) {
+		                         # code...
+		                         $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li><span class="sr-only">(current)</span></a></li>';
+		                       }
+		                       else {
+		                           $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li><span class="sr-only">(current)</span></a></li>';
+		                       }
+		                  }
+		                  else {
+		                      $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+		                  }
+		                 
+		              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+		              </ul>
+		            </div>';
+
+
+		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		            ' . $this->message . '';
+
+
 				$html .= '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
 					'<script type="text/javascript" src="js/LoadMoreMessages.js"></script>'.
@@ -50,6 +77,7 @@
 					'<link rel="stylesheet" href="css/customCss.css">'.
 					'</br>';
                 
+
 
 
 			$html .= 
@@ -102,7 +130,9 @@
 								 '</div">';
 
 					}
-			
+				
+
+
 
 			     $html .= '</div><p id="loader"><img src="images/ajax-loader.gif"></p>
 			     <script src="js/jquery.min.js"></script>
@@ -127,6 +157,33 @@
 			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
 			//$total = $this->messagesRepository->GetNrOfMsg();
 			$html = $this->cssView();
+
+
+			$open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+		            
+		                  if ($open != null) {
+		                        # code...
+		                       if ($open == 1) {
+		                         # code...
+		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+		                       }
+		                       else {
+		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+		                       }
+		                  }
+		                  else {
+		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+		                  }
+		                 
+		              $html .= '<li class="active"><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li><span class="sr-only">(current)</span></a></li>'.
+		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+		              </ul>
+		            </div>';
+
+
+		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		            ' . $this->message . '';
 
             $html .= '</br>'.
 				'<link href="css/customCss.css" rel="stylesheet">'.
@@ -200,6 +257,34 @@
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());
+
+
+			 $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+		            
+		                  if ($open != null) {
+		                        # code...
+		                       if ($open == 1) {
+		                         # code...
+		                         $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li><span class="sr-only">(current)</span></a></li>';
+		                       }
+		                       else {
+		                           $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li><span class="sr-only">(current)</span></a></li>';
+		                       }
+		                  }
+		                  else {
+		                      $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+		                  }
+		                 
+		              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+		              </ul>
+		            </div>';
+
+
+
+		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		            ' . $this->message . '';
 
 			$html .= 
 					'</br>'.
@@ -300,6 +385,33 @@
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());
 			$html = $this->cssView();
+
+				$open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+		            
+		                  if ($open != null) {
+		                        # code...
+		                       if ($open == 1) {
+		                         # code...
+		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+		                       }
+		                       else {
+		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+		                       }
+		                  }
+		                  else {
+		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+		                  }
+		                 
+		              $html .= '<li class="active"><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li><span class="sr-only">(current)</span></a></li>'.
+		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+		              </ul>
+		            </div>';
+
+
+		            
+		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		            ' . $this->message . '';
 			$html .= 
 					'</br>'.
 						'<script type="text/javascript" src="js/jquery.js"></script>'.
@@ -555,31 +667,7 @@
 		              <ul class="nav nav-sidebar">
 		                <li><a href="?">Available Programmes</a></li>';
 		           
-		                $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
-
-		            
-		                  if ($open != null) {
-		                        # code...
-		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
-		                       }
-		                  }
-		                  else {
-		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
-		                  }
-		                 
-		              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
-		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
-		              </ul>
-		            </div>';
-
-
-		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		            ' . $this->message . '';
+		                
 
 
 		        

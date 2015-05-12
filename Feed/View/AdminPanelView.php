@@ -32,7 +32,7 @@
 			
 				$html = $this->cssView();
 
-				$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Admin panel</h4></div></div></div>';
+				$html .= '<div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Admin panel</h4></div></div></div>';
 
 			  if ($this->loginModel->isAdmin()) 
 		          {

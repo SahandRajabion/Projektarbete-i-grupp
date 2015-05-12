@@ -97,10 +97,9 @@ class CreateCourseView extends BaseView
           $userPic = "";
           $userPicProfile = "";
 
-
-          if ($this->loginModel->isAdmin()) 
+        if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li class='active'><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course <span class='sr-only'>(current)</span></a></li>";
+              $adminMenu .= "<li><a name='AdminPanel' href='?". $this->AdminPanelLocation . "'>Admin Panel</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
@@ -178,6 +177,7 @@ class CreateCourseView extends BaseView
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
+              ' . $adminMenu . '
                 <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
                 <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
@@ -191,8 +191,7 @@ class CreateCourseView extends BaseView
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
                 <li><a href="?">Available Programmes</a></li>
-                                ' . $adminMenu . '
-                                <li><a href="?' . $this->changePasswordLocation . '">Change Password</a></li>';
+                                ';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -212,7 +211,7 @@ class CreateCourseView extends BaseView
                   }
                  
               $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
-              '</ul>
+              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</a></li></ul>
             </div>';
 
 

@@ -13,7 +13,7 @@ class ChangePasswordView extends BaseView
 	private $pic;
 	private $messageRepository;
 
-	public function __construct() 
+	public function __construct()  
 	{
 		$this->cookie = new CookieStorage();
 		$this->loginModel = new LoginModel();
@@ -81,7 +81,7 @@ class ChangePasswordView extends BaseView
 
           if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
+              $adminMenu .= "<li><a name='AdminPanel' href='?". $this->AdminPanelLocation . "'>Admin Panel</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
@@ -159,6 +159,7 @@ class ChangePasswordView extends BaseView
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
+                    ' . $adminMenu . '
                 <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
                 <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
@@ -172,8 +173,8 @@ class ChangePasswordView extends BaseView
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
                 <li><a href="?">Available Programmes</a></li>
-                                ' . $adminMenu . '
-                 <li class="active"><a href="?' . $this->changePasswordLocation . '">Change Password <span class="sr-only">(current)</span></a></li>';
+                            
+                 ';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -192,7 +193,8 @@ class ChangePasswordView extends BaseView
                       $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
                   }
                  
-              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>
+              <li class="active"><a href="?' . $this->changePasswordLocation . '">Change Password <span class="sr-only">(current)</span></a></li>'.
               '</ul>
             </div>';
 
