@@ -163,33 +163,8 @@ class MasterController extends Navigation
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
 	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
-	                $html = $this->getCssView();
-	                	$open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
+	                $html = $this->getCssViewForMaster();
 
-		            
-		                  if ($open != null) {
-		                        # code...
-		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li><a name="Inbox" href="?Inbox&id="'.$this->model->getId().'">Inbox ('.$open.' new messages)</a></li>';
-		                       }
-		                  }
-		                  else {
-		                      $html .= '<li><a name="Inbox" href="?Inbox&id="'.$this->model->getId().'">Inbox</a></li>';
-		                  }
-		                 
-		              $html .= '<li class="active"><a name="Inbox" href="?Inbox&id="'.$this->model->getId().'">Sent Messages</a></li><span class="sr-only">(current)</span></a></li>'.
-		              '<li><a href="?changepassword">Change Password</span></a></li>
-		              </ul>
-		            </div>';
-
-
-		            
-		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		            ';
 	                if ($names != null) {
 	                	# code...
 	                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Available users</h4></div></div></div>';
@@ -476,7 +451,7 @@ class MasterController extends Navigation
 		return $this->forgetPasswordView->getEmail();
 	}
 
-	public function getCssView() {
-		return $this->inboxView->cssView();
+	public function getCssViewForMaster() {
+		return $this->inboxView->getCssViewForMaster();
 	}
 }
