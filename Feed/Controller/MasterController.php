@@ -103,6 +103,7 @@ class MasterController extends Navigation
       	$this->messageRepository = new MessagesRepository();
       	$this->messageFormView = new MessageFormView();
       	$this->programView = new ProgramView();
+      	$this->adminPanelView = new AdminPanelView();
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -282,7 +283,7 @@ class MasterController extends Navigation
 				           			$time = time();
 				           			$MSG = $this->messageFormView->getUserMsg();
 				           			$open = 0;
-				           			if ($sub == "" || $MSG == null || empty($MSG) {
+				           			if ($sub == "" || $MSG == null || empty($MSG)) {
 				           				# code...
 				           				$this->messageFormView->setMessage(self::$Error_Sub_TYPE);
 				           				
@@ -358,7 +359,7 @@ class MasterController extends Navigation
              	}
 
 
-             	 	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressAdminPanel())
+             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressAdminPanel())
     	        {
 
 	             	return $this->adminPanelView->renderAdminPanel();

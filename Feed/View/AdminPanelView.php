@@ -3,6 +3,7 @@
 	require_once('Model/LoginModel.php');
 	require_once('Model/Dao/MessagesRepository.php');
 	require_once('Model/Dao/UserRepository.php');
+	require_once('Model/ImagesModel.php');
 	/**
 	* Admin panel
 	*/
@@ -14,6 +15,7 @@
 		private $user;
 		private $messagesRepository;
 		private $userRepository;
+		private $imagesModel;
 
 
 		function __construct()
@@ -22,6 +24,7 @@
 			$this->loginModel = new LoginModel();
 			$this->messagesRepository = new MessagesRepository();
 			$this->userRepository = new UserRepository();
+			$this->imagesModel = new ImagesModel(); 
 		}
 
 
@@ -143,7 +146,7 @@
 
 
 
-		     public function renderAdminPanel() {
+		     public function renderAdminPanel() { 		
 			    $Panel = $this->AdminPanel();
 			    return $Panel;
 			  }

@@ -7,6 +7,7 @@
 	require_once('helper/time.php');
 	require_once('Model/Dao/MessagesRepository.php');
 	require_once('Model/Dao/UserRepository.php');
+	require_once('Model/ImagesModel.php');
 
 	/**
 	* inbox
@@ -15,12 +16,15 @@
 	{
 		  private $mainView;
 		  private $messages;
+		  private $imagesModel;
 		  private $loginModel;
 		  private $messagesRepository;
+		  private $pic; 
 		
 		public function __construct()
 		{
 			# code...
+			$this->imagesModel = new ImagesModel();
 			$this->mainView = new HTMLView();
 		    $this->messages = new Messages();
 		    $this->loginModel = new LoginModel();
@@ -29,33 +33,27 @@
 		}
 
 
-		public function InboxHTML() {
-			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
-			//$total = $this->messagesRepository->GetNrOfMsg();
+	   public function setMessage($message) {
+      	  $this->message = $message;
+    	}
 
-			
-			$html = '</br>'.
+		public function InboxHTML() {
+			    $inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
+
+			    $html = $this->cssView();
+
+				$html .= '</br>'.
 					'<script type="text/javascript" src="js/jquery.js"></script>'.
 					'<script type="text/javascript" src="js/LoadMoreMessages.js"></script>'.
 					'<script type="text/javascript">var user_id = ' . $this->getId() . ';</script>' .
-					'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/style.css">'.
-					'<a href=?>Back</a>'.
-					'</br>'.
+					'<link rel="stylesheet" href="css/customCss.css">'.
 					'</br>';
+                
+
 
 			$html .= 
-					'<div id="msg">'.
-					'<table>'.
-					'<tr>'.
-					'<td>From</td>'.
-					'<td>Subject</td>'.
-					'<td>Date</td>'.
-					'<td>Time</td>'.
-					'<td>Seen</td>'.
-					'</tr>'.
-					'</table>';		
+					'<div id="msg">';	
 					if ($inboxes != null) {
 						# code...
 
@@ -64,22 +62,36 @@
 							# code...
 							if ($inbox->getOpen() == 0) {
 							# code...
-							$open = '<img src="img/not_open.png" alt="NotOpened" title="NotOpened" />';
+							$open = '<img src="img/msg.png" alt="NotOpened" title="NotOpened" />';
 							}
 							else {
-								$open ='<img src="img/open.png" alt="Opened" title="Opened" />';
+								$open ='<img src="img/new.png" alt="Opened" title="Opened" />';
 							}
 						
 						    $html .= 
+
 								'<div id="msg'.$inbox->getMsgId().'" class="msg">'.
-								'<table>'.
-								'<td><strong>'.$inbox->getFromName().'</strong></td>'.
-								'<td><strong>'.$inbox->getSubject().'</strong></td>'.
-								'<td><strong>'.$inbox->getDate().'</strong></td>'.
-								'<td><strong>'.time_passed($inbox->getTime()).'</strong></td>'.
-								'<td><strong><a href="?'.$this->msgLocation.'&'.$this->id.'='.$inbox->getMsgId().'">'.$open.'</a></strong></td>'.
-								'</table>'.
-								'</div>';
+								'<div class="panel panel-info">
+           						 <div class="panel-heading">
+           					   <h3 class="panel-title"><a href="?'.$this->msgLocation.'&'.$this->id.'='.$inbox->getMsgId().'">'.$open.'</a></h3>
+          					  </div>
+          					  <div class="panel-body">
+          					    <div class="row">
+			                <div class=" col-md-9 col-lg-9 "> 
+			                  <table class="table table-user-information">
+			                    <tbody>
+			                      <tr><td><strong>From: </strong> '.$inbox->getFromName().'</td>'.
+								'<td><strong>Subject: </strong> '.$inbox->getSubject().'</td>'.
+								'<td><strong>Date: </strong> '.$inbox->getDate().'</td>'.
+								'<td><strong>Time: </strong> '.time_passed($inbox->getTime()).'</td>'.
+								'</tr>
+			                    </tbody>
+			                  </table>
+			                </div>
+			                </div>
+			              </div>
+			            </div>'.
+					'</div>';
 
 						}
 					}
@@ -90,9 +102,14 @@
 								 '</div">';
 
 					}
-
-					$html .= "<p id='loader'><img src='images/ajax-loader.gif'></p>";
 			
+
+			     $html .= '</div><p id="loader"><img src="images/ajax-loader.gif"></p>
+			     <script src="js/jquery.min.js"></script>
+			        <script src="js/bootstrap.min.js"></script>
+			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			      </body>
+			    </html>';	
 					
 
 			return $html;
@@ -106,47 +123,51 @@
 			$UserName = $this->userRepository->getUsernameFromId($this->loginModel->getId());
 						
 			$sendMsgs  =  $this->messagesRepository->getMsgByUserName($UserName);
-			
-			$html = '</br>'.
-				
+
+			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
+			//$total = $this->messagesRepository->GetNrOfMsg();
+			$html = $this->cssView();
+
+            $html .= '</br>'.
+				'<link href="css/customCss.css" rel="stylesheet">'.
 				'<script type="text/javascript" src="js/jquery.js"></script>'.
 				'<script type="text/javascript">var user_id = ' . $this->loginModel->getId() . ';</script>' .
-				'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/styles.css">'.
 			
-					'<a href=?>Back</a>'.
-					'</br>'.
 					'</br>';
 
-			$html .= 
-					'<div id="msg">'.
-					'<table>'.
-					'<tr>'.
-					'<td>To</td>'.
-					'<td>Subject</td>'.
-					'<td>Date</td>'.
-					'<td>Time</td>'.
-					'<td>Message</td>'.
-					'</tr>'.
-					'</table>';		
+				$html .= 
+					'<div id="msg">';	
 					if ($sendMsgs != null) {
 						# code...
 
 						foreach ($sendMsgs as $sendMsg) {	
 
 						$ToUserName = $this->userRepository->getUsernameFromId($sendMsg->getUserId());
-
+						$sentMsgImg = '<img src="img/send.png" alt="Sent message" title="Sent Message" />';
 						    $html .= 
 								'<div id="msg'.$sendMsg->getMsgId().'" class="msg">'.
-								'<table>'.
-								'<td><strong>'.$ToUserName.'</strong></td>'.
-								'<td><strong>'.$sendMsg->getSubject().'</strong></td>'.
-								'<td><strong>'.$sendMsg->getDate().'</strong></td>'.
-								'<td><strong>'.time_passed($sendMsg->getTime()).'</strong></td>'.
-								'<td><strong><a href="?'.$this->sentMsgLocation.'&'.$this->id.'='.$sendMsg->getMsgId().'">Message</a></strong></td>'.
-								'</table>'.
-								'</div>';
+								'<div class="panel panel-info">
+           						 <div class="panel-heading">
+           					   <h3 class="panel-title"><a href="?'.$this->sentMsgLocation.'&'.$this->id.'='.$sendMsg->getMsgId().'">'.$sentMsgImg.'</a></h3>
+          					  </div>
+          					  <div class="panel-body">
+          					    <div class="row">
+			                <div class=" col-md-9 col-lg-9 "> 
+			                  <table class="table table-user-information">
+			                    <tbody>
+			                      <tr><td><strong>To: </strong>'.$ToUserName.'</td>'.
+								'<td><strong>Subject: </strong>'.$sendMsg->getSubject().'</td>'.
+								'<td><strong>Date: </strong>'.$sendMsg->getDate().'</td>'.
+								'<td><strong>Time: </strong>'.time_passed($sendMsg->getTime()).'</td>'.
+								'</tr>
+			                    </tbody>
+			                  </table>
+			                </div>
+			                </div>
+			              </div>
+			            </div>'.
+					'</div>';
 
 						}
 					}
@@ -158,49 +179,62 @@
 
 					}			
 
-					$html .= "<p id='loader'><img src='images/ajax-loader.gif'></p>";		
+
+        
+
+			     $html .= '</div>
+			     <p id="loader"><img src="images/ajax-loader.gif"></p>
+			     <script src="js/jquery.min.js"></script>
+			        <script src="js/bootstrap.min.js"></script>
+			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			      </body>
+			    </html>';	
 
 			return $html;
 		}
 
 		public function showMsg() {
-
+			
+			$html = $this->cssView();
 			$msg = $this->messages->getMessageForInbox($this->getId());
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());
 
-			$html = 
+			$html .= 
 					'</br>'.
 						'<script type="text/javascript" src="js/jquery.js"></script>'.
-						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/styles.css">'.
-					'<a href="?'.$this->inboxLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
+					'<link rel="stylesheet" href="css/customCss.css">'.
+					'<a class="btn btn-default" href="?'.$this->inboxLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
 					'</br>'.
-					'<a class="remove btn danger" href="?'.$this->removeLocation.'&'.$this->id.'='.$this->getId().'">Delete this message</a>'.
-					'<div id="msg">'.
-					'<strong>From: </strong>'.
-					'<strong>'.$msg->getFromName().'</strong>'.
+					 '<div class="panel panel-info">'.
+					'<div class="panel-heading">
+           				 <h3 class="panel-title">Receive messages</h3>
+          			 </div>'.
+          			  '</div>'.
+					'<a class="btn btn-danger" href="?'.$this->removeLocation.'&'.$this->id.'='.$this->getId().'">Delete</a>'.
 					'</br>'.
-					'<strong>Date: </strong>'.
-					'<strong>'.$msg->getDate().'</strong>'.
 					'</br>'.
-					'<strong>Time: </strong>'.
-					'<strong>'.time_passed($msg->getTime()).'</strong>'.
-					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
+					'<div class="jumbotron">'.
+					'<strong>From: </strong>'.$msg->getFromName().
+					'</br>'.
+					'<strong>Date: </strong>'.$msg->getDate().
+					'</br>'.
+					'<strong>Time: </strong>'.time_passed($msg->getTime()).
+					'</br>'.
+					'</br>'.
+					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>';
 					if ($replayMsgs != null ) {
 						# code...
 						foreach ($replayMsgs as $replayMsg) {
 
-						//	if ($replayMsg->getNewMsgId() != null || $replayMsg->getNewMsgId() != "" || $replayMsg->getNewMsgId() != 0) {
-								# code...
+					
 								 $html .=	
 									'<div id="msg">'.
-									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> wrote : ".$replayMsg->getMessages().'</pre>'.
+									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> said : ".$replayMsg->getMessages().'</pre>'.
 									'</div>';
-							//}
 						
 						}
 					}
@@ -245,7 +279,15 @@
 						     </div>
 						   </fieldset>
 				       </form>".
-				       '</div>';		
+				       '</div>
+				       </div>';		
+
+				        $html .= '<script src="js/jquery.min.js"></script>
+					        <script src="js/bootstrap.min.js"></script>
+					        <script src="js/ie10-viewport-bug-workaround.js"></script>
+					      </body>
+					    </html>';	
+
 			return $html;
 		}
 
@@ -257,37 +299,48 @@
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());
-
-			$html = 
+			$html = $this->cssView();
+			$html .= 
 					'</br>'.
 						'<script type="text/javascript" src="js/jquery.js"></script>'.
-						'<link rel="stylesheet" href="css/bootstrap.min.css">'.
+						'<link rel="stylesheet" href="css/customCss.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/styles.css">'.
-					'<a href="?'.$this->sendLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
+					'<a class="btn btn-default" href="?'.$this->sendLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
 					'</br>'.
-					'<a class="remove btn danger" href="?'.$this->removeSentLocation.'&'.$this->id.'='.$this->getId().'">Delete this message</a>'.
-					'<div id="msg">'.
-					'<strong>From: </strong>'.
-					'<strong>'.$msg->getFromName().'</strong>'.
+					 '<div class="panel panel-info">'.
+					'<div class="panel-heading">
+           			<h3 class="panel-title">Sent message</h3>
+          			 </div>'.
+          			  '</div>'.
+					'<a class="btn btn-danger" href="?'.$this->removeSentLocation.'&'.$this->id.'='.$this->getId().'">Delete</a>'.
 					'</br>'.
-					'<strong>Date: </strong>'.
-					'<strong>'.$msg->getDate().'</strong>'.
 					'</br>'.
-					'<strong>Time: </strong>'.
-					'<strong>'.time_passed($msg->getTime()).'</strong>'.
-					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> wrote : ".$msg->getMessages().'</pre>'.'</div>';
+					'<div class="jumbotron">'.
+					'<div class="alert alert-info">'.
+					'<strong>From: </strong>'.$msg->getFromName().
+					'</br>'.
+					'<strong>Date: </strong>'.$msg->getDate().
+					'</br>'.
+					'<strong>Time: </strong>'.time_passed($msg->getTime()).
+					'</div>'.
+					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>'.'</div>';
 					if ($replayMsgs != null) {
 						# code...
 						foreach ($replayMsgs as $replayMsg) {
 						 $html .=	
 							'<div id="msg">'.
-							'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> wrote : ".$replayMsg->getMessages().'</pre>'.
+							'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> said : ".$replayMsg->getMessages().'</pre>'.
 							'</div>';
 						}
 					}
 							
+						 $html .= '<script src="js/jquery.min.js"></script>
+					        <script src="js/bootstrap.min.js"></script>
+					        <script src="js/ie10-viewport-bug-workaround.js"></script>
+					      </body>
+					    </html>';		
+
 			return $html;
 		}
 
@@ -393,4 +446,145 @@
 			return false;
 		}
 
+
+		public function cssView() {
+
+			    // BEHÖVS
+    	  $Images = glob("imgs/*.*");
+
+          $username = $this->loginModel->getUsername();
+
+          $adminMenu = "";
+          $userPic = "";
+          $userPicProfile = "";
+
+
+        
+          if ($this->loginModel->isAdmin()) 
+          {
+          	  $adminMenu .= "<li><a name='AdminPanel' href='?". $this->AdminPanelLocation . "'>Admin Panel</a></li>";
+          }
+
+		    /// PROFIL BILD FÖR NAV 
+		    $users = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+		    
+		    foreach ($Images as $value) 
+		    {  
+		        $img = $this->imagesModel->getImages($this->loginModel->getId());
+		        if ($img->getImgName() == basename($value)) 
+		        {        
+		          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $username . '</label></div>';
+		          $this->pic = $value;
+		        }
+		    }
+
+		    if (basename($this->pic) === "" && $users->getSex() == "Man") 
+		    {
+		        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $username . '</label></div>';
+		    }
+		    else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
+		    {
+		        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $username . '</label></div>';
+		    }
+
+		     $html = 
+		    '<!DOCTYPE html>
+		    <html lang="en">
+		      <head>
+		        <meta charset="utf-8">
+		        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		        <meta name="viewport" content="width=device-width, initial-scale=1">
+		        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		        <link rel="icon" href="../../favicon.ico">
+		        <title>LSN</title>
+		        <link href="css/bootstrap.min.css" rel="stylesheet">
+		        <link href="css/customCss.css" rel="stylesheet">
+		        <script type="text/javascript" src="jquery.min.js"></script>
+		        <script type="text/javascript" src="script.js"></script>
+
+		        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+		      </head>
+
+		      <body>
+
+		        <nav class="navbar navbar-inverse navbar-fixed-top">
+		          <div class="container">
+		            <div class="navbar-header">
+		              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		                <span class="sr-only">Toggle navigation</span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		                <span class="icon-bar"></span>
+		              </button>
+		              <a class="navbar-brand" href="?">LSN</a>
+		            </div>
+		            <div id="navbar" class="navbar-collapse collapse">
+
+		              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+		              <div class="form-group">
+		              <div class="input-group">
+		              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		             
+		              <div class="input_container">
+		                <input type="text" id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control1" placeholder="Search">
+		                <ul id="course_list_id"></ul>
+		                </div>
+		              </div>
+		              </div>
+		              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+		            </form>
+		              
+
+		              <ul class="nav navbar-nav navbar-right">
+		              <li>' . $userPic . '</li>
+		                ' . $adminMenu . '
+		                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
+		                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+		              </ul>
+		              
+		            </div>
+		          </div>
+		        </nav>
+
+		        <div class="container-fluid">
+		          <div class="row">
+		            <div class="col-sm-3 col-md-2 sidebar">
+		              <ul class="nav nav-sidebar">
+		                <li><a href="?">Available Programmes</a></li>';
+		           
+		                $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+		            
+		                  if ($open != null) {
+		                        # code...
+		                       if ($open == 1) {
+		                         # code...
+		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+		                       }
+		                       else {
+		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+		                       }
+		                  }
+		                  else {
+		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+		                  }
+		                 
+		              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+		              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+		              </ul>
+		            </div>';
+
+
+		            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		            ' . $this->message . '';
+
+
+		        
+			
+
+		    return $html;
+				}
 	}
