@@ -16,14 +16,13 @@
 	    private $imagesModel;
 	    private $cookieStorage;
 	    private $model;
-		private static $UPLOADEDSUCCESSED = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				 <button type="button" class="close" data-dismiss="alert">
-  											 <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										     <strong>Bilden har laddats upp!</strong></div>';
-		private static $ErrorUPLOAD_ERR_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>Bilden måste vara av typen gif,jepg,jpg eller png!</strong></div>';
+
+		private static $ErrorUPLOAD_ERR_TYPE = "<div class='alert alert-danger alert-error'>
+           <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+          <span id='sizeOfPTag'>Image must be of format gif, jpg, or png</span>
+          </div>";
+
 		public function __construct() {
 			$this->validation = new validation();
 			$this->imgRoot = getcwd()."/imgs/";
@@ -34,7 +33,6 @@
 			$this->loginController = new LoginController();
 			$this->model = new LoginModel();
 		}
-		
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
 			return $this->uploadPage->hasSubmitToUpload();
@@ -50,7 +48,6 @@
 			$this->validation->getImgRoot($this->imgRoot);
 		}
 	
-		
 		//Render upload funcation.
 		public function imgUpload() {
 			
@@ -120,11 +117,14 @@
 						}
 					}
 					else {
-							return $this->uploadPage->userProfile(self::$ErrorUPLOAD_ERR_TYPE);
+						$this->uploadPage->setMessage(self::$ErrorUPLOAD_ERR_TYPE);
+													return $this->uploadPage->userProfile();
+
 						 }
 				}
 				else {
-						return $this->uploadPage->userProfile($this->validation->errorToMessage());
+						$this->uploadPage->setMessage($this->validation->errorToMessage());
+						return $this->uploadPage->userProfile();
 					 }
 			}
 			else

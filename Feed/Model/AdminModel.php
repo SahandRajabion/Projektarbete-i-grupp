@@ -23,7 +23,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -36,7 +36,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -49,7 +49,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -62,7 +62,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
 	    }
 
@@ -75,7 +75,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -88,7 +88,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;	
+	            return $message;	
 	    	}
     	}
 
@@ -102,7 +102,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -115,7 +115,7 @@ class AdminModel
 	            $this->loginMessage = new LoginMessage($msgId);        
 	            $message = $this->loginMessage->getMessage();
 
-	            echo $message;
+	            return $message;
 	    	}
     	}
 
@@ -132,7 +132,7 @@ class AdminModel
 	            	$this->loginMessage = new LoginMessage($msgId);        
 	            	$message = $this->loginMessage->getMessage();
 
-	           		 echo $message;
+	           		 return $message;
 	    		}
 	   		}
    		 }
@@ -151,7 +151,7 @@ class AdminModel
             $this->loginMessage = new LoginMessage($msgId);        
             $message = $this->loginMessage->getMessage();
 
-            echo $message;	
+            return $message;	
     	}
 	}
 }

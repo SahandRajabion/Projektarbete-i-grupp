@@ -10,12 +10,14 @@ class AdminController
     private $adminModel;
     private $loginModel;
     private $createCourseView;
+    private $htmlView;
 
     public function __construct() 
     {
         $this->adminModel = new AdminModel();
         $this->loginModel = new LoginModel();
         $this->createCourseView = new CreateCourseView();
+        $this->htmlView = new HTMLView();
     }
 
     public function CreateNewCourse() 
@@ -24,15 +26,18 @@ class AdminController
         
         if (Token::check($token))
         {
-        	if ($this->loginModel->isAdmin()) 
-        	{
+            if ($this->loginModel->isAdmin()) 
+            {
                 $checkedBoxValues = $this->createCourseView->GetCheckedBoxes();
                 $courseName = $this->createCourseView->GetCourseName();
                 $courseCode = $this->createCourseView->GetCourseCode();
                 $rssFeedUrl = $this->createCourseView->GetRSSUrl();
 
-            	$this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode, $rssFeedUrl);
-        	}
+                $message = $this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode, $rssFeedUrl);
+
+                $this->createCourseView->setMessage($message);
+                $this->htmlView->echoHTML($this->createCourseView->ShowCreateCourseForm());
+            }
         }
     }
     

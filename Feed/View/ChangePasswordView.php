@@ -4,15 +4,21 @@ require_once("helper/CookieStorage.php");
 require_once("View/BaseView.php");
 require_once('Model/LoginModel.php');
 require_once('Model/Token.php');
+require_once('Model/Dao/MessagesRepository.php');
 
 class ChangePasswordView extends BaseView
 {
-	private $model;
+	private $loginModel;
+	private $imagesModel;
+	private $pic;
+	private $messageRepository;
 
 	public function __construct() 
 	{
 		$this->cookie = new CookieStorage();
-		$this->model = new LoginModel();
+		$this->loginModel = new LoginModel();
+		$this->imagesModel = new ImagesModel();
+		$this->messageRepository = new MessagesRepository();
 	}
 
 	public function didUserPressToChangePassword() {
@@ -61,64 +67,183 @@ class ChangePasswordView extends BaseView
 
 	public function showChangePasswordForm() 
 	{
-		$this->message = $this->renderCookieMessage($this->messageLocation);
-		$id = $this->model->getId();
+	    $this->message = $this->renderCookieMessage($this->messageLocation);
 
-                $html = "<!DOCTYPE html>
-                <html>
-                <head>
-                <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-				<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
-				<script src='js/script.js'></script>
-                <title>LSN</title>                
-                <meta charset='utf-8'>
-                <meta name='viewport' content='width=device-width, initial-scale=1'>
-                </head>
-                <body>
-                 <div class='container'>";		
+    // BEHÖVS
+    $Images = glob("imgs/*.*");
 
-		$html .= "
-		</br>
-		<a href='?" . $this->userProfileLocation . "&" . $this->id . "=$id'>Tillbaka</a>
-                    <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
-                       <fieldset>
-						<h1>Byt lösenord</h1>
-						      $this->message
+          $username = $this->loginModel->getUsername();
 
-						       <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->passwordLocation'>Nuvarande lösenord: </label>
-					         <div class='col-sm-10'>
-					           <input id='password1' class='form-control' name='$this->passwordLocation' type='password' size='20' maxlength='20'>
-					         </div>
-					      </div>
+          $adminMenu = "";
+          $userPic = "";
+          $userPicProfile = "";
 
-					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->newPasswordLocation'>Nytt lösenord: </label>
-					         <div class='col-sm-10'>
-					           <input id='password' class='form-control' name='$this->newPasswordLocation' type='password' size='20' maxlength='20'>
-					           <span id='result'></span>
-					         </div>
-					      </div>
-					      <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->newConfirmPasswordLocation'>Bekräfta lösenord: </label>
-					         <div class='col-sm-10'>
-					           <input id='password2' class='form-control' name='$this->newConfirmPasswordLocation' type='password' size='20' maxlength='20'>
-					         </div>
-					      </div>
 
-					     <div class='form-group'>
-				           <div class='col-sm-offset-2 col-sm-10'>
-				           	 <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
-					         <input class='btn btn-default' name='$this->submitNewPasswordLocation' type='submit' value='Byt lösenord' />
-					       </div>
-					     </div>
-					   </fieldset>
-			       </form>";
+          if ($this->loginModel->isAdmin()) 
+          {
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+          }
 
-		            $html .= "</div>
-                </body>
-                </html>";     	       
-		
-		return $html;
+    /// PROFIL BILD FÖR NAV 
+    $users = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+    
+    foreach ($Images as $value) 
+    {  
+        $img = $this->imagesModel->getImages($this->loginModel->getId());
+        if ($img->getImgName() == basename($value)) 
+        {        
+          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $username . '</label></div>';
+          $this->pic = $value;
+        }
+    }
+
+    if (basename($this->pic) === "" && $users->getSex() == "Man") 
+    {
+        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $username . '</label></div>';
+    }
+    else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
+    {
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $username . '</label></div>';
+    }
+
+     $html = 
+    '<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <link rel="icon" href="../../favicon.ico">
+        <title>Change Password | LSN</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/customCss.css" rel="stylesheet">
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+      </head>
+
+      <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="?">LSN</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+             
+              <div class="input_container">
+                <input type="text" id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control1" placeholder="Search">
+                <ul id="course_list_id"></ul>
+                </div>
+              </div>
+              </div>
+              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+              
+
+              <ul class="nav navbar-nav navbar-right">
+              <li>' . $userPic . '</li>
+                ' . $adminMenu . '
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li><a href="?">Available Programmes</a></li>';
+           
+                $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
+
+            
+                  if ($open != null) {
+                        # code...
+                       if ($open == 1) {
+                         # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                       }
+                  }
+                  else {
+                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+                  }
+                 
+              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+              '<li class="active"><a href="?' . $this->changePasswordLocation . '">Change Password <span class="sr-only">(current)</span></a></li>
+              </ul>
+            </div>';
+
+            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            ' . $this->message . '
+
+       <form role="form" action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <h2 class="sub-header">Change Password</h2> 
+
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" placeholder="Current Password" name="' . $this->passwordLocation . '" size="20" maxlength="20" class="form-control input-lg" placeholder="New Password">                    
+                              </div>
+                            </div>
+
+   							<div class="form-group">
+                              <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                  <input type="password" size="20" placeholder="New Password" maxlength="20" name="' . $this->newPasswordLocation . '" class="form-control input-lg" placeholder="Confirm Password">                            
+                              </div>
+                            </div>                            
+
+                            <div class="form-group">
+                              <div class="input-group">
+                                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                  <input type="password" placeholder="Confirm Password" size="20" maxlength="20" name="' . $this->newConfirmPasswordLocation . '" class="form-control input-lg" placeholder="Confirm Password">                            
+                              </div>
+                            </div>
+
+                        <div class="row">
+                          <div class="col-xs-12 col-md-6">
+                           	<input type="hidden" name="CSRFToken" value="' . Token::generate() . '" />
+                            <input type="submit" name="' . $this->submitNewPasswordLocation . '" value="Change Password" class="btn btn-primary btn-block btn-lg">
+                          </div>
+                        </div>
+                      </form>
+                      </div>
+            ';
+
+
+
+
+
+     $html .= '<script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+      </body>
+    </html>';
+
+    return $html;
 	}
+
 }

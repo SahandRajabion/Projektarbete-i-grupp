@@ -1,10 +1,32 @@
 <?php
 
 require_once("View/BaseView.php");
+require_once("Model/ImagesModel.php");
+require_once("Model/LoginModel.php");
 require_once('Model/Token.php');
+require_once('Model/Dao/MessagesRepository.php');
 
 class CreateCourseView extends BaseView
 {
+	private $loginModel;
+	private $imagesModel;
+	private $pic;
+	private $messageRepository;
+
+	public function __construct() 
+	{
+		$this->imagesModel = new ImagesModel();
+		$this->loginModel = new LoginModel();
+		$this->messageRepository = new MessagesRepository();
+	}
+
+
+    /**
+    * Function to render message
+    */
+    public function setMessage($message) {
+        $this->message .= $message;
+    }
 
 	public function DidUserPressToCreateCourse() {
 		if (isset($_GET[$this->createNewCourseLocation])) {
@@ -66,69 +88,194 @@ class CreateCourseView extends BaseView
 
 	public function ShowCreateCourseForm() 
 	{
-	    $html = "<!DOCTYPE html>
-	    <html>
-	    <head>
-	    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-		<link rel='stylesheet' type='text/css' href='css/styleVal.css' />		
-		<script src='js/script.js'></script>
-	    <title>LSN</title>                
-	    <meta charset='utf-8'>
-	    <meta name='viewport' content='width=device-width, initial-scale=1'>
-	    </head>
-	    <body>
-	     <div class='container'>";		
+    // BEHÖVS
+    $Images = glob("imgs/*.*");
 
-		$html .= "
-		</br>
-		<a href='?'>Tillbaka</a>
-                    <form action='' class='form-horizontal' method=post enctype=multipart/form-data>
-                       <fieldset>
-						<h1>Skapa ny kurs</h1>
+          $username = $this->loginModel->getUsername();
 
-						 <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->courseNameLocation'>Kursnamn: </label>
-					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseNameLocation' type='text' size='40' maxlength='40'>
-					         </div>
-					      </div>
+          $adminMenu = "";
+          $userPic = "";
+          $userPicProfile = "";
 
-					     <div class='form-group'>
-					         <label class='col-sm-2 control-label' for='$this->courseCodeLocation'>Kurskod: </label>
-					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->courseCodeLocation' type='text' size='6' maxlength='6'>
-					         </div>
-					      </div>
 
-					       <div class='form-group'>
-					         <label class='col-sm-1 control-label' for='$this->rssUrlLocation'>RSS-feed URL: </label>
-					         <div class='col-sm-10'>
-					           <input class='form-control' name='$this->rssUrlLocation' type='text' size='6' maxlength='1000'>
-					         </div>
-					      </div></br></br>
+          if ($this->loginModel->isAdmin()) 
+          {
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+          }
 
-					    <div class='form-group'>
-					        <label class='col-sm-2 control-label1' for='$this->schoolLocation'>Kurs ska hamna under: </label>
-					        <div class='col-sm-10'>
-					        	<p><input type='checkbox' name='$this->programCheckBoxLocation[]' value='1'> Webbprogrammerare </p>
-								<p><input type='checkbox' name='$this->programCheckBoxLocation[]' value='2'> Utvecklare av digitala tjänster </p> 
-								<p><input type='checkbox' name='$this->programCheckBoxLocation[]' value='3'> Interaktionsdesigner </p>
-					        </div>
-					      </div> 
+    /// PROFIL BILD FÖR NAV 
+    $users = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
+    
+    foreach ($Images as $value) 
+    {  
+        $img = $this->imagesModel->getImages($this->loginModel->getId());
+        if ($img->getImgName() == basename($value)) 
+        {        
+          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $username . '</label></div>';
+          $this->pic = $value;
+        }
+    }
 
-					     <div class='form-group'>
-				           <div class='col-sm-offset-2 col-sm-10'>
-				           	 <input type='hidden' name='CSRFToken' value='" . Token::generate() . "' />
-					         <input class='btn btn-default' name='$this->submitNewCourseLocation' type='submit' value='Skapa kurs' />
-					       </div>
-					     </div>
-					   </fieldset>
-			       </form>";
+    if (basename($this->pic) === "" && $users->getSex() == "Man") 
+    {
+        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $username . '</label></div>';
+    }
+    else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
+    {
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $username . '</label></div>';
+    }
 
-		            $html .= "</div>
-                </body>
-                </html>";     	       
-		
-		return $html;
+     $html = 
+    '<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <link rel="icon" href="../../favicon.ico">
+        <title>Create Course | LSN</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/customCss.css" rel="stylesheet">
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+      </head>
+
+      <body>
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="?">LSN</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+             
+              <div class="input_container">
+                <input type="text" id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control1" placeholder="Search">
+                <ul id="course_list_id"></ul>
+                </div>
+              </div>
+              </div>
+              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+              
+
+              <ul class="nav navbar-nav navbar-right">
+              <li>' . $userPic . '</li>
+                ' . $adminMenu . '
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav nav-sidebar">
+                <li><a href="?">Available Programmes</a></li>';
+           
+                $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
+
+            
+                  if ($open != null) {
+                        # code...
+                       if ($open == 1) {
+                         # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                       }
+                  }
+                  else {
+                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
+                  }
+                 
+              $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+              </ul>
+            </div>';
+
+
+            $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            ' . $this->message . '
+
+
+      <form role="form" action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+          <h2 class="sub-header">Create Course</h2> 
+
+              <div class="form-group">
+                  <input type="text" placeholder="Course Name" name="' . $this->courseNameLocation . '" size="40" maxlength="40" class="form-control input-lg" >                    
+                </div>
+
+              <div class="form-group">
+                    <input type="text" placeholder="Course Code" size="6" maxlength="6" name="' . $this->courseCodeLocation . '" class="form-control input-lg" >                            
+              </div>
+
+              <div class="form-group">
+              <em>(optional)</em>
+                    <input type="text" placeholder="RSS Feed Url" size="40" maxlength="255" name="' . $this->rssUrlLocation . '" class="form-control input-lg" >                            
+              </div>
+
+              <div class="form-group">
+              <label>Course should be under</label>
+              <div class="checkbox">
+              <label>
+                <input type="checkbox" name="' . $this->programCheckBoxLocation . '[]" value="1">
+                  Webbprogrammerare
+              </label>
+              </div>
+
+              <div class="checkbox">
+              <label>
+                <input type="checkbox" name="' . $this->programCheckBoxLocation . '[]" value="2">
+                  Utvecklare av digitala tjänster
+              </label>
+              </div>
+
+              <div class="checkbox">
+              <label>
+                <input type="checkbox" name="' . $this->programCheckBoxLocation . '[]" value="3">
+                  Interaktionsdesigner
+              </label>
+              </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <input type="hidden" name="CSRFToken" value="' . Token::generate() . '" />
+                  <input type="submit" name="' . $this->submitNewCourseLocation . '" value="Create Course" class="btn btn-primary btn-block btn-lg">
+                </div>
+              </div>
+            </form>
+            </div>
+            ';
+
+     $html .= '<script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+      </body>
+    </html>';	
+
+    return $html;	
 	}
 }

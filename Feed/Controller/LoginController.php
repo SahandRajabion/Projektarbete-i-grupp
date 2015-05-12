@@ -54,6 +54,7 @@ class LoginController
     private $author;
     private $forgetPasswordView;
     private $contactPage;
+    private $showProfilePage;
     private $showContactPage;
 
     public function __construct() {
@@ -147,6 +148,11 @@ class LoginController
             $this->showContactPage = true;
         }
 
+        else if ($page === "profile") 
+        {
+            $this->showProfilePage = true;
+        }
+
         $this->model->setMessage($msgId);
         $this->setMessage();     
         $this->renderPage();
@@ -174,11 +180,9 @@ class LoginController
             if ($this->validationErrors == 0) {
                 if($this->validateNewUser->validateNames($fName, $lName) == false) {
                         $msgId = 29; 
+                        $this->setMessageFromOutside($msgId, "profile");
                         $this->validationErrors++;
-                        $this->loginMessage = new LoginMessage($msgId);        
-                        $message = $this->loginMessage->getMessage();
-
-                        echo $message;  
+                        
                 }
             }
 
@@ -186,10 +190,7 @@ class LoginController
                 if($this->validateNewUser->validateSex($sex) == false) {
                         $msgId = 30; 
                         $this->validationErrors++;
-                        $this->loginMessage = new LoginMessage($msgId);        
-                        $message = $this->loginMessage->getMessage();
-
-                        echo $message;  
+                        $this->setMessageFromOutside($msgId, "profile");
                 }
             }
 
@@ -199,10 +200,7 @@ class LoginController
                         if($this->validateNewUser->validateBirthday($birthday) == false) {
                                 $msgId = 31; 
                                 $this->validationErrors++;
-                                $this->loginMessage = new LoginMessage($msgId);        
-                                $message = $this->loginMessage->getMessage();
-
-                                echo $message;  
+                                $this->setMessageFromOutside($msgId, "profile");
                         }
                     }
                 }
@@ -213,10 +211,7 @@ class LoginController
                 {
                     $msgId = 32; 
                     $this->validationErrors++;
-                    $this->loginMessage = new LoginMessage($msgId);        
-                    $message = $this->loginMessage->getMessage();
-                    
-                    echo $message;                           
+                    $this->setMessageFromOutside($msgId, "profile");                         
                 }
             }
 
@@ -226,10 +221,7 @@ class LoginController
                 {
                     $msgId = 33; 
                     $this->validationErrors++;
-                    $this->loginMessage = new LoginMessage($msgId);        
-                    $message = $this->loginMessage->getMessage();
-
-                    echo $message;                  
+                    $this->setMessageFromOutside($msgId, "profile");                
                 }
             }
     
@@ -239,9 +231,7 @@ class LoginController
                 $this->userRepository->editUserDetails($editUser, $this->getId());
 
                 $msgId = 21;
-                $this->loginMessage = new LoginMessage($msgId);  
-                $message = $this->loginMessage->getMessage();
-                echo $message;
+                $this->setMessageFromOutside($msgId, "profile");
             }
         }
     }
@@ -540,8 +530,8 @@ class LoginController
             }
 
         }
-        else {
-
+        else 
+        {   
             if ($this->showForgetPasswordPage) 
             {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
@@ -559,6 +549,12 @@ class LoginController
             else  if ($this->showRegisterPage) {
                 $this->htmlView->echoHTML($this->registerView->showRegisterPage());
             }
+
+            else if ($this->showProfilePage) 
+            {
+                $this->htmlView->echoHTML($this->profileView->userProfile());
+            }
+
             else 
             {
                  $this->htmlView->echoHTML($this->loginView->showLoginpage()); 
@@ -595,11 +591,6 @@ class LoginController
                 $this->contactPage->setMessage($message->getMessage());
             }
 
-            else if ($this->showContactPage) 
-            {
-                $this->contactPage->setMessage($message->getMessage());
-            }
-
             else 
             {
                 $this->loginView->setMessage($message->getMessage());
@@ -607,7 +598,15 @@ class LoginController
         }
         else
         { 
-            $this->programView->setMessage($message->getMessage());
+            if ($this->showProfilePage) 
+            {
+                $this->profileView->setMessage($message->getMessage());
+            }
+
+            else 
+            {
+                $this->programView->setMessage($message->getMessage());
+            }
         }
     }
 

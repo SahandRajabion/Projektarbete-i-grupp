@@ -329,8 +329,11 @@ class MasterController extends Navigation
     	        	{
     	        		$this->adminController->CreateNewCourse();
     	        	}
+    	        	else 
+    	        	{
+	             		return $this->createCourseView->ShowCreateCourseForm();
+	             	}
 
-	             	return $this->createCourseView->ShowCreateCourseForm();
              	}
 
 
@@ -340,8 +343,11 @@ class MasterController extends Navigation
     	        	{
     	        		$this->loginController->editUserDetails();
     	        	}
-
-	             	return $this->uploadController->imgUpload();
+    	        	
+    	        	else 
+    	        	{
+	             		return $this->uploadController->imgUpload();
+	             	}
              	}
 
              	// KOLLAR OM ID FINNS SAMT OM IDN FINNS I DATABASEN

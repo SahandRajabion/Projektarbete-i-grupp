@@ -1,14 +1,18 @@
 function autocomplet() {
 	var min_length = 1; 
 	var keyword = $('#course_id').val();
+
 	if (keyword.length >= min_length) {
 		$.ajax({
 			url: 'ajax_autocomplete.php',
 			type: 'POST',
 			data: {keyword:keyword},
 			success:function(data){
-				$('#course_list_id').show();
-				$('#course_list_id').html(data);
+
+				if (data != "") {
+					$('#course_list_id').show();
+					$('#course_list_id').html(data);
+				}
 			}
 		});
 	} else {

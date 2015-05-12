@@ -7,18 +7,32 @@ class Validation
 {
 
   	//Messages for upload function.
-	private static $ErrorUPLOAD_ERR_FORM_SIZE = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				     <button type="button" class="close" data-dismiss="alert">
-  											     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										         <strong>Filen är för stort!!</strong></div>';
-	private static $ErrorUPLOAD_ERR_NO_FILE = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				  <button type="button" class="close" data-dismiss="alert">
-  											  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										      <strong>Välj en bild först sen tryck ladda upp!!!</strong></div>';
-	private static $ErrorUPLOAD_ERR_NO_TMP_DIR = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				      <button type="button" class="close" data-dismiss="alert">
-  											      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										          <strong>Som fel har inträffat</strong></div>';
+	private static $ErrorUPLOAD_ERR_FORM_SIZE = "<div class='alert alert-danger alert-error'>
+           <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+          <span id='sizeOfPTag'>Image is too big</span>
+          </div>";
+
+
+
+
+
+	private static $ErrorUPLOAD_ERR_NO_FILE = "<div class='alert alert-danger alert-error'>
+           <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+          <span id='sizeOfPTag'>You have to choose a image first</span>
+          </div>";
+
+
+
+
+	private static $ErrorUPLOAD_ERR_NO_TMP_DIR = "<div class='alert alert-danger alert-error'>
+           <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+           <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+          <span id='sizeOfPTag'>A error has occured</span>
+          </div>";
+
+
 
 
 //Regex validation.

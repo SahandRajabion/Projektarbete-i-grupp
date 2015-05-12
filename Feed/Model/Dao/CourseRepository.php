@@ -51,6 +51,23 @@ require_once('Model/Dao/Repository.php');
 		}
 	}
 
+	public function getCourseCode($id) 
+	{
+			$sql = "SELECT " . self::$courseCode . " FROM $this->courseTable WHERE " . self::$courseID . " = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($id);
+			$query->execute($params);
+
+			$result = $query->fetch();
+
+			if ($result) 
+			{
+				return $result['CourseCode'];
+			}
+
+			return null;
+	}
+
 	public function GetAllCourseNr($programId) 
 	{
 		$sql = "SELECT CourseId FROM $this->dbTable WHERE " . self::$programID . "= ?";
@@ -64,7 +81,6 @@ require_once('Model/Dao/Repository.php');
 
 
 	}
-
 
 	public function getCourses($nrcourses) 
 	{
