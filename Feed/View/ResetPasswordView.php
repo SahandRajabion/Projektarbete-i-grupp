@@ -63,7 +63,7 @@
               <a class="navbar-brand" href="?">LSN</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <form action="?' . $this->code . '=' . $this->getCode() . '" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
+              <form action="?' . $this->code . '=' . $this->getCode() . '&kjAmsdNg" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="input-group">
                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>

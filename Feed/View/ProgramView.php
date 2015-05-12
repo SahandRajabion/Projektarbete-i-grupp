@@ -24,7 +24,7 @@ class ProgramView extends baseView {
 
     if ($this->model->isAdmin()) 
     {
-        $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+        $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
     }
  
 
@@ -104,9 +104,8 @@ class ProgramView extends baseView {
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
-                ' . $adminMenu . '
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->model->getId(). '">My profile</a></li>
-                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->model->getId(). '">My Profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
 
               
@@ -119,7 +118,9 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="?">Available Progammes <span class="sr-only">(current)</span></a></li>';
+                <li class="active"><a href="?">Available Progammes <span class="sr-only">(current)</span></a></li>
+                                ' . $adminMenu . '
+               <li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
 
@@ -138,13 +139,6 @@ class ProgramView extends baseView {
                       $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->model->getId().'">Inbox</a></li>';
                   }
                  
-                
-
-
-              
-                   
-               
-              
               $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->model->getId().'">Sent Messages</a></li>'.
               '</ul>
             </div>

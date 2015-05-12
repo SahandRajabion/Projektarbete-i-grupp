@@ -50,8 +50,7 @@
 			    		$messages = "Namn:\r\n" .$Name."\r\nEpost:\r\n". $Email."\r\nMeddelande:\r\n".$Message;
 						$headers  = "From:".$Email."\r\n";
 			    		$headers .= "Reply-To:" .$Email;
-			    		$headers .= "MIME-Version: 1.0\r\n";
-			    		$headers .= "Content-type: text/plain; charset=utf-8\r\n";
+	
     				    $this->emailContact->EmailContact($messages,$headers);
     				    $this->loginController->setMessageFromOutside(45, "contact");
 

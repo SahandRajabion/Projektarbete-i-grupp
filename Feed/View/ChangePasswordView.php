@@ -81,7 +81,7 @@ class ChangePasswordView extends BaseView
 
           if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
@@ -159,9 +159,8 @@ class ChangePasswordView extends BaseView
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
-                ' . $adminMenu . '
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
               
             </div>
@@ -172,7 +171,9 @@ class ChangePasswordView extends BaseView
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li><a href="?">Available Programmes</a></li>';
+                <li><a href="?">Available Programmes</a></li>
+                                ' . $adminMenu . '
+                 <li class="active"><a href="?' . $this->changePasswordLocation . '">Change Password <span class="sr-only">(current)</span></a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -192,8 +193,7 @@ class ChangePasswordView extends BaseView
                   }
                  
               $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
-              '<li class="active"><a href="?' . $this->changePasswordLocation . '">Change Password <span class="sr-only">(current)</span></a></li>
-              </ul>
+              '</ul>
             </div>';
 
             $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

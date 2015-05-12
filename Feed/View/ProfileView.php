@@ -59,7 +59,7 @@ class ProfileView extends BaseView
 
           if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
@@ -159,9 +159,8 @@ class ProfileView extends BaseView
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
-                ' . $adminMenu . '
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
               
             </div>
@@ -172,7 +171,9 @@ class ProfileView extends BaseView
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li><a href="?">Available Programmes</a></li>';
+                <li><a href="?">Available Programmes</a></li>
+                ' . $adminMenu . '
+                <li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -192,8 +193,7 @@ class ProfileView extends BaseView
                   }
                  
               $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
-              '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
-              </ul>
+              '</ul>
             </div>';
 
 
@@ -391,7 +391,7 @@ class ProfileView extends BaseView
 
           if ($this->loginModel->isAdmin()) 
           {
-              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
+              $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></li>";
           }
 
     /// PROFIL BILD FÖR NAV 
@@ -520,9 +520,8 @@ class ProfileView extends BaseView
 
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
-                ' . $adminMenu . '
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
               
             </div>
@@ -533,7 +532,9 @@ class ProfileView extends BaseView
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li><a href="?">Available Programmes</a></li>';
+                <li><a href="?">Available Programmes</a></li>
+                ' . $adminMenu . '
+                <li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 

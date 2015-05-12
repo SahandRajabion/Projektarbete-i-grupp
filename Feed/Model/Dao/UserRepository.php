@@ -12,7 +12,7 @@ class UserRepository extends Repository
 	private static $hash = 'hash';
 	private static $code = 'passreset';
 	private static $userId = 'userid';
-	private static $date = 'Date';
+	private static $date = 'date';
 	private static $email = 'email';
 	private static $firstName = 'firstname';
 	private static $lastName = 'lastname';
@@ -416,7 +416,7 @@ class UserRepository extends Repository
 			{
 				while ($results) {
 					# code...
-					$date = $results['Date'];
+					$date = $results['date'];
 					return new UserDate($date);
 				}
 			}

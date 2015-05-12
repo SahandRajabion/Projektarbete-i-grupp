@@ -425,9 +425,11 @@ class LoginController
 
                     $date = date("Y-m-d H:i:s");
                     $userEmail = $this->userRepository->getDateForResetPassword($this->getCode());
-                    $fastDate = date("Y-m-d H:i:s",strtotime(date($userEmail->getDate())." +20 minutes"));
 
-                 if ($fastDate > $date) {
+                    if ($userEmail !== null && isset($userEmail)) { 
+
+                        $fastDate = date("Y-m-d H:i:s",strtotime(date($userEmail->getDate())." +20 minutes"));
+                    if ($fastDate > $date) {
                         # code...
                     
                     $this->showResetPasswordPage = true;
@@ -485,7 +487,10 @@ class LoginController
                         }
                     }
                   }
-                         
+
+
+
+                    } 
                 }
     }
 
