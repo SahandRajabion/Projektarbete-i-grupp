@@ -17,7 +17,7 @@ $(function() {
                 $.ajax({
                     url: 'LoadMoreSentMsg.php',
                     type: 'POST',
-
+ 
                     // Hämtar sista id som vi sparade undan från index.html
                     data: {last_id:min, limit:limit, user_id:user_id},
 
