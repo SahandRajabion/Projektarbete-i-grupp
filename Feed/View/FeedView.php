@@ -212,7 +212,6 @@ private $link;
 
           $rssArray = $this->courseRepository->getAllRssLinks($this->link);
          
-
             foreach ($rssArray as $rss) {
               
              $RSSItems = new PostItems($rss['id'], $rss['UserId'], null, null , null, null, $pubDate, $this->link, $creator, $description, $title);

@@ -36,7 +36,7 @@
 
 			  if ($this->loginModel->isAdmin()) 
 		          {
-		          	  $html .= "<ul class='list-group'><a class='list-group-item' name='AdminPanel' href='?". $this->UserListLocation . "'>User list</a></ul>";
+		          	  $html .= "<ul class='list-group'><a class='list-group-item' name='AdminPanel' href='?". $this->UserListLocation . "'>User options</a></ul>";
 		              $html .= "<ul class='list-group'><a class='list-group-item' name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></ul>";
 		          }
 		      return $html;
