@@ -56,31 +56,37 @@ class MasterController extends Navigation
     private $co;
 
 
-    private static $Error_Sub_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>Subject is required</strong></div>';
+    private static $Error_Sub_TYPE = "<div class='alert alert-danger alert-error'>
+					   <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>Subject is required</span>
+					  </div>";
 
-  	private static $Error_Msg_TYPE = '<div class="alert alert-danger alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>Message is required</strong></div>';
+  	private static $Error_Msg_TYPE = "<div class='alert alert-danger alert-error'>
+					   <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>Message is required</span>
+					  </div>";
 
-	private static $UpgradeUser = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>User has been upgraded</strong></div>';
+	private static $UpgradeUser = "<div class='alert alert-success'>
+					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>User has been upgraded</span>
+					  </div>";
 
 
-  	private static $DowngradeUser = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>User has been downgraded</strong></div>';
+  	private static $DowngradeUser = "<div class='alert alert-success'>
+					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>User has been downgraded</span>
+					  </div>";
 
-  	private static $removeUser = '<div class="alert alert-success alert-dismissible" role="alert">
-  							 				    <button type="button" class="close" data-dismiss="alert">
-  											    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  										        <strong>User has been removed</strong></div>';
+  	private static $removeUser = "<div class='alert alert-success'>
+					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>User has been removed</span>
+					  </div>";
+
 	function __construct()
 	{
 		$this->adminController = new AdminController();
@@ -370,6 +376,21 @@ class MasterController extends Navigation
     	        {
 
 	             	return $this->adminPanelView->renderAdminPanel();
+             	}
+
+             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressCourseList()) 
+             	{
+    	        	if ($this->adminPanelView->DidUserPressToRemoveCourse()) {
+    	        		$courseid = $this->adminPanelView->getCourseToRemove();
+    	        	    $this->courseRepository->removeCourse($courseid);
+    	        		$this->adminPanelView->setMessage("<div class='alert alert-success'>
+					   <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>Course has been removed</span>
+					  </div>");
+    	        	}
+
+	             	return $this->adminPanelView->renderCourseList();             		
              	}
 
 

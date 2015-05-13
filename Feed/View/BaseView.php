@@ -4,11 +4,16 @@ require_once("Settings.php");
 
 abstract class BaseView 
 {
+protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
+	protected $removeCourseLocation = "removeCourse";
+
+
 	protected $submitRemoveUserLocation ="SubmitRemoveUser";
 	protected $removeUserLocation = "removeUser";
 	protected $uppgradeLocation = "Uppgrade";
 	protected $uppgradeUserLocation = "UppgradeUser";
 	protected $UserListLocation = "UserList";
+	protected $CourseListLocation = "CourseList";
 	protected $AdminPanelLocation = "AdminPanel";
 	protected $searchLocation = "Serach";
 	protected $submitSearchLocation = "SubmitSearch";

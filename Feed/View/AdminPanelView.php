@@ -3,6 +3,7 @@
 	require_once('Model/LoginModel.php');
 	require_once('Model/Dao/MessagesRepository.php');
 	require_once('Model/Dao/UserRepository.php');
+		require_once('Model/Dao/CourseRepository.php');
 	require_once('Model/ImagesModel.php');
 	/**
 	* Admin panel
@@ -16,6 +17,7 @@
 		private $messagesRepository;
 		private $userRepository;
 		private $imagesModel;
+		private $courseRepository;
 
 
 		function __construct()
@@ -25,6 +27,7 @@
 			$this->messagesRepository = new MessagesRepository();
 			$this->userRepository = new UserRepository();
 			$this->imagesModel = new ImagesModel(); 
+			$this->courseRepository = new CourseRepository();
 		}
 
 
@@ -36,12 +39,50 @@
 
 			  if ($this->loginModel->isAdmin()) 
 		          {
-		          	  $html .= "<ul class='list-group'><a class='list-group-item' name='AdminPanel' href='?". $this->UserListLocation . "'>User Options</a></ul>";
+		          	$html .= "<ul class='list-group'><a class='list-group-item' href='?". $this->CourseListLocation . "'>Manage Courses</a></ul>";
+		          	  $html .= "<ul class='list-group'><a class='list-group-item' href='?". $this->UserListLocation . "'>Manage Users</a></ul>";
 		              $html .= "<ul class='list-group'><a class='list-group-item' name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></ul>";
 		          }
 		      return $html;
   		  }
 
+
+  		  public function CourseList() 
+  		  {
+  		  	$courses = $this->courseRepository->GetAllCourses();
+
+			$html = $this->cssView("Manage Courses");	
+
+	   	     if ($courses != null) {
+                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>List of available courses</h4></div></div></div>';
+	                foreach ($courses as $course) {
+
+	                	if ($course['CourseId'] !== "1") {
+ 
+	   					$html .= '<div class="panel panel-info">
+	   							<div class="panel-body">	
+	   						    <ul class="list-group"><a class="list-group-item" href="?' . $this->course . '&id='. $course['CourseId'] .'">'.$course['CourseName'].'</a></ul>
+	               				<form role="form" action="" method="post">
+	               				<td>
+	               				<input type="hidden" name="' . $this->removeCourseLocation . '" id="' . $this->removeCourseLocation . '" value="'. $course['CourseId'] .'"></td>
+	               				<td><button type="submit" name="' . $this->submitRemoveCourseLocation . '" class="btn btn-danger">Delete ' .$course['CourseName'].'</button></td></tr></br></br></form></div></div>';
+	           		}
+	           		}
+                }
+		      
+		      return $html;
+
+
+
+
+
+
+
+
+
+
+
+  		  }
 
 
   		   public function UserList() {
@@ -122,6 +163,19 @@
 		        return false;
 		    }
 
+		     public function DidUserPressToRemoveCourse() {
+		        if (isset($_POST[$this->submitRemoveCourseLocation])) {
+		            return true;
+		        }
+		        return false;
+		    }
+
+   public function getCourseToRemove() {
+		        if (isset($_POST[$this->removeCourseLocation])) {
+		            return $_POST[$this->removeCourseLocation];
+		        }
+		    }
+
 
 		    public function getUserToRemove() {
 		        if (isset($_POST[$this->removeUserLocation])) {
@@ -143,6 +197,13 @@
     		}
 
 
+		    public function DidUserPressCourseList() {
+		        if (isset($_GET[$this->CourseListLocation])) {
+		            return true;
+		        }
+		        return false;
+		    }
+
 
 		    public function DidUserPressUserList() {
 		        if (isset($_GET[$this->UserListLocation])) {
@@ -155,12 +216,32 @@
 
 		     public function renderAdminPanel() { 		
 			    $Panel = $this->AdminPanel();
+
+
 			    return $Panel;
 			  }
 
 
+	 		public function renderCourseList() {
+			    $courseList = $this->CourseList();
+
+			    	           	  $courseList .= '<script src="js/jquery.min.js"></script>
+			        <script src="js/bootstrap.min.js"></script>
+			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			      </body>
+			    </html>';
+			    return $courseList;
+			  }
+
 			 public function renderUserList() {
 			    $userList = $this->UserList();
+
+			    $userList .= '<script src="js/jquery.min.js"></script>
+			        <script src="js/bootstrap.min.js"></script>
+			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			      </body>
+			    </html>';
+
 			    return $userList;
 			  }
 

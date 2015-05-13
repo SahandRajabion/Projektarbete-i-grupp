@@ -27,6 +27,38 @@ require_once('Model/Dao/Repository.php');
 		$this->db = $this->connection();
 	}
 
+	public function removeCourse($id) {
+ 		try 	
+ 		{
+			$sql = "DELETE FROM $this->courseTable WHERE " . self::$courseID ."= ?";
+			$params = array($id);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+
+			return;
+ 		}
+ 		catch (Exception $e) 
+ 		{
+ 			die('An unknown error has happened');
+ 		}
+ 	}
+
+
+	public function GetAllCourses() 
+	{
+		$list = array();
+		$sql = "SELECT * FROM $this->courseTable";
+		$query = $this->db->prepare($sql);
+		$query->execute();
+
+		$results = $query->fetchAll();
+		foreach ($results as $result) {
+			$list[] = $result;
+		}
+
+		return $list;
+	}
+
 	public function doIdExist($id) 
 	{
 
