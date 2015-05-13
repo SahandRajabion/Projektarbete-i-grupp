@@ -123,7 +123,7 @@ class AdminModel
     	{	
     		if($rssFeedUrl != null)
     		{
-
+    			
 	    		if (preg_match('/^(http:\/\/)(coursepress\.lnu\.se\/kurs\/)(.+)(\/feed)\/?$/', $rssFeedUrl) == false) 
 	    		{
 

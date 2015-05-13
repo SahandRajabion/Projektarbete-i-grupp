@@ -67,10 +67,6 @@
 	               				<input type="hidden" name="' . $this->removeCourseLocation . '" id="' . $this->removeCourseLocation . '" value="'. $course['CourseId'] .'"></td>
 	               				<td><button type="submit" name="' . $this->submitRemoveCourseLocation . '" class="btn btn-danger">Delete ' .$course['CourseName'].'</button></td></tr></br></br></form></div></div>';
 	           		}
-	           		else 
-	           		{
-	           			$html .= "<label>There is no courses</label>";
-	           		}
 	           		}
                 }
 

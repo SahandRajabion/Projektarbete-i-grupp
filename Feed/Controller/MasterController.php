@@ -384,7 +384,7 @@ class MasterController extends Navigation
     	        		$courseid = $this->adminPanelView->getCourseToRemove();
     	        	    $this->courseRepository->removeCourse($courseid);
     	        		$this->adminPanelView->setMessage("<div class='alert alert-success'>
-					   <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
 					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
 					  <span id='sizeOfPTag'>Course has been removed</span>
 					  </div>");

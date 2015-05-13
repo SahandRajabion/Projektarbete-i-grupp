@@ -230,6 +230,22 @@ private $link;
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
        
+        if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
+        {
+            $html .= "<form class='post-remove' method='post' action=''> 
+            <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+            <input type='hidden' name='imgName' id='imgName' value='" . $key->getImgName() . "'>
+            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
+            </form>";
+
+            $html .= "<form class='post-edit' method='post' action=''> 
+            <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($key->getPost()) . "'>
+            <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($key->getPTitle()) . "'>
+            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
+            <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+        }
+
+
      
                         $creators = $key->getCreator();
                         if ($key->getCreator() != null || $key->getCreator() != "" || !empty($creators)) {
@@ -299,7 +315,7 @@ private $link;
 
                         $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
 
-                        if ($this->loginModel->getId() == $comment->GetUserId()) {
+                        if ($this->loginModel->getId() == $comment->GetUserId() || $this->loginModel->isAdmin()) {
                             
                             $html .=
                             '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
