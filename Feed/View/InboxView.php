@@ -40,7 +40,7 @@
 		public function InboxHTML() {
 			    $inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
 
-			    $html = $this->cssView();
+			    $html = $this->cssView("Inbox");
 
 			    $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -156,7 +156,7 @@
 
 			$inboxes = $this->messages->getMsgForUser($this->loginModel->getId());
 			//$total = $this->messagesRepository->GetNrOfMsg();
-			$html = $this->cssView();
+			$html = $this->cssView("Sent Messages");
 
 
 			$open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
@@ -252,7 +252,7 @@
 
 		public function showMsg() {
 			
-			$html = $this->cssView();
+			$html = $this->cssView("Show Message");
 			$msg = $this->messages->getMessageForInbox($this->getId());
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
@@ -296,7 +296,7 @@
 					'</br>'.
 					 '<div class="panel panel-info">'.
 					'<div class="panel-heading">
-           				 <h3 class="panel-title">Receive messages</h3>
+           				 <h3 class="panel-title">Receive Messages</h3>
           			 </div>'.
           			  '</div>'.
 					'<a class="btn btn-danger" href="?'.$this->removeLocation.'&'.$this->id.'='.$this->getId().'">Delete</a>'.
@@ -384,7 +384,7 @@
 			$FromUser = $this->loginModel->getUsername();
 			$replayMsgs = $this->messages->getReplayMessage($this->getId());
 			$toUser = $this->userRepository->getUserIdByUserName($msg->getFromName());
-			$html = $this->cssView();
+			$html = $this->cssView("Sent Message");
 
 				$open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -422,7 +422,7 @@
 					'</br>'.
 					 '<div class="panel panel-info">'.
 					'<div class="panel-heading">
-           			<h3 class="panel-title">Sent message</h3>
+           			<h3 class="panel-title">Sent Message</h3>
           			 </div>'.
           			  '</div>'.
 					'<a class="btn btn-danger" href="?'.$this->removeSentLocation.'&'.$this->id.'='.$this->getId().'">Delete</a>'.
@@ -559,7 +559,7 @@
 		}
 
 
-		public function cssView() {
+		public function cssView($title = null) {
 
 			    // BEHÖVS
     	  $Images = glob("imgs/*.*");
@@ -609,7 +609,7 @@
 		        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		        <link rel="icon" href="../../favicon.ico">
-		        <title>LSN</title>
+		        <title> ' . $title . ' | LSN</title>
 		        <link href="css/bootstrap.min.css" rel="stylesheet">
 		        <link href="css/customCss.css" rel="stylesheet">
 		        <script type="text/javascript" src="jquery.min.js"></script>
@@ -653,8 +653,8 @@
 		              <ul class="nav navbar-nav navbar-right">
 		              <li>' . $userPic . '</li>
 		                ' . $adminMenu . '
-		                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-		                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+		                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+		                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
 		              </ul>
 		              
 		            </div>
@@ -682,7 +682,7 @@
 
 
 
-		public function getCssViewForMaster() {
+		public function getCssViewForMaster($title = null) {
 
 			    // BEHÖVS
     	  $Images = glob("imgs/*.*");
@@ -732,7 +732,7 @@
 		        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		        <link rel="icon" href="../../favicon.ico">
-		        <title>LSN</title>
+		        <title> ' . $title .  ' | LSN</title>
 		        <link href="css/bootstrap.min.css" rel="stylesheet">
 		        <link href="css/customCss.css" rel="stylesheet">
 		        <script type="text/javascript" src="jquery.min.js"></script>
@@ -776,8 +776,8 @@
 		              <ul class="nav navbar-nav navbar-right">
 		              <li>' . $userPic . '</li>
 		                ' . $adminMenu . '
-		                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-		                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+		                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+		                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
 		              </ul>
 		              
 		            </div>

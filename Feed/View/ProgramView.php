@@ -213,8 +213,8 @@ class ProgramView extends baseView {
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
                 ' . $adminMenu . '
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
               
             </div>

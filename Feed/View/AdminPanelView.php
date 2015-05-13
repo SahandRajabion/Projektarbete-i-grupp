@@ -30,14 +30,14 @@
 
 		  public function AdminPanel() {
 			
-				$html = $this->cssView();
+				$html = $this->cssView("Admin Panel");
 
-				$html .= '<div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Admin panel</h4></div></div></div>';
+				$html .= '<div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Admin Panel</h4></div></div></div>';
 
 			  if ($this->loginModel->isAdmin()) 
 		          {
-		          	  $html .= "<ul class='list-group'><a class='list-group-item' name='AdminPanel' href='?". $this->UserListLocation . "'>User options</a></ul>";
-		              $html .= "<ul class='list-group'><a class='list-group-item' name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></ul>";
+		          	  $html .= "<ul class='list-group'><a class='list-group-item' name='AdminPanel' href='?". $this->UserListLocation . "'>User Options</a></ul>";
+		              $html .= "<ul class='list-group'><a class='list-group-item' name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></ul>";
 		          }
 		      return $html;
   		  }
@@ -48,7 +48,7 @@
 		    
 		     $users = $this->userRepository->getAllUser();
 
-		   	 $html = $this->cssView();	
+		   	 $html = $this->cssView("User List");	
 
 		
     	        		
@@ -157,7 +157,7 @@
 			    return $userList;
 			  }
 
-			 public function cssView() {
+			 public function cssView($title = null) {
 
 		        $Images = glob("imgs/*.*");
 
@@ -205,7 +205,7 @@
 				        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 				        <link rel="icon" href="../../favicon.ico">
-				        <title>LSN</title>
+				        <title> ' . $title . ' | LSN</title>
 				        <link href="css/bootstrap.min.css" rel="stylesheet">
 				        <link href="css/customCss.css" rel="stylesheet">
 				        <script type="text/javascript" src="jquery.min.js"></script>
@@ -249,8 +249,8 @@
 				              <ul class="nav navbar-nav navbar-right">
 				              <li>' . $userPic . '</li>
 				                ' . $adminMenu . '
-				                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My profile</a></li>
-				                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log out</a></li>
+				                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
+				                <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
 				              </ul>
 				              
 				            </div>

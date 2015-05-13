@@ -163,11 +163,11 @@ class MasterController extends Navigation
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
 	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
-	                $html = $this->getCssViewForMaster();
+	                $html = $this->getCssViewForMaster("Search");
 
 	                if ($names != null) {
 	                	# code...
-	                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Available users</h4></div></div></div>';
+	                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>Available Users</h4></div></div></div>';
 		                foreach ($names as $usernames) {
 		                	# code...
 		                	foreach ($usernames as $name) {
@@ -182,7 +182,7 @@ class MasterController extends Navigation
 	               
 	                 if ($courses != null) {
 		                 		$html .= '<div class="panel panel-info"> <div class="panel-heading">
-	                 			<h4>Available courses</h4>
+	                 			<h4>Available Courses</h4>
           					  </div></div>';
 		           		foreach ($courses as $course) {
 		                	# code...
@@ -451,7 +451,7 @@ class MasterController extends Navigation
 		return $this->forgetPasswordView->getEmail();
 	}
 
-	public function getCssViewForMaster() {
-		return $this->inboxView->getCssViewForMaster();
+	public function getCssViewForMaster($title = null) {
+		return $this->inboxView->getCssViewForMaster($title);
 	}
 }
