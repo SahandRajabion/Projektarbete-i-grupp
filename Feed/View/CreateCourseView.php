@@ -121,7 +121,7 @@ $users = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
       }
       else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
       {
-          $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
       }
 
      $html = 
