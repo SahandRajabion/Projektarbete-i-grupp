@@ -54,7 +54,7 @@
 			$html = $this->cssView("Manage Courses");	
 
 	   	     if ($courses != null) {
-                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>List of available courses</h4></div></div></div>';
+                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>List of all courses</h4></div></div></div>';
 	                foreach ($courses as $course) {
 
 	                	if ($course['CourseId'] !== "1") {
@@ -67,8 +67,13 @@
 	               				<input type="hidden" name="' . $this->removeCourseLocation . '" id="' . $this->removeCourseLocation . '" value="'. $course['CourseId'] .'"></td>
 	               				<td><button type="submit" name="' . $this->submitRemoveCourseLocation . '" class="btn btn-danger">Delete ' .$course['CourseName'].'</button></td></tr></br></br></form></div></div>';
 	           		}
+	           		else 
+	           		{
+	           			$html .= "<label>There is no courses</label>";
+	           		}
 	           		}
                 }
+
 		      
 		      return $html;
 
@@ -89,13 +94,13 @@
 		    
 		     $users = $this->userRepository->getAllUser();
 
-		   	 $html = $this->cssView("User List");	
+		   	 $html = $this->cssView("Manage Users");	
 
 		
     	        		
 
 	   	     if ($users != null) {
-                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>List of available users</h4></div></div></div>';
+                	$html .= ' <div class="row"><div class="panel panel-info"> <div class="panel-heading"><h4>List of all users</h4></div></div></div>';
 	                foreach ($users as $usernames) {
 	                	foreach ($usernames as $user) {
 	                	
