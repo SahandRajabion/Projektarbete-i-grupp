@@ -48,12 +48,12 @@
 		                  if ($open != null) {
 		                        # code...
 		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li><span class="sr-only">(current)</span></a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li><span class="sr-only">(current)</span></a></li>';
-		                       }
+		                                              # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
 		                  }
 		                  else {
 		                      $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
@@ -165,12 +165,12 @@
 		                  if ($open != null) {
 		                        # code...
 		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
-		                       }
+		                                            # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
 		                  }
 		                  else {
 		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
@@ -231,7 +231,7 @@
 					else
 					{
 						$html .= '<div id="msg">'.
-								 '<h3>You do not have any send messages right now!</h3>'.
+								 '<h3>You do not have any sent messages right now!</h3>'.
 								 '</div">';
 
 					}			
@@ -265,12 +265,12 @@
 		                  if ($open != null) {
 		                        # code...
 		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li><span class="sr-only">(current)</span></a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li><span class="sr-only">(current)</span></a></li>';
-		                       }
+		                                               # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
 		                  }
 		                  else {
 		                      $html .= '<li class="active"><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
@@ -392,12 +392,12 @@
 		                  if ($open != null) {
 		                        # code...
 		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
-		                       }
+		                                             # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
 		                  }
 		                  else {
 		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
@@ -795,12 +795,12 @@
 		                  if ($open != null) {
 		                        # code...
 		                       if ($open == 1) {
-		                         # code...
-		                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
-		                       }
-		                       else {
-		                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
-		                       }
+		                                             # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
 		                  }
 		                  else {
 		                      $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';

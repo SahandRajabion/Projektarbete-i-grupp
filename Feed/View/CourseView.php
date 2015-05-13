@@ -69,18 +69,18 @@ class CourseView extends BaseView
         $img = $this->imagesModel->getImages($this->loginModel->getId());
         if ($img->getImgName() == basename($value)) 
         {        
-          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $username . '</label></div>';
+          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
           $this->pic = $value;
         }
     }
 
     if (basename($this->pic) === "" && $users->getSex() == "Man") 
     {
-        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $username . '</label></div>';
+        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
     }
     else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
     {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName">' . $username . '</label></div>';
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
     }
 
      $html = 
@@ -137,7 +137,6 @@ class CourseView extends BaseView
               <ul class="nav navbar-nav navbar-right">
               <li>' . $userPic . '</li>
                 ' . $adminMenu . ' 
-                <li><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">My Profile</a></li>
                 <li><a name="logOut" href="?' . $this->logOutLocation . '">Log Out</a></li>
               </ul>
               
@@ -158,11 +157,11 @@ class CourseView extends BaseView
                   if ($open != null) {
                         # code...
                        if ($open == 1) {
-                         # code...
-                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+                                          # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
                        }
                        else {
-                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
                        }
                   }
                   else {

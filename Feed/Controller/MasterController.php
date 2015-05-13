@@ -211,7 +211,7 @@ class MasterController extends Navigation
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2>';
+		           			$html .= '<a href="?">Back</a></br><h2>Sorry your search has provided no results</h2>';
 		           		}
 		           	}
 
