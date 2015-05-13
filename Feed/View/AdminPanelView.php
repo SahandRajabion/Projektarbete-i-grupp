@@ -76,10 +76,14 @@
 			    		}
 
 
-	   					$html .= '<div class="panel panel-info">
-	   							<div class="panel-body">	
-	   						    <ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->user.'</a></ul>
-	   							<form role="form" action="" method="post"><tr>						
+	   					
+
+	   						if ($userId != 0) {
+	   								$html .= '<div class="panel panel-info">
+	   							<div class="panel-body">';
+	   								# code...
+	   								  $html .= '<ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->user.'</a></ul>';
+	   								  	$html .= '<form role="form" action="" method="post"><tr>						
 							    <td>
 	               				<input type="hidden" name="' . $this->uppgradeLocation . '" id="' . $this->uppgradeLocation . '" value="'. $userId .'"></td>
 	               				<td><button type="submit" name="' . $this->uppgradeUserLocation . '" class="btn btn-primary">'.$role." " .$this->user.'</button></td></br></br></form>
@@ -87,6 +91,9 @@
 	               				<td>
 	               				<input type="hidden" name="' . $this->removeUserLocation . '" id="' . $this->removeUserLocation . '" value="'. $userId .'"></td>
 	               				<td><button type="submit" name="' . $this->submitRemoveUserLocation . '" class="btn btn-danger">Delete ' .$this->user.'</button></td></tr></br></br></form></div></div>';
+	   						}
+	   						  
+	   				
 	           		}
                 }
 		      

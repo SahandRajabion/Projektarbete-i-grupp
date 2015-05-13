@@ -173,10 +173,16 @@ class MasterController extends Navigation
 		                	foreach ($usernames as $name) {
 		                	
 		                		$this->name = $name;
-		                	}	 
+		                	}	  
+
+
 
 		                	$userId = $this->userRepository->getUserIdByName($this->name);
-		               		$html .= '<ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->name.'</a></ul>';
+		                	if ($userId != 0) {
+		                		# code...
+		                		$html .= '<ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->name.'</a></ul>';
+		                	}
+		               		
 		           		}
 	                }
 	               
