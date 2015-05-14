@@ -10,7 +10,7 @@ $(document).ready(function() {
 		
 	 $('#MyUploadForm').submit(function(e) 
 	 { 		
-		e.preventDefault(); 
+	 	e.preventDefault(); 
 
 		if (working == false) {
 			$(this).ajaxSubmit(options);

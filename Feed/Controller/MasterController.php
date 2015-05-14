@@ -15,7 +15,7 @@ require_once("View/ContactView.php");
 require_once("View/CreateCourseView.php");
 require_once("Controller/ContactController.php");
 require_once('Controller/UploadController.php');
-require_once('Controller/AdminController.php');
+require_once('Controller/AdminController.php'); 
 require_once('View/ProfileView.php');
 require_once("View/InboxView.php");
 require_once('Model/Messages.php');
@@ -104,7 +104,7 @@ class MasterController extends Navigation
 		$this->profileView = new ProfileView();
 		$this->changePasswordView = new ChangePasswordView();
 
-		$this->feed = new FeedView($this->model);
+		
 		$this->inboxView = new InboxView($this->model,$this->messages,$this->htmlView,$this->userRepository,$this->messageRepository);
       	$this->createCourseView = new CreateCourseView($this->model,$this->messageRepository);
       	$this->messageFormView = new MessageFormView($this->htmlView,$this->model,$this->messageRepository);
@@ -114,9 +114,11 @@ class MasterController extends Navigation
       	$this->contactController = new ContactController($this->contactView);
       	$this->uploadController = new UploadController($this->profileView,$this->model);
       	$this->adminController = new AdminController($this->model,$this->createCourseView,$this->htmlView);
-      	$this->loginController = new LoginController($this->contactView,$this->htmlView,$this->model,$this->userRepository,$this->forgetPasswordView,$this->resetPassword,$this->profileView,$this->programView);
+      	$this->loginController = new LoginController();
       	$this->changeUserController = new ChangeUserController($this->model,$this->userRepository,$this->profileView);
 
+      	$this->feed = new FeedView($this->model); 
+      	
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 

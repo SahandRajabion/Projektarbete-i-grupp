@@ -1,19 +1,27 @@
 <?php
 
 require_once("View/LoginView.php");
-require_once("View/LoggedInView.php");
+require_once("View/LoggedInView.php"); 
+require_once("View/HTMLView.php");
+require_once("View/ResetPasswordView.php");
 require_once("View/LoginMessage.php");
+require_once("Model/LoginModel.php");
+require_once("View/ForgetPasswordView.php");
 require_once("helper/UserAgent.php");
 require_once("Validation/ValidatePassword.php");
 require_once("Validation/ValidateUsername.php");
 require_once("Validation/ValidateNewUser.php");
 require_once("Model/Hash.php");
+require_once("Model/Dao/UserRepository.php");
 require_once("Model/User.php");
 require_once("Model/UserReset.php");
 require_once("Settings.php");
 require_once('recaptchalib.php');
+require_once("View/ProfileView.php");
+require_once("View/ProgramView.php");
 require_once("Model/Token.php");
 require_once("View/CourseView.php");
+require_once("View/ContactView.php");
 require_once('Controller/RegisterController.php');
 
 class LoginController 
@@ -29,34 +37,40 @@ class LoginController
     private $userAgent;
     private $userAgent2;
     private $showLoggedInPage;
+    
     private $resetPassword;
+    
     private $validateUsername;
     private $validatePassword;
     private $validateNewUser;
+    
     private $loginMessage;
     private $hash;
     private $topic;
     private $author;
     private $forgetPasswordView;
     private $contactPage;
+    
+    
     private $registerController;
 
-    public function __construct(ContactView $contactPage,HTMLView $htmlView,LoginModel $model,UserRepository $userRepository,ForgetPasswordView $forgetPasswordView,ResetPasswordView $resetPassword,ProfileView $profileView,ProgramView $programView) {
-        $this->contactPage = $contactPage;
+    public function __construct() {
+        $this->contactPage = new ContactView();
         $this->loginView = new LoginView();
-        $this->htmlView = $htmlView;
+        $this->htmlView = new HTMLView();
         $this->loggedInView = new LoggedInView();
-        $this->model = $model;
+        $this->model = new LoginModel();
+        
         $this->validateUsername = new ValidateUsername();
         $this->validatePassword = new ValidatePassword();
         $this->validateNewUser = new ValidateNewUser();
-        $this->userRepository = $userRepository;
-        $this->forgetPasswordView = $forgetPasswordView;
+        $this->userRepository = new UserRepository();
+        $this->forgetPasswordView = new ForgetPasswordView();
         $this->hash = new Hash();
-        $this->resetPassword = $resetPassword;
+        $this->resetPassword = new ResetPasswordView();
         $this->loginMessage = new LoginMessage($msg='');
-        $this->profileView = $profileView;
-        $this->programView = $programView;
+        $this->profileView = new ProfileView();
+        $this->programView = new ProgramView();
         $this->courseView = new CourseView();
         $this->registerController = new RegisterController($this->forgetPasswordView,$this->contactPage,$this->profileView,$this->validateUsername,$this->validatePassword,$this->validateNewUser,$this->model,$this->userRepository,$this->hash,$this->resetPassword,$this->programView,$this->loginView);
     }

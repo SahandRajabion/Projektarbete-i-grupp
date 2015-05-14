@@ -6,7 +6,7 @@ class UploadView extends BaseView
 {
 
 	public function ImageUpload($courseId) 
-	{		
+	{		 
 			$uploadForm =
 			'<div id="upload-wrapper">
 			 <div align="center">'.

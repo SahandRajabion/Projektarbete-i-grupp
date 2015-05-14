@@ -58,6 +58,7 @@ private $link;
     foreach ($Images as $value) 
     {  
         $img = $this->imagesModel->getImgs($this->username);
+        $removeImg = $this->imagesModel->getImgToRemove(basename($value));
         if ($img->getImg() == basename($value)) 
         {        
           $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $this->username . '</label></div>';

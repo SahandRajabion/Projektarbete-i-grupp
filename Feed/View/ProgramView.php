@@ -1,5 +1,7 @@
 <?php
 require_once('View/BaseView.php');
+require_once('Model/Dao/MessagesRepository.php');
+require_once("./Model/LoginModel.php");
 require_once("./Model/ImagesModel.php");
 
 class ProgramView extends baseView {
@@ -8,11 +10,11 @@ class ProgramView extends baseView {
     private $messageRepository;
     private $imagesModel;
 
-    public function __construct(LoginModel $model,MessagesRepository $messageRepository) 
+    public function __construct() 
     {
-      $this->loginModel = $model;
+      $this->loginModel = new LoginModel();
       $this->imagesModel = new ImagesModel();
-      $this->messageRepository = $messageRepository;
+      $this->messageRepository = new MessagesRepository();
     }
 
     public function showCoursePage() {
@@ -155,7 +157,7 @@ class ProgramView extends baseView {
     }
     else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
     {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
     }
 
      $html = 
@@ -231,11 +233,11 @@ class ProgramView extends baseView {
                   if ($open != null) {
                         # code...
                        if ($open == 1) {
-                                             # code...
-                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                         # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
                        }
                        else {
-                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
                        }
                   }
                   else {
