@@ -23,77 +23,33 @@ private $model;
         $url = $this->courseRepository->getRSSLink($courseId);
         $xml = simplexml_load_file($url);
 
-        $adminMenu = "";
-        $pic = "";
+         $rssFeed = $this->cssView("Inbox");
 
-        if ($this->model->isAdmin()) 
-        {
-            $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
-        }
+          $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
-        $rssFeed .= "
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-          <link rel='stylesheet' type='text/css' href='css/styleVal.css' />  
-          <link rel='stylesheet' type='text/css' href='css/programStyles.css' />       
-          <script src='js/script.js'></script>
-          <title>LSN</title>                
-          <meta charset='utf-8'>
-          <meta name='viewport' content='width=device-width, initial-scale=1'>
-          </head>
-          <body>
-          <div class='container'>"; 
+                
+                      if ($open != null) {
+                            # code...
+                           if ($open == 1) {
+                                                  # code...
+                         $rssFeed .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $rssFeed .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
+                      }
+                      else {
+                          $rssFeed .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+                      }
+                     
+                  $rssFeed .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+                  '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+                  </ul>
+                </div>';
 
-        $rssFeed .= "<br>";
-        $username = $this->model->getUsername();
-        $pic = "";
 
-        $user = $this->model->GetUserProfileDetails($this->model->getId());
-        $Images = glob("imgs/*.*");
-
-            foreach ($Images as $value) {  
-
-              $img = $this->imagesModel->getImgs($username);
-              if ($img->getImg() == basename($value)) {
-
-                $rssFeed .= '<div id="imgArea"><img src="'.$value.'"><h4>'.$username.' är inloggad</h4></div>';
-                $pic = $value;
-              }
-            }
-
-        if(basename($pic) === "" && $user->getSex() == "Man") 
-          {
-             $rssFeed .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$username.' är inloggad</h4></div>';
-          }
-         else if(basename($pic) === "" && $user->getSex() == "Kvinna")
-         {
-            $rssFeed .= '<div id="imgArea"><img src="img/kvinna.png"><h4>'.$username.' är inloggad</h4></div>';
-         }     
-
-       $rssFeed .= "
-              <br><br>
-              <nav class='navbar navbar-default' role='navigation'>
-              <div class='navbar-header'>
-                <button type='button' class='navbar-toggle' data-toggle='collapse' 
-                   data-target='#example-navbar-collapse'>
-                   <span class='sr-only'>Toggle navigation</span>
-                   <span class='icon-bar'></span>
-                   <span class='icon-bar'></span>
-                   <span class='icon-bar'></span>
-                </button>
-             </div>
-             <div class='collapse navbar-collapse' id='example-navbar-collapse'>
-                <ul class='nav navbar-nav'>
-                $adminMenu
-                   <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->model->getId()."'>Min profil</a></li>
-                   <li><a name='logOut' href='?". $this->logOutLocation . "'>Logga ut</a></li>
-                </ul>
-             </div>
-          </nav>
-          ";
-
+                $rssFeed .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                ' . $this->message . '';
           
         $rssFeed .= "<h1>" . $this->courseRepository->getCourseName($courseId) . "</h1>";
         $rssFeed .= "<a href='?". $this->backToFeedLocation .'&'.$this->id.'='.$courseId."'>Klicka för att komma tillbaka till nyhetsflödet</a></br></br></br>";

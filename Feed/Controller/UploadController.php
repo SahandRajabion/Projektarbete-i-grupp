@@ -100,6 +100,7 @@
 							$imgToUploadJ = @imagejpeg($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							$imgToUploadP = @imagepng($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							$imgToUploadG = @imagegif($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
+							
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
 								$images = new ProfilePic($this->fileName['name'],$this->model->getId());
 							 	$this->imagesModel->updateImage($images);

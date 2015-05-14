@@ -5,97 +5,63 @@ require_once("./Model/LoginModel.php");
 require_once("./Model/ImagesModel.php");
 require_once("View/BaseView.php");
 require_once('View/FeedView.php');
+require_once('Model/Dao/MessagesRepository.php');
 
 class LoggedInView extends BaseView 
 {
     private $feedView;
-    private $model;
-    private $imagesModel;
-    private $pic;
+    protected $loginModel;
+    protected $imagesModel;
+    protected  $pic;
+    private $messagesRepository;
 
     public function __construct() {
-        $this->model = new LoginModel();
+        $this->loginModel = new LoginModel();
         $this->imagesModel = new ImagesModel();
-        $this->feedView = new FeedView($this->model);
+        $this->feedView = new FeedView($this->loginModel);
+        $this->messagesRepository = new MessagesRepository();
     }
 
     public function GetUserProfileDetails($id) 
     {
-        return $this->model->GetUserProfileDetails($id);
+        return $this->loginModel->GetUserProfileDetails($id);
     }
    
     public function showPublicCourseFeed() {
-        $this->username = $this->model->getUsername();
-        $adminMenu = "";
-
-        if ($this->model->isAdmin()) 
-        {
-            $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Skapa ny kurs</a></li>";
-        }
-
-        $html = "<!DOCTYPE html>
-        <html>
-        <head>
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
-        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel='stylesheet' type='text/css' href='css/commentSlideStyle.css' /> 
-        <title>LSN</title>
-        </head>
-
-        <body>
-        <div class='container'>
-        <br>";
-        $user = $this->GetUserProfileDetails($this->model->getId());
-        $Images = glob("imgs/*.*");
-            foreach ($Images as $value) {  
-
-              $img = $this->imagesModel->getImgs($this->username);
-              if ($img->getImg() == basename($value)) {
-                
-                $html .= '<div id="imgArea"><img src="'.$value.'"><h4>'.$this->username.' är inloggad</h4></div>';
-                $this->pic = $value;
-              }
-            }
-
-        if(basename($this->pic) === "" && $user->getSex() == "Man") 
-          {
-             $html .= '<div id="imgArea"><img src="img/default.jpg"><h4>'.$this->username.' är inloggad</h4></div>';
-          }
-         else if(basename($this->pic) === "" && $user->getSex() == "Kvinna")
-         {
-            $html .= '<div id="imgArea"><img src="img/kvinna.png"><h4>'.$this->username.' är inloggad</h4></div>';
-         }
-        $html .= "
-            <br><br>
-            <nav class='navbar navbar-default' role='navigation'>
-            <div class='navbar-header'>
-              <button type='button' class='navbar-toggle' data-toggle='collapse' 
-                 data-target='#example-navbar-collapse'>
-                 <span class='sr-only'>Toggle navigation</span>
-                 <span class='icon-bar'></span>
-                 <span class='icon-bar'></span>
-                 <span class='icon-bar'></span>
-              </button>
-           </div>
-           <div class='collapse navbar-collapse' id='example-navbar-collapse'>
-           <form method='post' enctype='multipart/form-data'>
-              <ul class='nav navbar-nav'>
-                 $adminMenu
-                 <li><a name='profile' href='?". $this->userProfileLocation . "&id=".$this->model->getId()."'>Min profil</a></li>
-                 <li><button type='submit' name='". $this->logOutLocation . "' class='btn-link'>Logga ut</button></li>
-              </ul>
-          </form>
-           </div>
-        </nav>
-        $this->message";
-
+        $this->username = $this->loginModel->getUsername();
+       
         // Hård kodat för få ut allmänt
+         $html = $this->cssView("LoggedInView");
+
+          $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+                
+                      if ($open != null) {
+                            # code...
+                           if ($open == 1) {
+                                                  # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
+                      }
+                      else {
+                          $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+                      }
+                     
+                  $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+                  '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+                  </ul>
+                </div>';
+
+
+                $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                ' . $this->message . '';
+
+
         $html .= $this->feedView->GetFeedHTML(1);
-        $html .= "</div>
-        </body>
-        </html>";
+   
 
         return $html;
     }

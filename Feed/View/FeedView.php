@@ -4,6 +4,7 @@ require_once('Model/Dao/PostRepository.php');
 require_once('Model/LoginModel.php');
 require_once('Model/PostItems.php');
 require_once('Model/Dao/CommentRepository.php');
+require_once('Model/Dao/MessagesRepository.php');
 require_once('View/UploadView.php');
 require_once('Model/ImagesModel.php');
 require_once('View/BaseView.php');
@@ -13,10 +14,10 @@ class FeedView extends BaseView{
 
 
 private $courseRepository;
-private $loginModel;
+protected $loginModel;
 private $postRepository;
 private $commentRepository;
-private $imagesModel;
+protected $imagesModel;
 
 private $title = "message";
 private $hiddenFeedId = "hiddenFeedId";
@@ -24,7 +25,6 @@ private $imgName = "imgName";
 private $postContent = "Post";
 private $postTitle = "Title";
 private $date = "Date";
-private $pic;
 private $link;
 
 
@@ -37,115 +37,17 @@ private $link;
     $this->commentRepository = new CommentRepository();
     $this->uploadView = new UploadView();   
     $this->imagesModel = new ImagesModel();
+    $this->messagesRepository = new MessagesRepository();
 
   }
 
     public function showCourseFeed($courseId){
         
-    $this->username = $this->loginModel->getUsername();
-    $adminMenu = "";
-    $userPic = "";
+  
 
-    if ($this->loginModel->isAdmin()) 
-    {
-        $adminMenu .= "<li><a name='newCourse' href='?". $this->createNewCourseLocation . "'>Create course</a></li>";
-    }
- 
+         $html = $this->GetFeedHTML($courseId);
 
-    $user = $this->loginModel->GetUserProfileDetails($this->loginModel->getId());
-    $Images = glob("imgs/*.*");
-    
-    foreach ($Images as $value) 
-    {  
-        $img = $this->imagesModel->getImgs($this->username);
-        $removeImg = $this->imagesModel->getImgToRemove(basename($value));
-        if ($img->getImg() == basename($value)) 
-        {        
-          $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName">' . $this->username . '</label></div>';
-          $this->pic = $value;
-        }
-    }
 
-    if (basename($this->pic) === "" && $user->getSex() == "Man") 
-    {
-        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName">' . $this->username . '</label></div>';
-    }
-    else if (basename($this->pic) === "" && $user->getSex() == "Kvinna")
-    {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $this->username . '</a></label></div>';
-    }
-
-        $html = "<!DOCTYPE html>
-        <html>
-        <head>
-        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js' type='text/javascript'></script>
-        <script src='js/CommentSlideButton.js' type='text/javascript'></script>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-        <link href='css/bootstrap.min.css' rel='stylesheet'>
-        <link href='css/customCss.css' rel='stylesheet'>
-        <script type='text/javascript' src='jquery.min.js'></script>
-        <script type='text/javascript' src='script.js'></script>
-        
-        <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
-        <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
-        <title>LSN</title>
-        </head>
-
-        <body>
-        <div class='container'>
-        <br>";
-
-        
-
-       $html .= "
-              <br><br>
-             <nav class='navbar navbar-inverse navbar-fixed-top'>
-          <div class='container'>
-            <div class='navbar-header'>
-              <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false'aria-controls='navbar'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-              </button>
-              <a class='navbar-brand' href='?'>LSN</a>
-            </div>
-            <div id='navbar' class='navbar-collapse collapse'>
-
-              <form class='navbar-form navbar-right' role='search' method='post' enctype='multipart/form-data'>
-              <div class='form-group'>
-              <div class='input-group'>
-              <span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>
-             
-              <div class='input_container'>
-                <input type='text' id='course_id' onkeyup='autocomplet()' name='" . $this->searchLocation . "' size='20' maxlength='20' class='form-control1' placeholder='Search'>
-                <ul id='course_list_id'></ul>
-                </div>
-              </div>
-              </div>
-              <button type='submit' name='" . $this->submitSearchLocation . "' class='btn btn-primary'><i class='glyphicon glyphicon-search'></i></button>
-            </form>
-              
-
-              <ul class='nav navbar-nav navbar-right'>
-              <li>'" . $userPic . "'</li>
-                '" . $adminMenu . "'
-                <li><a name='profile' href='?" . $this->userProfileLocation . '&id='.$this->loginModel->getId(). "'>My profile</a></li>
-                <li><a name='logOut' href='?" . $this->logOutLocation . "'>Log out</a></li>
-              </ul>
-              
-            </div>
-          </div>
-        </nav>
-          $this->message";
-
-         $html .= $this->GetFeedHTML($courseId);
-
-        $html .= "</div>
-        </body>
-        </html>";
 
         return $html;
 
@@ -159,7 +61,34 @@ private $link;
         $feedItems = $this->postRepository->getPosts($courseId, $linkRSS);
         $items = array();
 
-        $html = "
+         $html = $this->cssView("Feed");
+
+          $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
+
+                
+                      if ($open != null) {
+                            # code...
+                           if ($open == 1) {
+                                                  # code...
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
+                       }
+                       else {
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                       }
+                      }
+                      else {
+                          $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+                      }
+                     
+                  $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
+                  '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
+                  </ul>
+                </div>';
+
+
+                $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                ' . $this->message . '';
+        $html .= "
         <h1 style='text-align:center'>" . $this->courseRepository->getCourseName($courseId) . "</h1>
         <div class='content'>";
 
@@ -346,10 +275,17 @@ private $link;
       
 
         //Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
-        $html .= "<script type='text/javascript'>var course_id = " . $courseId . ";</script>
+
+
+
+           $html .= '<script type="text/javascript">var course_id = "' . $courseId . '";</script>
                 </ul>
-                <p id='loader'><img src='images/ajax-loader.gif'></p>
-                </div>";
+           </div><p id="loader"><img src="images/ajax-loader.gif"></p>
+           <script src="js/jquery.min.js"></script>
+              <script src="js/bootstrap.min.js"></script>
+              <script src="js/ie10-viewport-bug-workaround.js"></script>
+            </body>
+          </html>'; 
 
 
 
