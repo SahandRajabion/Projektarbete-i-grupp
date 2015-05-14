@@ -24,6 +24,7 @@ require_once('Model/Dao/MessagesRepository.php');
 require_once('View/MessageFormView.php');
 require_once('View/ProgramView.php');
 require_once('View/AdminPanelView.php');
+require_once('Controller/ChangeUserController.php');
 
 
 class MasterController extends Navigation
@@ -54,6 +55,7 @@ class MasterController extends Navigation
     private $programView;
     private $name;
     private $co;
+    private $changeUserController;
 
 
     private static $Error_Sub_TYPE = "<div class='alert alert-danger alert-error'>
@@ -94,7 +96,6 @@ class MasterController extends Navigation
 		$this->forgetPasswordView = new ForgetPasswordView();
 		$this->model = new LoginModel();
 		$this->loginController = new LoginController();
-        $this->changePasswordView = new ChangePasswordView();
         $this->htmlView = new HTMLView();
       	$this->userRepository = new UserRepository();
       	$this->resetPassword = new ResetPasswordView();
@@ -103,6 +104,7 @@ class MasterController extends Navigation
       	$this->uploadController = new UploadController();
       	$this->courseRepository = new CourseRepository();
       	$this->profileView = new ProfileView();
+      	$this->changePasswordView = new ChangePasswordView();
       	$this->feed = new FeedView($this->model);
       	$this->inboxView = new InboxView();
       	$this->messages = new Messages();
@@ -110,6 +112,7 @@ class MasterController extends Navigation
       	$this->messageFormView = new MessageFormView();
       	$this->programView = new ProgramView();
       	$this->adminPanelView = new AdminPanelView();
+      	$this->changeUserController = new ChangeUserController($this->model,$this->userRepository,$this->profileView);
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -122,7 +125,11 @@ class MasterController extends Navigation
 				{
 					if (!preg_match($this->emailExp, $this->getEmail())) 
 					{	
-						$this->loginController->setMessageFromOutside(22, "forget");
+						$msgId = 22;
+    				    $this->loginMessage = new LoginMessage($msgId);        
+		                $message = $this->loginMessage->getMessage();
+		                $this->forgetPasswordView->setMessage($message);
+		                return  $this->forgetPasswordView->showForgetPasswordPage();
 					}
 
 					else
@@ -150,7 +157,11 @@ class MasterController extends Navigation
 							
 							if (mail($to, $subject, $message,$headers)) 
 							{
-								$this->loginController->setMessageFromOutside(42, "forget");
+								$msgId = 42;
+								$this->loginMessage = new LoginMessage($msgId);        
+				                $message = $this->loginMessage->getMessage();
+				                $this->forgetPasswordView->setMessage($message);
+				                return  $this->forgetPasswordView->showForgetPasswordPage();
 							 }
 							}
 								
@@ -158,11 +169,17 @@ class MasterController extends Navigation
 					}
 					else
 						  {
-							$this->loginController->setMessageFromOutside(42, "forget");
+								$msgId = 42;
+								$this->loginMessage = new LoginMessage($msgId);        
+				                $message = $this->loginMessage->getMessage();
+				                $this->forgetPasswordView->setMessage($message);
+				                return  $this->forgetPasswordView->showForgetPasswordPage();
 						}	
 
 					 }
 				}	
+
+				
 
 				else if ($this->loginController->isAuthenticated() && $this->programView->hasSubmitToSearch())
     	        {
@@ -211,7 +228,7 @@ class MasterController extends Navigation
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<a href="?">Back</a></br><h2>Sorry your search has provided no results</h2>';
+		           			$html .= '<a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2>';
 		           		}
 		           	}
 
@@ -228,7 +245,7 @@ class MasterController extends Navigation
 	            {
 	                if ($this->changePasswordView->didUserPressSubmit()) 
 	                {
-	                    $this->loginController->changePassword();
+	                    $this->changeUserController->changePassword();
 	                }
 	                
 	                else 
@@ -355,7 +372,7 @@ class MasterController extends Navigation
 
             	else if ($this->contactView->didUserPressToContact() && $this->contactView->hasSubmitToSend())
     	        {
-	                $this->contactController->doContact();
+	                return $this->contactController->doContact();
              	}
 
 				else if ($this->loginController->isAuthenticated() && $this->createCourseView->DidUserPressToCreateCourse())
@@ -384,7 +401,7 @@ class MasterController extends Navigation
     	        		$courseid = $this->adminPanelView->getCourseToRemove();
     	        	    $this->courseRepository->removeCourse($courseid);
     	        		$this->adminPanelView->setMessage("<div class='alert alert-success'>
-					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
+					   <span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
 					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
 					  <span id='sizeOfPTag'>Course has been removed</span>
 					  </div>");
@@ -436,7 +453,8 @@ class MasterController extends Navigation
     	        {
     	        	if ($this->profileView->didUserPressToEditProfile()) 
     	        	{
-    	        		$this->loginController->editUserDetails();
+
+    	        		return $this->changeUserController->editUserDetails();
     	        	}
     	        	
     	        	else 
