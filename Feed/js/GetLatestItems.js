@@ -47,9 +47,7 @@ $(document).ready(function () {
               
                 if (response != "") {
                     var obj = JSON.parse(response);
-                    $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();
-                                        alert(obj.postId);
-
+                    $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();   
                 }
 
                 setTimeout(getLatestComments, 1000);

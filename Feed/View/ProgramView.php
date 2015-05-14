@@ -157,7 +157,7 @@ class ProgramView extends baseView {
     }
     else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
     {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png" <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
     }
 
      $html = 
@@ -225,7 +225,7 @@ class ProgramView extends baseView {
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li><a href="?">Available Programmes</a></li>';
+                <li class="active"><a href="?">Available Programmes</a></li>';
            
                 $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -233,12 +233,12 @@ class ProgramView extends baseView {
                   if ($open != null) {
                         # code...
                        if ($open == 1) {
-                         # code...
-                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox (One new message)</a></li>';
+                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
                        }
                        else {
-                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox ('.$open.' new messages)</a></li>';
+                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
                        }
+                        
                   }
                   else {
                       $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li>';
