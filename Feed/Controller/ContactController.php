@@ -42,7 +42,7 @@
 		public function doContact() {
 			$Name = $this->getContctName();
 			$Email = $this->getContactEmail();
-			$Message = $this->getContactMsg();
+			$Message = $this->getContactMsg(); 
 			if ($this->didPressSend() == true) {
 				
 				if ($this->validation->ContactFormValidation($Name,$Email,$Message) === true) {
@@ -50,14 +50,20 @@
 			    		$messages = "Namn:\r\n" .$Name."\r\nEpost:\r\n". $Email."\r\nMeddelande:\r\n".$Message;
 						$headers  = "From:".$Email."\r\n";
 			    		$headers .= "Reply-To:" .$Email;
-	
+						$msgId = 45;
     				    $this->emailContact->EmailContact($messages,$headers);
-    				    $this->loginController->setMessageFromOutside(45, "contact");
+    				    $this->loginMessage = new LoginMessage($msgId);        
+		                $message = $this->loginMessage->getMessage();
+		                $this->contact->setMessage($message);
+		                return  $this->contact->ContactForm();
 
 				}
 				else {
 					$msgId = $this->validation->ContactFormValidation($Name,$Email,$Message);
-					$this->loginController->setMessageFromOutside($msgId, "contact");
+					$this->loginMessage = new LoginMessage($msgId);        
+	                $message = $this->loginMessage->getMessage();
+	                $this->contact->setMessage($message);
+	                return  $this->contact->ContactForm();
 				}
 				
 			}
