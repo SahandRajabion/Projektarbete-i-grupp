@@ -141,6 +141,7 @@ class ProgramView extends baseView {
     foreach ($Images as $value) 
     {  
         $img = $this->imagesModel->getImages($this->loginModel->getId());
+        $removeImg = $this->imagesModel->getImgToRemove(basename($value));
         if ($img->getImgName() == basename($value)) 
         {        
           $userPic .= '<div><img id="profileImage" src="'.$value.'" > <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
