@@ -74,16 +74,11 @@ function beforeSubmit()
 //progress bar function
 function OnProgress(event, position, total, percentComplete)
 {
-    //Progress bar
+   //Progress bar
 	$('#progressbox').show();
+	$('#progressbar').attr('aria-valuenow', percentComplete);
     $('#progressbar').width(percentComplete + '%') //update progressbar percent complete
-    $('#statustxt').html(percentComplete + '%'); //update status text
-    if(percentComplete>50)
-        {
-            $('#statustxt').css('color','#000'); //change status text to white after 50%
-            $('#progressbox').delay( 3000 ).fadeOut();
-        }
-
+    $('#progressbar').append("<p>" + percentComplete + '%' +  "</p>"); //update status text
 }
 
 //function to format bites bit.ly/19yoIPO

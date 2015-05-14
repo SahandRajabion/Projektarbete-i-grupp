@@ -22,11 +22,23 @@ class UploadView extends BaseView
 			'<div id="output"></div>' . 
 			'<img src="images/ajax-load.gif" id="loading-img" style="display:none;" alt="Var vänlig vänta..."/>'.
 			'</form>'.
-			'<div id="progressbox" ><div id="progressbar"></div ><div id="statustxt">0%</div></div>'.
+			' <div class="progress" id="progressbox">
+  <div class="progress-bar" id="progressbar" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100">
+    
+  </div>
+</div>'.
 			'</div>'.
 			'</div>';
 			return $uploadForm;
 	}
+
+
+
+
+
+
+
 
 	public function getTitle() {
 		if (isset($_POST['Message'])) {
