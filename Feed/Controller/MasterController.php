@@ -10,7 +10,7 @@ require_once("View/ChangePasswordView.php");
 require_once("Controller/LoginController.php");
 require_once("View/HTMLView.php");
 require_once("View/ForgetPasswordView.php");
-require_once("View/ResetPasswordView.php");
+require_once("View/ResetPasswordView.php"); 
 require_once("View/ContactView.php");
 require_once("View/CreateCourseView.php");
 require_once("Controller/ContactController.php");
@@ -227,7 +227,9 @@ class MasterController extends Navigation
 		                	}	 
 
 		                	$courseId = $this->userRepository->getCourseIdByName($this->co);
-		               		$html .= '<ul class="list-group"><a class="list-group-item" href="?Course&id='. $courseId .'">'.$this->co.'</a></h3></ul>';
+		                	if ($courseId != 1) {
+		               			$html .= '<ul class="list-group"><a class="list-group-item" href="?Course&id='. $courseId .'">'.$this->co.'</a></h3></ul>';
+		               		}
 		           		}
 		           	}
 		           	else {
