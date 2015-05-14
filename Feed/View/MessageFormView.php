@@ -1,8 +1,6 @@
 <?php
  
-	require_once('View/HTMLView.php');
 	require_once('View/BaseView.php');
-	require_once('Model/LoginModel.php');
 
 	/**
 	* inbox
@@ -15,12 +13,12 @@
 		  private $pic;
 		  private $messagesRepository;
 		
-		public function __construct()
+		public function __construct(HTMLView $mainView,LoginModel $model,MessagesRepository $messagesRepository)
 		{
 			# code...
-			$this->mainView = new HTMLView();
-		    $this->loginModel = new LoginModel();
-		    $this->messagesRepository  = new MessagesRepository();
+			$this->mainView = $mainView;
+		    $this->loginModel = $model;
+		    $this->messagesRepository  = $messagesRepository;
 		   $this->imagesModel = new ImagesModel();
 		}
 

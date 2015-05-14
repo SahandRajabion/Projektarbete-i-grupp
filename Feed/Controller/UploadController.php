@@ -6,7 +6,6 @@
 	require_once('Model/ImagesModel.php');
 	require_once('Model/ProfilePic.php');
 	require_once('helper/CookieStorage.php');
-	require_once('Controller/LoginController.php');
 
 	class UploadController {
 		private $validation;
@@ -23,15 +22,14 @@
           <span id='sizeOfPTag'>Image must be of format gif, jpg, or png</span>
           </div>";
 
-		public function __construct() {
+		public function __construct(ProfileView $uploadPage,LoginModel $model) {
 			$this->validation = new validation();
 			$this->imgRoot = getcwd()."/imgs/";
-			$this->uploadPage = new ProfileView();
+			$this->uploadPage = $uploadPage;
 			$this->fileName = $this->getFileName();
 			$this->imagesModel = new ImagesModel();
 			$this->cookieStorage = new CookieStorage();
-			$this->loginController = new LoginController();
-			$this->model = new LoginModel();
+			$this->model = $model;
 		}
 		//Get input and other stuff from upload view class.
 		private function DidHasSubmit() {
@@ -55,7 +53,7 @@
 			$this->validation->getFileName($this->fileName);
 			if ($this->DidHasSubmitToDefault()) {
 				# code...
-				$images = new ProfilePic("img/default.jpg",$this->loginController->getId());
+				$images = new ProfilePic("img/default.jpg",$this->model->getId());
 				$this->imagesModel->updateImage($images);
 				header("Location: ?profile&id=".$this->model->getId());
 			}
@@ -103,7 +101,7 @@
 							$imgToUploadP = @imagepng($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							$imgToUploadG = @imagegif($ImgCreateColor,$this->imgRoot.$this->fileName['name'],100);
 							 if ($imgToUploadJ || $imgToUploadP || $imgToUploadG ) {
-								$images = new ProfilePic($this->fileName['name'],$this->loginController->getId());
+								$images = new ProfilePic($this->fileName['name'],$this->model->getId());
 							 	$this->imagesModel->updateImage($images);
 								header("Location: ?profile&id=".$this->model->getId());
 	

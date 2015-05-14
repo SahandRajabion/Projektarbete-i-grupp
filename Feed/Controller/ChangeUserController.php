@@ -4,7 +4,6 @@
 	require_once("Validation/ValidateUsername.php");
 	require_once("Model/Hash.php");
     require_once("Validation/ValidateNewUser.php");
-    require_once("Controller/LoginController.php");
 	/**
 	* change password
 	*/

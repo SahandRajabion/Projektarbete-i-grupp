@@ -9,7 +9,6 @@ require_once("View/BaseView.php");
 require_once("View/ChangePasswordView.php");
 require_once("Controller/LoginController.php");
 require_once("View/HTMLView.php");
-require_once("View/LoggedInView.php");
 require_once("View/ForgetPasswordView.php");
 require_once("View/ResetPasswordView.php");
 require_once("View/ContactView.php");
@@ -34,7 +33,6 @@ class MasterController extends Navigation
 	private $contactView;
 	private $loginController;
     private $htmlView;
-    private $loggedInView;    
     private $model;
     private $forgetPasswordView;
     private $userRepository;
@@ -91,28 +89,34 @@ class MasterController extends Navigation
 
 	function __construct()
 	{
-		$this->adminController = new AdminController();
-		$this->createCourseView = new CreateCourseView();
-		$this->forgetPasswordView = new ForgetPasswordView();
-		$this->model = new LoginModel();
-		$this->loginController = new LoginController();
-        $this->htmlView = new HTMLView();
+
       	$this->userRepository = new UserRepository();
-      	$this->resetPassword = new ResetPasswordView();
-      	$this->contactView = new ContactView();
-      	$this->contactController = new ContactController();
-      	$this->uploadController = new UploadController();
       	$this->courseRepository = new CourseRepository();
-      	$this->profileView = new ProfileView();
-      	$this->changePasswordView = new ChangePasswordView();
-      	$this->feed = new FeedView($this->model);
-      	$this->inboxView = new InboxView();
-      	$this->messages = new Messages();
       	$this->messageRepository = new MessagesRepository();
-      	$this->messageFormView = new MessageFormView();
-      	$this->programView = new ProgramView();
-      	$this->adminPanelView = new AdminPanelView();
+      	
+      	$this->messages = new Messages();
+      	$this->model = new LoginModel();
+      	
+		$this->forgetPasswordView = new ForgetPasswordView();
+		$this->htmlView = new HTMLView();
+		$this->resetPassword = new ResetPasswordView();
+		$this->contactView = new ContactView();
+		$this->profileView = new ProfileView();
+		$this->changePasswordView = new ChangePasswordView();
+
+		$this->feed = new FeedView($this->model);
+		$this->inboxView = new InboxView($this->model,$this->messages,$this->htmlView,$this->userRepository,$this->messageRepository);
+      	$this->createCourseView = new CreateCourseView($this->model,$this->messageRepository);
+      	$this->messageFormView = new MessageFormView($this->htmlView,$this->model,$this->messageRepository);
+      	$this->programView = new ProgramView($this->model,$this->messageRepository);
+      	$this->adminPanelView = new AdminPanelView($this->model,$this->messageRepository,$this->userRepository,$this->courseRepository);
+
+      	$this->contactController = new ContactController($this->contactView);
+      	$this->uploadController = new UploadController($this->profileView,$this->model);
+      	$this->adminController = new AdminController($this->model,$this->createCourseView,$this->htmlView);
+      	$this->loginController = new LoginController($this->contactView,$this->htmlView,$this->model,$this->userRepository,$this->forgetPasswordView,$this->resetPassword,$this->profileView,$this->programView);
       	$this->changeUserController = new ChangeUserController($this->model,$this->userRepository,$this->profileView);
+
       	$this->emailExp = "/^[a-z0-9\å\ä\ö._-]+@[a-z0-9\å\ä\ö.-]+\.[a-z]{2,6}$/i";
 	}
 
@@ -379,7 +383,7 @@ class MasterController extends Navigation
     	        {
     	        	if ($this->createCourseView->DidUserPressSubmitNewCourse()) 
     	        	{
-    	        		$this->adminController->CreateNewCourse();
+    	        		return $this->adminController->CreateNewCourse();
     	        	}
     	        	else 
     	        	{

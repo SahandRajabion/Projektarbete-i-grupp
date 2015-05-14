@@ -1,8 +1,6 @@
 <?php
 
 require_once("Model/AdminModel.php");
-require_once("Model/LoginModel.php");
-require_once("View/CreateCourseView.php");
 require_once("Model/Token.php");
 
 class AdminController 
@@ -12,12 +10,12 @@ class AdminController
     private $createCourseView;
     private $htmlView;
 
-    public function __construct() 
+    public function __construct(LoginModel $model,CreateCourseView $createCourseView,HTMLView $htmlView) 
     {
         $this->adminModel = new AdminModel();
-        $this->loginModel = new LoginModel();
-        $this->createCourseView = new CreateCourseView();
-        $this->htmlView = new HTMLView();
+        $this->loginModel = $model;
+        $this->createCourseView = $createCourseView;
+        $this->htmlView = $htmlView;
     }
 
     public function CreateNewCourse() 

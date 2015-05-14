@@ -3,19 +3,16 @@
 	require_once('View/ContactView.php');
 	require_once('Validation/Validation.php');
 	require_once('Model/ContactModel.php');
-	require_once('Controller/LoginController.php');
 
 	class ContactController {
 		private $validation;
 		private $contact;
 		private $emailContact;
-		private $loginController;
 
-		public function __construct() {
-			$this->contact = new ContactView();
+		public function __construct(ContactView $contact) {
+			$this->contact = $contact;
 			$this->validation = new Validation();
 			$this->emailContact = new ContactModel();
-			$this->loginController = new LoginController();
 		}
 		//funcations for contact from 
 		private function getContctName() {

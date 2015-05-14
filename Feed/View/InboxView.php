@@ -1,12 +1,7 @@
 <?php 
 
-	require_once('View/HTMLView.php');
-	require_once('Model/Messages.php');
 	require_once('View/BaseView.php');
-	require_once('Model/LoginModel.php');
 	require_once('helper/time.php');
-	require_once('Model/Dao/MessagesRepository.php');
-	require_once('Model/Dao/UserRepository.php');
 	require_once('Model/ImagesModel.php');
 
 	/**
@@ -21,15 +16,15 @@
 		  private $messagesRepository;
 		  private $pic; 
 		
-		public function __construct()
+		public function __construct(LoginModel $model,Messages $messages,HTMLView $mainView,UserRepository $userRepository,MessagesRepository $messagesRepository)
 		{
 			# code...
 			$this->imagesModel = new ImagesModel();
-			$this->mainView = new HTMLView();
-		    $this->messages = new Messages();
-		    $this->loginModel = new LoginModel();
-		    $this->messagesRepository = new MessagesRepository();
-		    $this->userRepository = new UserRepository();
+			$this->mainView = $mainView;
+		    $this->messages = $messages;
+		    $this->loginModel = $model;
+		    $this->messagesRepository = $messagesRepository;
+		    $this->userRepository = $userRepository;
 		}
 
 

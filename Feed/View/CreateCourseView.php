@@ -2,9 +2,7 @@
 
 require_once("View/BaseView.php");
 require_once("Model/ImagesModel.php");
-require_once("Model/LoginModel.php");
 require_once('Model/Token.php');
-require_once('Model/Dao/MessagesRepository.php');
 
 class CreateCourseView extends BaseView
 {
@@ -13,11 +11,11 @@ class CreateCourseView extends BaseView
 	private $pic;
 	private $messageRepository;
 
-	public function __construct() 
+	public function __construct(LoginModel $model,MessagesRepository $messageRepository) 
 	{
 		$this->imagesModel = new ImagesModel();
-		$this->loginModel = new LoginModel();
-		$this->messageRepository = new MessagesRepository();
+		$this->loginModel = $model;
+		$this->messageRepository = $messageRepository;
 	}
 
 

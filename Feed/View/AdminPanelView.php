@@ -1,9 +1,5 @@
 <?php
 	
-	require_once('Model/LoginModel.php');
-	require_once('Model/Dao/MessagesRepository.php');
-	require_once('Model/Dao/UserRepository.php');
-		require_once('Model/Dao/CourseRepository.php');
 	require_once('Model/ImagesModel.php');
 	/**
 	* Admin panel
@@ -20,14 +16,14 @@
 		private $courseRepository;
 
 
-		function __construct()
+		function __construct(LoginModel $model,MessagesRepository $messagesRepository,UserRepository $userRepository,CourseRepository $courseRepository)
 		{
 			# code...
-			$this->loginModel = new LoginModel();
-			$this->messagesRepository = new MessagesRepository();
-			$this->userRepository = new UserRepository();
+			$this->loginModel = $model;
+			$this->messagesRepository = $messagesRepository;
+			$this->userRepository = $userRepository;
 			$this->imagesModel = new ImagesModel(); 
-			$this->courseRepository = new CourseRepository();
+			$this->courseRepository = $courseRepository;
 		}
 
 
