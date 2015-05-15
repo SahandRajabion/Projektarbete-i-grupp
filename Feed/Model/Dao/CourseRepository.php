@@ -14,6 +14,7 @@ require_once('Model/Dao/Repository.php');
  	private static $rssUrl = "RssUrl";
  	private static $rssLink = "rssLink";
  	private static $userId = "UserId";
+ 	private static $Schema = "Schedule";
 
 
  	private $key;
@@ -154,6 +155,47 @@ require_once('Model/Dao/Repository.php');
 	}
 
 
+
+public function getCourseSchema($id) 
+	{
+
+		try{
+	
+			
+			$sql ="SELECT * FROM $this->courseTable WHERE " . self::$courseID . " = ?";
+			$query = $this->db->prepare($sql);
+			$params = array($id);
+
+			$query->execute($params);
+
+			$results = $query->fetchAll();
+		
+			if ($results) {
+
+				foreach ($results as $result) 
+				{
+					if ($result['CourseId'] == $id) {
+
+						$courseName[] =  $result['Schedule'];
+					}
+				
+				}
+				return $courseName;
+
+			}
+			else 
+			{
+				return null;
+			}
+	}
+
+		catch (PDOException $e) 
+		{
+			echo "PDOException : " . $e->getMessage();
+		}
+	}
+
+
 	public function getCourseName($id) 
 	{
 		try{
@@ -219,11 +261,11 @@ require_once('Model/Dao/Repository.php');
 		}
 	}
 
-	public function AddCourse($courseName, $courseCode, $rssFeedUrl) {
+	public function AddCourse($courseName, $courseCode, $rssFeedUrl,$schema) {
 		try 
 		{	
-			$sql = "INSERT INTO $this->courseTable (" . self::$courseName . ", " . self::$courseCode . ", " . self::$rssUrl . ") VALUES (?, ?, ?)";
-			$params = array($courseName, $courseCode, $rssFeedUrl);
+			$sql = "INSERT INTO $this->courseTable (" . self::$courseName . ", " . self::$courseCode . ", " . self::$rssUrl .", " . self::$Schema . ") VALUES (?, ?, ?, ?)";
+			$params = array($courseName, $courseCode, $rssFeedUrl,$schema);
  			$query = $this->db->prepare($sql);
 			$query->execute($params);
 

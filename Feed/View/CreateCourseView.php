@@ -81,6 +81,15 @@ class CreateCourseView extends BaseView
 			return $_POST[$this->rssUrlLocation];
 		}
 	}	
+
+
+  public function GetSchema() 
+  {
+    if (isset($_POST[$this->schemaLocation])) 
+    {
+      return $_POST[$this->schemaLocation];
+    }
+  } 
 	
 
 	public function ShowCreateCourseForm() 
@@ -134,6 +143,11 @@ class CreateCourseView extends BaseView
               <div class="form-group">
               <em>(optional)</em>
                     <input type="text" placeholder="RSS Feed Url" size="40" maxlength="255" name="' . $this->rssUrlLocation . '" class="form-control input-lg" >                            
+              </div>
+
+              <div class="form-group">
+              <em>(optional)</em>
+                    <input type="text" placeholder="Schema Url" size="40" maxlength="255" name="' . $this->schemaLocation . '" class="form-control input-lg" >                            
               </div>
 
               <div class="form-group">

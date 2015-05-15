@@ -368,3 +368,5 @@ SQLSTATE[08004] [1040] Too many connections
 SQLSTATE[08004] [1040] Too many connections
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(UserId,CourseId,rssLink) VALUES ('40','23','http://coursepress.lnu.se/kurs/anva' at line 1
 SQLSTATE[08004] [1040] Too many connections
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Schema) VALUES ('dwsqd', 'dewqd', '','http://se.timeedit.net/web/lnu/db1/schema1' at line 1
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Schema) VALUES ('dwsqd', 'dewqd', '', 'http://se.timeedit.net/web/lnu/db1/schema' at line 1

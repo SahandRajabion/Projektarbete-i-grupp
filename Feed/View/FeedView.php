@@ -59,6 +59,9 @@ private $link;
         $linkRSS = $this->courseRepository->getRSS($courseId);  
 
         $feedItems = $this->postRepository->getPosts($courseId, $linkRSS);
+
+        $schema = $this->courseRepository->getCourseSchema($courseId);
+
         $items = array();
 
         $html = $this->cssView("News feed"); 
@@ -80,7 +83,15 @@ private $link;
                       else {
                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
                       }
-                     
+                      foreach ($schema as $key) {
+                        # code...
+                         if ($key != null) {
+                           # code...
+                            $html .= '<li><a name="Inbox" href="'.$key.'"><b>Schedule</b></a></li>';
+                         }
+                      }
+                    
+
                   $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
                   '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
                   </ul>

@@ -30,8 +30,9 @@ class AdminController
                 $courseName = $this->createCourseView->GetCourseName();
                 $courseCode = $this->createCourseView->GetCourseCode();
                 $rssFeedUrl = $this->createCourseView->GetRSSUrl();
+                $schema = $this->createCourseView->GetSchema();
 
-                $message = $this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode, $rssFeedUrl);
+                $message = $this->adminModel->createNewCourse($checkedBoxValues, $courseName, $courseCode, $rssFeedUrl,$schema);
 
                 $this->createCourseView->setMessage($message);
                 $this->htmlView->echoHTML($this->createCourseView->ShowCreateCourseForm());

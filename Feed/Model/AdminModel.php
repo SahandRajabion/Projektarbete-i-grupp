@@ -12,7 +12,7 @@ class AdminModel
 		$this->courseRepository = new CourseRepository();
 	}
 
-    public function CreateNewCourse($checkBoxValues, $courseName, $courseCode, $rssFeedUrl) 
+    public function CreateNewCourse($checkBoxValues, $courseName, $courseCode, $rssFeedUrl,$schema) 
     {
     	if ($this->validationErrors == 0) 
     	{
@@ -138,9 +138,29 @@ class AdminModel
    		 }
 
 
+   		if ($this->validationErrors == 0) 
+    	{	
+    		if($schema != null)
+    		{
+    			
+	    		if (preg_match('/^(http:\/\/)(se\.timeedit\.net\/web\/lnu\/db1\/schema1\/)(.+)?$/', $schema) == false) 
+	    		{
+
+	    			$this->validationErrors++;
+	    			$msgId = 58;
+	            	$this->loginMessage = new LoginMessage($msgId);        
+	            	$message = $this->loginMessage->getMessage();
+
+	           		 return $message;
+	    		}
+	   		}
+   		 }
+
+
     	if ($this->validationErrors == 0) 
     	{
-    		$courseId = $this->courseRepository->AddCourse($courseName, $courseCode, $rssFeedUrl);
+    		
+    		$courseId = $this->courseRepository->AddCourse($courseName, $courseCode, $rssFeedUrl,$schema);
 
     		foreach ($checkBoxValues as $programId) 
     		{

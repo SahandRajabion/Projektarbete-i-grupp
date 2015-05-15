@@ -56,7 +56,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
     protected $code = 'gjaQwrA';
     protected $userProfileLocation = 'profile';
     protected $editProfileLocation = 'editProfile';
-
+    protected $schemaLocation = "schema";
     protected $emailRegLocation='emailRegLocation';
     protected $emailConfirmLocation='emailConfirmLocation';
     protected $fNameLocation='fNameLocation';
