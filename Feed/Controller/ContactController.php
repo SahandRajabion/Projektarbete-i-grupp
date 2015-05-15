@@ -8,6 +8,8 @@
 		private $validation;
 		private $contact;
 		private $emailContact;
+		public $validationErrors = 0;
+
 
 		public function __construct(ContactView $contact) {
 			$this->contact = $contact;
@@ -41,8 +43,29 @@
 			$Email = $this->getContactEmail();
 			$Message = $this->getContactMsg(); 
 			if ($this->didPressSend() == true) {
+
+				 if (isset($_POST["recaptcha_challenge_field"])) 
+           	    {
+
+            $resp = recaptcha_check_answer (Settings::$SECRET_KEY,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+        	   
+
+        	   
+                    if (!$resp->is_valid) 
+                    {
+                        $msgId = 14;
+                        $this->validationErrors++;
+                        $this->loginMessage = new LoginMessage($msgId);        
+		                $message = $this->loginMessage->getMessage();
+		                $this->contact->setMessage($message);
+		                return  $this->contact->ContactForm();                
+                    }
+                
 				
-				if ($this->validation->ContactFormValidation($Name,$Email,$Message) === true) {
+				if ($this->validation->ContactFormValidation($Name,$Email,$Message) === true && $resp->is_valid && $this->validationErrors === 0) {
 						// parameters to send to mail function .
 			    		$messages = "Namn:\r\n" .$Name."\r\nEpost:\r\n". $Email."\r\nMeddelande:\r\n".$Message;
 						$headers  = "From:".$Email."\r\n";
@@ -64,5 +87,16 @@
 				}
 				
 			}
+			else{
+
+				 $msgId = 55;
+
+				 $this->loginMessage = new LoginMessage($msgId);        
+		                $message = $this->loginMessage->getMessage();
+		                $this->contact->setMessage($message);
+		                return  $this->contact->ContactForm();
+
+			}
 		}
 	}
+}
