@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 require_once('Model/Dao/CourseRepository.php');
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/LoginModel.php');
@@ -285,7 +285,10 @@ private $link;
 
 
            $html .= '
+           
            </div><p id="loader"><img src="images/ajax-loader.gif"></p>
+           <script type="text/javascript" src="js/GetLatestItems.js"></script>
+
             </body>
           </html>'; 
 
