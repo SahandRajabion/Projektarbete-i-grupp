@@ -18,7 +18,7 @@ protected $loginModel;
 private $postRepository;
 private $commentRepository;
 protected $imagesModel;
-
+private $messagesRepository;
 private $title = "message";
 private $hiddenFeedId = "hiddenFeedId";
 private $imgName = "imgName";
@@ -61,7 +61,8 @@ private $link;
         $feedItems = $this->postRepository->getPosts($courseId, $linkRSS);
         $items = array();
 
-         $html = $this->cssView("Feed");
+        $html = $this->cssView("News feed"); 
+
 
           $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -86,10 +87,12 @@ private $link;
                 </div>';
 
 
-                $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 ' . $this->message . '';
-        $html .= "
-        <h1 style='text-align:center'>" . $this->courseRepository->getCourseName($courseId) . "</h1>
+        
+        $html .="<div class='jumbotron'>        
+        
+        <h1 class='page-header' style='text-align:center'>" . $this->courseRepository->getCourseName($courseId) . "</h1></div>
         <div class='content'>";
 
         $html .= $this->uploadView->RenderUploadForm($courseId);
@@ -152,15 +155,16 @@ private $link;
 
      }
 
-
  }
 
      usort($items, array($this,'sortFeedItemsByDate'));
 
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
+       $html .="<div class='jumbotron' style='margin-left:-39px;'>";
+
        
-        if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
+        /*if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
             <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
@@ -173,14 +177,14 @@ private $link;
             <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($key->getPTitle()) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
             <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
-        }
+        }*/
 
 
      
                         $creators = $key->getCreator();
                         if ($key->getCreator() != null || $key->getCreator() != "" || !empty($creators)) {
 
-                           $html .="Inlägg skapad av:  ".$key->getCreator()." </br>";
+                           $html .="<div class='well'>Created by:  ".$key->getCreator()." </br>";
                         }   
 
                         $posts = $key->getPost();
@@ -195,7 +199,7 @@ private $link;
                         }}
 
                         $rsstitles = $key->getRssTitle(); 
-                        $html .="Datum skapad:</br> ".$key->getDate()."</br> ";
+                        $html .="Date created:</br> ".$key->getDate()."</br></div>";
 
                         if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($rsstitles)) {
                            $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
@@ -210,7 +214,7 @@ private $link;
                         $normalPosts = $key->getPost();
                          if ($key->getPost() != null || $key->getPost() != "" || !empty($normalPosts)){
 
-                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
+                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div></div>";
                         }
 
                       
@@ -220,7 +224,7 @@ private $link;
                 $imgName = $key->getImgName();          
                 if (empty($imgName) == false) 
                 {
-                    $html .= "<img src='View/Images/" . $key->getImgName() . "' width='500' height='315'>";
+                    $html .= "<img class='img-rounded' src='View/Images/" . $key->getImgName() . "' width='500' height='315'>";
                 }
 
                 $code = $key->getCode();
@@ -248,13 +252,16 @@ private $link;
                         if ($this->loginModel->getId() == $comment->GetUserId() || $this->loginModel->isAdmin()) {
                             
                             $html .=
-                            '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-                            <img src="images/icon_del.gif" border="0" />
+                            '
+                             <li class="list-group-item">
+                            <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                            <span class=""><i class="glyphicon glyphicon-trash"></i></span>
                             </a>';
+                        
                         }
 
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> skrev: <p>' . $data['body'] . '</p>
+                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <p>' . $data['body'] . '</p>
                         </div>';
                     }            
                 }
@@ -264,22 +271,25 @@ private $link;
                         <div>
                             <input type='hidden' id='courseid' name='courseid' value='" . $courseId . "'>
                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $key->getid() . "'>
-                            <label for='body'>Skriv en kommentar</label>".
-                            "<textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                            <input type='submit' id='submit' value='Kommentera'/>".
+                            <label for='body'>Write a comment</label>".
+                            "<textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
+                            <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>".
                         "</div>
                     </form>
                 </div>
                 </div>";                
         }
+
       
 
         //Lagrar undan sista id i variabel i javascript kod så man kan hämta den sen för ajax anropet
 
-
-
-           $html .= '<script type="text/javascript">var course_id = "' . $courseId . '";</script>
+         $html .= "<script type='text/javascript'>var course_id = " . $courseId . ";</script>
                 </ul>
+                </div>";
+
+
+           $html .= '
            </div><p id="loader"><img src="images/ajax-loader.gif"></p>
            <script src="js/jquery.min.js"></script>
               <script src="js/bootstrap.min.js"></script>

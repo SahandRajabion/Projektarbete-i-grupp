@@ -34,7 +34,11 @@ function beforeSubmit()
 		{
 			if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
 			{
-				$("#output").html("<br><p>Dela något!</p>");
+				$("#output").html("<br><div class='alert alert-danger alert-error'>
+					   <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>Nothing has been shared!</span>
+					  </div>");
 				return false;
 			}
 
@@ -53,14 +57,14 @@ function beforeSubmit()
 				case 'image/jpeg': 
 	                break;
 	            default:
-	                $("#output").html("<br>Filen är i fel format. Bara png, gif och jpeg är tillåtna.");
+	                $("#output").html("<br>Wrong file format. Only png, gif and jpeg are allowed.");
 					return false
 	        }
 			
 			
 			if(fsize>5242880) 
 			{
-				$("#output").html("<br><b>"+bytesToSize(fsize) +"</b>Filen är för stor <br />Filen kan vara max 5 MB.");
+				$("#output").html("<br><b>"+bytesToSize(fsize) +"</b>The file is too large <br />Maximum 5 MB.");
 				return false
 			}
 		}

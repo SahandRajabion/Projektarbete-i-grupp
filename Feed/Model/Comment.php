@@ -31,7 +31,12 @@ class Comment
 		
 		if(!($data['body'] = filter_input(INPUT_POST, 'body', FILTER_CALLBACK, array('options'=>'Comment::ValidateText'))))
 		{
-			$errors['body'] = 'Vänligen skriv en kommentar';
+			$errors['body'] = '</br>
+			<div class="alert alert-danger alert-error">
+					   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					   <a href="#" class="close" data-dismiss="alert">×</a>        
+					  <span id="sizeOfPTag">Please write a comment</span>
+					  </div>';
 		}
 
 		if(!empty($errors))
