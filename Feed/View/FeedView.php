@@ -174,22 +174,6 @@ private $link;
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
 
-       
-        /*if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
-        {
-            $html .= "<form class='post-remove' method='post' action=''> 
-            <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
-            <input type='hidden' name='imgName' id='imgName' value='" . $key->getImgName() . "'>
-            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
-            </form>";
-
-            $html .= "<form class='post-edit' method='post' action=''> 
-            <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($key->getPost()) . "'>
-            <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($key->getPTitle()) . "'>
-            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
-            <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
-        }*/
-
 
      
                         $creators = $key->getCreator();
@@ -302,9 +286,6 @@ private $link;
 
            $html .= '
            </div><p id="loader"><img src="images/ajax-loader.gif"></p>
-           <script src="js/jquery.min.js"></script>
-              <script src="js/bootstrap.min.js"></script>
-              <script src="js/ie10-viewport-bug-workaround.js"></script>
             </body>
           </html>'; 
 

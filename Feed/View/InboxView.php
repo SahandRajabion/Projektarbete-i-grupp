@@ -68,12 +68,11 @@
 					'<script type="text/javascript" src="js/LoadMoreMessages.js"></script>'.
 					'<script type="text/javascript">var user_id = ' . $this->getId() . ';</script>' .
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/customCss.css">'.
 					'</br>';
                 
 
 
-
+ 
 			$html .= 
 					'<div id="msg">';	
 					if ($inboxes != null) {
@@ -129,9 +128,6 @@
 
 
 			     $html .= '</div><p id="loader"><img src="images/ajax-loader.gif"></p>
-			     <script src="js/jquery.min.js"></script>
-			        <script src="js/bootstrap.min.js"></script>
-			        <script src="js/ie10-viewport-bug-workaround.js"></script>
 			      </body>
 			    </html>';	
 					
@@ -180,7 +176,7 @@
 		            ' . $this->message . '';
 
             $html .= '</br>'.
-				'<link href="css/customCss.css" rel="stylesheet">'.
+				
 				'<script type="text/javascript" src="js/jquery.js"></script>'.
 				'<script type="text/javascript">var user_id = ' . $this->loginModel->getId() . ';</script>' .
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
@@ -235,9 +231,6 @@
 
 			     $html .= '</div>
 			     <p id="loader"><img src="images/ajax-loader.gif"></p>
-			     <script src="js/jquery.min.js"></script>
-			        <script src="js/bootstrap.min.js"></script>
-			        <script src="js/ie10-viewport-bug-workaround.js"></script>
 			      </body>
 			    </html>';	
 
@@ -284,7 +277,6 @@
 					'</br>'.
 						'<script type="text/javascript" src="js/jquery.js"></script>'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
-					'<link rel="stylesheet" href="css/customCss.css">'.
 					'<a class="btn btn-default" href="?'.$this->inboxLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
 					'</br>'.
@@ -361,9 +353,7 @@
 				       '</div>
 				       </div>';		
 
-				        $html .= '<script src="js/jquery.min.js"></script>
-					        <script src="js/bootstrap.min.js"></script>
-					        <script src="js/ie10-viewport-bug-workaround.js"></script>
+				        $html .= '
 					      </body>
 					    </html>';	
 
@@ -409,7 +399,6 @@
 			$html .= 
 					'</br>'.
 						'<script type="text/javascript" src="js/jquery.js"></script>'.
-						'<link rel="stylesheet" href="css/customCss.css">'.
 					'<script type="text/javascript" src="js/inboxJS.js"></script>'.
 					'<a class="btn btn-default" href="?'.$this->sendLocation.'&id='. $this->loginModel->getId() .'">Back</a>'.
 					'</br>'.
@@ -441,9 +430,7 @@
 						}
 					}
 							
-						 $html .= '<script src="js/jquery.min.js"></script>
-					        <script src="js/bootstrap.min.js"></script>
-					        <script src="js/ie10-viewport-bug-workaround.js"></script>
+						 $html .= '
 					      </body>
 					    </html>';		
 

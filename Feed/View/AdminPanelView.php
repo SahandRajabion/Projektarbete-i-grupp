@@ -300,9 +300,7 @@
 	 		public function renderCourseList() {
 			    $courseList = $this->CourseList();
 
-			    	           	  $courseList .= '<script src="js/jquery.min.js"></script>
-			        <script src="js/bootstrap.min.js"></script>
-			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			    	           	  $courseList .= '
 			      </body>
 			    </html>';
 			    return $courseList;
@@ -311,9 +309,7 @@
 			 public function renderUserList() {
 			    $userList = $this->UserList();
 
-			    $userList .= '<script src="js/jquery.min.js"></script>
-			        <script src="js/bootstrap.min.js"></script>
-			        <script src="js/ie10-viewport-bug-workaround.js"></script>
+			    $userList .= '
 			      </body>
 			    </html>';
 

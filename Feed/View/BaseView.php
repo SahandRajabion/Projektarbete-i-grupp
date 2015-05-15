@@ -8,7 +8,7 @@ abstract class BaseView
 {
 protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 	protected $removeCourseLocation = "removeCourse";
-
+ 
 
 	protected $submitRemoveUserLocation ="SubmitRemoveUser";
 	protected $removeUserLocation = "removeUser";
@@ -266,7 +266,6 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		        <link href="css/customCss.css" rel="stylesheet">
 		        <script type="text/javascript" src="jquery.min.js"></script>
 		        <script type="text/javascript" src="script.js"></script>
-
 		        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
@@ -321,8 +320,13 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		                <li><a href="?">Available Programmes</a></li>';
 		           
 		                
+		                $html .= ' <script src="js/jquery.min.js"></script>
+			    <script src="js/bootstrap.min.js"></script>
+			    <script src="js/ie10-viewport-bug-workaround.js"></script>';
 
-
+			     $html .= '
+      </body>
+    </html>';
 		        
 			
 

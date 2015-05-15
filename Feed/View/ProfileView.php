@@ -255,11 +255,7 @@ class ProfileView extends BaseView
             </div>';
           
         
-     $html .= '<script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/ie10-viewport-bug-workaround.js"></script>
-      </body>
-    </html>';
+
         }
         // IF NOT THE ONE WHO OWNS PROFILE
         else
@@ -399,11 +395,7 @@ class ProfileView extends BaseView
           {
              $html .= "<h4>This user does not exist</h4>";
           }
-     $html .= '<script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/ie10-viewport-bug-workaround.js"></script>
-      </body>
-    </html>';
+
       }
       
       return $html;
