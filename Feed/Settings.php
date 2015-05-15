@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class Settings {
 	public static $DB_USERNAME = "root";

@@ -124,7 +124,9 @@ class RegisterView extends BaseView {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="?">LSN</a>
+               <div id="logolsn">
+                  <a class="navbar-brand" href="?"><img id="logo" src="images/lsnlogo.png"></a>
+              </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <form action="?' . $this->registerLocation . '" method="post" class="navbar-form navbar-right" enctype="multipart/form-data">

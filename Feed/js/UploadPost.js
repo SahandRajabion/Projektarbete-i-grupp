@@ -7,7 +7,6 @@ $(document).ready(function() {
 			uploadProgress: OnProgress, //upload progress callback 
 			resetForm: true      // reset the form after successful submit 
 		}; 
-		
 	 $('#MyUploadForm').submit(function(e) 
 	 { 		
 	 	e.preventDefault(); 
@@ -34,11 +33,7 @@ function beforeSubmit()
 		{
 			if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
 			{
-				$("#output").html("<br><div class='alert alert-danger alert-error'>
-					   <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
-					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
-					  <span id='sizeOfPTag'>Nothing has been shared!</span>
-					  </div>");
+				$("#output").html("<br><p>Dela något!</p>");
 				return false;
 			}
 

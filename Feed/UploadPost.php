@@ -74,7 +74,7 @@ try
 			if (!preg_match($regExYoutube, $uploadPage->getTitle())) 
 			{
 
-				$post = new PostItems(null,$loginController->getId(), null, $uploadPage->getTitle(),null, null, null, null, null);
+				$post = new PostItems(null,$loginController->getId(), null, $uploadPage->getTitle(),null, null, null, null, null, null, null);
 				$id = $postModel->addPost($_POST['courseid'], $post);
 			}
 
