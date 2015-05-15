@@ -1,6 +1,8 @@
 <?php
 	require_once('Validation/Validation.php');
 	require_once('View/BaseView.php');
+  require_once('recaptchalib.php');
+
 	class contactView extends BaseView{
 		private $name = "name";
 		private $email = "email";
@@ -51,6 +53,13 @@
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/customCss.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/recaptcha.css">
+        <script type="text/javascript">
+         var RecaptchaOptions = {
+            theme : "custom",
+            custom_theme_widget: "responsive_recaptcha"
+         };
+       </script>
         
         <script src="js/html5shiv.min.js"></script>
         <script src="js/respond.min.js"></script>
@@ -130,6 +139,37 @@
                               <textarea id="contactTextArea" maxlength="500" name="' . $this->msg . '" placeholder="Message" class="form-control input-lg" rows="3">' . $this->escape($this->GetMeg) . '</textarea>
                           </div>
                         </div>
+
+                          <div class="form-group">
+                           <div id="responsive_recaptcha" style="display:none">
+
+                            <div id="recaptcha_image"></div>
+                            <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect please try again</div>
+
+                            <label class="solution">
+                              <span class="recaptcha_only_if_image">Type the text:</span>
+                              <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+                            </label>
+                            <div class="options">
+                              <a href="javascript:Recaptcha.reload()" id="icon-reload">Get another CAPTCHA</a>
+                              <a class="recaptcha_only_if_audio" href="javascript:Recaptcha.switch_type(' . "'image'" . ')" id="icon-image">Get an image CAPTCHA</a>
+                              <a href="javascript:Recaptcha.showhelp()" id="icon-help">Help</a>
+                            </div>
+                          </div>
+
+                      <script type="text/javascript"
+                          src="http://www.google.com/recaptcha/api/challenge?k=' . Settings::$SITE_KEY. '">
+                      </script>
+ 
+                      <noscript>
+                        <iframe src="http://www.google.com/recaptcha/api/noscript?k=' . Settings::$SITE_KEY. '"
+                              height="300" width="500" frameborder="0"></iframe><br>
+                        <textarea name="recaptcha_challenge_field" rows="3" cols="40">
+                        </textarea>
+                        <input type="hidden" name="recaptcha_response_field"
+                              value="manual_challenge">
+                      </noscript>
+                         </div>
                         
                         <div class="row">
                           <div class="col-xs-12 col-md-6">
