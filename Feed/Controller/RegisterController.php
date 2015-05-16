@@ -294,7 +294,7 @@
                  if ($this->resetPassword->issetCode()) {
 
                     $date = date("Y-m-d H:i:s");
-                    $userEmail = $this->userRepository->getDateForResetPassword($this->getCode());
+                    $userEmail = $this->userRepository->getDateForResetPassword($this->resetPassword->getCode());
 
                     if ($userEmail !== null && isset($userEmail)) { 
 
@@ -302,8 +302,8 @@
                     if ($fastDate > $date) {
                         # code...
                     
-                    $this->registerController->showResetPasswordPage = true;
-                    $this->registerController->showForgetPasswordPage = false;
+                    $this->showResetPasswordPage = true;
+                    $this->showForgetPasswordPage = false;
                     $this->showLoginpage = false;
                     $code = $this->resetPassword->getCode();
                     if ($this->userRepository->getAllUserInfoForPassUpdate($code) == true) {
@@ -313,36 +313,36 @@
                             $newConfirmPassword = $this->resetPassword->getNewPassword();
                             $newPassword = $this->resetPassword->getNewConfirmPassword();      
 
-                            if ($this->registerController->validationErrors  == 0) 
+                            if ($this->validationErrors  == 0) 
                             {
                                 if ($this->validatePassword->validatePasswordLength($newPassword, $newConfirmPassword) == false) {
                                         $msgId = 18; 
-                                        $this->registerController->validationErrors ++;
+                                        $this->validationErrors ++;
                                         $this->model->setMessage($msgId);
-                                        $this->registerController->setMessage();
+                                        $this->setMessage();
                                 }
                                 else 
                                 {
                                     if ($this->validatePassword->validateIfSamePassword($newPassword, $newConfirmPassword) == false) 
                                     {
                                             $msgId = 6; 
-                                            $this->registerController->validationErrors ++;
+                                            $this->validationErrors ++;
                                             $this->model->setMessage($msgId);
-                                            $this->registerController->setMessage(); 
+                                            $this->setMessage(); 
                                     }
                                 }
                             }
 
-                            if ($this->registerController->validationErrors  == 0) {
+                            if ($this->validationErrors  == 0) {
                                 if($this->validateUsername->validateCharacters($password) == false || preg_match(Settings::$REGEX, $password)) {
                                         $msgId = 43; 
-                                        $this->registerController->validationErrors ++;
+                                        $this->validationErrors ++;
                                         $this->model->setMessage($msgId);
-                                        $this->registerController->setMessage();             
+                                        $this->setMessage();             
                                 }   
                             }                
 
-                            if($this->registerController->validationErrors  == 0) 
+                            if($this->validationErrors  == 0) 
                             {
 
                                 $hash = $this->hash->crypt($newPassword);
@@ -351,7 +351,7 @@
 
                                 $msgId = 44; 
                                 $this->model->setMessage($msgId);
-                                $this->registerController->setMessage();
+                                $this->setMessage();
                             }               
                          
                         }

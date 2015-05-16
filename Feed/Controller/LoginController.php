@@ -374,12 +374,14 @@ class LoginController
         }
         else 
         {   
+            
             if ($this->registerController->showForgetPasswordPage) 
             {
                 $this->htmlView->echoHTML($this->forgetPasswordView->showForgetPasswordPage());
             }
 
             else if($this->registerController->showResetPasswordPage) {
+
                 $this->htmlView->echoHTML($this->resetPassword->showResetPasswordPage());
             }
 
