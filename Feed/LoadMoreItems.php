@@ -61,7 +61,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
         if (empty($feedItem['imgName']) == false) 
         {
-            $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
+            $html .= "<img class='img-responsive' src='View/Images/" . $feedItem['imgName'] . "'>";
         }
 
         if (empty($feedItem['code']) == false) 

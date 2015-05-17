@@ -250,7 +250,7 @@ private $link;
                 $imgName = $key->getImgName();          
                 if (empty($imgName) == false) 
                 {
-                    $html .= "<img class='img-rounded' src='View/Images/" . $key->getImgName() . "' width='500' height='315'>";
+                    $html .= "<img class='img-responsive' src='View/Images/" . $key->getImgName() . "'>";
                 }
 
                 $code = $key->getCode();
@@ -321,7 +321,7 @@ private $link;
            <script type="text/javascript" src="js/GetLatestItems.js"></script>'; 
 
 
-           
+
         return $html;
     }
 
