@@ -59,12 +59,13 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
 
         if (empty($feedItem['imgName']) == false) 
         {
-            $html .= "<img class='img-rounded' src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
+            $html .= "<img class='img-responsive' class='img-responsive' src='View/Images/" . $feedItem['imgName'] . "'>";
         }
 
         if (empty($feedItem['code']) == false) 
         {
-            $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+            $html .= "<div class='embed-responsive embed-responsive-16by9'><iframe  class='embed-responsive-item' src='https://www.youtube.com/embed/". $feedItem['code'] ."' allowfullscreen></iframe></div>";                  
+
         }
 
         $html .= "
