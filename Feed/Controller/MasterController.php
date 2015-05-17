@@ -429,7 +429,7 @@ class MasterController extends Navigation
     	        	$name = $this->adminController->courseName();
     	        	$code = $this->adminController->courseCode();
 	             	$this->courseRepository->EditCourse($name,$code,$id);	
-					header("Location: ?UDCourseLocation");
+					header("Location: ?");
 	
              	}
 
