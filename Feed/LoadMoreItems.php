@@ -34,7 +34,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
         $last_id = $feedItem['id'];
 
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
-        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
+        $html .="<div class='jumbotron' style='margin-left:-39px; background-color: aliceblue; border: 1px solid black;'>";
 
         if ($loginModel->getId() == $feedItem['UserId'] || $loginModel->isAdmin()) 
         {

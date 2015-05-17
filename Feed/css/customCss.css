@@ -434,3 +434,7 @@ textarea.form-control2 {
 #share {
   margin-top: -1%;
 }
+
+input#deletepost {
+  margin-bottom: -19px;
+}

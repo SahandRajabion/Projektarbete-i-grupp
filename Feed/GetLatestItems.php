@@ -31,7 +31,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
     {
         if ($feedItem != null){
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
-        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
+        $html .="<div class='jumbotron' style='margin-left:-39px; background-color: aliceblue; border: 1px solid black;'>";
 
 
         if ($loginModel->getId() == $feedItem['UserId'] || $loginModel->isAdmin()) 
@@ -51,7 +51,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
 
         $html .= "
         <div class='well'>Created by: <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
-        Date : <div class='date'>" . $feedItem['Date'] . "</div></div>
+        Date created: <div class='date'>" . $feedItem['Date'] . "</div></div>
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
         <p>". $feedItem['Title'] . "</p>

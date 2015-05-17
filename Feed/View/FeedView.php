@@ -102,7 +102,7 @@ private $link;
                 ' . $this->message . '';
 
         
-        $html .="<div class='jumbotron'>        
+        $html .="<div class='jumbotron' style='border: 2px solid black;'>        
         
         <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . $this->courseRepository->getCourseName($courseId) . "</h2></div>
         <div class='content'>";
@@ -181,7 +181,7 @@ private $link;
 
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
-       $html .="<div class='jumbotron' style='margin-left:-39px;'>";
+       $html .="<div class='jumbotron' style='margin-left:-39px; background-color: aliceblue; border: 1px solid black;'>";
 
       if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
         {
@@ -216,7 +216,7 @@ private $link;
                         }
 
                         $rsstitles = $key->getRssTitle(); 
-                        $html .="Date :</br> ".$key->getDate()."</br></div>";
+                        $html .="Date created :</br> ".$key->getDate()."</br></div>";
 
                         if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($rsstitles)) {
                            $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
