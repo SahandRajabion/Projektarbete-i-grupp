@@ -1,4 +1,4 @@
-﻿﻿<?php
+﻿<?php
 require_once('Model/Dao/CourseRepository.php');
 require_once('Model/Dao/PostRepository.php');
 require_once('Model/LoginModel.php');
@@ -100,10 +100,11 @@ private $link;
 
         $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 ' . $this->message . '';
+
         
         $html .="<div class='jumbotron'>        
         
-        <h1 class='page-header' style='text-align:center'>" . $this->courseRepository->getCourseName($courseId) . "</h1></div>
+        <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . $this->courseRepository->getCourseName($courseId) . "</h2></div>
         <div class='content'>";
 
         $html .= $this->uploadView->RenderUploadForm($courseId);
@@ -175,7 +176,20 @@ private $link;
        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
 
 
-     
+      if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
+        {
+            $html .= "<form class='post-remove' method='post' action=''> 
+            <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
+            <input type='hidden' name='imgName' id='imgName' value='" . $key->getImgName() . "'>
+            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
+            </form>";
+
+            $html .= "<form class='post-edit' method='post' action=''> 
+            <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($key->getPost()) . "'>
+            <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($key->getPTitle()) . "'>
+            <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
+            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='images/edit.png' id='editpost' border='0' alt='submit' />";
+        }
                         $creators = $key->getCreator();
                         if ($key->getCreator() != null || $key->getCreator() != "" || !empty($creators)) {
 
@@ -183,18 +197,19 @@ private $link;
                         }   
 
                         $posts = $key->getPost();
-                        if ($key->getPost() != null || $key->getPost() != "" || !empty($posts)){
-                        
+                   
                         $usrIds = $key->getUserId();
-                        if ($key->getUserId() != null || $key->getUserId() != "" || !empty($usrIds)) {
+                        if ($key->getUserId() != null && $key->getPost() != null || $key->getUserId() != "" && $key->getPost() != ""|| !empty($usrIds) && !empty($posts) ||
+                          $key->getUserId() != null && $key->getImgName() != null || $key->getUserId() != "" && $key->getImgName() != ""|| !empty($usrIds) && !empty($getImgName) ||
+                          $key->getUserId() != null && $key->getCode() != null || $key->getUserId() != "" && $key->getCode() != ""|| !empty($usrIds) && !empty($getCode) ) {
+ 
 
+                          $html .= "<div class='well'>Created by: <a href='?profile&id=" . $key->getUserId() . "'>" . $this->userRepository->getUsernameFromId($key->getUserId()) . "</a></br>";
 
-                          $html .= "<a href='?profile&id=" . $key->getUserId() . "'>" . $this->userRepository->getUsernameFromId($key->getUserId()) . "</a></br>";
-
-                        }}
+                        }
 
                         $rsstitles = $key->getRssTitle(); 
-                        $html .="Date created:</br> ".$key->getDate()."</br></div>";
+                        $html .="Date :</br> ".$key->getDate()."</br></div>";
 
                         if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($rsstitles)) {
                            $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
@@ -206,11 +221,19 @@ private $link;
                         }
 
 
+                        $title = $key->getPTitle();
+                         if ($title  != null || $title  != "" || !empty($title)){
+
+                            $html .=   "<div class='text-values'><p>" . $title . "</p></div>";
+                        }
+
+
                         $normalPosts = $key->getPost();
                          if ($key->getPost() != null || $key->getPost() != "" || !empty($normalPosts)){
 
-                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div></div>";
+                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
                         }
+
 
                       
                        
@@ -242,13 +265,13 @@ private $link;
 
                         $data['date'] = strtotime($data['date']);
 
-                        $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+                        $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '"> <li class="list-group-item">';
 
                         if ($this->loginModel->getId() == $comment->GetUserId() || $this->loginModel->isAdmin()) {
                             
                             $html .=
                             '
-                             <li class="list-group-item">
+                             
                             <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
                             <span class=""><i class="glyphicon glyphicon-trash"></i></span>
                             </a>';
@@ -263,14 +286,14 @@ private $link;
 
                  $html .= "<div id='addCommentContainer" . $key->getid() . "' class='addCommentContainer'>
                     <form class='comment-form' method='post' action=''>
-                        <div>
                             <input type='hidden' id='courseid' name='courseid' value='" . $courseId . "'>
                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $key->getid() . "'>
                             <label for='body'>Write a comment</label>".
                             "<textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
                             <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>".
-                        "</div>
+                        "
                     </form>
+                </div>
                 </div>
                 </div>";                
         }
@@ -285,7 +308,8 @@ private $link;
 
 
            $html .= '
-           
+           <script type="text/javascript" src="js/jquery.js"></script>
+           <script type="text/javascript" src="js/LoadMoreItems.js"></script>
            </div><p id="loader"><img src="images/ajax-loader.gif"></p>
            <script type="text/javascript" src="js/GetLatestItems.js"></script>
 
