@@ -181,7 +181,7 @@ private $link;
 
      foreach ($items as $key) {
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
-       $html .="<div class='jumbotron' style='margin-left:-39px; background-color: aliceblue; border: 1px solid black;'>";
+       $html .="<div class='jumbotron' style='margin-left:-39px; background-color: aliceblue; border: 1px solid black;border-radius: 30px;'>";
 
       if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
         {
