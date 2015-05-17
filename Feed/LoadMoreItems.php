@@ -34,7 +34,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
         $last_id = $feedItem['id'];
 
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
-
+        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
 
         if ($loginModel->getId() == $feedItem['UserId']) 
         {
@@ -66,7 +66,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
         if (empty($feedItem['code']) == false) 
         {
-            $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $feedItem['code'] ."' frameborder='0' allowfullscreen></iframe>";                  
+            $html .= "<div class='embed-responsive embed-responsive-16by9'><iframe  class='embed-responsive-item' src='https://www.youtube.com/embed/". $feedItem['code'] ."' allowfullscreen></iframe></div>";                  
         }
 
         $html .= "
@@ -83,12 +83,12 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
                 $data['date'] = strtotime($data['date']);
 
-                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '"><li class="list-group-item">';
 
                 if ($loginModel->getId() == $comment->GetUserId()) {
                     $html .=
                             '
-                             <li class="list-group-item">
+                             
                             <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
                             <span class=""><i class="glyphicon glyphicon-trash"></i></span>
                             </a>';
@@ -110,6 +110,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
                     <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>
                
             </form>
+        </div>
         </div>
         </div>";                     
     }

@@ -28,41 +28,11 @@ class LoggedInView extends BaseView
     }
    
     public function showPublicCourseFeed() {
-        $this->username = $this->loginModel->getUsername();
-       
-        // Hård kodat för få ut allmänt
-         $html = $this->cssView("LoggedInView");
-
-          $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
-
-                
-                      if ($open != null) {
-                            # code...
-                           if ($open == 1) {
-                                                  # code...
-                         $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
-                       }
-                       else {
-                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
-                       }
-                      }
-                      else {
-                          $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
-                      }
-                     
-                  $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
-                  '<li><a href="?' . $this->changePasswordLocation . '">Change Password</span></a></li>
-                  </ul>
-                </div>';
 
 
-                $html .= '
-                ' . $this->message . '';
-                
-
-        $html .= $this->feedView->GetFeedHTML(1);
+        $html = $this->feedView->GetFeedHTML(1);
    
-        
+
         return $html;
     }
  
