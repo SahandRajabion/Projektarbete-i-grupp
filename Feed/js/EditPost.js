@@ -19,7 +19,7 @@ $(document).ready(function()
 			  	success:function(response)
 			  	{
 			  		// Kollar om det är success status
-			  		if (response == 1) 
+			  		if (response != "") 
 			  		{
 						$('#editpost', form).hide();
 						$('.text-values p', '#post' + feedId).remove();

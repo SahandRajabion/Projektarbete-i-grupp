@@ -43,7 +43,8 @@ class CommentRepository extends Repository {
 	public function GetUsersComments($id) 
 	{
 	 
-	 try {
+	 try 
+	 {
 		$sql = "SELECT * FROM $this->dbTable WHERE " . self::$userId . "= ?";
 		$params = array($id);
 		$query = $this->db->prepare($sql);
@@ -51,7 +52,13 @@ class CommentRepository extends Repository {
 
 		$results = $query->fetchAll();
 
-		return $results;
+		if ($results) 
+		{
+			return $results;
+		}
+
+			return null;
+
 		}
 		
 		catch (Exception $e) {

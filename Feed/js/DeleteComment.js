@@ -12,7 +12,7 @@ $(document).ready(function()
 		  	success:function(response)
 		  	{
 		  		// Kollar om det är success status
-		  		if (response == 1) 
+		  		if (response != "") 
 		  		{
 		  			$('#comment' + commentID).fadeOut();
 		  		}

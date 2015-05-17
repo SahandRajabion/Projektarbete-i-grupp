@@ -14,7 +14,7 @@ $(document).ready(function()
 		   	success:function(response)
 		   	{
 		   		// Kollar om success ifall 1
-		   		if (response == 1) 
+		   		if (response != "") 
 		   		{
 		   			$('#post' + feedId).fadeOut("slow");
 		   		}

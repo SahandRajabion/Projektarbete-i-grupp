@@ -36,7 +36,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
         $html .="<div class='jumbotron' style='margin-left:-39px;'>";
 
-        if ($loginModel->getId() == $feedItem['UserId']) 
+        if ($loginModel->getId() == $feedItem['UserId'] || $loginModel->isAdmin()) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
             <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
@@ -85,7 +85,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
                 $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '"><li class="list-group-item">';
 
-                if ($loginModel->getId() == $comment->GetUserId()) {
+                if ($loginModel->getId() == $comment->GetUserId() || $loginModel->isAdmin()) {
                     $html .=
                             '
                              

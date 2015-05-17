@@ -25,7 +25,7 @@ $posts = $postRepository->GetUsersPosts($userId);
 
 foreach ($posts as $post) 
 {
-	if ($post['id'] == $_POST["FeedId"]) 
+	if ($post['id'] == $_POST["FeedId"] || $loginModel->isAdmin()) 
 	{				
 		$post = "";
 		$title = "";

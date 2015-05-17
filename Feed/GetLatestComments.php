@@ -28,7 +28,7 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 
 		$html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">  <li class="list-group-item">';
 
-		if ($loginModel->getId() == $comment->GetUserId()) 
+		if ($loginModel->getId() == $comment->GetUserId() || $loginModel->isAdmin()) 
 		{
 		     $html .='
                            

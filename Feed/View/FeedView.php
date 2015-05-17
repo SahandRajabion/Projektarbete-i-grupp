@@ -183,7 +183,6 @@ private $link;
        $html .= "<div class='post' id='post" . $key->getid(). "'>"; 
        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
 
-
       if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 

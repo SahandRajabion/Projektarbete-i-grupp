@@ -11,11 +11,25 @@ $loginModel = new LoginModel();
 $userId = $loginModel->getId();
 $posts = $postRepository->GetUsersPosts($userId);
 
-foreach ($posts as $post) 
+if ($posts === null) 
 {
-	if ($post['id'] == $_POST["feed_id"]) 
+	if ($loginModel->isAdmin()) 
 	{
-		echo 1;
+		if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))
+		{
+			echo 1;
+		}
+	}
+}
+
+else 
+{
+	foreach ($posts as $post) 
+	{
+		if ($post['id'] == $_POST["feed_id"] || $loginModel->isAdmin()) 
+		{
+			echo 1;
+		}
 	}
 }
 

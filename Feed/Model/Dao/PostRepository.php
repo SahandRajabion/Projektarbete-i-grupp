@@ -57,7 +57,12 @@ require_once('Model/Image.php');
 
 		$results = $query->fetchAll();
 
-		return $results;
+		if ($results) 
+		{
+			return $results;
+		}
+
+		return null;
 	}
 
 	catch (PDOException $e) 
