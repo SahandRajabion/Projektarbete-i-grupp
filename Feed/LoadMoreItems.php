@@ -35,10 +35,11 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
 
+
         if ($loginModel->getId() == $feedItem['UserId']) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
-            <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+            <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
             <input type='hidden' name='imgName' id='imgName' value='" . $feedItem['imgName'] . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             </form>";
@@ -47,11 +48,12 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
             <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($feedItem['Post']) . "'>
             <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($feedItem['Title']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
-            <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+            <input type='image' style=' margin-top: -64px; margin-left: 59px;' src='images/edit.png' id='editpost' border='0' alt='submit' />";
         }
 
-        $html .= "<div class='date'>" . $feedItem['Date'] . "</div>
-        <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
+        $html .= "
+        <div class='well'>Created by: <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
+        Date created: <div class='date'>" . $feedItem['Date'] . "</div></div>
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
         <p>". $feedItem['Title'] . "</p>
@@ -85,26 +87,28 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
 
                 if ($loginModel->getId() == $comment->GetUserId()) {
                     $html .=
-                    '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-                    <img src="images/icon_del.gif" border="0" />
-                    </a>';
+                            '
+                             <li class="list-group-item">
+                            <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                            <span class=""><i class="glyphicon glyphicon-trash"></i></span>
+                            </a>';
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <a href="?profile=' . $comment->GetUserId() . '">' . $comment->GetUsernameOfCreator() . '</a> skrev: <p>' . $data['body'] . '</p>
+                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
                 </div>';
             }            
         }
 
         $html .= "<div id='addCommentContainer" . $feedItem['id'] . "' class='addCommentContainer'>
             <form class='comment-form' method='post' action=''>
-                <div>
+               
                     <input type='hidden' id='courseid' name='courseid' value='" . $course_id . "'>
                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
-                    <label for='body'>Skriv en kommentar</label>
-                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                    <input type='submit' id='submit' value='Kommentera'/>
-                </div>
+                    <label for='body'>Write a comment</label>
+                    <textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
+                    <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>
+               
             </form>
         </div>
         </div>";                     

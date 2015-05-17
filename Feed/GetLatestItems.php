@@ -20,19 +20,24 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
     $first_id = $_POST['first_id'];
     $course_id = $_POST['course_id'];
 
+
     $feedItems = $postRepository->GetLatestPostItems($first_id, $course_id);
+   
 
     $html = "";
 
-    // Skriver ut varje feed item och sparar undan de sista id som blir från sista feed item
+    // Skriver ut varje feed item och sparar undan de sista id som blir frÃ¥n sista feed item
     foreach ($feedItems as $feedItem) 
     {
+        if ($feedItem != null){
         $html .= "<div class='post' id='post" . $feedItem['id'] . "'>";
+        $html .="<div class='jumbotron' style='margin-left:-39px;'>";
+
 
         if ($loginModel->getId() == $feedItem['UserId']) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
-            <input type='image' src='images/icon_del.gif' id='deletepost' border='0' alt='submit' />
+            <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
             <input type='hidden' name='imgName' id='imgName' value='" . $feedItem['imgName'] . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             </form>";
@@ -41,11 +46,12 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
             <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($feedItem['Post']) . "'>
             <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($feedItem['Title']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
-            <input type='image' src='images/icon_edit.png' id='editpost' border='0' alt='submit' />";
+            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='images/edit.png' id='editpost' border='0' alt='submit' />";
         }
 
-        $html .= "<div class='date'>" . $feedItem['Date'] . "</div>
-        <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a> delade:
+        $html .= "
+        <div class='well'>Created by: <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
+        Date : <div class='date'>" . $feedItem['Date'] . "</div></div>
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
         <p>". $feedItem['Title'] . "</p>
@@ -53,7 +59,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
 
         if (empty($feedItem['imgName']) == false) 
         {
-            $html .= "<img src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
+            $html .= "<img class='img-rounded' src='View/Images/" . $feedItem['imgName'] . "' width='500' height='315'>";
         }
 
         if (empty($feedItem['code']) == false) 
@@ -75,17 +81,19 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
 
                 $data['date'] = strtotime($data['date']);
 
-                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+                $html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '"> <li class="list-group-item">';
 
                 if ($loginModel->getId() == $comment->GetUserId()) {
-                    $html .=
-                    '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-                    <img src="images/icon_del.gif" border="0" />
-                    </a>';
+                     $html .=
+                            '
+                             
+                            <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                            <span class=""><i class="glyphicon glyphicon-trash"></i></span>
+                            </a>';
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> skrev: <p>' . $data['body'] . '</p>
+                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
                 </div>';
             }            
         }
@@ -95,13 +103,14 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
                 <div>
                     <input type='hidden' id='courseid' name='courseid' value='" . $course_id . "'>
                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
-                    <label for='body'>Skriv en kommentar</label>
-                    <textarea name='body' id='body' maxlength='250' cols='20' rows='5'></textarea>
-                    <input type='submit' id='submit' value='Kommentera'/>
+                    <label for='body'>Write a comment</label>
+                    <textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
+                    <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>
                 </div>
             </form>
         </div>
-        </div>";                     
+        </div></div>";                     
+    }
     }
 
     $htmlView->EchoHTML($html);

@@ -425,14 +425,13 @@
 					'</br>'.
 					'</br>'.
 					'<div class="jumbotron">'.
-					'<div class="alert alert-info">'.
 					'<strong>From: </strong>'.$msg->getFromName().
 					'</br>'.
 					'<strong>Date: </strong>'.$msg->getDate().
 					'</br>'.
 					'<strong>Time: </strong>'.time_passed($msg->getTime()).
-					'</div>'.
-					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>'.'</div>';
+					
+					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>';
 					if ($replayMsgs != null) {
 						# code...
 						foreach ($replayMsgs as $replayMsg) {

@@ -177,7 +177,7 @@ require_once('Model/Image.php');
 		{
 			echo "PDOException : " . $e->getMessage();
 		}
-		}
+	  }
 	}
 
  	public function DeletePost($id) {

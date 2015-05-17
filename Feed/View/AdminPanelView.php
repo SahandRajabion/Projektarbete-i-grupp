@@ -63,17 +63,6 @@
 		          	  $html .= "<ul class='list-group'><a class='list-group-item' href='?". $this->UserListLocation . "'>Manage Users</a></ul>";
 		              $html .= "<ul class='list-group'><a class='list-group-item' name='newCourse' href='?". $this->createNewCourseLocation . "'>Create Course</a></ul>";
 		          }
-
-
-
-                        $html .= ' <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
-          <script src="js/ie10-viewport-bug-workaround.js"></script>';
-
-			    $html .= '
-			      </body>
-			    </html>';
-
 		      return $html;
   		  }
 
@@ -311,12 +300,6 @@
 	 		public function renderCourseList() {
 			    $courseList = $this->CourseList();
 
-       $courseList .= ' <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
-          <script src="js/ie10-viewport-bug-workaround.js"></script>';
-
-
-
 			    	           	  $courseList .= '
 			      </body>
 			    </html>';
@@ -325,10 +308,6 @@
 
 			 public function renderUserList() {
 			    $userList = $this->UserList();
-
-                        $userList .= ' <script src="js/jquery.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
-          <script src="js/ie10-viewport-bug-workaround.js"></script>';
 
 			    $userList .= '
 			      </body>

@@ -29,13 +29,17 @@ catch (Exception $e)
 ?>
 
 <script src="js/oldJquery.js"></script>
+
+
 <script type="text/javascript" src="js/LoadMoreSentMsg.js"></script>
-<script type='text/javascript' src='js/LoadMoreItems.js'></script>
+
 <script type='text/javascript' src='js/InsertComment.js'></script>
 <script type='text/javascript' src='js/DeleteComment.js'></script>
 <script type='text/javascript' src='js/DeletePost.js'></script>
 <script type='text/javascript' src='js/EditPost.js'></script>
 <script type='text/javascript' src='js/UploadPost.js'></script>
+
+
 <script type='text/javascript' src='js/jquery.form.min.js'></script>
 <script type='text/javascript' src='js/bootstrap.min.js'></script>
 <script type='text/javascript' src='js/bootstrap.js'></script>

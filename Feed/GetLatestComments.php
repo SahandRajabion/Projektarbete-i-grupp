@@ -26,18 +26,19 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 
 		$data['date'] = strtotime($data['date']);
 
-		$html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">';
+		$html .= '<div class="comment" id ="comment' .  $data["CommentId"] . '">  <li class="list-group-item">';
 
 		if ($loginModel->getId() == $comment->GetUserId()) 
 		{
-		    $html .=
-		    '<a href="#" class="delete_button" id="' . $data["CommentId"] . '">
-		    <img src="images/icon_del.gif" border="0" />
-		    </a>';
+		     $html .='
+                           
+                            <a href="#" class="delete_button" id="' . $data["CommentId"] . '">
+                            <span class=""><i class="glyphicon glyphicon-trash"></i></span>
+                            </a>';
 		}
 
 		$html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-		<a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> skrev: <p>' . $data['body'] . '</p>
+		<a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
 		</div>';	
 
 		echo (json_encode(array('postId'=>$data['id'], 'html'=>$html)));

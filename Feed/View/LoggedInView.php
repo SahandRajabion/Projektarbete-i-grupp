@@ -56,7 +56,7 @@ class LoggedInView extends BaseView
                 </div>';
 
 
-                $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                $html .= '
                 ' . $this->message . '';
 
 
