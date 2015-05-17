@@ -58,11 +58,11 @@ class LoggedInView extends BaseView
 
                 $html .= '
                 ' . $this->message . '';
-
+                
 
         $html .= $this->feedView->GetFeedHTML(1);
    
-
+        
         return $html;
     }
  

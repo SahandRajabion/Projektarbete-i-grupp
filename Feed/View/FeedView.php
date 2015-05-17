@@ -256,7 +256,7 @@ private $link;
                 $code = $key->getCode();
                 if (empty($code) == false) 
                 {
-                    $html .= "<iframe width='500' height='315' src='https://www.youtube.com/embed/". $key->getCode() ."' frameborder='0' allowfullscreen></iframe>";                  
+                    $html .= "<div class='embed-responsive embed-responsive-16by9'><iframe  class='embed-responsive-item' src='https://www.youtube.com/embed/". $key->getCode() ."' allowfullscreen></iframe></div>";                  
                 }
 
                 $html .= "
@@ -316,16 +316,12 @@ private $link;
 
 
            $html .= '
-           <script type="text/javascript" src="js/jquery.js"></script>
            <script type="text/javascript" src="js/LoadMoreItems.js"></script>
            </div><p id="loader"><img src="images/ajax-loader.gif"></p>
-           <script type="text/javascript" src="js/GetLatestItems.js"></script>
-
-            </body>
-          </html>'; 
+           <script type="text/javascript" src="js/GetLatestItems.js"></script>'; 
 
 
-
+           
         return $html;
     }
 
