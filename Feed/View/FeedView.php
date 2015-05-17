@@ -106,8 +106,16 @@ private $link;
         
         <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . $this->courseRepository->getCourseName($courseId) . "</h2></div>
         <div class='content'>";
+        if ($this->loginModel->isAdmin()) {
+          # code...
+          $html .= $this->uploadView->RenderUploadForm($courseId);
+        }
+        else if($courseId === 1)
+        {
+          $html .= $this->uploadView->RenderUploadForm($courseId);
+        }
 
-        $html .= $this->uploadView->RenderUploadForm($courseId);
+        
 
         $html .= "<ul id='items'>";
 
