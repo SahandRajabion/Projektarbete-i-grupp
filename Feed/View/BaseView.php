@@ -8,8 +8,10 @@ abstract class BaseView
 {
 protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 	protected $removeCourseLocation = "removeCourse";
- 
-
+	protected $editCourseLocation  = "SubmiteditCourseLocation";
+	protected $CourseId ="CourseId";
+	protected $courseCodesLocation ="courseCodeLocation";
+	protected $courseNamesLocation = "courseNameLocation";
 	protected $submitRemoveUserLocation ="SubmitRemoveUser";
 	protected $removeUserLocation = "removeUser";
 	protected $uppgradeLocation = "Uppgrade";

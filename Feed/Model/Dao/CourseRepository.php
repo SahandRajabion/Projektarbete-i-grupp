@@ -28,6 +28,23 @@ require_once('Model/Dao/Repository.php');
 		$this->db = $this->connection();
 	}
 
+
+	public function EditCourse($coursename, $coursecode,$id) 
+	{
+		
+		try 
+		{
+			$sql = "UPDATE $this->courseTable SET CourseName = ? , CourseCode = ? WHERE CourseId = ?";
+			$params = array($coursename, $coursecode,$id);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
+		}
+		catch (PDOException $e) 
+		{
+			die('An unknown error has occured in database');
+		}	
+	}
+
 	public function removeCourse($id) {
  		try 	
  		{

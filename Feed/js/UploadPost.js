@@ -33,7 +33,7 @@ function beforeSubmit()
 		{
 			if( !$('#FileInput').val() && !$('#Message').val() ) //check empty input filed
 			{
-				$("#output").html("<br><p>Dela något!</p>");
+				$("#output").html("<br><p>Share something!</p>");
 				return false;
 			}
 
