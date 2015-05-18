@@ -64,7 +64,7 @@ private $link;
 
         $items = array();
 
-        $html = $this->cssView($this->courseRepository->getCourseName($courseId) . " Feed | LSN"); 
+        $html = $this->cssView($this->courseRepository->getCourseName($courseId) . " Feed"); 
 
 
           $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());

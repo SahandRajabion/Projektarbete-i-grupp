@@ -47,7 +47,7 @@ class CourseView extends BaseView
      {    
           $programName = $this->getProgramName($id);
      
-             $html = $this->cssView("Courses for " . $this->getProgramName($id) . " | LSN");
+             $html = $this->cssView("Courses for " . $this->getProgramName($id));
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
