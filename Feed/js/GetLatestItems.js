@@ -44,13 +44,19 @@ $(document).ready(function () {
             url: "GetLatestComments.php",
             data: {first_comment_id:max, course_id:course_id},              
             success: function (response) {   
-           
+            
                 if (response != "") {
                     var obj = JSON.parse(response);
-                    $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();   
+
+                    var result = $.inArray(obj.commentId, arrayOfCommentIds);
+
+                    if (result === -1) 
+                    {
+                        $(obj.html).hide().insertBefore('#addCommentContainer' + obj.postId).slideDown();   
+                    }
                 }
 
-                setTimeout(getLatestComments, 1000);
+                setTimeout(getLatestComments, 100);
             }
         });
     }

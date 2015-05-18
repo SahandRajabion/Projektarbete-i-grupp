@@ -43,6 +43,6 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 		<a href="?profile&id=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
 		</div>';	
 
-		echo (json_encode(array('postId'=>$data['id'], 'html'=>$html)));
+		echo (json_encode(array('commentId'=>$data['CommentId'], 'postId'=>$data['id'], 'html'=>$html)));
 	}
 }
