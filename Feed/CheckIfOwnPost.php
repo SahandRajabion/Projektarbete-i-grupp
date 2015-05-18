@@ -20,13 +20,21 @@ if ($posts === null)
 			echo 1;
 		}
 	}
+}	
+
+else if ($loginModel->isAdmin()) 
+{
+	if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))
+	{
+		echo 1;
+	}
 }
 
 else 
 {
 	foreach ($posts as $post) 
 	{
-		if ($post['id'] == $_POST["feed_id"] || $loginModel->isAdmin()) 
+		if ($post['id'] == $_POST["feed_id"] ) 
 		{
 			echo 1;
 		}

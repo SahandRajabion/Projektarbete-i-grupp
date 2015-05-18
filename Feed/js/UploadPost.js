@@ -77,7 +77,13 @@ function OnProgress(event, position, total, percentComplete)
 	$('#progressbox').show();
 	$('#progressbar').attr('aria-valuenow', percentComplete);
     $('#progressbar').width(percentComplete + '%') //update progressbar percent complete
-    $('#progressbar').append("<p>" + percentComplete + '%' +  "</p>"); //update status text
+    $('#progressbar').html("<p>" + percentComplete + '%' +  "</p>"); //update status text
+
+
+    if (percentComplete > 50)
+    {
+        $('#progressbox').delay( 3000 ).fadeOut();
+    }
 }
 
 //function to format bites bit.ly/19yoIPO

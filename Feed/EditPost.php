@@ -23,10 +23,10 @@ $userId = $loginModel->getId();
 $posts = $postRepository->GetUsersPosts($userId);
 
 
-foreach ($posts as $post) 
+if ($posts === null) 
 {
-	if ($post['id'] == $_POST["FeedId"] || $loginModel->isAdmin()) 
-	{				
+	if ($loginModel->isAdmin()) 
+	{
 		$post = "";
 		$title = "";
 
@@ -50,6 +50,68 @@ foreach ($posts as $post)
 		else if ($title != "") 
 		{
 			echo $title;
+		}		
+	}
+}
+
+else if ($loginModel->isAdmin()) 
+{
+	$post = "";
+	$title = "";
+
+	if (isset($_POST['NewPostContent']) && empty($_POST['NewPostContent']) == false) 
+	{
+		$post = ValidateText($_POST['NewPostContent']);
+	}
+
+	if (isset($_POST['NewPostTitle']) && empty($_POST['NewPostTitle']) == false) 
+	{
+		$title = ValidateText($_POST['NewPostTitle']);
+	}
+
+	$postRepository->EditPost($_POST['FeedId'], $post, $title);
+
+	if ($post != "") 
+	{
+		echo $post;
+	}
+
+	else if ($title != "") 
+	{
+		echo $title;
+	}
+}
+
+else 
+{
+	foreach ($posts as $post) 
+	{
+		if ($post['id'] == $_POST["FeedId"]) 
+		{				
+			$post = "";
+			$title = "";
+
+			if (isset($_POST['NewPostContent']) && empty($_POST['NewPostContent']) == false) 
+			{
+				$post = ValidateText($_POST['NewPostContent']);
+			}
+
+			if (isset($_POST['NewPostTitle']) && empty($_POST['NewPostTitle']) == false) 
+			{
+				$title = ValidateText($_POST['NewPostTitle']);
+			}
+
+			$postRepository->EditPost($_POST['FeedId'], $post, $title);
+
+			if ($post != "") 
+			{
+				echo $post;
+			}
+
+			else if ($title != "") 
+			{
+				echo $title;
+			}
 		}
 	}
 }

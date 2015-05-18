@@ -60,6 +60,7 @@ $(document).ready(function()
 					data: {NewPostTitle:editedPostTitle, NewPostContent:editedPostContent, FeedId:feedId},
 					success:function(response) 
 					{
+
 						newValueInput += "<p>" + response + "<p>";
 						$('#Title', form).attr('value', response);
 								
@@ -92,12 +93,20 @@ $(document).ready(function()
 					data: {NewPostTitle:editedPostTitle, NewPostContent:editedPostContent, FeedId:feedId},
 					success:function(response) 
 					{
-						newValueInput += "<p>" + response + "<p>";
-						$('#Post', form).attr('value', response);				
-
-						$('#editpost', form).show();
-						
-						$(".text-values", '#post' + feedId).html(newValueInput);					
+						if (response != "") 
+						{
+							newValueInput += "<p>" + response + "<p>";
+							$('#Post', form).attr('value', response);
+							$('#editpost', form).show();
+							$(".text-values", '#post' + feedId).html(newValueInput);			
+						}
+						else 
+						{
+							newValueInput += "<p>" + editedPostContent + "<p>";
+							$('#Post', form).attr('value', editedPostContent);
+							$('#editpost', form).show();
+							$(".text-values", '#post' + feedId).html(newValueInput);			
+						}														
 					}
 				});
 			}
