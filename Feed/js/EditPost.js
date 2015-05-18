@@ -60,14 +60,21 @@ $(document).ready(function()
 					data: {NewPostTitle:editedPostTitle, NewPostContent:editedPostContent, FeedId:feedId},
 					success:function(response) 
 					{
+						if (response != "") 
+						{
+							newValueInput += "<p>" + response + "<p>";
+							$('#Title', form).attr('value', response);		
+							$('#editpost', form).show();
+							$(".text-values", '#post' + feedId).html(newValueInput);			
+						}
 
-						newValueInput += "<p>" + response + "<p>";
-						$('#Title', form).attr('value', response);
-								
-						$('#editpost', form).show();
-						
-						$(".text-values", '#post' + feedId).html(newValueInput);
-						
+						else 
+						{
+							newValueInput += "<p>" + editedPostTitle + "<p>";
+							$('#Title', form).attr('value', editedPostTitle);		
+							$('#editpost', form).show();
+							$(".text-values", '#post' + feedId).html(newValueInput);			
+						}					
 					}
 				});
 		}); 
@@ -100,6 +107,7 @@ $(document).ready(function()
 							$('#editpost', form).show();
 							$(".text-values", '#post' + feedId).html(newValueInput);			
 						}
+
 						else 
 						{
 							newValueInput += "<p>" + editedPostContent + "<p>";
