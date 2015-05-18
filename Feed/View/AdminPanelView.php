@@ -28,7 +28,7 @@
 
 		  public function AdminPanel() {
 			
-				 $html = $this->cssView("UserList");
+				 $html = $this->cssView("Admin Panel");
 
 			    $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -71,7 +71,7 @@
   		  {
   		  	$courses = $this->courseRepository->GetAllCourses();
 
-			 $html = $this->cssView("CourseList");
+			 $html = $this->cssView("Manage Courses");
 
 			    $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -137,7 +137,7 @@
 		     $users = $this->userRepository->getAllUser();
 
 		   	 
-			    $html = $this->cssView("UserList");
+			    $html = $this->cssView("Manage Users");
 
 			    $open = $this->messagesRepository->getIfOpenOrNot($this->loginModel->getId());
 

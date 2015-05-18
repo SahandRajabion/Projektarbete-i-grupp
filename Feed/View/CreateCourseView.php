@@ -100,7 +100,7 @@ class CreateCourseView extends BaseView
           $username = $this->loginModel->getUsername();
 
 
-            $html = $this->cssView("Inbox");
+            $html = $this->cssView("Create Course");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 

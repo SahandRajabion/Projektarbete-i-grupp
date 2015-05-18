@@ -69,7 +69,7 @@ class ChangePasswordView extends BaseView
 	    $this->message = $this->renderCookieMessage($this->messageLocation);
 
 
-          $html = $this->cssView("Inbox");
+          $html = $this->cssView("Change Password");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
