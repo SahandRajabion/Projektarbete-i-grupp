@@ -56,7 +56,7 @@ $(document).ready(function () {
                     }
                 }
 
-                setTimeout(getLatestComments, 100);
+                setTimeout(getLatestComments, 1000);
             }
         });
     }
