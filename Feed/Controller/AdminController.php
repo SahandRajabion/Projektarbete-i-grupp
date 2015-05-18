@@ -44,31 +44,6 @@ class AdminController
     }
 
 
-    public function hasEditCourse() {
-
-        if ($this->loginModel->isAdmin()) {
-                # code...
-         return $this->courseView->hasSubmitToEditCourse();
-            
-        }
-    }
-
-
-      public function courseName() {
-
-       return $this->courseView->getCourseNameAfterEdit();
-      }
-
-
-        public function courseID() {
-
-       return $this->courseView->getCourseID();
-      }
-     public function courseCode() {
-
-        return $this->courseView->getCourseCodeAfterEdit();
-        
-    }
     
 }
 

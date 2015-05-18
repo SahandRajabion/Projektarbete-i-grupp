@@ -112,12 +112,6 @@ class CourseView extends BaseView
                                           <td>
                                           <a href="?' . $this->course . '&' . $this->id . '=' . $courseId. '"> <span class="glyphicon glyphicon-home" aria-hidden=true></span> Visit Course Feed</a>
                                           </td>';
-                                    if ($this->loginModel->isAdmin()) {
-                                     $html .= '<td>
-                                          '.$this->EditCourse($courseId,$courseCode,$key).'
-                                          </td>
-                                        </tr>';
-                                      }
                             }
                         }
                     }
@@ -137,47 +131,6 @@ class CourseView extends BaseView
     }
 
 
-    public function EditCourse($courseId,$code,$name) {
-
-           $html = '<div class="panel panel-info">
-            <div class="panel-body">
-              <div class="row">                
-                <div class=" col-md-9 col-lg-9 "> 
-                <form role="form" action="" class="form-horizontal" method="post" enctype="multipart/form-data">
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>
-                       <div class="input-group">
-                       <p>Course name</p>
-                        <input id="fName" class="form-control input-lg" name="' . $this->courseNamesLocation . '" value="' . $name . '" type="text" size="20" maxlength="20" placeholder="Course name" />
-                        </div>
-                        </td>
-                      </tr>
-                      <tr>
-                      <td>
-                      <div class="input-group">
-                      <p>Course code</p>
-                        <input id="lName" class="form-control input-lg" name="' . $this->courseCodesLocation . '" value="' . $code . '" type="text" size="20" maxlength="20" placeholder="Course code" />
-                        
-                         </div>
-                         </td>
-                      </tr>
-                      <tr>
-                      <td>
-                      <input type="hidden" name="'.$this->CourseId.'" value="'.$courseId.'">
-                    <input class="btn btn-primary" name="' . $this->editCourseLocation . '" type="submit" value="Update" />
-                    </td>
-                    </tbody>
-                  </table>
-                  </form>
-                </div>
-              </div>
-            </div>';
-
-            return $html;
-    }
-
     public function hasSubmitAcourse() {
          if (isset($_GET[$this->course])) {
             return true;
@@ -186,35 +139,5 @@ class CourseView extends BaseView
         return false;
     }
 
-  public function hasSubmitToEditCourse() {
-   
-         if (isset($_POST[$this->editCourseLocation])) {
-
-            return true;
-        }
-    }
-
-
-
-
-
-     public function getCourseID() {
-       if (isset($_POST[$this->CourseId])) {
-            return $_POST[$this->CourseId];
-        }
-   }
-
-
-    public function getCourseNameAfterEdit() {
-
-       if (isset($_POST[$this->courseNamesLocation])) {
-            return $_POST[$this->courseNamesLocation];
-        }
-   } 
-
-  public function getCourseCodeAfterEdit() {
-      if (isset($_POST[$this->courseCodesLocation])) {
-            return $_POST[$this->courseCodesLocation];
-        }
-   } 
+ 
 }

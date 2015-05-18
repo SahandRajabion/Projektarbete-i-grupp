@@ -423,16 +423,6 @@ class MasterController extends Navigation
              	}
 
 
-             	else if ($this->loginController->isAuthenticated() && $this->adminController->hasEditCourse())
-    	        {
-    	        	$id = $this->adminController->courseID();
-    	        	$name = $this->adminController->courseName();
-    	        	$code = $this->adminController->courseCode();
-	             	$this->courseRepository->EditCourse($name,$code,$id);	
-					header("Location: ?");
-	
-             	}
-
 
              	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressAdminPanel())
     	        {
