@@ -85,7 +85,7 @@ class ProfileView extends BaseView
            $userPicProfile .= 'img/kvinna.png';
          }
      
-          $html = $this->cssView("Inbox");
+          $html = $this->cssView("My Profile");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
@@ -318,7 +318,7 @@ class ProfileView extends BaseView
             }
     }
      
-          $html = $this->cssView("Profile");
+          $html = $this->cssView($this->escape($this->loginModel->GetUserNameById($this->getId())) . "´s Profile");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 
