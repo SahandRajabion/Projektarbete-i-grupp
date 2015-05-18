@@ -192,7 +192,7 @@ class MasterController extends Navigation
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
 	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
-	                $html = $this->getCssViewForMaster("Search");
+	                $html = $this->getCssViewForMaster("Search", null, true);
 
 			   		 $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
 
@@ -201,17 +201,17 @@ class MasterController extends Navigation
 		                        # code...
 		                       if ($open == 1) {
 		                                              # code...
-                         $html .= '<li><a name="Inbox"  href="?Inbox&id="'.$this->model->getId().'">Inbox <span class="badge">1</span></a></li>';
+                         $html .= '<li><a name="Inbox"  href="?Inbox&id='.$this->model->getId().'">Inbox <span class="badge">1</span></a></li>';
                        }
                        else {
-                           $html .= '<li><a name="Inbox"  href="?Inbox&id="'.$this->model->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
+                           $html .= '<li><a name="Inbox"  href="?Inbox&id='.$this->model->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
                        }
 		                  }
 		                  else {
-		                      $html .= '<li><a name="Inbox" href="?Inbox&id="'.$this->model->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
+		                      $html .= '<li><a name="Inbox" href="?Inbox&id='.$this->model->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
 		                  }
 		                 
-		              $html .= '<li><a name="Inbox"  href="?send&id="'.$this->model->getId().'">Sent Messages</a></li>'.
+		              $html .= '<li><a name="Inbox"  href="?send&id='.$this->model->getId().'">Sent Messages</a></li>'.
 		              '<li><a href="?changepassword">Change Password</span></a></li>
 		              </ul>
 		            </div>';
@@ -262,7 +262,7 @@ class MasterController extends Navigation
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<a href="?">Back</a></br><h2><strong>Sorry</strong> your search has provided no results</h2>';
+		           			$html .= '<a href="?">Back</a></br><h2>Sorry your search has provided no results</h2>';
 		           		}
 		           	}
 
@@ -531,7 +531,7 @@ class MasterController extends Navigation
 		return $this->forgetPasswordView->getEmail();
 	}
 
-	public function getCssViewForMaster($title = null) {
-		return $this->inboxView->cssView($title);
+	public function getCssViewForMaster($title = null, $checked = null, $master = null) {
+		return $this->inboxView->cssView($title, $checked, $master);
 	}
 }

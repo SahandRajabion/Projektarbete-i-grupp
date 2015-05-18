@@ -211,7 +211,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 
 
 	
-	public function cssView($title = null, $checked = null) {
+	public function cssView($title = null, $checked = null, $master = false) {
 
 			    // BEHÖVS
 
@@ -321,7 +321,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		              <ul class="nav nav-sidebar">
 		                <li '. $checked . '><a href="?">Available Programmes</a></li>';
 		           
-		                
+		                if ($master = false) {
 		                $html .= ' <script src="js/jquery.min.js"></script>
 			    <script src="js/bootstrap.min.js"></script>
 			    <script src="js/ie10-viewport-bug-workaround.js"></script>';
@@ -329,6 +329,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 			     $html .= '
       </body>
     </html>';
+	}
 		        
 			
 
