@@ -18,7 +18,7 @@ class ProgramView extends baseView {
 
     public function showCoursePage() {
                
-               $html = $this->cssView("Program");
+               $html = $this->cssView("Program", "class='active'");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
 

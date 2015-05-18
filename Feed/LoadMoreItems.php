@@ -95,7 +95,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
+                <a href="?profile&id=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
                 </div>';
             }            
         }

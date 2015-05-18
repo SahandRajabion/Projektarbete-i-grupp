@@ -211,7 +211,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 
 
 	
-	public function cssView($title = null) {
+	public function cssView($title = null, $checked = null) {
 
 			    // BEHÖVS
 
@@ -319,7 +319,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		          <div class="row">
 		            <div class="col-sm-3 col-md-2 sidebar">
 		              <ul class="nav nav-sidebar">
-		                <li><a href="?">Available Programmes</a></li>';
+		                <li '. $checked . '><a href="?">Available Programmes</a></li>';
 		           
 		                
 		                $html .= ' <script src="js/jquery.min.js"></script>

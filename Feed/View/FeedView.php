@@ -102,7 +102,7 @@ private $link;
                 ' . $this->message . '';
 
         
-        $html .="<div class='jumbotron' style='border: 2px solid black;'>        
+        $html .="<div class='jumbotron' style='border: 1px solid black;'>        
         
         <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . $this->courseRepository->getCourseName($courseId) . "</h2></div>
         <div class='content'>";

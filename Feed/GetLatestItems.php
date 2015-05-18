@@ -50,7 +50,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         }
 
         $html .= "
-        <div class='well'>Created by: <a href='?profile=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
+        <div class='well'>Created by: <a href='?profile&id=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
         Date created: <div class='date'>" . $feedItem['Date'] . "</div></div>
         <div class='text-values'>
         <p>" . $feedItem['Post'] . "</p>
