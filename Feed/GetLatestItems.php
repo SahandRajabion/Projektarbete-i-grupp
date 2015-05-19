@@ -38,7 +38,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         {
             $html .= "<form class='post-remove' method='post' action=''> 
             <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
-            <input type='hidden' name='imgName' id='imgName' value='" . $feedItem['imgName'] . "'>
+            <input type='hidden' name='imgName' id='imgName' value='" . BaseView::escape($feedItem['imgName']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             </form>";
 
@@ -53,13 +53,13 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         <div class='well'>Created by: <a href='?profile&id=" . $feedItem['UserId'] . "'>" . $userRepository->getUsernameFromId($feedItem['UserId']) . "</a></br>
         Date created: <div class='date'>" . $feedItem['Date'] . "</div></div>
         <div class='text-values'>
-        <p>" . $feedItem['Post'] . "</p>
-        <p>". $feedItem['Title'] . "</p>
+        <p style ='word-wrap: break-word;'>" . BaseView::escape($feedItem['Post']) . "</p>
+        <p style ='word-wrap: break-word;'>". BaseView::escape($feedItem['Title']) . "</p>
         </div>";
 
         if (empty($feedItem['imgName']) == false) 
         {
-            $html .= "<img class='img-responsive' class='img-responsive' src='View/Images/" . $feedItem['imgName'] . "'>";
+            $html .= "<img class='img-responsive' class='img-responsive' src='View/Images/" . BaseView::escape($feedItem['imgName']) . "'>";
         }
 
         if (empty($feedItem['code']) == false) 
@@ -94,7 +94,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
                 }
 
                 $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h5>' . $data['body'] . '</h5>
+                <a href="?profile=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . BaseView::escape($data['body']) . '</h6>
                 </div>';
             }            
         }
@@ -106,7 +106,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
                     <input type='hidden' id='id' name='id' value='" . $feedItem['id'] . "'>
                     <label for='body'>Write a comment</label>
                     <textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
-                    <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>
+                    <input type='submit' id='submit' value='Comment' class='btn btn-default'/>
                 </div>
             </form>
         </div>

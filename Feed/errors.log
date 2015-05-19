@@ -375,3 +375,10 @@ SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in you
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERECourseId= '123'' at line 1
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' CourseCode WHERECourseId= VALUES('23', 'TestarMashup', '123')' at line 1
 SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERECourseId= '23'' at line 1
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'
+SQLSTATE[HY000] [1049] Unknown database 'lsn_social_network'

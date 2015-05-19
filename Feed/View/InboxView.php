@@ -100,10 +100,10 @@
           					    <div class="row">
 			                <div class=" col-md-9 col-lg-9 "> 
 			                  <table class="table table-user-information">
-			                    <tbody>
-			                      <tr><td><strong>From: </strong> '.$inbox->getFromName().'</td>'.
-								'<td><strong>Subject: </strong> '.$inbox->getSubject().'</td>'.
-								'<td><strong>Date: </strong> '.$inbox->getDate().'</td>'.
+			                    <tbody style ="word-break: break-all;">
+			                      <tr><td><strong >From: </strong> '.BaseView::escape($inbox->getFromName()).'</td>'.
+								'<td><strong>Subject: </strong> '.BaseView::escape($inbox->getSubject()).'</td>'.
+								'<td><strong>Date: </strong> '.BaseView::escape($inbox->getDate()).'</td>'.
 								'<td><strong>Time: </strong> '.time_passed($inbox->getTime()).'</td>'.
 								'</tr>
 			                    </tbody>
@@ -205,10 +205,10 @@
           					    <div class="row">
 			                <div class=" col-md-9 col-lg-9 "> 
 			                  <table class="table table-user-information">
-			                    <tbody>
-			                      <tr><td><strong>To: </strong>'.$ToUserName.'</td>'.
-								'<td><strong>Subject: </strong>'.$sendMsg->getSubject().'</td>'.
-								'<td><strong>Date: </strong>'.$sendMsg->getDate().'</td>'.
+			                    <tbody style ="word-break: break-all;">
+			                      <tr><td><strong>To: </strong>'.BaseView::escape($ToUserName).'</td>'.
+								'<td><strong>Subject: </strong>'.BaseView::escape($sendMsg->getSubject()).'</td>'.
+								'<td><strong>Date: </strong>'.BaseView::escape($sendMsg->getDate()).'</td>'.
 								'<td><strong>Time: </strong>'.time_passed($sendMsg->getTime()).'</td>'.
 								'</tr>
 			                    </tbody>
@@ -296,14 +296,14 @@
 					'</br>'.
 					'</br>'.
 					'<div class="jumbotron">'.
-					'<strong>From: </strong>'.$msg->getFromName().
+					'<strong>From: </strong>'.BaseView::escape($msg->getFromName()).
 					'</br>'.
-					'<strong>Date: </strong>'.$msg->getDate().
+					'<strong>Date: </strong>'.BaseView::escape($msg->getDate()).
 					'</br>'.
 					'<strong>Time: </strong>'.time_passed($msg->getTime()).
 					'</br>'.
 					'</br>'.
-					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>';
+					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.BaseView::escape($msg->getFromName())."</strong> said : ".BaseView::escape($msg->getMessages()).'</pre>';
 					if ($replayMsgs != null ) {
 						# code...
 						foreach ($replayMsgs as $replayMsg) {
@@ -311,7 +311,7 @@
 					
 								 $html .=	
 									'<div id="msg">'.
-									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> said : ".$replayMsg->getMessages().'</pre>'.
+									'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.BaseView::escape($replayMsg->getName())."</strong> said : ".BaseView::escape($replayMsg->getMessages()).'</pre>'.
 									'</div>';
 						
 						}
@@ -431,13 +431,13 @@
 					'</br>'.
 					'<strong>Time: </strong>'.time_passed($msg->getTime()).
 					
-					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.$msg->getFromName()."</strong> said : ".$msg->getMessages().'</pre>';
+					'<pre><strong>'.$msg->getDate().'</strong> - <strong>'.time_passed($msg->getTime()).'</strong></br><strong>'.BaseView::escape($msg->getFromName())."</strong> said : ".BaseView::escape($msg->getMessages()).'</pre>';
 					if ($replayMsgs != null) {
 						# code...
 						foreach ($replayMsgs as $replayMsg) {
 						 $html .=	
 							'<div id="msg">'.
-							'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.$replayMsg->getName()."</strong> said : ".$replayMsg->getMessages().'</pre>'.
+							'<pre><strong>'.$replayMsg->getReplayDate().'</strong> - <strong>'.time_passed($replayMsg->getReplayTime()).'</strong></br><strong>'.BaseView::escape($replayMsg->getName())."</strong> said : ".BaseView::escape($replayMsg->getMessages()).'</pre>'.
 							'</div>';
 						}
 					}

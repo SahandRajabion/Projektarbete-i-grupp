@@ -192,7 +192,7 @@ class MasterController extends Navigation
     	        
 	                $names = $this->userRepository->search($this->programView->getSearchValue());
 	                $courses = $this->userRepository->searchCourse($this->programView->getSearchValue());
-	                $html = $this->getCssViewForMaster("Search", null, true);
+	                $html = $this->getCssViewForMaster("Search");
 
 			   		 $open = $this->messageRepository->getIfOpenOrNot($this->model->getId());
 
@@ -265,12 +265,6 @@ class MasterController extends Navigation
 		           			$html .= '<a href="?">Back</a></br><h2>Sorry your search has provided no results</h2>';
 		           		}
 		           	}
-
-		           	  $html .= '<script src="js/jquery.min.js"></script>
-			        <script src="js/bootstrap.min.js"></script>
-			        <script src="js/ie10-viewport-bug-workaround.js"></script>
-			      </body>
-			    </html>';
 
 	             return $html;  
              	}
@@ -347,7 +341,7 @@ class MasterController extends Navigation
 				           			$time = time();
 				           			$MSG = $this->messageFormView->getUserMsg();
 				           			$open = 0;
-				           			if ($sub == "" || $MSG == null || empty($MSG)) {
+				           			if ($sub == "" || $sub == null || empty($sub)) {
 				           				# code...
 				           				$this->messageFormView->setMessage(self::$Error_Sub_TYPE);
 				           				
@@ -409,7 +403,7 @@ class MasterController extends Navigation
 	                return $this->contactController->doContact();
              	}
 
-				else if ($this->loginController->isAuthenticated() && $this->createCourseView->DidUserPressToCreateCourse())
+				else if ($this->loginController->isAuthenticated() && $this->model->isAdmin() && $this->createCourseView->DidUserPressToCreateCourse())
     	        {
     	        	if ($this->createCourseView->DidUserPressSubmitNewCourse()) 
     	        	{
@@ -424,13 +418,13 @@ class MasterController extends Navigation
 
 
 
-             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressAdminPanel())
+             	else if ($this->loginController->isAuthenticated() && $this->model->isAdmin() && $this->adminPanelView->DidUserPressAdminPanel())
     	        {
 
 	             	return $this->adminPanelView->renderAdminPanel();
              	}
 
-             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressCourseList()) 
+             	else if ($this->loginController->isAuthenticated() && $this->model->isAdmin() && $this->adminPanelView->DidUserPressCourseList()) 
              	{
     	        	if ($this->adminPanelView->DidUserPressToRemoveCourse()) {
     	        		$courseid = $this->adminPanelView->getCourseToRemove();
@@ -447,7 +441,7 @@ class MasterController extends Navigation
 
 
 
-             	else if ($this->loginController->isAuthenticated() && $this->adminPanelView->DidUserPressUserList())
+             	else if ($this->loginController->isAuthenticated() && $this->model->isAdmin() && $this->adminPanelView->DidUserPressUserList())
     	        {
 
     	        	if ($this->adminPanelView->DidUserPressToUppgradeUser()) {
@@ -500,7 +494,7 @@ class MasterController extends Navigation
 
              	// KOLLAR OM ID FINNS SAMT OM IDN FINNS I DATABASEN
 				else if ($this->loginController->isAuthenticated() && $this->feed->hasSubmitAcourse() 
-							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId())) {
+							&& $this->feed->checkIfIdInUrl() && $this->courseRepository->doIdExist($this->feed->getId()) && $this->feed->isValidId($this->feed->getId())) {
 
              		return $this->feed->showCourseFeed($this->feed->getId());
              		
@@ -531,7 +525,7 @@ class MasterController extends Navigation
 		return $this->forgetPasswordView->getEmail();
 	}
 
-	public function getCssViewForMaster($title = null, $checked = null, $master = null) {
-		return $this->inboxView->cssView($title, $checked, $master);
+	public function getCssViewForMaster($title = null) {
+		return $this->inboxView->cssView($title);
 	}
 }

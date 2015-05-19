@@ -104,7 +104,7 @@ private $link;
         
         $html .="<div class='jumbotron' style='border: 1px solid black;'>        
         
-        <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . $this->courseRepository->getCourseName($courseId) . "</h2></div>
+        <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . BaseView::escape($this->courseRepository->getCourseName($courseId)) . "</h2></div>
         <div class='content'>";
         if ($this->loginModel->isAdmin()) {
           # code...
@@ -187,7 +187,7 @@ private $link;
         {
             $html .= "<form class='post-remove' method='post' action=''> 
             <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
-            <input type='hidden' name='imgName' id='imgName' value='" . $key->getImgName() . "'>
+            <input type='hidden' name='imgName' id='imgName' value='" . BaseView::escape($key->getImgName()) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
             </form>";
 
@@ -219,26 +219,26 @@ private $link;
                         $html .="Date created :</br> ".$key->getDate()."</br></div>";
 
                         if ($key->getRssTitle() != null || $key->getRssTitle() != "" || !empty($rsstitles)) {
-                           $html .= "<a href=" . $key->getLink() . "><h3>".$key->getRssTitle()."</h3></a>";
+                           $html .= "<a href=" . $key->getLink() . "><h3 style ='word-wrap: break-word;'>".BaseView::escape($key->getRssTitle())."</h3></a>";
                         }
 
                         $rssPosts = $key->getRSSPost();
                         if ($key->getRSSPost() != null || $key->getRSSPost() != "" || !empty($rssPosts)) {
-                            $html .=   "<div class='text-values'><p>" . $key->getRSSPost() . "</p></div>";
+                            $html .=   "<div class='text-values'><p style ='word-wrap: break-word;'>" . BaseView::escape($key->getRSSPost()) . "</p></div>";
                         }
 
 
                         $title = $key->getPTitle();
                          if ($title  != null || $title  != "" || !empty($title)){
 
-                            $html .=   "<div class='text-values'><p>" . $title . "</p></div>";
+                            $html .=   "<div class='text-values'><p style ='word-wrap: break-word;'>" . BaseView::escape($title) . "</p></div>";
                         }
 
 
                         $normalPosts = $key->getPost();
                          if ($key->getPost() != null || $key->getPost() != "" || !empty($normalPosts)){
 
-                            $html .=   "<div class='text-values'><p>" . $key->getPost() . "</p></div>";
+                            $html .=   "<div class='text-values'><p style ='word-wrap: break-word;'>" .BaseView::escape($key->getPost()) . "</p></div>";
                         }
 
 
@@ -286,7 +286,7 @@ private $link;
                         }
 
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <p>' . $data['body'] . '</p>
+                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . BaseView::escape($data['body']) . '</h6>
                         </div>';
                     }            
                 }
@@ -296,8 +296,8 @@ private $link;
                             <input type='hidden' id='courseid' name='courseid' value='" . $courseId . "'>
                             <input type='hidden' id='" . $this->id . "' name='" . $this->id . "' value='" . $key->getid() . "'>
                             <label for='body'>Write a comment</label>".
-                            "<textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg'></textarea>
-                            <input type='submit' id='submit' value='Kommentera' class='btn btn-default'/>".
+                            "<textarea name='body' id='body' maxlength='250' cols='20' class='form-control input-lg' ></textarea>
+                            <input type='submit' id='submit' value='Comment' class='btn btn-default'/>".
                         "
                     </form>
                 </div>

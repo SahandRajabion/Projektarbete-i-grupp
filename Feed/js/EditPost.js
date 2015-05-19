@@ -26,13 +26,13 @@ $(document).ready(function()
 
 						if (postContent.length != 0) 
 						{
-							valueInput += "<textarea class='resize' name='postContent' id='postContent' rows='3' cols='35' maxlength='255'>"  + postContent + "</textarea>";
+							valueInput += "<textarea class='form-control' name='postContent' id='postContent' rows='3' cols='35' maxlength='255'>"  + postContent + "</textarea>";
 							valueInput += "<br> <input type='submit' id='saveContentEdit' value='Uppdatera'> <br>";			
 						}
 
 						else
 						{
-							valueInput += "<textarea class='resize' name='postTitle' id='postTitle' rows='3' cols='35' maxlength='255'>"  + postTitle + "</textarea>";
+							valueInput += "<textarea class='form-control' name='postTitle' id='postTitle' rows='3' cols='35' maxlength='255'>"  + postTitle + "</textarea>";
 							valueInput += "<br> <input type='submit' id='saveTitleEdit' value='Uppdatera' style='margin-bottom: 15px;'>";
 						}
 
@@ -62,7 +62,7 @@ $(document).ready(function()
 					{
 						if (response != "") 
 						{
-							newValueInput += "<p>" + response + "<p>";
+							newValueInput += "<p style ='word-wrap: break-word;'>" + response + "<p>";
 							$('#Title', form).attr('value', response);		
 							$('#editpost', form).show();
 							$(".text-values", '#post' + feedId).html(newValueInput);			
@@ -70,7 +70,7 @@ $(document).ready(function()
 
 						else 
 						{
-							newValueInput += "<p>" + editedPostTitle + "<p>";
+							newValueInput += "<p style ='word-wrap: break-word;'>" + editedPostTitle + "<p>";
 							$('#Title', form).attr('value', editedPostTitle);		
 							$('#editpost', form).show();
 							$(".text-values", '#post' + feedId).html(newValueInput);			
@@ -102,7 +102,7 @@ $(document).ready(function()
 					{
 						if (response != "") 
 						{
-							newValueInput += "<p>" + response + "<p>";
+							newValueInput += "<p style ='word-wrap: break-word;'>" + response + "<p>";
 							$('#Post', form).attr('value', response);
 							$('#editpost', form).show();
 							$(".text-values", '#post' + feedId).html(newValueInput);			
@@ -110,7 +110,7 @@ $(document).ready(function()
 
 						else 
 						{
-							newValueInput += "<p>" + editedPostContent + "<p>";
+							newValueInput += "<p style ='word-wrap: break-word;'>" + editedPostContent + "<p>";
 							$('#Post', form).attr('value', editedPostContent);
 							$('#editpost', form).show();
 							$(".text-values", '#post' + feedId).html(newValueInput);			

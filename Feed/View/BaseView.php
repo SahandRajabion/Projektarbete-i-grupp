@@ -125,6 +125,17 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 	   return NULL;
 	 }
 
+
+	public function isValidId($id) {
+		if (preg_match('/^[0-9]+$/', $id)) 
+		{
+			return true;
+		}
+
+		return false;
+	 }
+
+
 	public function getEmail() {
 		if (isset($_POST[$this->emailRegLocation])) {
 			return $_POST[$this->emailRegLocation];
@@ -321,7 +332,6 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		              <ul class="nav nav-sidebar">
 		                <li '. $checked . '><a href="?">Available Programmes</a></li>';
 		           
-		                if ($master = false) {
 		                $html .= ' <script src="js/jquery.min.js"></script>
 			    <script src="js/bootstrap.min.js"></script>
 			    <script src="js/ie10-viewport-bug-workaround.js"></script>';
@@ -329,7 +339,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 			     $html .= '
       </body>
     </html>';
-	}
+
 		        
 			
 
