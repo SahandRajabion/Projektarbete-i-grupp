@@ -262,7 +262,7 @@ class MasterController extends Navigation
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<a href="?">Back</a></br><h2>Sorry your search has provided no results</h2>';
+		           			$html .= '<a href="?">Back</a></br><h2>Sorry, but nothing matched your search terms. Please try again with different keywords</h2>';
 		           		}
 		           	}
 
