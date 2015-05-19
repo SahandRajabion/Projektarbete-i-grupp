@@ -88,19 +88,22 @@ class ProfileView extends BaseView
           $html = $this->cssView("My Profile");
 
           $open = $this->messageRepository->getIfOpenOrNot($this->loginModel->getId());
-
+          $inboxHTML = "";
                 
                       if ($open != null) {
                             # code...
                            if ($open == 1) {
                                                   # code...
+                            $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a>';
                          $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
                        }
                        else {
+                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a>';
                            $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
                        }
                       }
                       else {
+                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a>';
                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
                       }
                      
@@ -111,6 +114,10 @@ class ProfileView extends BaseView
 
 
                 $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="form-group">
+                ' . $inboxHTML . '
+                <a href="?' . $this->changePasswordLocation . '" class="btn btn-default" >Change Password</span></a>
+                </div>
                 ' . $this->message . '';
             $birthday = $users->getBirthday();
             $studyForm = $users->getSchoolForm();

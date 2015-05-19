@@ -89,7 +89,7 @@ class ForgetPasswordView extends BaseView
         </div>
         <div class="container">
           <footer>
-            <p>&copy; Linnaéus Social Network 2015</p>
+            <p>&copy; Linnaeus Social Network 2015</p>
           </footer>
         </div> 
         <!-- /container -->

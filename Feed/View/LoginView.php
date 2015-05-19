@@ -114,8 +114,8 @@ class LoginView extends BaseView
         <div class="jumbotron">
           <div class="container">
             ' . $this->message . '
-            <img src="img/lnu-logo.png" class="img-rounded"> <h1>Linnaéus Social Network</h1>
-            <p>Are you a student at the Linnaéus University, studying one of our computer science programs and are interested to get to know your future or current classmates better and at the same time get the latest course updates</p>
+            <img src="img/lnu-logo.png" class="img-rounded"> <h1>Linnaeus Social Network</h1>
+            <p>Are you a student at the Linnaeus University, studying one of our computer science programs and are interested to get to know your future or current classmates better and at the same time get the latest course updates</p>
             <p><a class="btn btn-primary btn-lg" href="?' . $this->registerLocation . '" name="' . $this->registerLocation . '" role="button">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
             Sign up here</a></p>
@@ -125,7 +125,7 @@ class LoginView extends BaseView
           <div class="row">
             <div class="col-md-4">
               <h2>Contact us</h2>
-              <p>If you have any suggestions or questions about Linnaéus Social Network, do not hesitate to contact</p>
+              <p>If you have any suggestions or questions about Linnaeus Social Network, do not hesitate to contact</p>
               <p>
               <a class="btn btn-default" name="ContactUs" href="?' . $this->ContactLocation . '" role="button">
               <span class="glyphicon glyphicon-envelope" aria-hidden="true" /></span>
@@ -146,7 +146,7 @@ class LoginView extends BaseView
           </div>
           <hr>
           <footer>
-            <p>&copy; Linnaéus Social Network 2015</p>
+            <p>&copy; Linnaeus Social Network 2015</p>
           </footer>
         </div> 
         <!-- /container -->
