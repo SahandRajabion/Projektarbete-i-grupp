@@ -41,6 +41,7 @@ require_once('Model/Dao/Repository.php');
  		}
  		catch (Exception $e) 
  		{
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
  			die('An unknown error has happened');
  		}
  	}
@@ -48,17 +49,24 @@ require_once('Model/Dao/Repository.php');
 
 	public function GetAllCourses() 
 	{
-		$list = array();
-		$sql = "SELECT * FROM $this->courseTable";
-		$query = $this->db->prepare($sql);
-		$query->execute();
+		try {
 
-		$results = $query->fetchAll();
-		foreach ($results as $result) {
-			$list[] = $result;
+				$list = array();
+				$sql = "SELECT * FROM $this->courseTable";
+				$query = $this->db->prepare($sql);
+				$query->execute();
+
+				$results = $query->fetchAll();
+				foreach ($results as $result) {
+					$list[] = $result;
+				}
+
+				return $list;
+					
+		} catch (Exception $e) {
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');	
 		}
-
-		return $list;
 	}
 
 	public function doIdExist($id) 
@@ -81,12 +89,15 @@ require_once('Model/Dao/Repository.php');
 	}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
 	public function getCourseCode($id) 
 	{
+		try {
+
 			$sql = "SELECT " . self::$courseCode . " FROM $this->courseTable WHERE " . self::$courseID . " = ?";
 			$query = $this->db->prepare($sql);
 			$params = array($id);
@@ -100,19 +111,30 @@ require_once('Model/Dao/Repository.php');
 			}
 
 			return null;
+			
+		} catch (Exception $e) {
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
+		}
+		
 	}
 
 	public function GetAllCourseNr($programId) 
 	{
-		$sql = "SELECT CourseId FROM $this->dbTable WHERE " . self::$programID . "= ?";
-		$params = array($programId);
-		$query = $this->db->prepare($sql);
-		$query->execute($params);
+		try {
+			$sql = "SELECT CourseId FROM $this->dbTable WHERE " . self::$programID . "= ?";
+			$params = array($programId);
+			$query = $this->db->prepare($sql);
+			$query->execute($params);
 
-		$results = $query->fetchAll();
+			$results = $query->fetchAll();
 
-		return $results;
-
+			return $results;
+			
+		} catch (Exception $e) {
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
+		}
 
 	}
 
@@ -151,7 +173,8 @@ require_once('Model/Dao/Repository.php');
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -192,7 +215,8 @@ public function getCourseSchema($id)
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -211,7 +235,8 @@ public function getCourseSchema($id)
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 	
@@ -234,7 +259,8 @@ public function getCourseSchema($id)
 	}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}	
 	
@@ -258,7 +284,8 @@ public function getCourseSchema($id)
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -276,6 +303,7 @@ public function getCourseSchema($id)
 
 		catch (PDOException $ex) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			die('An unknown error has happened');
 		}
 	}
@@ -295,6 +323,7 @@ public function getCourseSchema($id)
 
 		catch (PDOException $ex) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			die('An unknown error has happened');
 		}
 	}
@@ -313,6 +342,7 @@ public function getCourseSchema($id)
 
 		catch (PDOException $ex) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			die('An unknown error has happened');
 		}
 	}
@@ -331,7 +361,8 @@ public function getCourseSchema($id)
 	}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -365,7 +396,8 @@ public function getCourseSchema($id)
 	}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -382,7 +414,8 @@ public function getCourseSchema($id)
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -402,7 +435,8 @@ public function getCourseSchema($id)
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -423,7 +457,8 @@ public function getCourseSchema($id)
 		
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 
  }
@@ -441,7 +476,8 @@ public function getCourseSchema($id)
 	}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 

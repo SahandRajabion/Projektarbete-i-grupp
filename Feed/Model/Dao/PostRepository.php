@@ -43,7 +43,8 @@ require_once('Model/Image.php');
 		
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}	
 
@@ -67,7 +68,8 @@ require_once('Model/Image.php');
 
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -84,7 +86,8 @@ require_once('Model/Image.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -101,7 +104,8 @@ require_once('Model/Image.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -116,17 +120,24 @@ require_once('Model/Image.php');
 		}
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}	
 	}
 
 	public function AddPost( $courseId,PostItems $post) 
 	{
-
+		try {
 			$sql = "INSERT INTO $this->table (" . self::$post . ", " .  self::$userId . ", " .  self::$courseId . ") VALUES (?, ?, ?)";
 			$params = array($post->getPost(),$post->getUserId(),$courseId);
 			$query = $this->db->prepare($sql);
 			$query->execute($params);
+			
+		} catch (Exception $e) {
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
+		}
+			
 
 	
 	
@@ -155,7 +166,8 @@ require_once('Model/Image.php');
 		
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 
  }
@@ -180,7 +192,8 @@ require_once('Model/Image.php');
 		
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	  }
 	}
@@ -197,7 +210,8 @@ require_once('Model/Image.php');
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
 
@@ -214,7 +228,8 @@ require_once('Model/Image.php');
 			return $id;
 		} 
 		catch (PDOException $ex) {
-			die('An unknown error hase happened');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
  	}
 
@@ -231,7 +246,8 @@ require_once('Model/Image.php');
 		}
 		catch (PDOException $ex) 
 		{
-			die('An unknown error hase happened');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
  }

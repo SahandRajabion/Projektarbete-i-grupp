@@ -36,6 +36,7 @@ class CommentRepository extends Repository {
 			return $comment;
 		}
 		catch (Exception $e) {
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
 				die('An unknown error hase happened');
 			}
 		}	
@@ -62,6 +63,7 @@ class CommentRepository extends Repository {
 		}
 		
 		catch (Exception $e) {
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
 				die('An unknown error hase happened');
 			}
 		}
@@ -80,6 +82,7 @@ class CommentRepository extends Repository {
 
 		catch (PDOException $e) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			echo "PDOException : " . $e->getMessage();			
 		}
 	}
@@ -99,6 +102,7 @@ class CommentRepository extends Repository {
 		
 		catch (PDOException $e) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			echo "PDOException : " . $e->getMessage();
 		}
 	}
@@ -125,6 +129,7 @@ class CommentRepository extends Repository {
 		
 		catch (PDOException $e) 
 		{
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
 			echo "PDOException : " . $e->getMessage();
 		}
 	}	

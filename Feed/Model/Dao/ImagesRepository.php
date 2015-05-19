@@ -30,7 +30,8 @@ require_once("Model/StartProfileImg.php");
 				return NULL;
 			}
 			catch (Exception $e) {
-				die('An unknown error hase happened');
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
 		
@@ -51,7 +52,8 @@ require_once("Model/StartProfileImg.php");
 				return NULL;
 			}
 			catch (Exception $e) {
-				die('An unknown error hase happened');
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
 
@@ -71,7 +73,8 @@ require_once("Model/StartProfileImg.php");
 				}
 			}
 			catch (Exception $e) {
-				die('An unknown error hase happened');
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
 
@@ -86,7 +89,8 @@ require_once("Model/StartProfileImg.php");
 				$query->execute($params);
 			}
 			catch (Exception $e) {
-				die('An unknown error hase happened');
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
  }

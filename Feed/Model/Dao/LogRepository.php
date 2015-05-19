@@ -29,7 +29,8 @@ class LogRepository extends Repository
 		return $result[0];
 	}
 	catch (Exception $e) {
-				die('An unknown error hase happened');
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
 
@@ -43,7 +44,8 @@ class LogRepository extends Repository
 	}
 
 	catch (Exception $e) {
-				die('An unknown error hase happened');
+				dheader("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 			}
 		}
 }

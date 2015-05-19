@@ -50,7 +50,8 @@ class UserRepository extends Repository
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -68,7 +69,8 @@ class UserRepository extends Repository
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -85,7 +87,8 @@ public function removeUser($id) {
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
 
@@ -102,7 +105,8 @@ public function removeUser($id) {
 		}
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}	
 	}
 
@@ -122,7 +126,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -143,7 +148,8 @@ public function removeUser($id) {
 
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -167,7 +173,8 @@ public function removeUser($id) {
 
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -190,7 +197,8 @@ public function removeUser($id) {
 
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -207,7 +215,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -221,7 +230,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -246,7 +256,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -264,7 +275,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -282,7 +294,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -301,7 +314,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -314,7 +328,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 	
@@ -338,7 +353,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -362,7 +378,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -378,7 +395,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -394,7 +412,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -411,7 +430,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -439,7 +459,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -471,7 +492,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -502,7 +524,8 @@ public function removeUser($id) {
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -521,7 +544,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -538,7 +562,8 @@ public function removeUser($id) {
 
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -571,7 +596,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -589,7 +615,8 @@ public function removeUser($id) {
 	}
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 }

@@ -101,6 +101,10 @@
 						   </fieldset>
 				       </form></div>";
 					}
+					else
+					{
+						return $this->redirectToErrorPage();
+					}
 
 			          
 			     $html .= '

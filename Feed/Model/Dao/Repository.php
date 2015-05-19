@@ -28,6 +28,11 @@ abstract class Repository
 	    	{
 	        	throw $e;
 	        }
+	        else
+	        {
+	        	header("Location: /". Settings::$ROOT_PATH . "/error.html");
+				die('An unknown error has happened');
+	        }
 		}
   	}
 }

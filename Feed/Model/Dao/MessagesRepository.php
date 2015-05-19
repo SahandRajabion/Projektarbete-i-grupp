@@ -53,7 +53,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -82,7 +83,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -111,7 +113,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -131,7 +134,8 @@ require_once('Model/MessagesSent.php');
 
 	catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -156,7 +160,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -171,7 +176,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			die('An unknown error has occured in database');
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}	
 	}
 
@@ -194,7 +200,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -216,7 +223,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -271,7 +279,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -299,7 +308,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 
@@ -315,7 +325,8 @@ require_once('Model/MessagesSent.php');
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
 
@@ -332,7 +343,8 @@ require_once('Model/MessagesSent.php');
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
 
@@ -346,7 +358,8 @@ require_once('Model/MessagesSent.php');
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
 
@@ -360,7 +373,8 @@ require_once('Model/MessagesSent.php');
  		}
  		catch (Exception $e) 
  		{
- 			die('An unknown error has happened');
+ 			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		}
  	}
  	 public function addReplayMessage($msgID,$msg,$name,$time,$date,$newMsgId) {
@@ -373,7 +387,8 @@ require_once('Model/MessagesSent.php');
  		}
  		 catch (Exception $e) 
  		 {
- 		 	die('An unknown error has happened');
+ 		 	header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
  		 }
  	}
 
@@ -408,7 +423,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
  	}
 
@@ -424,7 +440,8 @@ require_once('Model/MessagesSent.php');
 		}
 		catch (PDOException $e) 
 		{
-			echo "PDOException : " . $e->getMessage();
+			header("Location: /". Settings::$ROOT_PATH . "/error.html");
+			die('An unknown error has happened');
 		}
 	}
 

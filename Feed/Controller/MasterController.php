@@ -514,6 +514,10 @@ class MasterController extends Navigation
             	{
                 	throw $e;
                 }
+                else
+                {
+                	return $this->inboxView->redirectToErrorPage();
+                }
 			}
 	}
 
