@@ -290,7 +290,7 @@ private $link;
                         }
 
                         $html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . BaseView::escape($data['body']) . '</h6>
+                        <a href="?profile&id=' . $comment->GetUserId() . '">' . $this->userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . $data['body'] . '</h6>
                         </div>';
                     }            
                 }

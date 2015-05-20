@@ -40,7 +40,7 @@ if (isset($_POST["first_comment_id"]) && strlen($_POST['first_comment_id']) > 0 
 		}
 
 		$html .= '<div class="date">' . date('j F Y H:i:s', $data['date']) . '</div>
-		<a href="?profile&id=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . BaseView::escape($data['body']) . '</h6>
+		<a href="?profile&id=' . $comment->GetUserId() . '">' . $userRepository->getUsernameFromId($comment->GetUserId()) . '</a> wrote: <h6 style ="word-wrap: break-word;">' . $data['body'] . '</h6>
 		</div>';	
 
 		echo (json_encode(array('commentId'=>$data['CommentId'], 'postId'=>$data['id'], 'html'=>$html)));
