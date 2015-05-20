@@ -68,10 +68,10 @@
                 </div>
                 <div class="checkbox">
                 <label class="text-muted">
-                <input type="checkbox" name="' . $this->checkBoxLocation . '"> Remember me
+                <input type="checkbox" name="' . $this->checkBoxLocation . '"> Remember Me
                 </label>
                 </div>
-                <button type="submit" name="' . $this->submitLocation . '" class="btn btn-primary">Sign in</button>
+                <button type="submit" name="' . $this->submitLocation . '" class="btn btn-primary">Sign In</button>
               </form>
             </div>
             <!--/.navbar-collapse -->
