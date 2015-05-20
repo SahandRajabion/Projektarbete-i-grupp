@@ -290,6 +290,10 @@ class MasterController extends Navigation
 	            				# code...
 	            				 return $this->inboxView->rednerInbox();
 	            			}
+	            			else
+	            			{
+	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+	            			}
 	            		
 	              
 	            }
@@ -303,7 +307,10 @@ class MasterController extends Navigation
 	            				
 	            				 return $this->inboxView->rednerSendMsg();
 	            			}
-	            			
+	            			else
+	            			{
+	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+	            			}
 	            }
 
 
@@ -315,6 +322,10 @@ class MasterController extends Navigation
 	         
 	            			if ($this->inboxView->getId() == $id) {
 	            				return $this->inboxView->rednerShowMsg();
+	            			}
+	            			else
+	            			{
+	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
 	            			}
 
 	            		}
@@ -392,6 +403,10 @@ class MasterController extends Navigation
 	            			if ($this->inboxView->getId() == $id) {
 	            				# code...
 	            				return $this->inboxView->rednerMsg();
+	            			}
+	            			else
+	            			{
+	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
 	            			}
 
 	            		}
