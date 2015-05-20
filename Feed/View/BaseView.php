@@ -274,6 +274,10 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		        <link rel="icon" href="../../favicon.ico">
+		        <link rel="apple-touch-icon-precomposed" href="../img/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../img/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../img/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../img/nu-logo.png" />
 		        <title> ' . $title . ' | LSN</title>
 		        <link href="css/bootstrap.min.css" rel="stylesheet">
 		        <link href="css/customCss.css" rel="stylesheet">

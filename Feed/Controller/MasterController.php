@@ -262,7 +262,7 @@ class MasterController extends Navigation
 
 		           		if ($names == null) {
 		           			# code...
-		           			$html .= '<a href="?">Back</a></br><h2>Sorry, but nothing matched your search terms. Please try again with different keywords</h2>';
+		           			$html .= '</br><a class="btn btn-default" href="?">Back</a></br><h2>Sorry, but nothing matched your search terms. Please try again with different keywords</h2>';
 		           		}
 		           	}
 
@@ -292,6 +292,7 @@ class MasterController extends Navigation
 	            			}
 	            			else
 	            			{
+	       
 	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
 	            			}
 	            		
