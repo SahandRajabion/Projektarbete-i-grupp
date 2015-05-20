@@ -400,7 +400,7 @@ class ProfileView extends BaseView
           }
           else 
           {
-             $html .= "<h4>This user does not exist</h4>";
+             return $this->redirectToErrorPage();
           }
 
       }
