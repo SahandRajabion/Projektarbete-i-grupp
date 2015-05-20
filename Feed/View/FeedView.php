@@ -83,13 +83,7 @@ private $link;
                       else {
                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
                       }
-                      foreach ($schema as $key) {
-                        # code...
-                         if ($key != null) {
-                           # code...
-                            $html .= '<li><a name="Inbox" href="'.$key.'"><b>Schedule</b></a></li>';
-                         }
-                      }
+    
                     
 
                   $html .= '<li><a name="Inbox" href="?' . $this->sendLocation ."&".$this->id."=".$this->loginModel->getId().'">Sent Messages</a></li>'.
@@ -97,15 +91,25 @@ private $link;
                   </ul>
                 </div>';
 
+          
+
 
         $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 ' . $this->message . '';
-
+     foreach ($schema as $key) {
+                        # code...
+                         if ($key != null) {
+                           # code...
+                            $html .= '<a class="btn btn-default btn-lg" name="Inbox" href="'.$key.'"><span class="glyphicon glyphicon-time" aria-hidden="true" /></span><b> Schedule For Course</b></a>';
+                         }
+                      }
         
-        $html .="<div class='jumbotron' style='border: 1px solid black;'>        
+        $html .="<div class='jumbotron' style='border: 1px solid black; margin-top:4%;'>        
         
         <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . BaseView::escape($this->courseRepository->getCourseName($courseId)) . "</h2></div>
         <div class='content'>";
+                   
+
         if ($this->loginModel->isAdmin()) {
           # code...
           $html .= $this->uploadView->RenderUploadForm($courseId);
