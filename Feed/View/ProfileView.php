@@ -98,12 +98,12 @@ class ProfileView extends BaseView
                          $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a></li>';
                        }
                        else {
-                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a>';
+                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">' . $open . '</span></a>';
                            $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox  <span class="badge">' . $open . '</span></a></li>';
                        }
                       }
                       else {
-                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="badge">1</span></a>';
+                        $inboxHTML .= '<a name="Inbox" class="btn btn-default" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox <span class="sr-only">(current)</span></a>';
                           $html .= '<li><a name="Inbox" href="?' . $this->inboxLocation ."&".$this->id."=".$this->loginModel->getId().'">Inbox</a></li><span class="sr-only">(current)</span></a></li>';
                       }
                      
