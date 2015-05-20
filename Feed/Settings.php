@@ -4,7 +4,7 @@ class Settings {
 	 public static $DB_USERNAME = "root";
 	 public static $DB_PASSWORD = "";
 	 public static $DB_CONNECTION = "mysql:host=127.0.0.1;dbname=lsn_social_network";
-	 public static $ROOT_PATH = "Projekt%20i%20grupp/Feed";
+	 public static $ROOT_PATH = "LSN/Feed";
 	 public static $ERROR_LOG = "errors.log";
 	 public static $DO_DEBUG = false;
 	 public static $SECRET_KEY = "6LeGKAQTAAAAAFpLVk2ScVIH1tNA_hfJvri9_6JV";
