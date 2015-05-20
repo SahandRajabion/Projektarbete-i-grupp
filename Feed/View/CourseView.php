@@ -75,7 +75,7 @@ class CourseView extends BaseView
                 $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 ' . $this->message . '';
 
-            $html .= '<h2 class="sub-header">Courses for ' . $programName . '</h2>
+            $html .= '<h2 class="sub-header" style="word-break: break-all;">Courses for ' . $programName . '</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>

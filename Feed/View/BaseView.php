@@ -304,17 +304,19 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		              <form class="navbar-form navbar-right" role="search" method="post" enctype="multipart/form-data">
 		              <div class="form-group">
 		              <div class="input-group">
-		              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
 		             
 		              <div class="input_container">
 		                <input type="text" id="course_id" onkeyup="autocomplet()" name="' . $this->searchLocation . '" size="20" maxlength="20" class="form-control1" placeholder="Search">
 		                <ul id="course_list_id"></ul>
 		                </div>
+
+		                <div class="input-group-btn">
+				              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+				        </div>
 		              </div>
 		              </div>
-		              <button type="submit" name="' . $this->submitSearchLocation . '" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
 		            </form>
-		              
+
 
 		              <ul class="nav navbar-nav navbar-right">
 		              <li>' . $userPic . '</li>
