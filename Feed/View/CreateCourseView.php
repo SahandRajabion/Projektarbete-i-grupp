@@ -47,14 +47,17 @@ class CreateCourseView extends BaseView
 	{
 		if (isset($_POST[$this->programCheckBoxLocation])) 
 		{
-			$checkedBoxes = array();
+  			$checkedBoxes = array();
 
-			foreach ($_POST[$this->programCheckBoxLocation] as $checked) 
-			{
-				$checkedBoxes[] = $checked;
-			}
-
-			return $checkedBoxes;
+  			foreach ($_POST[$this->programCheckBoxLocation] as $checked) 
+  			{
+            if ($checked === "1" ||  $checked === "2" || $checked === "3") 
+            {
+    				  $checkedBoxes[] = $checked;
+            }
+  			}
+        
+  			return $checkedBoxes;
 		}
 	}
 

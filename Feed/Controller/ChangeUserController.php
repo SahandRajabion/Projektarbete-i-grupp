@@ -181,7 +181,7 @@
                         $message = $this->loginMessage->getMessage();
                     $this->validationErrors ++;
                     $this->profileView->setMessage($message);
-                  $this->profileView->userProfile();
+                  return $this->profileView->userProfile();
                 }
             }
 
