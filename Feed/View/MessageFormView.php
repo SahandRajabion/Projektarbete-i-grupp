@@ -59,9 +59,6 @@
                 $html .= '<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 ' . $this->message . '';
 
-                var_dump($toUser);
-                var_dump($this->loginModel->getId());
-
       if ($toUser != $this->loginModel->getId()) {
 
 			$html .= " 

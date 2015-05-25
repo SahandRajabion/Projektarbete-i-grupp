@@ -59,6 +59,59 @@ require_once('Model/MessagesSent.php');
 	}
 
 
+	public function GetUsersSentMessages($name) 
+	{
+	 
+	 try 
+	 {
+		$sql = "SELECT * FROM sentmsg WHERE " . self::$FromName . "= ?";
+		$params = array($name);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetchAll();
+
+		if ($results) 
+		{
+			return $results;
+		}
+
+			return null;
+
+		}
+		
+		catch (Exception $e) {
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+				die('An unknown error hase happened');
+			}
+		}
+
+	public function GetUsersMessages($id) 
+	{
+	 
+	 try 
+	 {
+		$sql = "SELECT * FROM $this->table WHERE " . self::$userId . "= ?";
+		$params = array($id);
+		$query = $this->db->prepare($sql);
+		$query->execute($params);
+
+		$results = $query->fetchAll();
+
+		if ($results) 
+		{
+			return $results;
+		}
+
+			return null;
+
+		}
+		
+		catch (Exception $e) {
+				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+				die('An unknown error hase happened');
+			}
+		}
 
  	public function GetMessagesForUser($userId) {	
 

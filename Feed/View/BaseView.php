@@ -161,8 +161,10 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 	}
 
 	public function getSex() {
-		if (isset($_POST[$this->sexLocation]) && $_POST[$this->sexLocation] === "Kvinna" || $_POST[$this->sexLocation] === "Man") {
-			return $_POST[$this->sexLocation];
+		if (isset($_POST[$this->sexLocation])) {
+			if ($_POST[$this->sexLocation] === "Kvinna" || $_POST[$this->sexLocation] === "Man"){
+				return $_POST[$this->sexLocation];
+			}
 		}
 	}
 
@@ -173,14 +175,19 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 	}
 
 		public function getSchoolForm() {
-		if (isset($_POST[$this->schoolLocation]) && $_POST[$this->schoolLocation] === "Distans" || $_POST[$this->schoolLocation] === "Campus") {
-			return $_POST[$this->schoolLocation];
+		if (isset($_POST[$this->schoolLocation])) {
+			if ($_POST[$this->schoolLocation] === "Distans" || $_POST[$this->schoolLocation] === "Campus") 
+			{
+				return $_POST[$this->schoolLocation];
+			}
 		}
 	}
 
 	public function getInstitute() {
-		if (isset($_POST[$this->instituteLocation]) && $_POST[$this->instituteLocation] === "1" || $_POST[$this->instituteLocation] === "2" || $_POST[$this->instituteLocation] === "3") {
-			return $_POST[$this->instituteLocation];
+		if (isset($_POST[$this->instituteLocation])) {
+			if ($_POST[$this->instituteLocation] === "1" || $_POST[$this->instituteLocation] === "2" || $_POST[$this->instituteLocation] === "3") {
+				return $_POST[$this->instituteLocation];
+			}
 		}
 	}	 
 

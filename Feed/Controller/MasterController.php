@@ -74,6 +74,12 @@ class MasterController extends Navigation
 					  <span id='sizeOfPTag'>User has been upgraded</span>
 					  </div>";
 
+	private static $RemovedMessage = "<div class='alert alert-success'>
+					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
+					   <a href='#' class='close' data-dismiss='alert'>&times;</a>        
+					  <span id='sizeOfPTag'>Message has been removed</span>
+					  </div>";
+
 
   	private static $DowngradeUser = "<div class='alert alert-success'>
 					   <span class='glyphicon glyphicon-ok-sign' aria-hidden='true'></span>
@@ -293,7 +299,7 @@ class MasterController extends Navigation
 	            			else
 	            			{
 	       
-	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+	            				return $this->inboxView->redirectToErrorPage();
 	            			}
 	            		
 	              
@@ -310,7 +316,7 @@ class MasterController extends Navigation
 	            			}
 	            			else
 	            			{
-	            				header("Location: /". Settings::$ROOT_PATH . "/error.html");
+                				return $this->inboxView->redirectToErrorPage();
 	            			}
 	            }
 
@@ -319,55 +325,93 @@ class MasterController extends Navigation
 	            		$UserName = $this->userRepository->getUsernameFromId($this->model->getId());
 	            		$ids = $this->messageRepository->getMsgIdFromUserName($UserName);	
 	            
-	            		foreach ($ids as $id) {
+	            		foreach ($ids as $id) 
+	            		{
 	         
 	            			if ($this->inboxView->getId() == $id) {
 	            				return $this->inboxView->rednerShowMsg();
 	            			}
-	            			
-
 	            		}
-	            		
+
+	            		return $this->inboxView->redirectToErrorPage();
 	            }
 
-	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveMsg()) {
-	            		$this->messages->deleteMessage($this->inboxView->getId());
-	            		return $this->inboxView->rednerInbox();
+	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveMsg()) 
+	            {
+					$userId = $this->model->getId();
+					$messages = $this->messageRepository->GetUsersMessages($userId);
+
+					if ($messages !== null) 
+					{
+						foreach ($messages as $message) 
+						{
+							if ($message['MsgId'] === $this->inboxView->getId()) 
+							{
+								$this->messages->deleteMessage($this->inboxView->getId());
+								$this->inboxView->setMessage(self::$RemovedMessage);
+							}
+						}
+					}
+					
+            		return $this->inboxView->rednerInbox();
 	            }	
 
 	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToRemoveSentMsg()) {
-	            		$this->messages->DeleteSentMsg($this->inboxView->getId());
-	            		return $this->inboxView->rednerSendMsg();
+
+					$userId = $this->model->getId();
+					$name = $this->model->GetUserNameById($userId);
+					$messages = $this->messageRepository->GetUsersSentMessages($name);
+
+					if ($messages !== null) 
+					{
+						foreach ($messages as $message) 
+						{
+							if ($message['MsgId'] === $this->inboxView->getId()) 
+							{
+			            		$this->messages->DeleteSentMsg($this->inboxView->getId());
+			            		$this->inboxView->setMessage(self::$RemovedMessage);
+							}
+						}
+					}
+
+					return $this->inboxView->rednerSendMsg();
 	            }	
 
 	           else if ($this->loginController->isAuthenticated() && $this->profileView->didUserPressToSendAnewMsg()) {
-	           			if ($this->loginController->isAuthenticated() && $this->messageFormView->didUserPressToSendMsg()) {
-				         
-				           			$name = $this->messageFormView->getUserName();
-				           			$id = $this->messageFormView->getToUserId();
-				           			$sub = $this->messageFormView->getUserSubject();
-				           			$date = date("M/d/Y");
-				           			$time = time();
-				           			$MSG = $this->messageFormView->getUserMsg();
-				           			$open = 0;
-				           			if ($sub == "" || $sub == null || empty($sub)) {
-				           				# code...
-				           				$this->messageFormView->setMessage(self::$Error_Sub_TYPE);
-				           				
-				           			}
-				           			else if ($MSG == "" || $MSG == null || empty($MSG)) {
-				           				# code...
-				           				$this->messageFormView->setMessage(self::$Error_Msg_TYPE);
-				           			}
-				           			else
-				           			{
-				           				$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
-				           				$this->messages->AddSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
-				            			header("Location: ?send&id=" . $this->model->getId());
-				           			}
-				            		
-				         }	
-	            		return $this->messageFormView->rednerMessageFormView();
+						if ($this->messageFormView->isValidId($this->messageFormView->getId()))
+						{
+		           			if ($this->loginController->isAuthenticated() && $this->messageFormView->didUserPressToSendMsg()) 
+		           			{ 
+			           			$name = $this->messageFormView->getUserName();
+			           			$id = $this->messageFormView->getToUserId();
+			           			$sub = $this->messageFormView->getUserSubject();
+			           			$date = date("M/d/Y");
+			           			$time = time();
+			           			$MSG = $this->messageFormView->getUserMsg();
+			           			$open = 0;
+			           			if ($sub == "" || $sub == null || empty($sub)) {
+			           				# code...
+			           				$this->messageFormView->setMessage(self::$Error_Sub_TYPE);
+			           				
+			           			}
+			           			else if ($MSG == "" || $MSG == null || empty($MSG)) {
+			           				# code...
+			           				$this->messageFormView->setMessage(self::$Error_Msg_TYPE);
+			           			}
+			           			else
+			           			{
+			           				$this->messages->AddMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
+			           				$this->messages->AddSentMessage($name, $sub, $date, $time,$MSG, $open,$id,$newMsgId='');
+			            			header("Location: ?send&id=" . $this->model->getId());
+			           			}		
+					        }	
+
+		            		return $this->messageFormView->rednerMessageFormView();
+		            	}
+		            	else 
+		            	{
+		            	    return $this->inboxView->redirectToErrorPage();
+		            	}
 	            }	
 
 	            else if ($this->loginController->isAuthenticated() && $this->inboxView->didUserPressToSeeMsg()) {
@@ -405,7 +449,8 @@ class MasterController extends Navigation
 	            		
 
 	            		}
-	            		
+
+	            		return $this->inboxView->redirectToErrorPage();
 	            }
 
             	else if ($this->contactView->didUserPressToContact() && $this->contactView->hasSubmitToSend())

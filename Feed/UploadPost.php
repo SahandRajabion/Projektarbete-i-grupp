@@ -29,71 +29,74 @@ function GetUrlCode()
 
 try 
 {
-	if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
+	if ($model->isAdmin() || ($model->isAdmin() === false && $_POST['courseid'] === "1")) 
 	{
-		$UploadDirectory = $imgRoot; 
-
-		if ($_FILES["FileInput"]["size"] > 5242880) 
+		if (isset($_FILES["FileInput"]) && $_FILES["FileInput"]["error"]== UPLOAD_ERR_OK)
 		{
-			die();
-		}
+			$UploadDirectory = $imgRoot; 
 
-		switch(strtolower($_FILES['FileInput']['type']))
-		{
-			//allowed file types
-		    case 'image/png': 
-			case 'image/gif': 
-			case 'image/jpeg': 
-				break;
-
-			default:
-				die();
-		}
-
-		$File_Name          = strtolower($_FILES['FileInput']['name']);
-		$File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
-		$Random_Number      = rand(0, 9999999999); //Random number to be added to name.
-		$NewFileName 		= $Random_Number.$File_Ext; //new file name
-
-		if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
-		{
-		   	$image = new Image($NewFileName,$uploadPage->getTitle(), $loginController->getId());
-			$id = $postModel->addImage($image, $_POST['courseid']);
-		}
-
-		else
-		{
-			die();
-		}
-	}
-
-	else
-	{
-		if ($uploadPage->getTitle() != "") 
-		{
-			if (!preg_match($regExYoutube, $uploadPage->getTitle())) 
+			if ($_FILES["FileInput"]["size"] > 5242880) 
 			{
+				die();
+			}
 
-				$post = new PostItems(null,$loginController->getId(), null, $uploadPage->getTitle(),null, null, null, null, null, null, null);
-				$id = $postModel->addPost($_POST['courseid'], $post);
+			switch(strtolower($_FILES['FileInput']['type']))
+			{
+				//allowed file types
+			    case 'image/png': 
+				case 'image/gif': 
+				case 'image/jpeg': 
+					break;
+
+				default:
+					die();
+			}
+
+			$File_Name          = strtolower($_FILES['FileInput']['name']);
+			$File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
+			$Random_Number      = rand(0, 9999999999); //Random number to be added to name.
+			$NewFileName 		= $Random_Number.$File_Ext; //new file name
+
+			if(move_uploaded_file($_FILES['FileInput']['tmp_name'], $UploadDirectory.$NewFileName ))
+			{
+			   	$image = new Image($NewFileName,$uploadPage->getTitle(), $loginController->getId());
+				$id = $postModel->addImage($image, $_POST['courseid']);
 			}
 
 			else
 			{
-				$fullURL = $uploadPage->getTitle();
-
-				if (preg_match($regExYoutube, $fullURL)) 
-				{
-					$newURL = substr($fullURL, 32);
-					$video = new Youtube($newURL, $loginController->getId());
-					$id = $postModel->addVideo($video, $_POST['courseid']);
-				} 
+				die();
 			}
 		}
+
 		else
 		{
-		  	die();
-		}
+			if ($uploadPage->getTitle() != "") 
+			{
+				if (!preg_match($regExYoutube, $uploadPage->getTitle())) 
+				{
+
+					$post = new PostItems(null,$loginController->getId(), null, $uploadPage->getTitle(),null, null, null, null, null, null, null);
+					$id = $postModel->addPost($_POST['courseid'], $post);
+				}
+
+				else
+				{
+					$fullURL = $uploadPage->getTitle();
+
+					if (preg_match($regExYoutube, $fullURL)) 
+					{
+						$newURL = substr($fullURL, 32);
+						$video = new Youtube($newURL, $loginController->getId());
+						$id = $postModel->addVideo($video, $_POST['courseid']);
+					} 
+				}
+			}
+			else
+			{
+			  	die();
+			}
+		}		
 	}
 }
 

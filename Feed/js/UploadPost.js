@@ -21,7 +21,6 @@ $(document).ready(function() {
 function afterSuccess(responseText, statusText, xhr, $form)
 {
 	$('#progressbox').fadeOut(); //hide progress bar
-
 	working = false;
 }
 

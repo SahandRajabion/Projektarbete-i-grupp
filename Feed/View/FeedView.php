@@ -41,6 +41,20 @@ private $link;
 
   }
 
+
+
+  public function CheckIfHasInternetConnection() 
+  {
+    if (!$sock = @fsockopen('www.google.com', 80, $num, $error , 5)) 
+    {
+      return false;
+    }
+    else 
+    {
+      return true;
+    }
+  }
+
     public function showCourseFeed($courseId){
         
   
@@ -106,7 +120,7 @@ private $link;
         
         $html .="<div class='jumbotron' style='border: 1px solid black; margin-top:4%;'>        
         
-        <h2 class='page-header' style='text-align:center; font-family:fantasy;'>" . BaseView::escape($this->courseRepository->getCourseName($courseId)) . "</h2></div>
+        <h2 class='page-header' style='text-align:center; word-break:break-all; font-family:fantasy;'>" . BaseView::escape($this->courseRepository->getCourseName($courseId)) . "</h2></div>
         <div class='content'>";
                    
 
@@ -134,7 +148,7 @@ private $link;
       }
         
         $rssURL = $this->courseRepository->checkIfRSSUrlExists($courseId);
-
+        if ($this->CheckIfHasInternetConnection()) {
         if($rssURL != null)
         {
         $url = $this->courseRepository->getRSSLink($courseId);
@@ -179,7 +193,8 @@ private $link;
 
      }
 
- }
+   }
+}
 
      usort($items, array($this,'sortFeedItemsByDate'));
 
