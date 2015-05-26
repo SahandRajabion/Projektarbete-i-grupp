@@ -143,7 +143,7 @@ class AdminModel
     		if($schema != null)
     		{
     			
-	    		if (preg_match('/^(http:\/\/)(se\.timeedit\.net\/web\/lnu\/db1\/schema1\/)(.+)?$/', $schema) == false) 
+	    		if (preg_match('/^(http:\/\/)(se\.timeedit\.net\/web\/lnu\/db1\/)(.+)?$/', $schema) == false) 
 	    		{
 
 	    			$this->validationErrors++;
