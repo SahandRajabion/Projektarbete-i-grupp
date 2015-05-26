@@ -4,13 +4,13 @@
 }
 
 #box{
-            margin:50px auto;
-            width:500px;
-            height:100px;
-            color:#fff;
-            padding:10px;
-            background: orange;
-        }
+ margin:50px auto;
+ width:500px;
+ height:100px;
+ color:#fff;
+ padding:10px;
+ background: orange;
+ }
 
 
 .content {
@@ -359,7 +359,7 @@ a:hover {
 	width: 100%;
 }
 #imgChange {
-	background: url("../img/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: url("../Images/DefaultImages/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 	bottom: 0;
 	color: #FFFFFF;
 	display: block;

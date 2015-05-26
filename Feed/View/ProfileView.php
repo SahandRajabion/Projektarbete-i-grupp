@@ -35,7 +35,7 @@ class ProfileView extends BaseView
     }
  public function userProfile() {
     // BEHÖVS
-    $Images = glob("imgs/*.*");
+    $Images = glob("View/ProfileImages/*.*");
     if ($this->loginModel->getId() == $this->getId()) {
           $username = $this->loginModel->getUsername();
           $adminMenu = "";
@@ -60,11 +60,11 @@ class ProfileView extends BaseView
           }
           if (basename($this->pic) === "" && $users->getSex() == "Man") 
           {
-              $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+              $userPic .= '<div><img id="profileImage" src="View/DefaultImages/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
           }
           else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
           {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="View/DefaultImages/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
           }
             foreach ($Images as $value) 
             { 
@@ -78,11 +78,11 @@ class ProfileView extends BaseView
           }
           if(basename($this->pic2) === "" && $users->getSex() == "Man") 
           {
-            $userPicProfile .= 'img/default.jpg';
+            $userPicProfile .= 'View/DefaultImages/default.jpg';
           }
          else if(basename($this->pic2) === "" && $users->getSex() == "Kvinna")
          {
-           $userPicProfile .= 'img/kvinna.png';
+           $userPicProfile .= 'View/DefaultImages/kvinna.png';
          }
      
           $html = $this->cssView("My Profile");
@@ -139,7 +139,7 @@ class ProfileView extends BaseView
         
         <form  class="form-horizontal" enctype="multipart/form-data" action="" method="post" name="image_upload_form" id="image_upload_form">
         <div class ="form-group">
-                <input type="File" accept="imgs/*" name="image_upload_file" id="image_upload_file">
+                <input type="File" accept="View/ProfileImages/*" name="image_upload_file" id="image_upload_file">
         </div>
         <div class="form-group">
                 <input type="submit" name="change" value="Change Picture" class="btn btn-success" id="change">
@@ -290,11 +290,11 @@ class ProfileView extends BaseView
           }
           if (basename($this->pic) === "" && $users->getSex() == "Man") 
           {
-              $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+              $userPic .= '<div><img id="profileImage" src="View/DefaultImages/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
           }
           else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
           {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="View/DefaultImages/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
           }
       if ($this->loginModel->GetUserProfileDetails($this->getId()) !== NULL) {
       // PROFIL SIDANS USERS BILD
@@ -311,11 +311,11 @@ class ProfileView extends BaseView
          $user = $this->loginModel->GetUserProfileDetails($this->getId());
           if(basename($this->pic2) === "" && $user->getSex() == "Man") 
           {
-            $userPicProfile .= 'img/default.jpg';
+            $userPicProfile .= 'View/DefaultImages/default.jpg';
           }
          else if(basename($this->pic2) === "" && $user->getSex() == "Kvinna")
          {
-           $userPicProfile .= 'img/kvinna.png';
+           $userPicProfile .= 'View/DefaultImages/kvinna.png';
          }
             $birthday = $user->getBirthday();
             $age = "";

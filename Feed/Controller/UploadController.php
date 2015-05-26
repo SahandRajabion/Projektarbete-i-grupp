@@ -24,7 +24,7 @@
 
 		public function __construct(ProfileView $uploadPage,LoginModel $model) {
 			$this->validation = new validation();
-			$this->imgRoot = getcwd()."/imgs/";
+			$this->imgRoot = getcwd()."/View/ProfileImages/";
 			$this->uploadPage = $uploadPage;
 			$this->fileName = $this->getFileName();
 			$this->imagesModel = new ImagesModel();
@@ -53,7 +53,7 @@
 			$this->validation->getFileName($this->fileName);
 			if ($this->DidHasSubmitToDefault()) {
 				# code...
-				$images = new ProfilePic("img/default.jpg",$this->model->getId());
+				$images = new ProfilePic("View/DefaultImages/default.jpg",$this->model->getId());
 				$this->imagesModel->updateImage($images);
 				header("Location: ?profile&id=".$this->model->getId());
 			}

@@ -98,7 +98,7 @@ class CreateCourseView extends BaseView
 	public function ShowCreateCourseForm() 
 	{
     // BEHÖVS
-    $Images = glob("imgs/*.*");
+    $Images = glob("View/ProfileImages/*.*");
 
           $username = $this->loginModel->getUsername();
 

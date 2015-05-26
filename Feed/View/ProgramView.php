@@ -52,22 +52,22 @@ class ProgramView extends baseView {
               <div class="row placeholders">
                 <div class="col-xs-6 col-sm-3 placeholder">
                   <a href="?' . $this->UDCourseLocation . '">
-                  <img src="img/ud2.png" class="img-thumbnail">
+                  <img src="View/DefaultImages/ud2.png" class="img-thumbnail">
                   </a>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                   <a href="?' . $this->WPCourseLocation . '">
-                  <img src="img/wp2.png" class="img-thumbnail">
+                  <img src="View/DefaultImages/wp2.png" class="img-thumbnail">
                   </a>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                   <a href="?' . $this->IDCourseLocation . '">
-                  <img src="img/id2.png" class="img-thumbnail">
+                  <img src="View/DefaultImages/id2.png" class="img-thumbnail">
                   </a>
                 </div>
                 <div class="col-xs-6 col-sm-3 placeholder">
                   <a href="?' . $this->PUCourseLocation . '">
-                  <img src="img/public2.png" class="img-thumbnail">
+                  <img src="View/DefaultImages/public2.png" class="img-thumbnail">
                   </a>
                 </div>
               </div>';

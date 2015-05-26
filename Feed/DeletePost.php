@@ -17,7 +17,7 @@ if ($posts === null)
 	{
 		if (isset($_POST['image_name']) && empty($_POST['image_name']) == false) 
 		{
-			unlink("View/Images/" . $_POST['image_name']);
+			unlink("View/UploadImages/" . $_POST['image_name']);
 		}
 
 		if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))
@@ -36,7 +36,7 @@ else if ($loginModel->isAdmin())
 {
 	if (isset($_POST['image_name']) && empty($_POST['image_name']) == false) 
 	{
-		unlink("View/Images/" . $_POST['image_name']);
+		unlink("View/UploadImages/" . $_POST['image_name']);
 	}
 
 	if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))
@@ -58,7 +58,7 @@ else
 		{
 			if (isset($_POST['image_name']) && empty($_POST['image_name']) == false) 
 			{
-				unlink("View/Images/" . $_POST['image_name']);
+				unlink("View/UploadImages/" . $_POST['image_name']);
 			}
 
 			if (isset($_POST["feed_id"]) && strlen($_POST['feed_id']) > 0 && is_numeric($_POST['feed_id']))

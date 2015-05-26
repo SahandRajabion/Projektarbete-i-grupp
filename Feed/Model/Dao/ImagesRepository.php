@@ -68,7 +68,7 @@ require_once("Model/StartProfileImg.php");
 				if($result == false) {
 					if ($name != $result) {
 
-						unlink("imgs/".basename($name));
+						unlink("View/ProfileImages/".basename($name));
 					}
 				}
 			}

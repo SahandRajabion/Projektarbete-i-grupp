@@ -83,7 +83,7 @@ class LoginView extends BaseView
                 <span class="icon-bar"></span>
               </button>
               <div id="logolsn">
-              <a class="navbar-brand" href="?"><img id="logo" src="images/lsnlogo.png"></a>
+              <a class="navbar-brand" href="?"><img id="logo" src="View/DefaultImages/lsnlogo.png"></a>
              </div>
              </div>
             <div id="navbar" class="navbar-collapse collapse">
@@ -114,7 +114,7 @@ class LoginView extends BaseView
         <div class="jumbotron">
           <div class="container">
             ' . $this->message . '
-            <img src="img/lnu-logo.png" class="img-rounded"> <h1>Linnaeus Social Network</h1>
+            <img src="View/DefaultImages/lnu-logo.png" class="img-rounded"> <h1>Linnaeus Social Network</h1>
             <p>Are you a student at the Linnaeus University, studying one of our computer science programs and are interested to get to know your future or current classmates better and at the same time get the latest course updates</p>
             <p><a class="btn btn-primary btn-lg" href="?' . $this->registerLocation . '" name="' . $this->registerLocation . '" role="button">
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>

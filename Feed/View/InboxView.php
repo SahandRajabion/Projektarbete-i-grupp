@@ -83,10 +83,10 @@
 							# code...
 							if ($inbox->getOpen() == 0) {
 							# code...
-							$open = '<img src="img/msg.png" alt="NotOpened" title="NotOpened" />';
+							$open = '<img src="View/DefaultImages/msg.png" alt="NotOpened" title="NotOpened" />';
 							}
 							else {
-								$open ='<img src="img/new.png" alt="Opened" title="Opened" />';
+								$open ='<img src="View/DefaultImages/new.png" alt="Opened" title="Opened" />';
 							}
 						
 						    $html .= 
@@ -127,7 +127,7 @@
 
 
 
-			     $html .= '</div><p id="loader"><img src="images/ajax-loader.gif"></p>
+			     $html .= '</div><p id="loader"><img src="View/DefaultImages/ajax-loader.gif"></p>
 <script src="js/jquery.min.js"></script>
           <script src="js/bootstrap.min.js"></script>
           <script src="js/ie10-viewport-bug-workaround.js"></script>
@@ -194,7 +194,7 @@
 						foreach ($sendMsgs as $sendMsg) {	
 
 						$ToUserName = $this->userRepository->getUsernameFromId($sendMsg->getUserId());
-						$sentMsgImg = '<img src="img/send.png" alt="Sent message" title="Sent Message" />';
+						$sentMsgImg = '<img src="View/DefaultImages/send.png" alt="Sent message" title="Sent Message" />';
 						    $html .= 
 								'<div id="msg'.$sendMsg->getMsgId().'" class="msg">'.
 								'<div class="panel panel-info">
@@ -233,7 +233,7 @@
         
 
 			     $html .= '</div>
-			     <p id="loader"><img src="images/ajax-loader.gif"></p>
+			     <p id="loader"><img src="View/DefaultImages/ajax-loader.gif"></p>
 		<script src="js/jquery.min.js"></script>
           <script src="js/bootstrap.min.js"></script>
           <script src="js/ie10-viewport-bug-workaround.js"></script>

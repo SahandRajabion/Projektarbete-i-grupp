@@ -14,7 +14,7 @@ require_once('Model/Dao/CommentRepository.php');
 require_once('Controller/LoginController.php'); 
 
 $regExYoutube = "/^(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?(?=.*v=((\w|-){11}))(?:\S+)?$/";
-$imgRoot = getcwd()."/View/Images/";
+$imgRoot = getcwd()."/View/UploadImages/";
 $uploadPage = new UploadView();
 $model = new LoginModel();
 $feed = new FeedView($model);

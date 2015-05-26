@@ -35,7 +35,7 @@ class ForgetPasswordView extends BaseView
                 <span class="icon-bar"></span>
               </button>
                <div id="logolsn">
-                  <a class="navbar-brand" href="?"><img id="logo" src="images/lsnlogo.png"></a>
+                  <a class="navbar-brand" href="?"><img id="logo" src="View/DefaultImages/lsnlogo.png"></a>
               </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse">

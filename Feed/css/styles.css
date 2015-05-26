@@ -352,7 +352,7 @@ a:hover {
 	width: 100%;
 }
 #imgChange {
-	background: url("../img/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: url("../View/DefaultImages/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 	bottom: 0;
 	color: #FFFFFF;
 	display: block;

@@ -37,7 +37,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
         if ($loginModel->getId() == $feedItem['UserId'] || $loginModel->isAdmin()) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
-            <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
+            <input type='image' src='View/DefaultImages/del.png' id='deletepost' border='0' alt='submit' />
             <input type='hidden' name='imgName' id='imgName' value='" . BaseView::escape($feedItem['imgName']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
             </form>";
@@ -46,7 +46,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
             <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($feedItem['Post']) . "'>
             <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($feedItem['Title']) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $feedItem['id'] ."'>
-            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='images/edit.png' id='editpost' border='0' alt='submit' />";
+            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='View/DefaultImages/edit.png' id='editpost' border='0' alt='submit' />";
         }
 
         $html .= "
@@ -59,7 +59,7 @@ if (isset($_POST["first_id"]) && strlen($_POST['first_id']) > 0 && is_numeric($_
 
         if (empty($feedItem['imgName']) == false) 
         {
-            $html .= "<img class='img-responsive' class='img-responsive' src='View/Images/" . BaseView::escape($feedItem['imgName']) . "'>";
+            $html .= "<img class='img-responsive' class='img-responsive' src='View/UploadImages/" . BaseView::escape($feedItem['imgName']) . "'>";
         }
 
         if (empty($feedItem['code']) == false) 

@@ -205,7 +205,7 @@ private $link;
       if ($this->loginModel->getId() == $key->getUserId() || $this->loginModel->isAdmin() && $key->getCreator() === null) 
         {
             $html .= "<form class='post-remove' method='post' action=''> 
-            <input type='image' src='images/del.png' id='deletepost' border='0' alt='submit' />
+            <input type='image' src='View/DefaultImages/del.png' id='deletepost' border='0' alt='submit' />
             <input type='hidden' name='imgName' id='imgName' value='" . BaseView::escape($key->getImgName()) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
             </form>";
@@ -214,7 +214,7 @@ private $link;
             <input type='hidden' name='Post' id='Post' value='" . BaseView::escape($key->getPost()) . "'>
             <input type='hidden' name='Title' id='Title' value='" . BaseView::escape($key->getPTitle()) . "'>
             <input type='hidden' name='hiddenFeedId' id='hiddenFeedId' value='". $key->getid() ."'>
-            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='images/edit.png' id='editpost' border='0' alt='submit' />";
+            <input type='image' style='margin-top: -39px; margin-left: 34px;' src='View/DefaultImages/edit.png' id='editpost' border='0' alt='submit' />";
         }
                         $creators = $key->getCreator();
                         if ($key->getCreator() != null || $key->getCreator() != "" || !empty($creators)) {
@@ -268,7 +268,7 @@ private $link;
                 $imgName = $key->getImgName();          
                 if (empty($imgName) == false) 
                 {
-                    $html .= "<img class='img-responsive' src='View/Images/" . $key->getImgName() . "'>";
+                    $html .= "<img class='img-responsive' src='View/UploadImages/" . $key->getImgName() . "'>";
                 }
 
                 $code = $key->getCode();
@@ -335,7 +335,7 @@ private $link;
 
            $html .= '
            <script type="text/javascript" src="js/LoadMoreItems.js"></script>
-           </div><p id="loader"><img src="images/ajax-loader.gif"></p>
+           </div><p id="loader"><img src="View/DefaultImages/ajax-loader.gif"></p>
            <script type="text/javascript" src="js/GetLatestItems.js"></script>'; 
 
 

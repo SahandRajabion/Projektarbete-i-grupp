@@ -32,7 +32,7 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
                        foreach ($sendMsgs as $sendMsg) {
                         
                         $ToUserName = $userRepository->getUsernameFromId($sendMsg->getUserId());
-                        $sentMsgImg = '<img src="img/send.png" alt="Sent message" title="Sent Message" />';
+                        $sentMsgImg = '<img src="View/DefaultImages/send.png" alt="Sent message" title="Sent Message" />';
                                 $html .= 
                                  '<div id="msg'.$sendMsg->getMsgId().'" class="msg">'.
                                 '<div class="panel panel-info">

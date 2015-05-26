@@ -233,7 +233,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 
 			    // BEHÖVS
 
-    	  $Images = glob("imgs/*.*");
+    	  $Images = glob("View/ProfileImages/*.*");
 
           $username = $this->loginModel->getUsername();
 
@@ -264,11 +264,11 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 
 			    if (basename($this->pic) === "" && $users->getSex() == "Man") 
 			    {
-			        $userPic .= '<div><img id="profileImage" src="img/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+			        $userPic .= '<div><img id="profileImage" src="View/DefaultImages/default.jpg"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
 			    }
 			    else if (basename($this->pic) === "" && $users->getSex() == "Kvinna")
 			    {
-        $userPic .= '<div><img id="profileImage" src="img/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
+        $userPic .= '<div><img id="profileImage" src="View/DefaultImages/kvinna.png"> <label id="profileName"><a name="profile" href="?' . $this->userProfileLocation . "&id=".$this->loginModel->getId(). '">' . $username . '</a></label></div>';
 			    }
 
 		     $html = 
@@ -281,10 +281,10 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		        <link rel="icon" href="../../favicon.ico">
-		        <link rel="apple-touch-icon-precomposed" href="../img/lnu-logo.png" />
-				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../img/lnu-logo.png" />
-				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../img/lnu-logo.png" />
-				<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../img/nu-logo.png" />
+		        <link rel="apple-touch-icon-precomposed" href="../View/DefaultImages/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../View/DefaultImages/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../View/DefaultImages/lnu-logo.png" />
+				<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../View/DefaultImages/nu-logo.png" />
 		        <title> ' . $title . ' | LSN</title>
 		        <link href="css/bootstrap.min.css" rel="stylesheet">
 		        <link href="css/customCss.css" rel="stylesheet">
@@ -307,7 +307,7 @@ protected $submitRemoveCourseLocation ="SubmitRemoveCourse";
 		                <span class="icon-bar"></span>
 		              </button>
 		               <div id="logolsn">
-             			<a class="navbar-brand" href="?"><img id="logo" src="images/lsnlogo.png"></a>
+             			<a class="navbar-brand" href="?"><img id="logo" src="View/DefaultImages/lsnlogo.png"></a>
               		   </div>
 		            </div>
 		            <div id="navbar" class="navbar-collapse collapse">

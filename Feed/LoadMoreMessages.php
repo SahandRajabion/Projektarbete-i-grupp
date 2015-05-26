@@ -48,10 +48,10 @@ if (isset($_POST["last_id"]) && strlen($_POST['last_id']) > 0 && is_numeric($_PO
                             # code...
                             if ($message->getOpen() == 0) {
 
-                            $open = '<img src="img/msg.png" alt="NotOpened" title="NotOpened" />';
+                            $open = '<img src="View/DefaultImages/msg.png" alt="NotOpened" title="NotOpened" />';
                             }
                             else {
-                                $open ='<img src="img/new.png" alt="Opened" title="Opened" />';
+                                $open ='<img src="View/DefaultImages/new.png" alt="Opened" title="Opened" />';
                             }
                         
                             $html .= 
