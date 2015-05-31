@@ -137,6 +137,17 @@ class MasterController extends Navigation
 	            session_unset("id");
 				return $this->inboxView->redirectToErrorPage();
 			}
+			if ($this->model->isAdmin()) {
+				# code...
+				if ($this->model->isLoggedIn() && $this->userRepository->getRole($this->model->getId()) != 1) {
+					# code...
+					session_unset("loggedIn");
+		            session_unset("admin");
+		            session_unset("id");
+					return $this->inboxView->redirectToErrorPage();
+				}
+			}
+			
 
 			try 
 			{	
