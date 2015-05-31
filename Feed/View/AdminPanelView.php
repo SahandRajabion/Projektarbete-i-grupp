@@ -193,7 +193,7 @@
 
 	   					
 			    		
-	   						if ($userId != 0 && $userId != $this->loginModel->getId()) {
+	   						if ($userId != 0 && $userId != $this->loginModel->getId() && $userId != 56) {
 	   								$html .= '<div class="panel panel-info">
 	   							<div class="panel-body">';
 	   								# code...

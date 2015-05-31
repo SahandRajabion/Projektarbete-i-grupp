@@ -258,7 +258,7 @@ class MasterController extends Navigation
 
 
 		                	$userId = $this->userRepository->getUserIdByName($this->name);
-		                	if ($userId != 0) {
+		                	if ($userId != 0 && $userId != 56) {
 		                		# code...
 		                		$html .= '<ul class="list-group"><a class="list-group-item" href="?profile&id='. $userId .'">'.$this->name.'</a></ul>';
 		                	}
