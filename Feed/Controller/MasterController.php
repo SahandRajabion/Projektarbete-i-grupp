@@ -130,10 +130,18 @@ class MasterController extends Navigation
 
 		public function doControll()  
 		{			
+			if ($this->model->isLoggedIn() && !$this->userRepository->exists($this->userRepository->getUsernameFromId($this->model->getId()))) {
+					# code...
+				session_unset("loggedIn");
+	            session_unset("admin");
+	            session_unset("id");
+				return $this->inboxView->redirectToErrorPage();
+			}
+
 			try 
 			{	
-
-				if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) 
+				
+			    if ($this->forgetPasswordView->pressSubmitToSend() && !$this->resetPassword->issetCode()) 
 				{
 					if (!preg_match($this->emailExp, $this->getEmail())) 
 					{	
