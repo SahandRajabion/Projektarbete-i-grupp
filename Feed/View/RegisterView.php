@@ -180,7 +180,7 @@ class RegisterView extends BaseView {
                           </div>
                         </div>
                        <div class="form-group">
-                       <em>(optional)</em>
+                       <em>(optional)(Age)</em>
                          <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
                             <input type="date" size="20" maxlength="10" name="' . $this->birthdayLocation . '" class="form-control input-lg" placeholder="yyyy-mm-dd">
@@ -208,7 +208,7 @@ class RegisterView extends BaseView {
                                 <select class="form-control input-lg" name="' . $this->sexLocation . '">
                                   <option value="" disabled selected>Choose Gender</option>
                                   <option value="Man">Male</option>
-                                  <option value="Kvinna">Woman</option>
+                                  <option value="Kvinna">Female</option>
                                 </select>
                         </div>
                         <div class="form-group">

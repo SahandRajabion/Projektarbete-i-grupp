@@ -186,8 +186,8 @@ class ProfileView extends BaseView
                     $html .= '<tr><td>
                     <select class="form-control input-lg" name="' . $this->sexLocation . '">
                     <option value="" disabled>Choose Gender</option>
-                  <option value="Man" selected>Man</option>
-                  <option value="Kvinna">Woman</option>
+                  <option value="Man" selected>Male</option>
+                  <option value="Kvinna">Female</option>
                 </select>
                     </div>
                   </div></td></tr>';
@@ -197,8 +197,8 @@ class ProfileView extends BaseView
                     $html .= '<tr><td>
                     <select class="form-control input-lg" name="' . $this->sexLocation . '">
                     <option value="" disabled>Choose Gender</option>
-                  <option value="Man">Man</option>
-                  <option value="Kvinna" selected>Woman</option>
+                  <option value="Man">Male</option>
+                  <option value="Kvinna" selected>Female</option>
                 </select>
                     </div>
                   </div></td></tr>';
